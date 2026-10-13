@@ -1,0 +1,275 @@
+{
+ "spec_version": 1,
+ "family": "libero_10",
+ "name": "start_making_breakfast",
+ "language": "Turn the stove dial to the orange mark and set both moka pots on the burner. Then put the toast on the plate, centered on it.",
+ "scene": "scene.xml",
+ "support": [
+  "table"
+ ],
+ "robots": [
+  {
+   "name": "robot0",
+   "model": "franka_panda",
+   "base_pos": [
+    -0.66,
+    0.0,
+    0.912
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    -0.161037389,
+    0.0,
+    -2.44459747,
+    0.0,
+    2.2267522,
+    0.7853981633974483
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "agentview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "robot0",
+   "src": {
+    "pos": "0.05 0 0",
+    "quat": "0 0.707107 0.707107 0",
+    "fovy": "75"
+   }
+  },
+  {
+   "name": "leftview",
+   "role": "pc"
+  },
+  {
+   "name": "rightview",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "chefmate_8_frypan_1_main",
+  "moka_pot_1_main",
+  "moka_pot_2_main",
+  "plate_1_main",
+  "bread_1_main"
+ ],
+ "randomization": {
+  "type": "init_states",
+  "states": [
+   {
+    "objects": {
+     "chefmate_8_frypan_1_main": [
+      0.15,
+      -0.28,
+      0.97,
+      0.7071067811865475,
+      0.0,
+      0.0,
+      0.7071067811865476
+     ],
+     "moka_pot_1_main": [
+      -0.14,
+      -0.32,
+      0.97,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "moka_pot_2_main": [
+      -0.24,
+      0.06,
+      0.97,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "plate_1_main": [
+      -0.08,
+      -0.08,
+      0.97,
+      0.7071067811865475,
+      0.0,
+      0.0,
+      0.7071067811865476
+     ]
+    },
+    "joints": {}
+   }
+  ],
+  "groups": [
+   [
+    "flat_stove_1_main"
+   ],
+   [
+    "chefmate_8_frypan_1_main"
+   ],
+   [
+    "moka_pot_1_main"
+   ],
+   [
+    "moka_pot_2_main"
+   ],
+   [
+    "plate_1_main"
+   ]
+  ],
+  "region": {
+   "x": [
+    -0.2,
+    0.2
+   ],
+   "y": [
+    -0.2,
+    0.2
+   ],
+   "yaw": [
+    -1.5707963267948966,
+    1.5707963267948966
+   ]
+  },
+  "articulated_reach": [
+   "flat_stove_1_main"
+  ],
+  "placement_regions": {
+   "flat_stove_1_main": [
+    {
+     "x": [
+      -0.24,
+      -0.16
+     ],
+     "y": [
+      0.14,
+      0.24
+     ],
+     "yaw_offset_deg": [
+      -10,
+      10
+     ]
+    }
+   ]
+  },
+  "reach_sites": [
+   "flat_stove_1_cook_region"
+  ],
+  "lift_reach": {
+   "moka_pot_1_main": 0.12,
+   "moka_pot_2_main": 0.12,
+   "plate_1_main": 0.08
+  },
+  "referents": [
+   {
+    "kind": "on",
+    "obj": "bread_1_main",
+    "of": "toaster_1_main"
+   }
+  ]
+ },
+ "success": {
+  "pred": "all",
+  "of": [
+   {
+    "pred": "joint_in",
+    "joint": "flat_stove_1_button",
+    "lo": 0.95,
+    "hi": 1.65
+   },
+   {
+    "pred": "on_site",
+    "obj": "moka_pot_1_main",
+    "site": "flat_stove_1_cook_region",
+    "size": [
+     0.075,
+     0.075,
+     0.0025
+    ],
+    "parent": "flat_stove_1_main"
+   },
+   {
+    "pred": "on_site",
+    "obj": "moka_pot_2_main",
+    "site": "flat_stove_1_cook_region",
+    "size": [
+     0.075,
+     0.075,
+     0.0025
+    ],
+    "parent": "flat_stove_1_main"
+   },
+   {
+    "pred": "touching",
+    "a": "bread_1_main",
+    "b": "plate_1_main"
+   },
+   {
+    "pred": "within_dist",
+    "a": "bread_1_main",
+    "b": "plate_1_main",
+    "tol": 0.03,
+    "axes": "xy"
+   },
+   {
+    "pred": "above",
+    "obj": "bread_1_main",
+    "base": "plate_1_main"
+   },
+   {
+    "pred": "robot_clear",
+    "bodies": [
+     "bread_1_main",
+     "flat_stove_1_main",
+     "moka_pot_1_main",
+     "moka_pot_2_main",
+     "plate_1_main"
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 4000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   -0.53,
+   0.4
+  ],
+  "y": [
+   -0.4,
+   0.4
+  ],
+  "z": [
+   0.85,
+   1.3
+  ],
+  "z_min_crop_table": 0.9,
+  "z_offset": 0.9,
+  "crop_table": false
+ },
+ "category": "real_world"
+}

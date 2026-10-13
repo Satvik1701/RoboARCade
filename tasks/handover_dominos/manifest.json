@@ -1,0 +1,19 @@
+{
+ "source": {
+  "repo": "spd.bot",
+  "path": "mujoco-vr-teleop",
+  "scene": "jenga",
+  "teleop_task": "jenga/handover_left_to_right"
+ },
+ "generated_by": "SPD merge_jenga.py",
+ "date": "2026-08-20",
+ "notes": "start layout frozen from jenga/handover_left_to_right; its scene is byte-identical to jenga/handover_right_to_left, so the canonical source does not impose a transfer direction; jenga/dominos supplies the standing-line semantics; the locally authored grader latches one table-supported line of at least five blocks with 35 to 105 mm spacing, then requires its fall to propagate through observed block contacts after the robot touches only one line member; all 18 blocks must finish at least 45 degrees from vertical (abs axis dot <= 0.50), below the airborne ceiling, and robot_clear; no handover event is graded; upstream sleep and no-slip iterations remain at their source values pending a release-contact study, because other SPD fixture goals are not stable awake; each authored nine-block pile draws as one rigid unit on its own arm's side over x 0.62 to 0.78 m with full yaw, declared 140 mm lift reach, and 0.10 m separation on all 81 cross-pile block pairs; the narrow outer-side bands preserve a clear central domino lane; the tracked split-piles fragment and this output pack's manifest-hashed assets make regeneration independent of deleted siblings",
+ "files": {
+  "assets/base_visual_gate.stl": "5a6eeb70a86b1b0b",
+  "assets/blinn1.png": "ae12c38751280353",
+  "assets/camera_d405.stl": "8a9a84dd9c9a6768",
+  "assets/jenga_block.obj": "6b7f92e5699425a5",
+  "scene.xml": "44661c70821c8da5",
+  "task.json": "2bed84730693d308"
+ }
+}

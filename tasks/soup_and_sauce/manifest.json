@@ -1,0 +1,40 @@
+{
+ "source": {
+  "robosuite": "1.4.1",
+  "libero": "third_party/LIBERO"
+ },
+ "generated_by": "hand-maintained",
+ "date": "2026-07-22",
+ "files": {
+  "assets/basket_vis.msh": "51ca04e71fbca8a4",
+  "assets/butter_texture_map.png": "e344d473644d71b9",
+  "assets/butter_vis.msh": "88b3916e53c813c7",
+  "assets/cream_cheese_texture_map.png": "6ef390c92c83f6f2",
+  "assets/cream_cheese_vis.msh": "0110fcd035138417",
+  "assets/ketchup_texture_map.png": "01edda2f924589b0",
+  "assets/ketchup_textured_vis.msh": "52a6903d11261ef8",
+  "assets/light-gray-plaster.png": "d0bdaf13b44ab6ef",
+  "assets/living_room_table_texture.png": "38f401fdbbdeae06",
+  "assets/living_room_table_vis.msh": "9877f90c22971b98",
+  "assets/living_room_vis.msh": "326c50b18dfce7d3",
+  "assets/living_room_wall_unit.png": "7e6f264015ca84d2",
+  "assets/milk_texture_map.png": "0e6130ec7a6a611a",
+  "assets/milk_textured_vis.msh": "540a0eedb3d483e9",
+  "assets/orange_juice_texture_map.png": "2488e5d72c7848db",
+  "assets/orange_juice_textured_vis.msh": "9ebfebfe88f469ab",
+  "assets/seamless_wood_planks_floor.png": "c7a70ef3fad0cafc",
+  "assets/texture.png": "89c2107a39ce27d7",
+  "assets/texture_map.png": "cd47556b3b2916ae",
+  "assets/textured_vis.msh": "a9f36a95f4ad97cb",
+  "assets/tomato_sauce_texture_map.png": "9372cff38688004b",
+  "assets/visual_textured_vis.msh": "eeb9ee401b204db5",
+  "assets/wall_decoration_texture.png": "b30b2b6f7499d05a",
+  "assets/wall_decoration_vis.msh": "30c873f6e13e19a7",
+  "scene.xml": "b495b6d8940de7c7",
+  "task.json": "240d4ec0598f9e5c"
+ },
+ "reframed": {
+  "dz": 0.492,
+  "datum_base_z": 0.912
+ }
+}

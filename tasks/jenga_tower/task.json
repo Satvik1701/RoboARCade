@@ -1,0 +1,6232 @@
+{
+ "spec_version": 1,
+ "family": "pix2dex",
+ "name": "jenga/tower",
+ "language": "Build a 12-block tower.\n4 layers of 3, square with the table edges.\nAlternate direction each layer. Leave the tower standing on its own.",
+ "scene": "scene.xml",
+ "support": [
+  "play_table"
+ ],
+ "robots": [
+  {
+   "name": "move",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    -0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  },
+  {
+   "name": "hold",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "tpview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "move"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "hold"
+  },
+  {
+   "name": "pcleft",
+   "role": "pc"
+  },
+  {
+   "name": "pcright",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "jenga_1",
+  "jenga_2",
+  "jenga_3",
+  "jenga_4",
+  "jenga_5",
+  "jenga_6",
+  "jenga_7",
+  "jenga_8",
+  "jenga_9",
+  "jenga_10",
+  "jenga_11",
+  "jenga_12",
+  "jenga_13",
+  "jenga_14",
+  "jenga_15",
+  "jenga_16",
+  "jenga_17",
+  "jenga_18"
+ ],
+ "randomization": {
+  "full_rand": true,
+  "groups": [
+   [
+    "jenga_1",
+    "jenga_2",
+    "jenga_3",
+    "jenga_10",
+    "jenga_11",
+    "jenga_12",
+    "jenga_13",
+    "jenga_14",
+    "jenga_15",
+    "jenga_16",
+    "jenga_17",
+    "jenga_18"
+   ],
+   [
+    "jenga_4",
+    "jenga_5",
+    "jenga_6",
+    "jenga_7",
+    "jenga_8",
+    "jenga_9"
+   ]
+  ],
+  "placement_regions": {
+   "jenga_1": [
+    {
+     "x": [
+      0.62,
+      0.74
+     ],
+     "y": [
+      -0.44,
+      -0.36
+     ],
+     "yaw_offset_deg": [
+      -180,
+      180
+     ]
+    }
+   ],
+   "jenga_4": [
+    {
+     "x": [
+      0.62,
+      0.74
+     ],
+     "y": [
+      0.34,
+      0.39
+     ],
+     "yaw_offset_deg": [
+      -180,
+      180
+     ]
+    }
+   ]
+  },
+  "lift_reach": {
+   "jenga_1": 0.14,
+   "jenga_2": 0.14,
+   "jenga_3": 0.14,
+   "jenga_4": 0.14,
+   "jenga_5": 0.14,
+   "jenga_6": 0.14,
+   "jenga_7": 0.14,
+   "jenga_8": 0.14,
+   "jenga_9": 0.14,
+   "jenga_10": 0.14,
+   "jenga_11": 0.14,
+   "jenga_12": 0.14,
+   "jenga_13": 0.14,
+   "jenga_14": 0.14,
+   "jenga_15": 0.14,
+   "jenga_16": 0.14,
+   "jenga_17": 0.14,
+   "jenga_18": 0.14
+  },
+  "min_sep": [
+   [
+    "jenga_1",
+    "jenga_4",
+    0.1
+   ],
+   [
+    "jenga_1",
+    "jenga_5",
+    0.1
+   ],
+   [
+    "jenga_1",
+    "jenga_6",
+    0.1
+   ],
+   [
+    "jenga_1",
+    "jenga_7",
+    0.1
+   ],
+   [
+    "jenga_1",
+    "jenga_8",
+    0.1
+   ],
+   [
+    "jenga_1",
+    "jenga_9",
+    0.1
+   ],
+   [
+    "jenga_2",
+    "jenga_4",
+    0.1
+   ],
+   [
+    "jenga_2",
+    "jenga_5",
+    0.1
+   ],
+   [
+    "jenga_2",
+    "jenga_6",
+    0.1
+   ],
+   [
+    "jenga_2",
+    "jenga_7",
+    0.1
+   ],
+   [
+    "jenga_2",
+    "jenga_8",
+    0.1
+   ],
+   [
+    "jenga_2",
+    "jenga_9",
+    0.1
+   ],
+   [
+    "jenga_3",
+    "jenga_4",
+    0.1
+   ],
+   [
+    "jenga_3",
+    "jenga_5",
+    0.1
+   ],
+   [
+    "jenga_3",
+    "jenga_6",
+    0.1
+   ],
+   [
+    "jenga_3",
+    "jenga_7",
+    0.1
+   ],
+   [
+    "jenga_3",
+    "jenga_8",
+    0.1
+   ],
+   [
+    "jenga_3",
+    "jenga_9",
+    0.1
+   ],
+   [
+    "jenga_10",
+    "jenga_4",
+    0.1
+   ],
+   [
+    "jenga_10",
+    "jenga_5",
+    0.1
+   ],
+   [
+    "jenga_10",
+    "jenga_6",
+    0.1
+   ],
+   [
+    "jenga_10",
+    "jenga_7",
+    0.1
+   ],
+   [
+    "jenga_10",
+    "jenga_8",
+    0.1
+   ],
+   [
+    "jenga_10",
+    "jenga_9",
+    0.1
+   ],
+   [
+    "jenga_11",
+    "jenga_4",
+    0.1
+   ],
+   [
+    "jenga_11",
+    "jenga_5",
+    0.1
+   ],
+   [
+    "jenga_11",
+    "jenga_6",
+    0.1
+   ],
+   [
+    "jenga_11",
+    "jenga_7",
+    0.1
+   ],
+   [
+    "jenga_11",
+    "jenga_8",
+    0.1
+   ],
+   [
+    "jenga_11",
+    "jenga_9",
+    0.1
+   ],
+   [
+    "jenga_12",
+    "jenga_4",
+    0.1
+   ],
+   [
+    "jenga_12",
+    "jenga_5",
+    0.1
+   ],
+   [
+    "jenga_12",
+    "jenga_6",
+    0.1
+   ],
+   [
+    "jenga_12",
+    "jenga_7",
+    0.1
+   ],
+   [
+    "jenga_12",
+    "jenga_8",
+    0.1
+   ],
+   [
+    "jenga_12",
+    "jenga_9",
+    0.1
+   ],
+   [
+    "jenga_13",
+    "jenga_4",
+    0.1
+   ],
+   [
+    "jenga_13",
+    "jenga_5",
+    0.1
+   ],
+   [
+    "jenga_13",
+    "jenga_6",
+    0.1
+   ],
+   [
+    "jenga_13",
+    "jenga_7",
+    0.1
+   ],
+   [
+    "jenga_13",
+    "jenga_8",
+    0.1
+   ],
+   [
+    "jenga_13",
+    "jenga_9",
+    0.1
+   ],
+   [
+    "jenga_14",
+    "jenga_4",
+    0.1
+   ],
+   [
+    "jenga_14",
+    "jenga_5",
+    0.1
+   ],
+   [
+    "jenga_14",
+    "jenga_6",
+    0.1
+   ],
+   [
+    "jenga_14",
+    "jenga_7",
+    0.1
+   ],
+   [
+    "jenga_14",
+    "jenga_8",
+    0.1
+   ],
+   [
+    "jenga_14",
+    "jenga_9",
+    0.1
+   ],
+   [
+    "jenga_15",
+    "jenga_4",
+    0.1
+   ],
+   [
+    "jenga_15",
+    "jenga_5",
+    0.1
+   ],
+   [
+    "jenga_15",
+    "jenga_6",
+    0.1
+   ],
+   [
+    "jenga_15",
+    "jenga_7",
+    0.1
+   ],
+   [
+    "jenga_15",
+    "jenga_8",
+    0.1
+   ],
+   [
+    "jenga_15",
+    "jenga_9",
+    0.1
+   ],
+   [
+    "jenga_16",
+    "jenga_4",
+    0.1
+   ],
+   [
+    "jenga_16",
+    "jenga_5",
+    0.1
+   ],
+   [
+    "jenga_16",
+    "jenga_6",
+    0.1
+   ],
+   [
+    "jenga_16",
+    "jenga_7",
+    0.1
+   ],
+   [
+    "jenga_16",
+    "jenga_8",
+    0.1
+   ],
+   [
+    "jenga_16",
+    "jenga_9",
+    0.1
+   ],
+   [
+    "jenga_17",
+    "jenga_4",
+    0.1
+   ],
+   [
+    "jenga_17",
+    "jenga_5",
+    0.1
+   ],
+   [
+    "jenga_17",
+    "jenga_6",
+    0.1
+   ],
+   [
+    "jenga_17",
+    "jenga_7",
+    0.1
+   ],
+   [
+    "jenga_17",
+    "jenga_8",
+    0.1
+   ],
+   [
+    "jenga_17",
+    "jenga_9",
+    0.1
+   ],
+   [
+    "jenga_18",
+    "jenga_4",
+    0.1
+   ],
+   [
+    "jenga_18",
+    "jenga_5",
+    0.1
+   ],
+   [
+    "jenga_18",
+    "jenga_6",
+    0.1
+   ],
+   [
+    "jenga_18",
+    "jenga_7",
+    0.1
+   ],
+   [
+    "jenga_18",
+    "jenga_8",
+    0.1
+   ],
+   [
+    "jenga_18",
+    "jenga_9",
+    0.1
+   ]
+  ],
+  "region": {
+   "x": [
+    0,
+    0
+   ],
+   "y": [
+    0,
+    0
+   ],
+   "yaw": [
+    0,
+    0
+   ]
+  }
+ },
+ "success": {
+  "pred": "all",
+  "of": [
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_1",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_2",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_3",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_4",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_5",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_6",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_7",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_8",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_9",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_10",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_11",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_12",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_13",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_14",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_15",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_16",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_17",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "jenga_18",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "world_axis": [
+       0,
+       0,
+       1
+      ],
+      "abs": true,
+      "min_dot": 0.0,
+      "max_dot": 0.15
+     }
+    ]
+   },
+   {
+    "pred": "any",
+    "of": [
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "count",
+        "min": 3,
+        "of": [
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_1",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_1",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_1",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_2",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_2",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_2",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_3",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_3",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_3",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_4",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_4",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_4",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_5",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_5",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_5",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_6",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_6",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_6",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_7",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_7",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_7",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_8",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_8",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_8",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_9",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_9",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_9",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_10",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_10",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_10",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_11",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_11",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_11",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_12",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_12",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_12",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_13",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_13",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_13",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_14",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_14",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_14",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_15",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_15",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_15",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_16",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_16",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_16",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_17",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_17",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_17",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_18",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_18",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_18",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "pred": "count",
+        "min": 3,
+        "of": [
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_1",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_1",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_1",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_2",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_2",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_2",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_3",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_3",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_3",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_4",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_4",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_4",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_5",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_5",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_5",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_6",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_6",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_6",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_7",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_7",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_7",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_8",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_8",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_8",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_9",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_9",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_9",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_10",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_10",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_10",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_11",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_11",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_11",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_12",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_12",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_12",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_13",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_13",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_13",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_14",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_14",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_14",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_15",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_15",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_15",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_16",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_16",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_16",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_17",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_17",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_17",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_18",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_18",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_18",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "pred": "count",
+        "min": 3,
+        "of": [
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_1",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_1",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_1",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_2",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_2",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_2",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_3",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_3",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_3",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_4",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_4",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_4",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_5",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_5",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_5",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_6",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_6",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_6",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_7",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_7",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_7",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_8",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_8",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_8",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_9",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_9",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_9",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_10",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_10",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_10",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_11",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_11",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_11",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_12",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_12",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_12",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_13",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_13",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_13",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_14",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_14",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_14",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_15",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_15",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_15",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_16",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_16",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_16",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_17",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_17",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_17",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_18",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_18",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_18",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "pred": "count",
+        "min": 3,
+        "of": [
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_1",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_1",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_1",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_2",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_2",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_2",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_3",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_3",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_3",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_4",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_4",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_4",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_5",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_5",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_5",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_6",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_6",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_6",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_7",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_7",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_7",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_8",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_8",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_8",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_9",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_9",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_9",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_10",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_10",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_10",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_11",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_11",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_11",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_12",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_12",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_12",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_13",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_13",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_13",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_14",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_14",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_14",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_15",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_15",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_15",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_16",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_16",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_16",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_17",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_17",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_17",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_18",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_18",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_18",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "count",
+        "min": 3,
+        "of": [
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_1",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_1",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_1",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_2",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_2",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_2",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_3",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_3",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_3",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_4",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_4",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_4",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_5",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_5",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_5",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_6",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_6",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_6",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_7",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_7",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_7",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_8",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_8",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_8",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_9",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_9",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_9",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_10",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_10",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_10",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_11",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_11",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_11",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_12",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_12",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_12",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_13",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_13",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_13",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_14",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_14",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_14",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_15",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_15",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_15",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_16",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_16",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_16",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_17",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_17",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_17",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_18",
+              "z_above": 0.78091
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_18",
+              "z_below": 0.80291
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_18",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "pred": "count",
+        "min": 3,
+        "of": [
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_1",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_1",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_1",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_2",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_2",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_2",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_3",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_3",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_3",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_4",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_4",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_4",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_5",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_5",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_5",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_6",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_6",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_6",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_7",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_7",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_7",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_8",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_8",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_8",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_9",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_9",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_9",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_10",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_10",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_10",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_11",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_11",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_11",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_12",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_12",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_12",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_13",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_13",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_13",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_14",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_14",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_14",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_15",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_15",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_15",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_16",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_16",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_16",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_17",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_17",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_17",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_18",
+              "z_above": 0.80711
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_18",
+              "z_below": 0.82911
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_18",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "pred": "count",
+        "min": 3,
+        "of": [
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_1",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_1",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_1",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_2",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_2",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_2",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_3",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_3",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_3",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_4",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_4",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_4",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_5",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_5",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_5",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_6",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_6",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_6",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_7",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_7",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_7",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_8",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_8",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_8",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_9",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_9",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_9",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_10",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_10",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_10",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_11",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_11",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_11",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_12",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_12",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_12",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_13",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_13",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_13",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_14",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_14",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_14",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_15",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_15",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_15",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_16",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_16",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_16",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_17",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_17",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_17",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_18",
+              "z_above": 0.83331
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_18",
+              "z_below": 0.85531
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_18",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             0,
+             1,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "pred": "count",
+        "min": 3,
+        "of": [
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_1",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_1",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_1",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_2",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_2",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_2",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_3",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_3",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_3",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_4",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_4",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_4",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_5",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_5",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_5",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_6",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_6",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_6",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_7",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_7",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_7",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_8",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_8",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_8",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_9",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_9",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_9",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_10",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_10",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_10",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_11",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_11",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_11",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_12",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_12",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_12",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_13",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_13",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_13",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_14",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_14",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_14",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_15",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_15",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_15",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_16",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_16",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_16",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_17",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_17",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_17",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         },
+         {
+          "pred": "all",
+          "of": [
+           {
+            "pred": "all",
+            "of": [
+             {
+              "pred": "lift_above",
+              "obj": "jenga_18",
+              "z_above": 0.85951
+             },
+             {
+              "pred": "z_below",
+              "obj": "jenga_18",
+              "z_below": 0.88151
+             }
+            ]
+           },
+           {
+            "pred": "axis_dot",
+            "obj": "jenga_18",
+            "axis": [
+             0,
+             0,
+             1
+            ],
+            "world_axis": [
+             1,
+             0,
+             0
+            ],
+            "abs": true,
+            "min_dot": 0.9
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "pred": "tower_support",
+    "bodies": [
+     "jenga_1",
+     "jenga_2",
+     "jenga_3",
+     "jenga_4",
+     "jenga_5",
+     "jenga_6",
+     "jenga_7",
+     "jenga_8",
+     "jenga_9",
+     "jenga_10",
+     "jenga_11",
+     "jenga_12",
+     "jenga_13",
+     "jenga_14",
+     "jenga_15",
+     "jenga_16",
+     "jenga_17",
+     "jenga_18"
+    ],
+    "table": "play_table",
+    "bands": [
+     [
+      0.78091,
+      0.80291
+     ],
+     [
+      0.80711,
+      0.82911
+     ],
+     [
+      0.83331,
+      0.85531
+     ],
+     [
+      0.85951,
+      0.88151
+     ]
+    ]
+   },
+   {
+    "pred": "robot_clear",
+    "bodies": [
+     "jenga_1",
+     "jenga_2",
+     "jenga_3",
+     "jenga_4",
+     "jenga_5",
+     "jenga_6",
+     "jenga_7",
+     "jenga_8",
+     "jenga_9",
+     "jenga_10",
+     "jenga_11",
+     "jenga_12",
+     "jenga_13",
+     "jenga_14",
+     "jenga_15",
+     "jenga_16",
+     "jenga_17",
+     "jenga_18"
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 6000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   0.25,
+   1.26
+  ],
+  "y": [
+   -0.72,
+   0.72
+  ],
+  "z": [
+   0.74,
+   1.25
+  ],
+  "z_min_crop_table": 0.78921,
+  "z_offset": 0.77921,
+  "crop_table": false
+ },
+ "category": "game"
+}

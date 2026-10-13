@@ -1,0 +1,143 @@
+{
+ "source": {
+  "repo": "https://github.com/google-deepmind/mujoco_menagerie",
+  "commit": "da76818e269b82289eba39808e2fb91d679d6994",
+  "path": "i2rt_yam",
+  "license": "see LICENSE (MIT)"
+ },
+ "modifications": [
+  "removed worldbody light + keyframe (attach-time conflicts)",
+  "finger travel + actuator + pad friction from amazon-far/abc's vendored copy (ctrl 0..0.0495, range +-0.0475, kp 400, kv 14, box-pad friction 4.0): stock jaws open 75 mm and slip",
+  "renamed lf_rot/lf_down/rf_rot/rf_down to *_finger_* so grasp predicates ('finger' in body name) see the pad contacts",
+  "added grip_site on the pinch line (44 mm off the link_6 axis; Panda site frame convention: z approach, y jaw) + wrist camera transplanted from panda.xml at the same pose relative to grip_site"
+ ],
+ "date": "2026-08-19",
+ "mount": {
+  "sep": 0.25,
+  "shift": [
+   0.15,
+   0.0,
+   0.0
+  ]
+ },
+ "kinematics": {
+  "mjcf": "yam.xml",
+  "joints": [
+   "joint1",
+   "joint2",
+   "joint3",
+   "joint4",
+   "joint5",
+   "joint6"
+  ],
+  "actuators": [
+   "joint1",
+   "joint2",
+   "joint3",
+   "joint4",
+   "joint5",
+   "joint6"
+  ],
+  "eef_site": "grip_site",
+  "home_qpos": [
+   0.0,
+   1.8,
+   1.8,
+   -1.5707,
+   0.0,
+   0.0
+  ],
+  "home_euler": [
+   3.141592653589793,
+   0.0,
+   3.141592653589793
+  ],
+  "gripper": {
+   "joints": [
+    "left_finger",
+    "right_finger"
+   ],
+   "actuator": "gripper",
+   "ctrl_open": 0.0495,
+   "open_qpos": [
+    0.0475,
+    -0.0475
+   ],
+   "width_coef": [
+    1.0,
+    -1.0
+   ]
+  },
+  "ui_mesh": {
+   "name": "yam",
+   "scale": 1.0
+  },
+  "reach": {
+   "seeds": [
+    [
+     0.0,
+     1.8,
+     1.8,
+     -1.5707,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.8,
+     1.8,
+     1.5707,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.9,
+     2.6,
+     -1.5707,
+     -0.8,
+     0.0
+    ],
+    [
+     0.0,
+     0.9,
+     2.6,
+     1.5707,
+     0.8,
+     0.0
+    ],
+    [
+     0.0,
+     0.7349,
+     0.1426,
+     0.5922,
+     0.0,
+     0.0
+    ]
+   ],
+   "mirror_xz": false,
+   "probe_euler": [
+    [
+     0.0,
+     1.5708,
+     0.0
+    ],
+    [
+     0.0,
+     2.0,
+     0.0
+    ],
+    [
+     0.0,
+     2.5,
+     0.0
+    ],
+    [
+     0.0,
+     1.2,
+     0.0
+    ]
+   ]
+  }
+ }
+}

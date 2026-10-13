@@ -1,0 +1,22 @@
+{
+ "source": {"repo": "https://github.com/google-deepmind/mujoco_menagerie", "commit": "71f066ad0be9cd271f7ed58c030243ef157af9f4", "path": "franka_emika_panda", "license": "see LICENSE (BSD-3-Clause)"},
+ "modifications": ["removed worldbody light + keyframe (attach-time conflicts)", "added grip_site + wrist camera to hand body (robosuite conventions)", "gripper tendon servo stiffened 10x (kp 100->1000 N/m, ~25 N pinch): stock gain lets carried objects sag/slip in the jaw"],
+ "date": "2026-07-14",
+ "kinematics": {
+  "mjcf": "panda.xml",
+  "joints": ["joint1", "joint2", "joint3", "joint4", "joint5", "joint6", "joint7"],
+  "actuators": ["actuator1", "actuator2", "actuator3", "actuator4", "actuator5", "actuator6", "actuator7"],
+  "eef_site": "grip_site",
+  "home_qpos": [0.0, 0.19634954084936207, 0.0, -2.617993877991494, 0.0, 2.941592653589793, 0.7853981633974483],
+  "home_euler": [-3.141592653589793, 0.0, 0.0],
+  "gripper": {"joints": ["finger_joint1", "finger_joint2"], "actuator": "actuator8",
+              "ctrl_open": 255, "open_qpos": [0.04, 0.04],
+              "width_coef": [1.0, 1.0]},
+  "ui_mesh": {"name": "franka", "scale": 1.0},
+  "reach": {"seeds": [[0.0, 0.1963, 0.0, -2.618, 0.0, 2.9416, 0.7854],
+                      [0.0, -0.161, 0.0, -2.4446, 0.0, 2.2268, 0.7854],
+                      [0.0, 0.0, 0.0, -1.6, 0.0, 1.6, 0.7854],
+                      [0.0, -0.6, 0.0, -2.9, 0.0, 2.6, 0.7854]],
+            "mirror_xz": true}
+ }
+}

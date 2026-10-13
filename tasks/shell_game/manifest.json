@@ -1,0 +1,14 @@
+{
+ "date": "2026-08-20",
+ "notes": "designed for RoboARCade: seven ROYGBIV cubes under seven IDENTICAL white shells, five press-triggered shuffles dealt from the seed (scene_script_gen), goal = rebuild the rainbow row. The identical shells are deliberate: only watching the shuffles or uncovering tells the cubes apart. Every scripted row is shifted 6 cm toward the Panda so both end slots retain reach margin",
+ "files": {
+  "assets/bezel.obj": "51409008ded008da",
+  "assets/cup.obj": "951882d6f82e91ec",
+  "assets/floor.png": "9ca0d2003a34bc9c",
+  "assets/housing.png": "5d0867a00e136d04",
+  "assets/table.png": "0eb79f112167a094",
+  "assets/wall.png": "04130f6b99598e07",
+  "scene.xml": "2e4c59c6335c266a",
+  "task.json": "ba2d75ad82914b45"
+ }
+}

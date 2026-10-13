@@ -1,0 +1,17 @@
+{
+  "name": "rgbd-waypoint",
+  "version": 3,
+  "arms": 1,
+  "tools": 7,
+  "supported_embodiments": [
+    "panda",
+    "dual_yam"
+  ],
+  "description": "Calibrated RGB-D observations with immediate single Panda or dual YAM waypoints; no browser page.",
+  "supported_arm_counts": [
+    1,
+    2
+  ],
+  "ui": false,
+  "rgbd": true
+}

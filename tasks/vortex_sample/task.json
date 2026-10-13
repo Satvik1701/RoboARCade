@@ -1,0 +1,349 @@
+{
+ "spec_version": 1,
+ "family": "autobio",
+ "category": "real_world",
+ "name": "vortex_sample",
+ "language": "Set the vortex mixer to at least half speed. Hold the tube against the cup until the lamp turns green. Return the tube to the rack and switch off the mixer.",
+ "scene": "scene.xml",
+ "support": [
+  "table"
+ ],
+ "robots": [
+  {
+   "name": "robot0",
+   "model": "franka_panda",
+   "base_pos": [
+    -0.56,
+    0.0,
+    0.8
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    -0.161037389,
+    0.0,
+    -2.44459747,
+    0.0,
+    2.2267522,
+    0.7853981633974483
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "agentview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "robot0",
+   "src": {
+    "pos": "0.0931 0 0.0072",
+    "quat": "0.177222 0.684538 0.684538 0.177222",
+    "fovy": "65"
+   }
+  },
+  {
+   "name": "leftview",
+   "role": "pc"
+  },
+  {
+   "name": "rightview",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "tube"
+ ],
+ "vortex": {
+  "actuator": "platform_pivot",
+  "joint": "platform_pivot",
+  "switch": "switch",
+  "knob": "knob",
+  "cup": "platform",
+  "sample": "tube",
+  "on": [
+   0.3,
+   0.45
+  ],
+  "off": [
+   -0.1,
+   0.1
+  ],
+  "touch": [
+   -0.45,
+   -0.3
+  ],
+  "detent_spacing": 0.46,
+  "rpm": [
+   600,
+   3200
+  ],
+  "touch_force": 0.2,
+  "mix_rpm": 1600,
+  "mix_steps": 5,
+  "stop_speed": 1.0,
+  "state_index": 0,
+  "lamp": "mix_lamp",
+  "liquid": "mix_liquid_surface",
+  "liquid_tilt": 0.07,
+  "liquid_relaxation": 0.2,
+  "lamp_rgba": {
+   "off": [
+    0.08,
+    0.09,
+    0.08,
+    1
+   ],
+   "amber": [
+    1,
+    0.42,
+    0.015,
+    1
+   ],
+   "green": [
+    0.03,
+    1,
+    0.08,
+    1
+   ]
+  }
+ },
+ "randomization": {
+  "type": "uniform",
+  "objects": {},
+  "reference": [
+   0.0,
+   0.0,
+   0.8
+  ],
+  "z_offset": 0.0,
+  "groups": [
+   [
+    "tube_rack",
+    "tube"
+   ]
+  ],
+  "full_rand": false,
+  "region": {
+   "x": [
+    -0.04,
+    0.04
+   ],
+   "y": [
+    -0.05,
+    0.05
+   ],
+   "yaw": [
+    -0.3,
+    0.3
+   ]
+  },
+  "grasp_clearance": 0.022,
+  "reach_sites": [
+   "rack_wells"
+  ]
+ },
+ "success": {
+  "pred": "sequence",
+  "invariant": {
+   "pred": "all",
+   "of": [
+    {
+     "pred": "axis_up",
+     "obj": "tube",
+     "axis": [
+      0,
+      0,
+      1
+     ],
+     "tol_deg": 15.0
+    },
+    {
+     "pred": "any",
+     "of": [
+      {
+       "pred": "not",
+       "of": {
+        "pred": "robot_clear",
+        "bodies": [
+         "tube"
+        ]
+       }
+      },
+      {
+       "pred": "touching_part",
+       "a": "tube",
+       "b": "tube_rack"
+      }
+     ]
+    }
+   ]
+  },
+  "of": [
+   {
+    "pred": "joint_in",
+    "joint": "knob",
+    "lo": 2.07,
+    "hi": 4.7
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "any",
+      "of": [
+       {
+        "pred": "joint_in",
+        "joint": "switch",
+        "lo": 0.3,
+        "hi": 0.45
+       },
+       {
+        "pred": "joint_in",
+        "joint": "switch",
+        "lo": -0.45,
+        "hi": -0.3
+       }
+      ]
+     },
+     {
+      "pred": "joint_in",
+      "joint": "knob",
+      "lo": 2.07,
+      "hi": 4.7
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "userdata_in",
+      "index": 0,
+      "lo": 5,
+      "hi": 5
+     },
+     {
+      "pred": "joint_in",
+      "joint": "knob",
+      "lo": 2.07,
+      "hi": 4.7
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "joint_in",
+      "joint": "switch",
+      "lo": -0.1,
+      "hi": 0.1
+     },
+     {
+      "pred": "joint_speed_in",
+      "joint": "platform_pivot",
+      "lo": -1,
+      "hi": 1
+     },
+     {
+      "pred": "joint_in",
+      "joint": "knob",
+      "lo": 2.07,
+      "hi": 4.7
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_site_box",
+      "obj": "tube",
+      "site": "rack_wells",
+      "size": [
+       0.0947,
+       0.032,
+       0.008
+      ]
+     },
+     {
+      "pred": "axis_up",
+      "obj": "tube",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "tol_deg": 15.0
+     },
+     {
+      "pred": "robot_clear",
+      "bodies": [
+       "tube"
+      ]
+     },
+     {
+      "pred": "joint_in",
+      "joint": "switch",
+      "lo": -0.1,
+      "hi": 0.1
+     },
+     {
+      "pred": "joint_speed_in",
+      "joint": "platform_pivot",
+      "lo": -1,
+      "hi": 1
+     },
+     {
+      "pred": "joint_in",
+      "joint": "knob",
+      "lo": 2.07,
+      "hi": 4.7
+     }
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 4000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   -0.4,
+   0.4
+  ],
+  "y": [
+   -0.4,
+   0.4
+  ],
+  "z": [
+   0.75,
+   1.05
+  ],
+  "z_min_crop_table": 0.81,
+  "z_offset": 0.8,
+  "crop_table": false
+ }
+}

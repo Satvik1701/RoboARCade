@@ -1,0 +1,8 @@
+{
+  "task": "fabrica/cooling_manifold",
+  "run": "data/run_eval/manifold_rerun_5x_astra/20260914_180902/seed1000008",
+  "seed": 1000008,
+  "grasp_waypoint": 57,
+  "released_waypoint": 60,
+  "original_scene_sha256": "14e3a31b04f5b8ffd596e8dde75e742a10ef770bf8a2ff58cb33ee2ed16a8070"
+}

@@ -1,0 +1,1019 @@
+<mujoco model="base">
+  <compiler angle="radian" />
+  <option impratio="20" density="1.2" viscosity="2e-05" cone="elliptic" />
+  <size njmax="5000" nconmax="5000" />
+  <visual>
+    <map znear="0.001" />
+  </visual>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.9 0.9 1" rgb2="0.2 0.3 0.4" width="256" height="1536" />
+    <texture type="2d" name="texplane" file="assets/gray_ceramic_tile.png" />
+    <texture type="cube" name="tex-table" file="assets/martin_novak_wood_table.png" />
+    <texture type="cube" name="tex-table-legs" file="assets/martin_novak_wood_table.png" />
+    <texture type="2d" name="tex-wall" file="assets/yellow_linen_wall_texture.png" />
+    <texture type="cube" name="textable" builtin="flat" rgb2="0.8 0.8 0.8" width="512" height="3072" />
+    <texture type="2d" name="tex-kitchen_background" file="assets/kitchen_background.png" />
+    <texture type="2d" name="tex-kitchen_background_pot" file="assets/kitchen_background_pot.png" />
+    <texture type="2d" name="tex-kitchen_background_stove" file="assets/kitchen_background_stove.png" />
+    <texture type="2d" name="tex-kitchen_background_fridge" file="assets/metal.png" />
+    <texture type="2d" name="white_yellow_mug_1_tex-white_yellow_mug" file="assets/white_yellow_mug_texture.png" />
+    <texture type="cube" name="microwave_1_T_micro_metal" file="assets/metal1.png" />
+    <material name="floorplane" texture="texplane" texuniform="true" texrepeat="3 3" specular="0" shininess="0" />
+    <material name="table_texture" texture="tex-table" specular="0.2" shininess="0" />
+    <material name="table_legs" texture="tex-table-legs" shininess="0.8" reflectance="0.8" />
+    <material name="walls_mat" texture="tex-wall" texuniform="true" texrepeat="3 3" specular="0.8" shininess="0.3" />
+    <material name="table_mat" texture="textable" />
+    <material name="kitchen_background" texture="tex-kitchen_background" reflectance="0.5" />
+    <material name="kitchen_background_pot" texture="tex-kitchen_background_pot" reflectance="0.5" />
+    <material name="kitchen_background_hot_pot" reflectance="0.5" rgba="0.4 0.4 0.4 1" />
+    <material name="kitchen_background_stove" texture="tex-kitchen_background_stove" reflectance="0.5" />
+    <material name="kitchen_background_fridge" texture="tex-kitchen_background_fridge" reflectance="0.9" />
+    <material name="robot0_Face636_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1" />
+    <material name="robot0_Part__Feature017_001" shininess="0.45" />
+    <material name="robot0_Part__Feature018_001" shininess="0.45" />
+    <material name="robot0_Part__Feature019_001" shininess="0.45" />
+    <material name="robot0_Part__Feature022_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1" />
+    <material name="robot0_Part__Feature023_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Shell001_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Shell002_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1" />
+    <material name="robot0_Shell003_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1" />
+    <material name="robot0_Shell009_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Shell010_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1" />
+    <material name="robot0_Shell_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Feature_001" shininess="0.45" />
+    <material name="robot0_Part__Feature024" shininess="0.45" />
+    <material name="robot0_Part__Feature001_010_001_002" shininess="0.45" />
+    <material name="robot0_Part__Feature002_007_001_002" shininess="0.45" />
+    <material name="robot0_Part__Feature003_004_001_002" shininess="0.45" />
+    <material name="robot0_Part__Feature_001_001_001_002" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Feature001_001_003_001" shininess="0.45" />
+    <material name="robot0_Part__Feature002_001_003_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Feature003_001_003_001" shininess="0.45" />
+    <material name="robot0_Part__Feature_002_003_001" shininess="0.45" />
+    <material name="robot0_Part__Feature_002_004_003" shininess="0.45" />
+    <material name="robot0_Shell001_001_001_003" shininess="0.45" rgba="0.25 0.25 0.25 1" />
+    <material name="robot0_Shell_001_001_003" shininess="0.45" />
+    <material name="robot0_Face064_002_001_002_001" shininess="0.45" rgba="1 0 0 1" />
+    <material name="robot0_Face065_002_001_002_001" shininess="0.45" rgba="0 1 0 1" />
+    <material name="robot0_Face374_002_001_002_001" shininess="0.45" />
+    <material name="robot0_Face539_002_001_002_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Feature001_009_001_002_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Feature002_006_001_002_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Shell002_002_001_002_001" shininess="0.45" />
+    <material name="robot0_Shell003_002_001_002_001" shininess="0.45" />
+    <material name="robot0_Shell004_001_001_002_001" shininess="0.45" />
+    <material name="robot0_Shell005_001_001_002_001" shininess="0.45" />
+    <material name="robot0_Shell006_003_002_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1" />
+    <material name="robot0_Shell007_002_002_001" shininess="0.45" rgba="0.25 0.25 0.25 1" />
+    <material name="robot0_Shell011_002_002_001" shininess="0.45" />
+    <material name="robot0_Shell012_002_002_001" shininess="0.45" />
+    <material name="robot0_Shell_003_001_002_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Union001_001_001_002_001" shininess="0.45" rgba="0.039216 0.541176 0.780392 1" />
+    <material name="robot0_Union_001_001_002_001" shininess="0.45" rgba="0.039216 0.541176 0.780392 1" />
+    <material name="robot0_Part__Mirroring001_004_002" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Mirroring002_004_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Mirroring003_004_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Mirroring004_004_002" shininess="0.45" />
+    <material name="robot0_Part__Mirroring005_004_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Mirroring006_004_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Mirroring007_004_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Mirroring_004_001" shininess="0.45" rgba="0.898039 0.917647 0.929412 1" />
+    <material name="white_yellow_mug_1_white_yellow_mug" texture="white_yellow_mug_1_tex-white_yellow_mug" reflectance="0.5" />
+    <material name="microwave_1_micro_metal" texture="microwave_1_T_micro_metal" texrepeat="3 3" shininess="1" reflectance="1" />
+    <material name="microwave_1_micro_black" shininess="1" reflectance="1" rgba="0.2 0.2 0.2 1" />
+    <material name="microwave_1_micro_window" shininess="1" reflectance="1" rgba="0.1 0.1 0.1 0.5" />
+    <material name="microwave_1_micro_collision_blue" specular="0" shininess="0" rgba="0.3 0.3 1 0" />
+    <mesh name="kitchen_background_vis" file="assets/kitchen_background_vis.msh" scale="0.01 0.01 0.01" />
+    <mesh name="kitchen_background_pot_vis" file="assets/kitchen_background_pot_vis.msh" scale="0.01 0.01 0.01" />
+    <mesh name="kitchen_background_hot_pot_vis" file="assets/kitchen_background_hot_pot_vis.msh" scale="0.01 0.01 0.01" />
+    <mesh name="kitchen_background_stove_vis" file="assets/kitchen_background_stove_vis.msh" scale="0.01 0.01 0.01" />
+    <mesh name="kitchen_background_fridge_vis" file="assets/fridge_vis.msh" scale="0.01 0.01 0.01" />
+    <mesh name="white_yellow_mug_1_white_yellow_mug_vis" file="assets/white_yellow_mug_vis.msh" />
+    <mesh name="microwave_1_micro" file="assets/micro.stl" scale="0.5 0.5 0.5" />
+    <mesh name="microwave_1_microdoor" file="assets/microdoor.stl" scale="0.5 0.5 0.5" />
+    <mesh name="microwave_1_microfeet" file="assets/microfeet.stl" scale="0.5 0.5 0.5" />
+    <mesh name="microwave_1_microwindow" file="assets/microwindow.stl" scale="0.5 0.5 0.5" />
+    <material name="surface_wood" texture="tex-table" texrepeat="3 3" specular="0.2" shininess="0.3" />
+    <texture type="2d" name="red_coffee_mug_1_tex-red_coffee_mug" file="assets/red_coffee_mug_texture.png" />
+    <texture type="2d" name="plate_1_tex-model" file="assets/texture.png" />
+    <texture type="2d" name="plate_2_tex-model" file="assets/texture.png" />
+    <material name="red_coffee_mug_1_red_coffee_mug" texture="red_coffee_mug_1_tex-red_coffee_mug" reflectance="0.5" />
+    <material name="plate_1_model" texture="plate_1_tex-model" reflectance="0.5" />
+    <material name="plate_2_model" texture="plate_2_tex-model" reflectance="0.5" />
+    <mesh name="red_coffee_mug_1_red_coffee_mug_vis" file="assets/red_coffee_mug_vis.msh" />
+    <mesh name="white_yellow_mug_hull_0" file="assets/white_yellow_mug_hull_0.obj" />
+    <mesh name="white_yellow_mug_hull_1" file="assets/white_yellow_mug_hull_1.obj" />
+    <mesh name="white_yellow_mug_hull_2" file="assets/white_yellow_mug_hull_2.obj" />
+    <mesh name="white_yellow_mug_hull_3" file="assets/white_yellow_mug_hull_3.obj" />
+    <mesh name="white_yellow_mug_hull_4" file="assets/white_yellow_mug_hull_4.obj" />
+    <mesh name="white_yellow_mug_hull_5" file="assets/white_yellow_mug_hull_5.obj" />
+    <mesh name="white_yellow_mug_hull_6" file="assets/white_yellow_mug_hull_6.obj" />
+    <mesh name="white_yellow_mug_hull_7" file="assets/white_yellow_mug_hull_7.obj" />
+    <mesh name="white_yellow_mug_hull_8" file="assets/white_yellow_mug_hull_8.obj" />
+    <mesh name="white_yellow_mug_hull_9" file="assets/white_yellow_mug_hull_9.obj" />
+    <mesh name="white_yellow_mug_hull_10" file="assets/white_yellow_mug_hull_10.obj" />
+    <mesh name="white_yellow_mug_hull_11" file="assets/white_yellow_mug_hull_11.obj" />
+    <mesh name="white_yellow_mug_hull_12" file="assets/white_yellow_mug_hull_12.obj" />
+    <mesh name="white_yellow_mug_hull_13" file="assets/white_yellow_mug_hull_13.obj" />
+    <mesh name="white_yellow_mug_hull_14" file="assets/white_yellow_mug_hull_14.obj" />
+    <mesh name="white_yellow_mug_hull_15" file="assets/white_yellow_mug_hull_15.obj" />
+    <mesh name="white_yellow_mug_hull_16" file="assets/white_yellow_mug_hull_16.obj" />
+    <mesh name="white_yellow_mug_hull_17" file="assets/white_yellow_mug_hull_17.obj" />
+    <mesh name="white_yellow_mug_hull_18" file="assets/white_yellow_mug_hull_18.obj" />
+    <mesh name="white_yellow_mug_hull_19" file="assets/white_yellow_mug_hull_19.obj" />
+    <mesh name="white_yellow_mug_hull_20" file="assets/white_yellow_mug_hull_20.obj" />
+    <mesh name="white_yellow_mug_hull_21" file="assets/white_yellow_mug_hull_21.obj" />
+    <mesh name="white_yellow_mug_hull_22" file="assets/white_yellow_mug_hull_22.obj" />
+    <mesh name="white_yellow_mug_hull_23" file="assets/white_yellow_mug_hull_23.obj" />
+    <mesh name="white_yellow_mug_hull_24" file="assets/white_yellow_mug_hull_24.obj" />
+    <mesh name="white_yellow_mug_hull_25" file="assets/white_yellow_mug_hull_25.obj" />
+    <mesh name="white_yellow_mug_hull_26" file="assets/white_yellow_mug_hull_26.obj" />
+    <mesh name="white_yellow_mug_hull_27" file="assets/white_yellow_mug_hull_27.obj" />
+    <mesh name="white_yellow_mug_hull_28" file="assets/white_yellow_mug_hull_28.obj" />
+    <mesh name="white_yellow_mug_hull_29" file="assets/white_yellow_mug_hull_29.obj" />
+    <mesh name="white_yellow_mug_hull_30" file="assets/white_yellow_mug_hull_30.obj" />
+    <mesh name="white_yellow_mug_hull_31" file="assets/white_yellow_mug_hull_31.obj" />
+    <mesh name="white_yellow_mug_hull_32" file="assets/white_yellow_mug_hull_32.obj" />
+    <mesh name="white_yellow_mug_hull_33" file="assets/white_yellow_mug_hull_33.obj" />
+    <mesh name="white_yellow_mug_hull_34" file="assets/white_yellow_mug_hull_34.obj" />
+    <mesh name="white_yellow_mug_hull_35" file="assets/white_yellow_mug_hull_35.obj" />
+    <mesh name="white_yellow_mug_hull_36" file="assets/white_yellow_mug_hull_36.obj" />
+    <mesh name="white_yellow_mug_hull_37" file="assets/white_yellow_mug_hull_37.obj" />
+    <mesh name="white_yellow_mug_hull_38" file="assets/white_yellow_mug_hull_38.obj" />
+    <mesh name="white_yellow_mug_hull_39" file="assets/white_yellow_mug_hull_39.obj" />
+    <mesh name="white_yellow_mug_hull_40" file="assets/white_yellow_mug_hull_40.obj" />
+    <mesh name="white_yellow_mug_hull_41" file="assets/white_yellow_mug_hull_41.obj" />
+    <mesh name="white_yellow_mug_hull_42" file="assets/white_yellow_mug_hull_42.obj" />
+    <mesh name="white_yellow_mug_hull_43" file="assets/white_yellow_mug_hull_43.obj" />
+    <mesh name="white_yellow_mug_hull_44" file="assets/white_yellow_mug_hull_44.obj" />
+    <mesh name="white_yellow_mug_hull_45" file="assets/white_yellow_mug_hull_45.obj" />
+    <mesh name="white_yellow_mug_hull_46" file="assets/white_yellow_mug_hull_46.obj" />
+    <mesh name="white_yellow_mug_hull_47" file="assets/white_yellow_mug_hull_47.obj" />
+    <mesh name="white_yellow_mug_hull_48" file="assets/white_yellow_mug_hull_48.obj" />
+    <mesh name="white_yellow_mug_hull_49" file="assets/white_yellow_mug_hull_49.obj" />
+    <mesh name="white_yellow_mug_hull_50" file="assets/white_yellow_mug_hull_50.obj" />
+    <mesh name="white_yellow_mug_hull_51" file="assets/white_yellow_mug_hull_51.obj" />
+    <mesh name="white_yellow_mug_hull_52" file="assets/white_yellow_mug_hull_52.obj" />
+    <mesh name="white_yellow_mug_hull_53" file="assets/white_yellow_mug_hull_53.obj" />
+    <mesh name="white_yellow_mug_hull_54" file="assets/white_yellow_mug_hull_54.obj" />
+    <mesh name="white_yellow_mug_hull_55" file="assets/white_yellow_mug_hull_55.obj" />
+    <mesh name="white_yellow_mug_hull_56" file="assets/white_yellow_mug_hull_56.obj" />
+    <mesh name="white_yellow_mug_hull_57" file="assets/white_yellow_mug_hull_57.obj" />
+    <mesh name="white_yellow_mug_hull_58" file="assets/white_yellow_mug_hull_58.obj" />
+    <mesh name="white_yellow_mug_hull_59" file="assets/white_yellow_mug_hull_59.obj" />
+    <mesh name="white_yellow_mug_hull_60" file="assets/white_yellow_mug_hull_60.obj" />
+    <mesh name="white_yellow_mug_hull_61" file="assets/white_yellow_mug_hull_61.obj" />
+    <mesh name="white_yellow_mug_hull_62" file="assets/white_yellow_mug_hull_62.obj" />
+    <mesh name="white_yellow_mug_hull_63" file="assets/white_yellow_mug_hull_63.obj" />
+    <mesh name="white_yellow_mug_hull_64" file="assets/white_yellow_mug_hull_64.obj" />
+    <mesh name="white_yellow_mug_hull_65" file="assets/white_yellow_mug_hull_65.obj" />
+    <mesh name="white_yellow_mug_hull_66" file="assets/white_yellow_mug_hull_66.obj" />
+    <mesh name="white_yellow_mug_hull_67" file="assets/white_yellow_mug_hull_67.obj" />
+    <mesh name="white_yellow_mug_hull_68" file="assets/white_yellow_mug_hull_68.obj" />
+    <mesh name="white_yellow_mug_hull_69" file="assets/white_yellow_mug_hull_69.obj" />
+    <mesh name="white_yellow_mug_hull_70" file="assets/white_yellow_mug_hull_70.obj" />
+    <mesh name="white_yellow_mug_hull_71" file="assets/white_yellow_mug_hull_71.obj" />
+    <mesh name="white_yellow_mug_hull_72" file="assets/white_yellow_mug_hull_72.obj" />
+    <mesh name="white_yellow_mug_hull_73" file="assets/white_yellow_mug_hull_73.obj" />
+    <mesh name="white_yellow_mug_hull_74" file="assets/white_yellow_mug_hull_74.obj" />
+    <mesh name="white_yellow_mug_hull_75" file="assets/white_yellow_mug_hull_75.obj" />
+    <mesh name="white_yellow_mug_hull_76" file="assets/white_yellow_mug_hull_76.obj" />
+    <mesh name="white_yellow_mug_hull_77" file="assets/white_yellow_mug_hull_77.obj" />
+    <mesh name="white_yellow_mug_hull_78" file="assets/white_yellow_mug_hull_78.obj" />
+    <mesh name="white_yellow_mug_hull_79" file="assets/white_yellow_mug_hull_79.obj" />
+    <mesh name="white_yellow_mug_hull_80" file="assets/white_yellow_mug_hull_80.obj" />
+    <mesh name="white_yellow_mug_hull_81" file="assets/white_yellow_mug_hull_81.obj" />
+    <mesh name="white_yellow_mug_hull_82" file="assets/white_yellow_mug_hull_82.obj" />
+    <mesh name="white_yellow_mug_hull_83" file="assets/white_yellow_mug_hull_83.obj" />
+    <mesh name="white_yellow_mug_hull_84" file="assets/white_yellow_mug_hull_84.obj" />
+    <mesh name="white_yellow_mug_hull_85" file="assets/white_yellow_mug_hull_85.obj" />
+    <mesh name="white_yellow_mug_hull_86" file="assets/white_yellow_mug_hull_86.obj" />
+    <mesh name="white_yellow_mug_hull_87" file="assets/white_yellow_mug_hull_87.obj" />
+    <mesh name="white_yellow_mug_hull_88" file="assets/white_yellow_mug_hull_88.obj" />
+    <mesh name="white_yellow_mug_hull_89" file="assets/white_yellow_mug_hull_89.obj" />
+    <mesh name="white_yellow_mug_hull_90" file="assets/white_yellow_mug_hull_90.obj" />
+    <mesh name="white_yellow_mug_hull_91" file="assets/white_yellow_mug_hull_91.obj" />
+    <mesh name="white_yellow_mug_hull_92" file="assets/white_yellow_mug_hull_92.obj" />
+    <mesh name="white_yellow_mug_hull_93" file="assets/white_yellow_mug_hull_93.obj" />
+    <mesh name="white_yellow_mug_hull_94" file="assets/white_yellow_mug_hull_94.obj" />
+    <mesh name="white_yellow_mug_hull_95" file="assets/white_yellow_mug_hull_95.obj" />
+    <mesh name="white_yellow_mug_hull_96" file="assets/white_yellow_mug_hull_96.obj" />
+    <mesh name="white_yellow_mug_hull_97" file="assets/white_yellow_mug_hull_97.obj" />
+    <mesh name="white_yellow_mug_hull_98" file="assets/white_yellow_mug_hull_98.obj" />
+    <mesh name="white_yellow_mug_hull_99" file="assets/white_yellow_mug_hull_99.obj" />
+    <mesh name="white_yellow_mug_hull_100" file="assets/white_yellow_mug_hull_100.obj" />
+    <mesh name="white_yellow_mug_hull_101" file="assets/white_yellow_mug_hull_101.obj" />
+    <mesh name="white_yellow_mug_hull_102" file="assets/white_yellow_mug_hull_102.obj" />
+    <mesh name="white_yellow_mug_hull_103" file="assets/white_yellow_mug_hull_103.obj" />
+    <mesh name="white_yellow_mug_hull_104" file="assets/white_yellow_mug_hull_104.obj" />
+    <mesh name="white_yellow_mug_hull_105" file="assets/white_yellow_mug_hull_105.obj" />
+    <mesh name="white_yellow_mug_hull_106" file="assets/white_yellow_mug_hull_106.obj" />
+    <mesh name="white_yellow_mug_hull_107" file="assets/white_yellow_mug_hull_107.obj" />
+    <mesh name="white_yellow_mug_hull_108" file="assets/white_yellow_mug_hull_108.obj" />
+    <mesh name="white_yellow_mug_hull_109" file="assets/white_yellow_mug_hull_109.obj" />
+    <mesh name="white_yellow_mug_hull_110" file="assets/white_yellow_mug_hull_110.obj" />
+    <mesh name="white_yellow_mug_hull_111" file="assets/white_yellow_mug_hull_111.obj" />
+    <mesh name="white_yellow_mug_hull_112" file="assets/white_yellow_mug_hull_112.obj" />
+    <mesh name="white_yellow_mug_hull_113" file="assets/white_yellow_mug_hull_113.obj" />
+    <mesh name="white_yellow_mug_hull_114" file="assets/white_yellow_mug_hull_114.obj" />
+    <mesh name="white_yellow_mug_hull_115" file="assets/white_yellow_mug_hull_115.obj" />
+    <mesh name="white_yellow_mug_hull_116" file="assets/white_yellow_mug_hull_116.obj" />
+    <mesh name="white_yellow_mug_hull_117" file="assets/white_yellow_mug_hull_117.obj" />
+    <mesh name="white_yellow_mug_hull_118" file="assets/white_yellow_mug_hull_118.obj" />
+    <mesh name="white_yellow_mug_hull_119" file="assets/white_yellow_mug_hull_119.obj" />
+    <mesh name="white_yellow_mug_hull_120" file="assets/white_yellow_mug_hull_120.obj" />
+    <mesh name="white_yellow_mug_hull_121" file="assets/white_yellow_mug_hull_121.obj" />
+    <mesh name="white_yellow_mug_hull_122" file="assets/white_yellow_mug_hull_122.obj" />
+    <mesh name="white_yellow_mug_hull_123" file="assets/white_yellow_mug_hull_123.obj" />
+    <mesh name="white_yellow_mug_hull_124" file="assets/white_yellow_mug_hull_124.obj" />
+    <mesh name="white_yellow_mug_hull_125" file="assets/white_yellow_mug_hull_125.obj" />
+    <mesh name="white_yellow_mug_hull_126" file="assets/white_yellow_mug_hull_126.obj" />
+    <mesh name="white_yellow_mug_hull_127" file="assets/white_yellow_mug_hull_127.obj" />
+    <mesh name="white_yellow_mug_hull_128" file="assets/white_yellow_mug_hull_128.obj" />
+    <mesh name="white_yellow_mug_hull_129" file="assets/white_yellow_mug_hull_129.obj" />
+    <mesh name="white_yellow_mug_hull_130" file="assets/white_yellow_mug_hull_130.obj" />
+    <mesh name="white_yellow_mug_hull_131" file="assets/white_yellow_mug_hull_131.obj" />
+    <mesh name="white_yellow_mug_hull_132" file="assets/white_yellow_mug_hull_132.obj" />
+    <mesh name="white_yellow_mug_hull_133" file="assets/white_yellow_mug_hull_133.obj" />
+    <mesh name="white_yellow_mug_hull_134" file="assets/white_yellow_mug_hull_134.obj" />
+    <mesh name="white_yellow_mug_hull_135" file="assets/white_yellow_mug_hull_135.obj" />
+    <mesh name="white_yellow_mug_hull_136" file="assets/white_yellow_mug_hull_136.obj" />
+    <mesh name="white_yellow_mug_hull_137" file="assets/white_yellow_mug_hull_137.obj" />
+    <mesh name="white_yellow_mug_hull_138" file="assets/white_yellow_mug_hull_138.obj" />
+    <mesh name="white_yellow_mug_hull_139" file="assets/white_yellow_mug_hull_139.obj" />
+    <mesh name="white_yellow_mug_hull_140" file="assets/white_yellow_mug_hull_140.obj" />
+    <mesh name="white_yellow_mug_hull_141" file="assets/white_yellow_mug_hull_141.obj" />
+    <mesh name="white_yellow_mug_hull_142" file="assets/white_yellow_mug_hull_142.obj" />
+    <mesh name="white_yellow_mug_hull_143" file="assets/white_yellow_mug_hull_143.obj" />
+    <mesh name="white_yellow_mug_hull_144" file="assets/white_yellow_mug_hull_144.obj" />
+    <mesh name="white_yellow_mug_hull_145" file="assets/white_yellow_mug_hull_145.obj" />
+    <mesh name="white_yellow_mug_hull_146" file="assets/white_yellow_mug_hull_146.obj" />
+    <mesh name="white_yellow_mug_hull_147" file="assets/white_yellow_mug_hull_147.obj" />
+    <mesh name="white_yellow_mug_hull_148" file="assets/white_yellow_mug_hull_148.obj" />
+    <mesh name="white_yellow_mug_hull_149" file="assets/white_yellow_mug_hull_149.obj" />
+    <mesh name="white_yellow_mug_hull_150" file="assets/white_yellow_mug_hull_150.obj" />
+    <mesh name="white_yellow_mug_hull_151" file="assets/white_yellow_mug_hull_151.obj" />
+    <mesh name="white_yellow_mug_hull_152" file="assets/white_yellow_mug_hull_152.obj" />
+    <mesh name="white_yellow_mug_hull_153" file="assets/white_yellow_mug_hull_153.obj" />
+    <mesh name="white_yellow_mug_hull_154" file="assets/white_yellow_mug_hull_154.obj" />
+    <mesh name="white_yellow_mug_hull_155" file="assets/white_yellow_mug_hull_155.obj" />
+    <mesh name="white_yellow_mug_hull_156" file="assets/white_yellow_mug_hull_156.obj" />
+    <mesh name="white_yellow_mug_hull_157" file="assets/white_yellow_mug_hull_157.obj" />
+    <mesh name="white_yellow_mug_hull_158" file="assets/white_yellow_mug_hull_158.obj" />
+    <mesh name="white_yellow_mug_hull_159" file="assets/white_yellow_mug_hull_159.obj" />
+    <mesh name="white_yellow_mug_hull_160" file="assets/white_yellow_mug_hull_160.obj" />
+    <mesh name="white_yellow_mug_hull_161" file="assets/white_yellow_mug_hull_161.obj" />
+    <mesh name="white_yellow_mug_hull_162" file="assets/white_yellow_mug_hull_162.obj" />
+    <mesh name="white_yellow_mug_hull_163" file="assets/white_yellow_mug_hull_163.obj" />
+    <mesh name="white_yellow_mug_hull_164" file="assets/white_yellow_mug_hull_164.obj" />
+    <mesh name="white_yellow_mug_hull_165" file="assets/white_yellow_mug_hull_165.obj" />
+    <mesh name="white_yellow_mug_hull_166" file="assets/white_yellow_mug_hull_166.obj" />
+    <mesh name="white_yellow_mug_hull_167" file="assets/white_yellow_mug_hull_167.obj" />
+    <mesh name="white_yellow_mug_hull_168" file="assets/white_yellow_mug_hull_168.obj" />
+    <mesh name="white_yellow_mug_hull_169" file="assets/white_yellow_mug_hull_169.obj" />
+    <mesh name="white_yellow_mug_hull_170" file="assets/white_yellow_mug_hull_170.obj" />
+    <mesh name="white_yellow_mug_hull_171" file="assets/white_yellow_mug_hull_171.obj" />
+    <mesh name="white_yellow_mug_hull_172" file="assets/white_yellow_mug_hull_172.obj" />
+    <mesh name="white_yellow_mug_hull_173" file="assets/white_yellow_mug_hull_173.obj" />
+    <mesh name="white_yellow_mug_hull_174" file="assets/white_yellow_mug_hull_174.obj" />
+    <mesh name="white_yellow_mug_hull_175" file="assets/white_yellow_mug_hull_175.obj" />
+    <mesh name="white_yellow_mug_hull_176" file="assets/white_yellow_mug_hull_176.obj" />
+    <mesh name="white_yellow_mug_hull_177" file="assets/white_yellow_mug_hull_177.obj" />
+    <mesh name="white_yellow_mug_hull_178" file="assets/white_yellow_mug_hull_178.obj" />
+    <mesh name="white_yellow_mug_hull_179" file="assets/white_yellow_mug_hull_179.obj" />
+    <mesh name="white_yellow_mug_hull_180" file="assets/white_yellow_mug_hull_180.obj" />
+    <mesh name="white_yellow_mug_hull_181" file="assets/white_yellow_mug_hull_181.obj" />
+    <mesh name="white_yellow_mug_hull_182" file="assets/white_yellow_mug_hull_182.obj" />
+    <mesh name="white_yellow_mug_hull_183" file="assets/white_yellow_mug_hull_183.obj" />
+    <mesh name="white_yellow_mug_hull_184" file="assets/white_yellow_mug_hull_184.obj" />
+    <mesh name="white_yellow_mug_hull_185" file="assets/white_yellow_mug_hull_185.obj" />
+    <mesh name="white_yellow_mug_hull_186" file="assets/white_yellow_mug_hull_186.obj" />
+    <mesh name="white_yellow_mug_hull_187" file="assets/white_yellow_mug_hull_187.obj" />
+    <mesh name="white_yellow_mug_hull_188" file="assets/white_yellow_mug_hull_188.obj" />
+    <mesh name="white_yellow_mug_hull_189" file="assets/white_yellow_mug_hull_189.obj" />
+    <mesh name="white_yellow_mug_hull_190" file="assets/white_yellow_mug_hull_190.obj" />
+    <mesh name="white_yellow_mug_hull_191" file="assets/white_yellow_mug_hull_191.obj" />
+    <mesh name="white_yellow_mug_hull_192" file="assets/white_yellow_mug_hull_192.obj" />
+    <mesh name="white_yellow_mug_hull_193" file="assets/white_yellow_mug_hull_193.obj" />
+    <mesh name="white_yellow_mug_hull_194" file="assets/white_yellow_mug_hull_194.obj" />
+    <mesh name="white_yellow_mug_hull_195" file="assets/white_yellow_mug_hull_195.obj" />
+    <mesh name="white_yellow_mug_hull_196" file="assets/white_yellow_mug_hull_196.obj" />
+    <mesh name="white_yellow_mug_hull_197" file="assets/white_yellow_mug_hull_197.obj" />
+    <mesh name="white_yellow_mug_hull_198" file="assets/white_yellow_mug_hull_198.obj" />
+    <mesh name="white_yellow_mug_hull_199" file="assets/white_yellow_mug_hull_199.obj" />
+    <mesh name="white_yellow_mug_hull_200" file="assets/white_yellow_mug_hull_200.obj" />
+    <mesh name="white_yellow_mug_hull_201" file="assets/white_yellow_mug_hull_201.obj" />
+    <mesh name="white_yellow_mug_hull_202" file="assets/white_yellow_mug_hull_202.obj" />
+    <mesh name="white_yellow_mug_hull_203" file="assets/white_yellow_mug_hull_203.obj" />
+    <mesh name="white_yellow_mug_hull_204" file="assets/white_yellow_mug_hull_204.obj" />
+    <mesh name="white_yellow_mug_hull_205" file="assets/white_yellow_mug_hull_205.obj" />
+    <mesh name="white_yellow_mug_hull_206" file="assets/white_yellow_mug_hull_206.obj" />
+    <mesh name="white_yellow_mug_hull_207" file="assets/white_yellow_mug_hull_207.obj" />
+    <mesh name="white_yellow_mug_hull_208" file="assets/white_yellow_mug_hull_208.obj" />
+    <mesh name="white_yellow_mug_hull_209" file="assets/white_yellow_mug_hull_209.obj" />
+    <mesh name="white_yellow_mug_hull_210" file="assets/white_yellow_mug_hull_210.obj" />
+    <mesh name="white_yellow_mug_hull_211" file="assets/white_yellow_mug_hull_211.obj" />
+    <mesh name="white_yellow_mug_hull_212" file="assets/white_yellow_mug_hull_212.obj" />
+    <mesh name="white_yellow_mug_hull_213" file="assets/white_yellow_mug_hull_213.obj" />
+    <mesh name="white_yellow_mug_hull_214" file="assets/white_yellow_mug_hull_214.obj" />
+    <mesh name="white_yellow_mug_hull_215" file="assets/white_yellow_mug_hull_215.obj" />
+    <mesh name="white_yellow_mug_hull_216" file="assets/white_yellow_mug_hull_216.obj" />
+    <mesh name="white_yellow_mug_hull_217" file="assets/white_yellow_mug_hull_217.obj" />
+    <mesh name="white_yellow_mug_hull_218" file="assets/white_yellow_mug_hull_218.obj" />
+    <mesh name="white_yellow_mug_hull_219" file="assets/white_yellow_mug_hull_219.obj" />
+    <mesh name="white_yellow_mug_hull_220" file="assets/white_yellow_mug_hull_220.obj" />
+    <mesh name="white_yellow_mug_hull_221" file="assets/white_yellow_mug_hull_221.obj" />
+    <mesh name="white_yellow_mug_hull_222" file="assets/white_yellow_mug_hull_222.obj" />
+    <mesh name="white_yellow_mug_hull_223" file="assets/white_yellow_mug_hull_223.obj" />
+    <mesh name="white_yellow_mug_hull_224" file="assets/white_yellow_mug_hull_224.obj" />
+    <mesh name="white_yellow_mug_hull_225" file="assets/white_yellow_mug_hull_225.obj" />
+    <mesh name="white_yellow_mug_hull_226" file="assets/white_yellow_mug_hull_226.obj" />
+    <mesh name="white_yellow_mug_hull_227" file="assets/white_yellow_mug_hull_227.obj" />
+    <mesh name="white_yellow_mug_hull_228" file="assets/white_yellow_mug_hull_228.obj" />
+    <mesh name="white_yellow_mug_hull_229" file="assets/white_yellow_mug_hull_229.obj" />
+    <mesh name="white_yellow_mug_hull_230" file="assets/white_yellow_mug_hull_230.obj" />
+    <mesh name="white_yellow_mug_hull_231" file="assets/white_yellow_mug_hull_231.obj" />
+    <mesh name="white_yellow_mug_hull_232" file="assets/white_yellow_mug_hull_232.obj" />
+    <mesh name="white_yellow_mug_hull_233" file="assets/white_yellow_mug_hull_233.obj" />
+    <mesh name="white_yellow_mug_hull_234" file="assets/white_yellow_mug_hull_234.obj" />
+    <mesh name="white_yellow_mug_hull_235" file="assets/white_yellow_mug_hull_235.obj" />
+    <mesh name="white_yellow_mug_hull_236" file="assets/white_yellow_mug_hull_236.obj" />
+    <mesh name="white_yellow_mug_hull_237" file="assets/white_yellow_mug_hull_237.obj" />
+    <mesh name="white_yellow_mug_hull_238" file="assets/white_yellow_mug_hull_238.obj" />
+    <mesh name="white_yellow_mug_hull_239" file="assets/white_yellow_mug_hull_239.obj" />
+    <mesh name="white_yellow_mug_hull_240" file="assets/white_yellow_mug_hull_240.obj" />
+    <mesh name="white_yellow_mug_hull_241" file="assets/white_yellow_mug_hull_241.obj" />
+    <mesh name="white_yellow_mug_hull_242" file="assets/white_yellow_mug_hull_242.obj" />
+    <mesh name="white_yellow_mug_hull_243" file="assets/white_yellow_mug_hull_243.obj" />
+    <mesh name="white_yellow_mug_hull_244" file="assets/white_yellow_mug_hull_244.obj" />
+    <mesh name="white_yellow_mug_hull_245" file="assets/white_yellow_mug_hull_245.obj" />
+    <mesh name="white_yellow_mug_hull_246" file="assets/white_yellow_mug_hull_246.obj" />
+    <mesh name="white_yellow_mug_hull_247" file="assets/white_yellow_mug_hull_247.obj" />
+    <mesh name="white_yellow_mug_hull_248" file="assets/white_yellow_mug_hull_248.obj" />
+    <mesh name="white_yellow_mug_hull_249" file="assets/white_yellow_mug_hull_249.obj" />
+    <mesh name="white_yellow_mug_hull_250" file="assets/white_yellow_mug_hull_250.obj" />
+    <mesh name="white_yellow_mug_hull_251" file="assets/white_yellow_mug_hull_251.obj" />
+    <mesh name="white_yellow_mug_hull_252" file="assets/white_yellow_mug_hull_252.obj" />
+    <mesh name="white_yellow_mug_hull_253" file="assets/white_yellow_mug_hull_253.obj" />
+    <mesh name="white_yellow_mug_hull_254" file="assets/white_yellow_mug_hull_254.obj" />
+    <mesh name="white_yellow_mug_hull_255" file="assets/white_yellow_mug_hull_255.obj" />
+    <mesh name="white_yellow_mug_hull_256" file="assets/white_yellow_mug_hull_256.obj" />
+    <mesh name="white_yellow_mug_hull_257" file="assets/white_yellow_mug_hull_257.obj" />
+    <mesh name="white_yellow_mug_hull_258" file="assets/white_yellow_mug_hull_258.obj" />
+    <mesh name="white_yellow_mug_hull_259" file="assets/white_yellow_mug_hull_259.obj" />
+    <mesh name="white_yellow_mug_hull_260" file="assets/white_yellow_mug_hull_260.obj" />
+    <mesh name="white_yellow_mug_hull_261" file="assets/white_yellow_mug_hull_261.obj" />
+    <mesh name="plate_1_model_vis" file="assets/model_vis.msh" scale="0.5 0.5 0.5" />
+    <mesh name="plate_2_model_vis" file="assets/model_vis.msh" scale="0.5 0.5 0.5" />
+    <texture name="microwave_1_start_key_texture" type="2d" file="assets/start-key.png" />
+    <material name="microwave_1_start_key_cap" rgba="0.08 0.32 0.38 1" metallic="0" roughness="0.75" />
+    <material name="microwave_1_start_key_label" texture="microwave_1_start_key_texture" metallic="0" roughness="1" />
+    <mesh name="microwave_1_start_key_decal" file="assets/start-key-decal.obj" scale="0.018 0.008 1" inertia="shell" />
+  </asset>
+  <worldbody>
+    <geom name="floor" size="3 3 0.125" type="plane" group="1" material="floorplane" />
+    <geom pos="-1.65 0 0.9" quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" material="kitchen_background_stove" mesh="kitchen_background_stove_vis" />
+    <geom pos="-1.5 0.23 0.93" quat="0.316228 0 0 0.948683" type="mesh" contype="0" conaffinity="0" group="1" material="kitchen_background_hot_pot" mesh="kitchen_background_hot_pot_vis" />
+    <geom pos="-1.85 -0.85 0.9" quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" material="kitchen_background_pot" mesh="kitchen_background_pot_vis" />
+    <geom pos="-1.75 -2.4 0" quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" material="kitchen_background_fridge" mesh="kitchen_background_fridge_vis" />
+    <geom pos="-1.65 0 0" quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" material="kitchen_background" mesh="kitchen_background_vis" />
+    <geom name="wall_left_visual" size="2.5 1.5 0.01" pos="0.5 3 1.5" quat="0.707107 0.707107 0 0" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <geom name="wall_right_visual" size="2.5 1.5 0.01" pos="0.5 -3 1.5" quat="0.707107 -0.707107 0 0" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <geom name="wall_rear_visual" size="3 1.5 0.01" pos="-2 0 1.5" quat="0.5 0.5 0.5 0.5" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <geom name="wall_front_visual" size="3 1.5 0.01" pos="3 0 1.5" quat="0.5 0.5 -0.5 -0.5" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <camera name="frontview" pos="1 0 1.48" quat="0.560842 0.430646 0.430646 0.560842" />
+    <camera name="birdview" pos="-0.2 0 3" quat="0.707107 0 0 0.707107" />
+    <camera name="agentview" pos="0.658613 0 1.61035" quat="0.638018 0.30485 0.30485 0.638018" fovy="65" />
+    <camera name="sideview" pos="-0.0565177 1.27612 1.48796" quat="0.00990507 0.00687796 0.591223 0.806418" />
+    <camera name="galleryview" pos="2.84455 2.12797 3.12862" quat="0.422614 0.233744 0.416469 0.770269" />
+    <camera name="paperview" pos="2.1 0.535 2.075" quat="0.512987 0.352991 0.442988 0.644983" />
+    <camera name="leftview" pos="0.400971 -0.622003 1.61035" quat="0.83361 0.398305 0.164984 0.345293" />
+    <camera name="rightview" pos="0.400971 0.622002 1.61035" quat="0.345293 0.164983 0.398305 0.83361" />
+    <light name="light_kitchen" pos="-1.75 0 1.6" dir="0 0 -1" directional="true" castshadow="false" diffuse="0.8 0.8 0.8" specular="0.8 0.8 0.8" />
+    <light name="light1" pos="1 1 4" dir="0 -0.14834 -0.988936" castshadow="false" diffuse="0.8 0.8 0.8" />
+    <light name="light2" pos="-3 -3 4" dir="0 -0.14834 -0.988936" castshadow="false" diffuse="0.8 0.8 0.8" />
+    <body name="table" pos="0 0 0.875">
+      <geom name="table_collision" size="0.5 0.6 0.025" type="box" material="surface_wood" />
+      <geom name="table_visual" size="0.5 0.6 0.025" type="box" contype="0" conaffinity="0" group="1" material="table_texture" />
+      <geom name="table_leg1_visual" size="0.025 0.4375" pos="0.4 0.5 -0.4375" type="cylinder" contype="0" conaffinity="0" group="1" material="table_legs" />
+      <geom name="table_leg2_visual" size="0.025 0.4375" pos="-0.4 0.5 -0.4375" type="cylinder" contype="0" conaffinity="0" group="1" material="table_legs" />
+      <geom name="table_leg3_visual" size="0.025 0.4375" pos="-0.4 -0.5 -0.4375" type="cylinder" contype="0" conaffinity="0" group="1" material="table_legs" />
+      <geom name="table_leg4_visual" size="0.025 0.4375" pos="0.4 -0.5 -0.4375" type="cylinder" contype="0" conaffinity="0" group="1" material="table_legs" />
+      <site name="table_top" pos="0 0 0.025" size="0.001" rgba="0 0 0 0" />
+      <site name="kitchen_table_microwave_init_region" pos="0 0.35 0" size="0.01 0.01 0.007" type="box" rgba="0 0 1 0" />
+      <site name="kitchen_table_white_yellow_mug_init_region" pos="0 0 0" size="0.025 0.025 0.007" type="box" rgba="0 0 1 0" />
+    </body>
+    <body name="white_yellow_mug_1_main">
+      <joint name="white_yellow_mug_1_joint0" type="free" limited="false" actuatorfrclimited="false" damping="0.0005" />
+      <inertial pos="0 0 0.0270" mass="0.350" diaginertia="5.188e-04 4.804e-04 4.214e-04" />
+      <geom name="white_yellow_mug_1_coffee" type="cylinder" size="0.039 0.001" pos="-0.0174 -0.0002 0.057" contype="0" conaffinity="0" group="1" rgba="0.22 0.11 0.05 1" />
+      <geom name="white_yellow_mug_1_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="2 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="white_yellow_mug_1_white_yellow_mug" mesh="white_yellow_mug_1_white_yellow_mug_vis" />
+      <geom name="white_yellow_mug_1_hull_0" type="mesh" mesh="white_yellow_mug_hull_0" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_1" type="mesh" mesh="white_yellow_mug_hull_1" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_2" type="mesh" mesh="white_yellow_mug_hull_2" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_3" type="mesh" mesh="white_yellow_mug_hull_3" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_4" type="mesh" mesh="white_yellow_mug_hull_4" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_5" type="mesh" mesh="white_yellow_mug_hull_5" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_6" type="mesh" mesh="white_yellow_mug_hull_6" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_7" type="mesh" mesh="white_yellow_mug_hull_7" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_8" type="mesh" mesh="white_yellow_mug_hull_8" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_9" type="mesh" mesh="white_yellow_mug_hull_9" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_10" type="mesh" mesh="white_yellow_mug_hull_10" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_11" type="mesh" mesh="white_yellow_mug_hull_11" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_12" type="mesh" mesh="white_yellow_mug_hull_12" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_13" type="mesh" mesh="white_yellow_mug_hull_13" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_14" type="mesh" mesh="white_yellow_mug_hull_14" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_15" type="mesh" mesh="white_yellow_mug_hull_15" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_16" type="mesh" mesh="white_yellow_mug_hull_16" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_17" type="mesh" mesh="white_yellow_mug_hull_17" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_18" type="mesh" mesh="white_yellow_mug_hull_18" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_19" type="mesh" mesh="white_yellow_mug_hull_19" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_20" type="mesh" mesh="white_yellow_mug_hull_20" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_21" type="mesh" mesh="white_yellow_mug_hull_21" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_22" type="mesh" mesh="white_yellow_mug_hull_22" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_23" type="mesh" mesh="white_yellow_mug_hull_23" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_24" type="mesh" mesh="white_yellow_mug_hull_24" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_25" type="mesh" mesh="white_yellow_mug_hull_25" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_26" type="mesh" mesh="white_yellow_mug_hull_26" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_27" type="mesh" mesh="white_yellow_mug_hull_27" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_28" type="mesh" mesh="white_yellow_mug_hull_28" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_29" type="mesh" mesh="white_yellow_mug_hull_29" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_30" type="mesh" mesh="white_yellow_mug_hull_30" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_31" type="mesh" mesh="white_yellow_mug_hull_31" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_32" type="mesh" mesh="white_yellow_mug_hull_32" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_33" type="mesh" mesh="white_yellow_mug_hull_33" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_34" type="mesh" mesh="white_yellow_mug_hull_34" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_35" type="mesh" mesh="white_yellow_mug_hull_35" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_36" type="mesh" mesh="white_yellow_mug_hull_36" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_37" type="mesh" mesh="white_yellow_mug_hull_37" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_38" type="mesh" mesh="white_yellow_mug_hull_38" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_39" type="mesh" mesh="white_yellow_mug_hull_39" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_40" type="mesh" mesh="white_yellow_mug_hull_40" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_41" type="mesh" mesh="white_yellow_mug_hull_41" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_42" type="mesh" mesh="white_yellow_mug_hull_42" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_43" type="mesh" mesh="white_yellow_mug_hull_43" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_44" type="mesh" mesh="white_yellow_mug_hull_44" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_45" type="mesh" mesh="white_yellow_mug_hull_45" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_46" type="mesh" mesh="white_yellow_mug_hull_46" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_47" type="mesh" mesh="white_yellow_mug_hull_47" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_48" type="mesh" mesh="white_yellow_mug_hull_48" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_49" type="mesh" mesh="white_yellow_mug_hull_49" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_50" type="mesh" mesh="white_yellow_mug_hull_50" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_51" type="mesh" mesh="white_yellow_mug_hull_51" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_52" type="mesh" mesh="white_yellow_mug_hull_52" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_53" type="mesh" mesh="white_yellow_mug_hull_53" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_54" type="mesh" mesh="white_yellow_mug_hull_54" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_55" type="mesh" mesh="white_yellow_mug_hull_55" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_56" type="mesh" mesh="white_yellow_mug_hull_56" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_57" type="mesh" mesh="white_yellow_mug_hull_57" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_58" type="mesh" mesh="white_yellow_mug_hull_58" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_59" type="mesh" mesh="white_yellow_mug_hull_59" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_60" type="mesh" mesh="white_yellow_mug_hull_60" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_61" type="mesh" mesh="white_yellow_mug_hull_61" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_62" type="mesh" mesh="white_yellow_mug_hull_62" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_63" type="mesh" mesh="white_yellow_mug_hull_63" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_64" type="mesh" mesh="white_yellow_mug_hull_64" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_65" type="mesh" mesh="white_yellow_mug_hull_65" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_66" type="mesh" mesh="white_yellow_mug_hull_66" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_67" type="mesh" mesh="white_yellow_mug_hull_67" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_68" type="mesh" mesh="white_yellow_mug_hull_68" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_69" type="mesh" mesh="white_yellow_mug_hull_69" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_70" type="mesh" mesh="white_yellow_mug_hull_70" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_71" type="mesh" mesh="white_yellow_mug_hull_71" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_72" type="mesh" mesh="white_yellow_mug_hull_72" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_73" type="mesh" mesh="white_yellow_mug_hull_73" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_74" type="mesh" mesh="white_yellow_mug_hull_74" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_75" type="mesh" mesh="white_yellow_mug_hull_75" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_76" type="mesh" mesh="white_yellow_mug_hull_76" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_77" type="mesh" mesh="white_yellow_mug_hull_77" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_78" type="mesh" mesh="white_yellow_mug_hull_78" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_79" type="mesh" mesh="white_yellow_mug_hull_79" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_80" type="mesh" mesh="white_yellow_mug_hull_80" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_81" type="mesh" mesh="white_yellow_mug_hull_81" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_82" type="mesh" mesh="white_yellow_mug_hull_82" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_83" type="mesh" mesh="white_yellow_mug_hull_83" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_84" type="mesh" mesh="white_yellow_mug_hull_84" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_85" type="mesh" mesh="white_yellow_mug_hull_85" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_86" type="mesh" mesh="white_yellow_mug_hull_86" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_87" type="mesh" mesh="white_yellow_mug_hull_87" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_88" type="mesh" mesh="white_yellow_mug_hull_88" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_89" type="mesh" mesh="white_yellow_mug_hull_89" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_90" type="mesh" mesh="white_yellow_mug_hull_90" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_91" type="mesh" mesh="white_yellow_mug_hull_91" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_92" type="mesh" mesh="white_yellow_mug_hull_92" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_93" type="mesh" mesh="white_yellow_mug_hull_93" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_94" type="mesh" mesh="white_yellow_mug_hull_94" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_95" type="mesh" mesh="white_yellow_mug_hull_95" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_96" type="mesh" mesh="white_yellow_mug_hull_96" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_97" type="mesh" mesh="white_yellow_mug_hull_97" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_98" type="mesh" mesh="white_yellow_mug_hull_98" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_99" type="mesh" mesh="white_yellow_mug_hull_99" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_100" type="mesh" mesh="white_yellow_mug_hull_100" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_101" type="mesh" mesh="white_yellow_mug_hull_101" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_102" type="mesh" mesh="white_yellow_mug_hull_102" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_103" type="mesh" mesh="white_yellow_mug_hull_103" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_104" type="mesh" mesh="white_yellow_mug_hull_104" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_105" type="mesh" mesh="white_yellow_mug_hull_105" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_106" type="mesh" mesh="white_yellow_mug_hull_106" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_107" type="mesh" mesh="white_yellow_mug_hull_107" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_108" type="mesh" mesh="white_yellow_mug_hull_108" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_109" type="mesh" mesh="white_yellow_mug_hull_109" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_110" type="mesh" mesh="white_yellow_mug_hull_110" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_111" type="mesh" mesh="white_yellow_mug_hull_111" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_112" type="mesh" mesh="white_yellow_mug_hull_112" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_113" type="mesh" mesh="white_yellow_mug_hull_113" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_114" type="mesh" mesh="white_yellow_mug_hull_114" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_115" type="mesh" mesh="white_yellow_mug_hull_115" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_116" type="mesh" mesh="white_yellow_mug_hull_116" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_117" type="mesh" mesh="white_yellow_mug_hull_117" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_118" type="mesh" mesh="white_yellow_mug_hull_118" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_119" type="mesh" mesh="white_yellow_mug_hull_119" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_120" type="mesh" mesh="white_yellow_mug_hull_120" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_121" type="mesh" mesh="white_yellow_mug_hull_121" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_122" type="mesh" mesh="white_yellow_mug_hull_122" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_123" type="mesh" mesh="white_yellow_mug_hull_123" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_124" type="mesh" mesh="white_yellow_mug_hull_124" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_125" type="mesh" mesh="white_yellow_mug_hull_125" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_126" type="mesh" mesh="white_yellow_mug_hull_126" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_127" type="mesh" mesh="white_yellow_mug_hull_127" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_128" type="mesh" mesh="white_yellow_mug_hull_128" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_129" type="mesh" mesh="white_yellow_mug_hull_129" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_130" type="mesh" mesh="white_yellow_mug_hull_130" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_131" type="mesh" mesh="white_yellow_mug_hull_131" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_132" type="mesh" mesh="white_yellow_mug_hull_132" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_133" type="mesh" mesh="white_yellow_mug_hull_133" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_134" type="mesh" mesh="white_yellow_mug_hull_134" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_135" type="mesh" mesh="white_yellow_mug_hull_135" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_136" type="mesh" mesh="white_yellow_mug_hull_136" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_137" type="mesh" mesh="white_yellow_mug_hull_137" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_138" type="mesh" mesh="white_yellow_mug_hull_138" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_139" type="mesh" mesh="white_yellow_mug_hull_139" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_140" type="mesh" mesh="white_yellow_mug_hull_140" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_141" type="mesh" mesh="white_yellow_mug_hull_141" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_142" type="mesh" mesh="white_yellow_mug_hull_142" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_143" type="mesh" mesh="white_yellow_mug_hull_143" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_144" type="mesh" mesh="white_yellow_mug_hull_144" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_145" type="mesh" mesh="white_yellow_mug_hull_145" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_146" type="mesh" mesh="white_yellow_mug_hull_146" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_147" type="mesh" mesh="white_yellow_mug_hull_147" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_148" type="mesh" mesh="white_yellow_mug_hull_148" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_149" type="mesh" mesh="white_yellow_mug_hull_149" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_150" type="mesh" mesh="white_yellow_mug_hull_150" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_151" type="mesh" mesh="white_yellow_mug_hull_151" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_152" type="mesh" mesh="white_yellow_mug_hull_152" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_153" type="mesh" mesh="white_yellow_mug_hull_153" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_154" type="mesh" mesh="white_yellow_mug_hull_154" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_155" type="mesh" mesh="white_yellow_mug_hull_155" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_156" type="mesh" mesh="white_yellow_mug_hull_156" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_157" type="mesh" mesh="white_yellow_mug_hull_157" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_158" type="mesh" mesh="white_yellow_mug_hull_158" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_159" type="mesh" mesh="white_yellow_mug_hull_159" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_160" type="mesh" mesh="white_yellow_mug_hull_160" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_161" type="mesh" mesh="white_yellow_mug_hull_161" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_162" type="mesh" mesh="white_yellow_mug_hull_162" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_163" type="mesh" mesh="white_yellow_mug_hull_163" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_164" type="mesh" mesh="white_yellow_mug_hull_164" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_165" type="mesh" mesh="white_yellow_mug_hull_165" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_166" type="mesh" mesh="white_yellow_mug_hull_166" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_167" type="mesh" mesh="white_yellow_mug_hull_167" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_168" type="mesh" mesh="white_yellow_mug_hull_168" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_169" type="mesh" mesh="white_yellow_mug_hull_169" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_170" type="mesh" mesh="white_yellow_mug_hull_170" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_171" type="mesh" mesh="white_yellow_mug_hull_171" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_172" type="mesh" mesh="white_yellow_mug_hull_172" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_173" type="mesh" mesh="white_yellow_mug_hull_173" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_174" type="mesh" mesh="white_yellow_mug_hull_174" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_175" type="mesh" mesh="white_yellow_mug_hull_175" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_176" type="mesh" mesh="white_yellow_mug_hull_176" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_177" type="mesh" mesh="white_yellow_mug_hull_177" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_178" type="mesh" mesh="white_yellow_mug_hull_178" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_179" type="mesh" mesh="white_yellow_mug_hull_179" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_180" type="mesh" mesh="white_yellow_mug_hull_180" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_181" type="mesh" mesh="white_yellow_mug_hull_181" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_182" type="mesh" mesh="white_yellow_mug_hull_182" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_183" type="mesh" mesh="white_yellow_mug_hull_183" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_184" type="mesh" mesh="white_yellow_mug_hull_184" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_185" type="mesh" mesh="white_yellow_mug_hull_185" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_186" type="mesh" mesh="white_yellow_mug_hull_186" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_187" type="mesh" mesh="white_yellow_mug_hull_187" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_188" type="mesh" mesh="white_yellow_mug_hull_188" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_189" type="mesh" mesh="white_yellow_mug_hull_189" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_190" type="mesh" mesh="white_yellow_mug_hull_190" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_191" type="mesh" mesh="white_yellow_mug_hull_191" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_192" type="mesh" mesh="white_yellow_mug_hull_192" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_193" type="mesh" mesh="white_yellow_mug_hull_193" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_194" type="mesh" mesh="white_yellow_mug_hull_194" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_195" type="mesh" mesh="white_yellow_mug_hull_195" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_196" type="mesh" mesh="white_yellow_mug_hull_196" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_197" type="mesh" mesh="white_yellow_mug_hull_197" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_198" type="mesh" mesh="white_yellow_mug_hull_198" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_199" type="mesh" mesh="white_yellow_mug_hull_199" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_200" type="mesh" mesh="white_yellow_mug_hull_200" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_201" type="mesh" mesh="white_yellow_mug_hull_201" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_202" type="mesh" mesh="white_yellow_mug_hull_202" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_203" type="mesh" mesh="white_yellow_mug_hull_203" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_204" type="mesh" mesh="white_yellow_mug_hull_204" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_205" type="mesh" mesh="white_yellow_mug_hull_205" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_206" type="mesh" mesh="white_yellow_mug_hull_206" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_207" type="mesh" mesh="white_yellow_mug_hull_207" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_208" type="mesh" mesh="white_yellow_mug_hull_208" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_209" type="mesh" mesh="white_yellow_mug_hull_209" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_210" type="mesh" mesh="white_yellow_mug_hull_210" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_211" type="mesh" mesh="white_yellow_mug_hull_211" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_212" type="mesh" mesh="white_yellow_mug_hull_212" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_213" type="mesh" mesh="white_yellow_mug_hull_213" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_214" type="mesh" mesh="white_yellow_mug_hull_214" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_215" type="mesh" mesh="white_yellow_mug_hull_215" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_216" type="mesh" mesh="white_yellow_mug_hull_216" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_217" type="mesh" mesh="white_yellow_mug_hull_217" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_218" type="mesh" mesh="white_yellow_mug_hull_218" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_219" type="mesh" mesh="white_yellow_mug_hull_219" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_220" type="mesh" mesh="white_yellow_mug_hull_220" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_221" type="mesh" mesh="white_yellow_mug_hull_221" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_222" type="mesh" mesh="white_yellow_mug_hull_222" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_223" type="mesh" mesh="white_yellow_mug_hull_223" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_224" type="mesh" mesh="white_yellow_mug_hull_224" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_225" type="mesh" mesh="white_yellow_mug_hull_225" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_226" type="mesh" mesh="white_yellow_mug_hull_226" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_227" type="mesh" mesh="white_yellow_mug_hull_227" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_228" type="mesh" mesh="white_yellow_mug_hull_228" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_229" type="mesh" mesh="white_yellow_mug_hull_229" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_230" type="mesh" mesh="white_yellow_mug_hull_230" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_231" type="mesh" mesh="white_yellow_mug_hull_231" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_232" type="mesh" mesh="white_yellow_mug_hull_232" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_233" type="mesh" mesh="white_yellow_mug_hull_233" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_234" type="mesh" mesh="white_yellow_mug_hull_234" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_235" type="mesh" mesh="white_yellow_mug_hull_235" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_236" type="mesh" mesh="white_yellow_mug_hull_236" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_237" type="mesh" mesh="white_yellow_mug_hull_237" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_238" type="mesh" mesh="white_yellow_mug_hull_238" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_239" type="mesh" mesh="white_yellow_mug_hull_239" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_240" type="mesh" mesh="white_yellow_mug_hull_240" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_241" type="mesh" mesh="white_yellow_mug_hull_241" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_242" type="mesh" mesh="white_yellow_mug_hull_242" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_243" type="mesh" mesh="white_yellow_mug_hull_243" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_244" type="mesh" mesh="white_yellow_mug_hull_244" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_245" type="mesh" mesh="white_yellow_mug_hull_245" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_246" type="mesh" mesh="white_yellow_mug_hull_246" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_247" type="mesh" mesh="white_yellow_mug_hull_247" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_248" type="mesh" mesh="white_yellow_mug_hull_248" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_249" type="mesh" mesh="white_yellow_mug_hull_249" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_250" type="mesh" mesh="white_yellow_mug_hull_250" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_251" type="mesh" mesh="white_yellow_mug_hull_251" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_252" type="mesh" mesh="white_yellow_mug_hull_252" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_253" type="mesh" mesh="white_yellow_mug_hull_253" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_254" type="mesh" mesh="white_yellow_mug_hull_254" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_255" type="mesh" mesh="white_yellow_mug_hull_255" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_256" type="mesh" mesh="white_yellow_mug_hull_256" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_257" type="mesh" mesh="white_yellow_mug_hull_257" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_258" type="mesh" mesh="white_yellow_mug_hull_258" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_259" type="mesh" mesh="white_yellow_mug_hull_259" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_260" type="mesh" mesh="white_yellow_mug_hull_260" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <geom name="white_yellow_mug_1_hull_261" type="mesh" mesh="white_yellow_mug_hull_261" friction="1 0.3 0.1" solref="0.0025 1" solimp="0.949 0.974 0.001" condim="4" priority="1" rgba="0.8 0.8 0.8 0" />
+      <site name="white_yellow_mug_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+    </body>
+    <body name="microwave_1_main" pos="-0.05 0 0.9" quat="-0.994496168 0 0 0.104772951">
+      <geom name="microwave_1_g0" type="mesh" contype="0" conaffinity="0" group="1" material="microwave_1_micro_black" mesh="microwave_1_micro" />
+      <geom name="microwave_1_g2" type="mesh" contype="0" conaffinity="0" group="1" material="microwave_1_micro_metal" mesh="microwave_1_microfeet" />
+      <geom name="microwave_1_g3" size="0.0145 0.09955 0.0935" pos="-0.158 0.0115 0.0935" type="box" contype="0" solimp="0.8 0.9 0.01" margin="0.001" mass="0.5" material="microwave_1_micro_collision_blue" />
+      <geom name="microwave_1_g4" size="0.0545 0.09955 0.0935" pos="0.118 0.0115 0.0935" type="box" contype="0" solimp="0.8 0.9 0.01" margin="0.001" mass="0.5" material="microwave_1_micro_collision_blue" />
+      <geom name="microwave_1_g5" size="0.1035 0.015 0.0935" pos="-0.0405 0.0955 0.0935" type="box" contype="0" solimp="0.8 0.9 0.01" margin="0.001" mass="0.5" material="microwave_1_micro_collision_blue" />
+      <geom name="microwave_1_g6" size="0.1035 0.0845 0.0095" pos="-0.04 -0.0035 0.1775" type="box" contype="0" solimp="0.8 0.9 0.01" margin="0.001" mass="0.5" material="microwave_1_micro_collision_blue" />
+      <geom name="microwave_1_g7" size="0.1035 0.084 0.012" pos="-0.04 -0.004 0.012" type="box" contype="0" solimp="0.8 0.9 0.01" margin="0.001" mass="0.5" material="microwave_1_micro_collision_blue" />
+      <geom name="microwave_1_g8" size="0.0425 0.012 0.0935" pos="0.13 -0.0985 0.0935" type="box" contype="0" solimp="0.8 0.9 0.01" margin="0.001" mass="0.5" material="microwave_1_micro_collision_blue" />
+      <site name="microwave_1_top_side" pos="0 0.01 0.2" size="0.12 0.0835 0.005" type="box" rgba="1 0 0 0" />
+      <site name="microwave_1_heating_region" pos="0 0.01 0.096" size="0.12 0.0835 0.08" type="box" rgba="1 0 0 0" />
+      <site name="microwave_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+      <body name="microwave_1_microdoorroot" pos="-0.1725 -0.088 0.096">
+        <joint name="microwave_1_microjoint" pos="0 0 0" axis="0 0 1" limited="true" range="-2.094 0" damping="0.5" />
+        <geom name="microwave_1_g9" pos="0.1725 0.088 -0.096" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" material="microwave_1_micro_black" mesh="microwave_1_microdoor" />
+        <geom name="microwave_1_g10" pos="0.1725 0.088 -0.096" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" material="microwave_1_micro_window" mesh="microwave_1_microwindow" />
+        <geom name="microwave_1_g11" size="0.01 0.065" pos="0.2375 -0.054 0" type="capsule" contype="0" conaffinity="0" group="1" material="microwave_1_micro_metal" />
+        <geom name="microwave_1_g12" size="0.01 0.015" pos="0.2375 -0.0375 0.065" quat="0.707388 0.706825 0 0" type="capsule" contype="0" conaffinity="0" group="1" material="microwave_1_micro_metal" />
+        <geom name="microwave_1_g13" size="0.01 0.015" pos="0.2375 -0.0375 -0.065" quat="0.707388 0.706825 0 0" type="capsule" contype="0" conaffinity="0" group="1" material="microwave_1_micro_metal" />
+        <geom name="microwave_1_g14" size="0.01 0.065" pos="0.2375 -0.054 0" type="capsule" contype="0" solimp="0.8 0.9 0.01" margin="0.001" mass="0.02" material="microwave_1_micro_collision_blue" />
+        <geom name="microwave_1_g15" size="0.01 0.015" pos="0.2375 -0.0375 0.065" quat="0.707388 0.706825 0 0" type="capsule" contype="0" solimp="0.8 0.9 0.01" margin="0.001" mass="0.02" material="microwave_1_micro_collision_blue" />
+        <geom name="microwave_1_g16" size="0.01 0.015" pos="0.2375 -0.0375 -0.065" quat="0.707388 0.706825 0 0" type="capsule" contype="0" solimp="0.8 0.9 0.01" margin="0.001" mass="0.02" material="microwave_1_micro_collision_blue" />
+        <geom name="microwave_1_g17" size="0.1295 0.012 0.0925" pos="0.1295 -0.013 0" type="box" contype="0" solimp="0.8 0.9 0.01" margin="0.001" mass="0.2" material="microwave_1_micro_collision_blue" />
+      </body>
+      <body name="microwave_1_start_key" pos="0.15 -0.1135 0.16">
+        <joint name="microwave_1_start_key" type="slide" axis="0 -1 0" limited="true" range="-0.006 0" stiffness="50" springref="0" damping="1" armature="0.001" />
+        <geom name="microwave_1_start_key_visual" type="box" size="0.020 0.003 0.012" group="1" contype="0" conaffinity="0" material="microwave_1_start_key_cap" />
+        <geom name="microwave_1_start_key_collision" type="box" size="0.020 0.003 0.012" group="3" contype="0" conaffinity="1" density="1000" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" rgba="0.08 0.32 0.38 0" />
+        <geom name="microwave_1_start_key_label_visual" type="mesh" mesh="microwave_1_start_key_decal" group="1" contype="0" conaffinity="0" mass="0" pos="0 -0.00305 0" quat="0.707107 0.707107 0 0" material="microwave_1_start_key_label" />
+      </body>
+    </body>
+    <body name="red_coffee_mug_1_main">
+      <joint name="red_coffee_mug_1_joint0" type="free" limited="false" actuatorfrclimited="false" damping="0.0005" />
+      <inertial pos="0 0 0.0350" mass="0.360" diaginertia="6.186e-04 5.498e-04 3.620e-04" />
+      <geom name="red_coffee_mug_1_base" type="cylinder" size="0.036 0.002" pos="-0.0167 -0.0004 0.0002" group="3" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" rgba="0 0 0 0" />
+      <geom name="red_coffee_mug_1_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="red_coffee_mug_1_red_coffee_mug" mesh="red_coffee_mug_1_red_coffee_mug_vis" />
+      <geom name="red_coffee_mug_1_g1" size="0.00251 0.02354 0.02686" pos="-0.01531 -0.00301 0.00526" quat="0.707107 0 0.707107 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="red_coffee_mug_1_g2" size="0.00351 0.02064 0.06637" pos="0.00784 -0.01707 0.0645" quat="0.01829 -0.945419 0.32085 0.05388" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="red_coffee_mug_1_g3" size="0.00351 0.02064 0.06637" pos="-0.01551 -0.03478 0.0645" quat="0.04024 -0.705961 -0.705961 -0.04024" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="red_coffee_mug_1_g4" size="0.00351 0.02064 0.06637" pos="0.01023 0.00559 0.0645" quat="0.988708 -0.00789999 0.0563499 0.13863" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="red_coffee_mug_1_g5" size="0.00351 0.02064 0.06637" pos="-0.00677 0.02828 0.0645" quat="0.808941 -0.03335 0.0461 0.58513" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="red_coffee_mug_1_g6" size="0.00351 0.02064 0.06637" pos="-0.03366 0.02452 0.0645" quat="0.0512198 0.434739 0.898757 -0.0247799" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="red_coffee_mug_1_g7" size="0.00351 0.02064 0.06637" pos="-0.04726 -0.00246 0.0645" quat="0.05689 -0.02366 0.998099 0.00135" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="red_coffee_mug_1_g8" size="0.00351 0.02064 0.06637" pos="-0.03828 -0.02489 0.0645" quat="0.386509 0.0524699 0.02203 -0.920528" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="red_coffee_mug_1_g9" size="0.00292 0.00757 0.03425" pos="0.03685 0.00109 0.05041" quat="0.931809 0 0.36295 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="red_coffee_mug_1_g10" size="0.00266 0.00692 0.01924" pos="0.05474 0.00109 0.09435" quat="0.998686 0 -0.0512398 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="red_coffee_mug_1_g11" size="0.00266 0.00692 0.01822" pos="0.03457 0.00109 0.11162" quat="0.755778 0 0.654828 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <site name="red_coffee_mug_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+    </body>
+    <body name="plate_1_main">
+      <joint name="plate_1_joint0" type="free" limited="false" actuatorfrclimited="false" damping="0.0005" />
+      <geom name="plate_1_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="plate_1_model" mesh="plate_1_model_vis" />
+      <geom name="plate_1_g1" size="0.00222 0.02851 0.03057" pos="0 0 0.00313" quat="0.493559 0.493559 -0.506359 0.506359" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_1_g2" size="0.00254 0.01913 0.02851" pos="0 0.04828 0.00696" quat="0.705736 0.121389 0.687896 0.118319" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_1_g3" size="0.00254 0.01913 0.02851" pos="0 0.04828 0.00696" quat="0.705736 0.121389 0.687896 0.118319" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_1_g4" size="0.00254 0.01913 0.02851" pos="0.03237 0.03583 0.00696" quat="0.701142 0.360361 0.598392 -0.14306" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_1_g5" size="0.00254 0.01913 0.02851" pos="0.04818 0.00314 0.00696" quat="0.5959 0.55892 0.41899 -0.39618" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_1_g6" size="0.00254 0.01913 0.02851" pos="0.03658 -0.03152 0.00696" quat="0.675912 -0.401641 0.592241 0.17629" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_1_g7" size="0.00254 0.01913 0.02851" pos="0.0023 -0.04823 0.00696" quat="0.13507 0.69059 -0.105 -0.70272" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_1_g8" size="0.00254 0.01913 0.02851" pos="-0.03334 -0.03492 0.00696" quat="0.593389 0.15267 0.699109 -0.368549" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_1_g9" size="0.00254 0.01913 0.02851" pos="-0.04827 -0.0013 0.00696" quat="0.408271 0.407461 0.588251 -0.566791" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_1_g10" size="0.00254 0.01913 0.02851" pos="-0.03442 0.03386 0.00696" quat="0.605157 -0.153919 0.681357 0.381898" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <site name="plate_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+    </body>
+    <body name="plate_2_main">
+      <joint name="plate_2_joint0" type="free" limited="false" actuatorfrclimited="false" damping="0.0005" />
+      <geom name="plate_2_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="plate_2_model" mesh="plate_2_model_vis" />
+      <geom name="plate_2_g1" size="0.00222 0.02851 0.03057" pos="0 0 0.00313" quat="0.493559 0.493559 -0.506359 0.506359" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_2_g2" size="0.00254 0.01913 0.02851" pos="0 0.04828 0.00696" quat="0.705736 0.121389 0.687896 0.118319" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_2_g3" size="0.00254 0.01913 0.02851" pos="0 0.04828 0.00696" quat="0.705736 0.121389 0.687896 0.118319" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_2_g4" size="0.00254 0.01913 0.02851" pos="0.03237 0.03583 0.00696" quat="0.701142 0.360361 0.598392 -0.14306" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_2_g5" size="0.00254 0.01913 0.02851" pos="0.04818 0.00314 0.00696" quat="0.5959 0.55892 0.41899 -0.39618" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_2_g6" size="0.00254 0.01913 0.02851" pos="0.03658 -0.03152 0.00696" quat="0.675912 -0.401641 0.592241 0.17629" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_2_g7" size="0.00254 0.01913 0.02851" pos="0.0023 -0.04823 0.00696" quat="0.13507 0.69059 -0.105 -0.70272" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_2_g8" size="0.00254 0.01913 0.02851" pos="-0.03334 -0.03492 0.00696" quat="0.593389 0.15267 0.699109 -0.368549" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_2_g9" size="0.00254 0.01913 0.02851" pos="-0.04827 -0.0013 0.00696" quat="0.408271 0.407461 0.588251 -0.566791" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="plate_2_g10" size="0.00254 0.01913 0.02851" pos="-0.03442 0.03386 0.00696" quat="0.605157 -0.153919 0.681357 0.381898" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <site name="plate_2_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+    </body>
+  </worldbody>
+  <contact>
+    <pair geom1="white_yellow_mug_1_hull_0" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_1" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_2" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_3" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_4" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_5" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_6" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_7" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_8" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_9" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_10" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_11" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_12" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_13" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_14" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_15" geom2="table_collision" condim="3" friction="0.95 0.95 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_16" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_17" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_18" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_19" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_20" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_21" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_22" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_23" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_24" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_25" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_26" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_27" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_28" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_29" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_30" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_31" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_32" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_33" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_34" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_35" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_36" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_37" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_38" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_39" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_40" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_41" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_42" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_43" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_44" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_45" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_46" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_47" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_48" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_49" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_50" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_51" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_52" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_53" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_54" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_55" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_56" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_57" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_58" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_59" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_60" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_61" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_62" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_63" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_64" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_65" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_66" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_67" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_68" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_69" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_70" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_71" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_72" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_73" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_74" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_75" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_76" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_77" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_78" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_79" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_80" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_81" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_82" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_83" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_84" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_85" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_86" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_87" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_88" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_89" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_90" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_91" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_92" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_93" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_94" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_95" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_96" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_97" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_98" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_99" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_100" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_101" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_102" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_103" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_104" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_105" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_106" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_107" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_108" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_109" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_110" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_111" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_112" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_113" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_114" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_115" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_116" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_117" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_118" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_119" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_120" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_121" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_122" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_123" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_124" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_125" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_126" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_127" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_128" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_129" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_130" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_131" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_132" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_133" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_134" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_135" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_136" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_137" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_138" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_139" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_140" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_141" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_142" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_143" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_144" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_145" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_146" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_147" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_148" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_149" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_150" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_151" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_152" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_153" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_154" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_155" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_156" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_157" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_158" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_159" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_160" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_161" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_162" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_163" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_164" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_165" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_166" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_167" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_168" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_169" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_170" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_171" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_172" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_173" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_174" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_175" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_176" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_177" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_178" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_179" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_180" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_181" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_182" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_183" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_184" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_185" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_186" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_187" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_188" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_189" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_190" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_191" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_192" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_193" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_194" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_195" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_196" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_197" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_198" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_199" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_200" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_201" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_202" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_203" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_204" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_205" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_206" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_207" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_208" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_209" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_210" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_211" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_212" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_213" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_214" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_215" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_216" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_217" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_218" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_219" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_220" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_221" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_222" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_223" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_224" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_225" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_226" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_227" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_228" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_229" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_230" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_231" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_232" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_233" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_234" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_235" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_236" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_237" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_238" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_239" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_240" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_241" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_242" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_243" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_244" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_245" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_246" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_247" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_248" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_249" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_250" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_251" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_252" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_253" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_254" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_255" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_256" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_257" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_258" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_259" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_260" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+    <pair geom1="white_yellow_mug_1_hull_261" geom2="table_collision" condim="3" friction="2 2 0.3 0.1 0.1" solref="0.002 0.5" solimp="0.998 0.998" />
+  </contact>
+</mujoco>

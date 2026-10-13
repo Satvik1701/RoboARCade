@@ -1,0 +1,18 @@
+{
+ "source": {
+  "repo": "autobio-bench/AutoBio",
+  "paper": "arXiv:2505.14030",
+  "objects": [
+   "model/instrument/vortex_mixer_genie_2.xml",
+   "model/object/centrifuge_1500ul_no_lid.gen.xml",
+   "model/object/centrifuge_plate_60well.gen.xml"
+  ]
+ },
+ "generated_by": "datagen/autobio/vortex.py",
+ "date": "2026-09-10",
+ "notes": "the Vortex-Genie 2 from instruments.load() on our bench. The shared 60-well rack keeps its source 11.2 mm straight-sided openings and 21 mm depth; 960 massless collision boxes back the drawn round-hole deck corners that the source's square clearances left unsupported. A pack-declared motor maps detents 1 to 10 onto 600 to 3200 rpm; detent 0 stops. ON runs continuously, TOUCH requires 0.20 N external normal load, and OFF commands physical deceleration. The preserved pivot/orbit equality gives a 2 mm radius. A held sample pressing above 1600 rpm accumulates five control checks to latch the lamp green until OFF. Its liquid top tilts visually while mixing, with no mass or collision change. The tube retains the 15 degree upright invariant. The cup's central contact surface is at 0.9574648 m, below its 0.96106775 m rim; the controller probe raycasts the surface.",
+ "files": {
+  "scene.xml": "465322c2f1cace97",
+  "task.json": "b7657624dba6d5d3"
+ }
+}

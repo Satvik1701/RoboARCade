@@ -1,0 +1,24 @@
+{
+ "source": {
+  "repo": "authored treasure chest primitives + robodojo coin/key meshes",
+  "mesh_cache": [
+   "coin_0_9e82b2a88e88",
+   "key_0_d7976fe2d7fd"
+  ],
+  "replaces": [
+   "robodojo/deposit_coin",
+   "robodojo/fasten_screws",
+   "robodojo/insert_key"
+  ]
+ },
+ "upstream_license": "RoboDojo Non-Commercial Research License",
+ "generated_by": "datagen/robodojo/lockbox.py",
+ "notes": "A textured dark wood treasure chest with 135 mm tall body walls, a hollow domed lid with solid end panels and a brass arch handle. The key axis is 115 mm above the base. The key has a 50 mm shaft, one asymmetric bit and no pickup nub. Plate and rotor sleeve have 6 mm throat radius, 1.5 mm shaft radial clearance per side and 3.5 mm slot half width, giving 1 mm bit side clearance. The bottom clearance is 0.7 mm. A 2 mm 45 degree entry chamfer has matching collision and visible surfaces. The fixed slot admits a centered key at 6 degrees roll and refuses it at 10 degrees in physical axial fixtures. A visible spring loaded depth pin normally blocks the rotor and clears at 47.5 mm tip insertion measured from the wooden face; full nominal insertion is 53 mm. Real controller proofs from the recorded bow grasp reach full insertion and the unlock band after one regrasp, and prove shallow turn blocking before insertion and after unlocked withdrawal. Direct pad and coin contact fixtures hold the engaged rotor. The rotor drives the lid bolt, and the separate lid plunger prevents relocking with the lid open. Any four of six coins satisfy the deposit stage. Budget is 5000 control steps. The complete randomized table pickup and coin deposit route is not recertified by these recorded state mechanism proofs. Checker: datagen/robodojo/check_lockbox.py --mechanism-checks.",
+ "files": {
+  "assets/aged_brass.png": "09987b28d03b327b",
+  "assets/dark_wood_grain.png": "c782715e5efd5af9",
+  "scene.xml": "0caa6356681ca441",
+  "task.json": "0322077b0bfccafa",
+  "thumbnail.png": "c9d0203f909e36fc"
+ }
+}

@@ -1,0 +1,182 @@
+{
+ "spec_version": 1,
+ "family": "fabrica",
+ "category": "game",
+ "name": "stool_circular",
+ "support": ["table"],
+ "language": "Several loose parts lie on the table, but only one belongs to this assembly. Identify the piece missing from the partially assembled symmetric structure, pick it up, and add it to the structure. Then let go and draw the arm back.",
+ "scene": "scene.xml",
+ "robots": [
+  {
+   "name": "robot0",
+   "model": "franka_panda",
+   "base_pos": [
+    -0.56,
+    0.0,
+    0.912
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.19634954084936207,
+    0.0,
+    -2.617993877991494,
+    0.0,
+    2.941592653589793,
+    0.7853981633974483
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "agentview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "robot0",
+   "src": {
+    "pos": "0.0931 0 0.0072",
+    "quat": "0.177222 0.684538 0.684538 0.177222",
+    "fovy": "65"
+   }
+  },
+  {
+   "name": "leftview",
+   "role": "pc"
+  },
+  {
+   "name": "rightview",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "part4",
+  "part0",
+  "part1",
+  "part2",
+  "part3",
+  "part5",
+  "part6",
+  "part7",
+  "part8",
+  "stray_beam",
+  "stray_cooling_manifold",
+  "stray_gamepad"
+ ],
+ "randomization": {
+  "type": "uniform",
+  "objects": {},
+  "reference": [
+   0.0,
+   0.0,
+   0.8
+  ],
+  "z_offset": 0.0,
+  "region": {
+   "x": [
+    -0.14,
+    0.14
+   ],
+   "y": [
+    -0.14,
+    0.14
+   ],
+   "yaw": [
+    -3.141593,
+    3.141593
+   ]
+  },
+  "groups": [
+   [
+    "part0",
+    "part1",
+    "part2",
+    "part3",
+    "part5",
+    "part6",
+    "part7",
+    "part8"
+   ],
+   [
+    "part4"
+   ],
+   [
+    "stray_beam"
+   ],
+   [
+    "stray_cooling_manifold"
+   ],
+   [
+    "stray_gamepad"
+   ]
+  ],
+  "lift_reach": {
+   "part4": 0.1
+  },
+  "grasp_clearance": 0.03
+ },
+ "success": {
+  "pred": "all",
+  "of": [
+   {
+    "pred": "position_within",
+    "obj": "part4",
+    "rel_to": "part2",
+    "pos": [
+     0.040326,
+     0.040326,
+     0.144767
+    ],
+    "pos_tol": 0.005
+   },
+   {
+    "pred": "robot_clear",
+    "bodies": [
+     "part4"
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 3000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   -0.25,
+   0.25
+  ],
+  "y": [
+   -0.25,
+   0.25
+  ],
+  "z": [
+   0.75,
+   1.05
+  ],
+  "z_min_crop_table": 0.805,
+  "z_offset": 0.8,
+  "crop_table": false
+ },
+ "table_z": 0.8
+}

@@ -1,0 +1,32 @@
+{
+ "source": {
+  "repo": "github.com/yunshengtian/Fabrica",
+  "commit": "215a30fe51e59299588a5b5e417a9cb934fb393e",
+  "license": "MIT"
+ },
+ "generated_by": "datagen/fabrica/convert.py",
+ "date": "2026-09-06",
+ "coacd": {
+  "threshold": 0.01
+ },
+ "mesh_cache": [
+  "gamepad_0_32a4504daf3b",
+  "gamepad_1_d354939d2f29",
+  "gamepad_2_ca7c056714a9",
+  "gamepad_3_dc31fac63abd",
+  "gamepad_4_4ee55a0125c8",
+  "gamepad_5_92674bf998aa"
+ ],
+ "scale": 0.015,
+ "contact": {
+  "mechanism": "collision hulls eroded inward per face (visual full-size)",
+  "erosion_m": 0.0005,
+  "erosion_mm": 0.5,
+  "total_mate_slack_mm": 1.0,
+  "hulls_kept_full": 96
+ },
+ "files": {
+  "scene.xml": "0d50737c7f5ca898",
+  "task.json": "266f5cdf9bc2f64a"
+ }
+}

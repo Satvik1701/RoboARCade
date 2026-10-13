@@ -1,0 +1,43 @@
+{
+ "source": {
+  "repo": "github.com/yunshengtian/Fabrica",
+  "commit": "215a30fe51e59299588a5b5e417a9cb934fb393e",
+  "license": "MIT"
+ },
+ "generated_by": "datagen/fabrica/convert.py",
+ "date": "2026-09-15",
+ "coacd": {
+  "threshold": 0.01
+ },
+ "mesh_cache": [
+  "cooling_manifold_0_eb883adfee8d",
+  "cooling_manifold_1_02eefbbe4137",
+  "cooling_manifold_2_7f83b2d09d76",
+  "cooling_manifold_3_23a89aa0e18b",
+  "cooling_manifold_4_a3025442e93e",
+  "cooling_manifold_5_67a21995d487",
+  "cooling_manifold_6_a543aff29153"
+ ],
+ "scale": 0.015,
+ "contact": {
+  "mechanism": "collision hulls eroded inward per face (visual full-size)",
+  "erosion_m": 0.0,
+  "erosion_mm": 0.0,
+  "total_mate_slack_mm": 0.0,
+  "hulls_kept_full": 0,
+  "socket_torsion": {
+   "bodies": [
+    "part1",
+    "part5"
+   ],
+   "coefficient_m": 0.002,
+   "socket_xy_half_width_m": 0.025,
+   "pairs": 2806,
+   "other_contacts": "unchanged, including gripper and table"
+  }
+ },
+ "files": {
+  "scene.xml": "fe324b1b57b03173",
+  "task.json": "2a172aa3e61cb5cd"
+ }
+}

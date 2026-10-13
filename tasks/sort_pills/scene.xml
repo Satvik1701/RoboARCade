@@ -1,0 +1,1253 @@
+<mujoco model="sort_pills">
+  <compiler angle="radian"/>
+  <!-- NoSlip post-processing can lock rib/pad penetration in a loaded grasp.
+       Use the main contact solver for both normal and friction forces. -->
+  <option integrator="implicitfast" cone="elliptic" noslip_iterations="0">
+    <flag sleep="enable"/>
+  </option>
+  <size memory="256M"/>
+  <visual>
+    <global azimuth="120" elevation="-20" offwidth="1920" offheight="1080"/>
+    <quality shadowsize="4096" offsamples="8"/>
+    <headlight ambient="0.5 0.5 0.5" diffuse="0.15 0.15 0.15" specular="0.03 0.03 0.03"/>
+  </visual>
+  <asset>
+    <mesh name="bottle_body" file="assets/bottle_body.obj"/>
+    <mesh name="bottle_label_wrap" file="assets/bottle_label.obj"/>
+    <texture name="capsule_label_texture" type="2d" file="assets/capsule_label.png"/>
+    <material name="capsule_label" texture="capsule_label_texture" metallic="0" roughness="1" emission="0.35"/>
+    <texture name="tablet_label_texture" type="2d" file="assets/tablet_label.png"/>
+    <material name="tablet_label" texture="tablet_label_texture" metallic="0" roughness="1" emission="0.35"/>
+    <mesh name="organizer_day_tab" file="assets/organizer_day_tab.obj"/>
+    <texture name="organizer_monday_print" type="2d" file="assets/organizer_monday.png"/>
+    <material name="organizer_monday_plastic" texture="organizer_monday_print" metallic="0" roughness="0.48"/>
+    <texture name="organizer_tuesday_print" type="2d" file="assets/organizer_tuesday.png"/>
+    <material name="organizer_tuesday_plastic" texture="organizer_tuesday_print" metallic="0" roughness="0.48"/>
+    <texture name="organizer_wednesday_print" type="2d" file="assets/organizer_wednesday.png"/>
+    <material name="organizer_wednesday_plastic" texture="organizer_wednesday_print" metallic="0" roughness="0.48"/>
+    <texture name="organizer_thursday_print" type="2d" file="assets/organizer_thursday.png"/>
+    <material name="organizer_thursday_plastic" texture="organizer_thursday_print" metallic="0" roughness="0.48"/>
+    <texture name="organizer_friday_print" type="2d" file="assets/organizer_friday.png"/>
+    <material name="organizer_friday_plastic" texture="organizer_friday_print" metallic="0" roughness="0.48"/>
+    <texture name="organizer_saturday_print" type="2d" file="assets/organizer_saturday.png"/>
+    <material name="organizer_saturday_plastic" texture="organizer_saturday_print" metallic="0" roughness="0.48"/>
+    <texture name="organizer_sunday_print" type="2d" file="assets/organizer_sunday.png"/>
+    <material name="organizer_sunday_plastic" texture="organizer_sunday_print" metallic="0" roughness="0.48"/>
+  </asset>
+  <default>
+    <default class="pill_collision">
+      <geom group="3" condim="4" priority="1" friction="3 0.6 0.0003"
+            solref="0.004 1" solimp="0.999 0.9999 0.0005" rgba="0 0 0 0"/>
+    </default>
+    <default class="bottle_collision">
+      <geom group="3" condim="4" priority="2" friction="0.05 0.005 0.0001"
+            solref="0.004 1" solimp="0.999 0.9999 0.0005" rgba="0 0 0 0"/>
+    </default>
+    <default class="bottle_base_collision">
+      <geom group="3" condim="4" priority="2" friction="0.6 0.005 0.0001"
+            solref="0.004 1" solimp="0.999 0.9999 0.0005" rgba="0 0 0 0"/>
+    </default>
+    <default class="spring_seat_collision">
+      <geom group="3" condim="4" priority="4" friction="0.05 0.0001 0.0001"
+            solref="0.004 1" solimp="0.999 0.9999 0.0005" rgba="0 0 0 0"/>
+    </default>
+    <default class="spring_seat_visual">
+      <geom group="1" contype="0" conaffinity="0" rgba="0.95 0.95 0.93 1"/>
+    </default>
+    <default class="lid_collision">
+      <geom group="3" condim="4" priority="2" friction="2 0.15 0.001"
+            solref="0.004 1" solimp="0.999 0.9999 0.0005" rgba="0 0 0 0"/>
+    </default>
+    <default class="cap_slide_collision">
+      <geom group="3" condim="4" priority="2" friction="0.05 0.005 0.0001"
+            solref="0.004 1" solimp="0.999 0.9999 0.0005" rgba="0 0 0 0"/>
+    </default>
+    <default class="organizer_collision">
+      <geom group="3" condim="4" priority="1" friction="1 0.05 0.001"
+            solref="0.006 1" solimp="0.998 0.998" rgba="0 0 0 0"/>
+    </default>
+    <default class="grip_collision">
+      <geom group="3" condim="6" priority="3" friction="10 0.2 0.02"
+            solref="0.004 1" solimp="0.999 0.9999 0.0005" rgba="0 0 0 0"/>
+    </default>
+  </default>
+  <worldbody>
+    <geom name="floor" size="0 0 0.05" type="plane" group="1" rgba="0.75 0.75 0.75 1"/>
+    <geom name="base_gate_collision" size="0.305 0.61 0.375" pos="0 0 0.375"
+          type="box" group="3" rgba="0 0 0 0"/>
+    <geom name="base_gate_visual" size="0.305 0.61 0.375" pos="0 0 0.375"
+          type="box" group="1" contype="0" conaffinity="0" rgba="0.60 0.62 0.68 1"/>
+    <geom name="back_wall" size="0.005 0.61 1" pos="1.2144 0 1"
+          type="box" group="3" rgba="0.88 0.88 0.88 0.2"/>
+    <geom name="left_wall" size="0.4572 0.005 1" pos="0.7522 0.61 1"
+          type="box" group="3" rgba="0.88 0.88 0.88 0.2"/>
+    <geom name="right_wall" size="0.4572 0.005 1" pos="0.7522 -0.61 1"
+          type="box" group="3" rgba="0.88 0.88 0.88 0.2"/>
+    <light name="overhead_key" pos="0.55 0 1.8" dir="0 0 -1" type="directional"
+           diffuse="0.65 0.65 0.65" specular="0.12 0.12 0.12"/>
+    <body name="play_table">
+      <geom name="table_visual" size="0.4572 0.61 0.05" pos="0.7522 0 0.72921"
+            type="box" group="1" contype="0" conaffinity="0" rgba="0.24 0.25 0.27 1"/>
+      <geom name="table_plane" size="0.4572 0.61 0.05" pos="0.7522 0 0.72921"
+            type="box" group="3" condim="4" priority="1" friction="1 0.05 0.001"
+            solref="0.008 1" solimp="0.998 0.998" rgba="0 0 0 0"/>
+    </body>
+    <body name="weekly_organizer" pos="0.5800 0.0000 0.77921">
+      <geom name="organizer_floor_visual" type="box" size="0.0360000 0.1170000 0.0015000" pos="0.0000000 0.0000000 0.0015000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.78 0.82 0.86 1"/>
+      <geom name="organizer_floor_collision" type="box" size="0.0360000 0.1170000 0.0015000" pos="0.0000000 0.0000000 0.0015000" class="organizer_collision"/>
+      <geom name="organizer_x_low_visual" type="box" size="0.0015000 0.1170000 0.0125000" pos="-0.0345000 0.0000000 0.0125000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.78 0.82 0.86 1"/>
+      <geom name="organizer_x_low_collision" type="box" size="0.0015000 0.1170000 0.0125000" pos="-0.0345000 0.0000000 0.0125000" class="organizer_collision"/>
+      <geom name="organizer_x_high_visual" type="box" size="0.0015000 0.1170000 0.0125000" pos="0.0345000 0.0000000 0.0125000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.78 0.82 0.86 1"/>
+      <geom name="organizer_x_high_collision" type="box" size="0.0015000 0.1170000 0.0125000" pos="0.0345000 0.0000000 0.0125000" class="organizer_collision"/>
+      <geom name="organizer_y_low_visual" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 -0.1155000 0.0125000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.78 0.82 0.86 1"/>
+      <geom name="organizer_y_low_collision" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 -0.1155000 0.0125000" class="organizer_collision"/>
+      <geom name="organizer_y_high_visual" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 0.1155000 0.0125000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.78 0.82 0.86 1"/>
+      <geom name="organizer_y_high_collision" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 0.1155000 0.0125000" class="organizer_collision"/>
+      <geom name="organizer_divider_1_visual" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 -0.0825000 0.0125000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.78 0.82 0.86 1"/>
+      <geom name="organizer_divider_1_collision" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 -0.0825000 0.0125000" class="organizer_collision"/>
+      <geom name="organizer_divider_2_visual" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 -0.0495000 0.0125000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.78 0.82 0.86 1"/>
+      <geom name="organizer_divider_2_collision" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 -0.0495000 0.0125000" class="organizer_collision"/>
+      <geom name="organizer_divider_3_visual" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 -0.0165000 0.0125000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.78 0.82 0.86 1"/>
+      <geom name="organizer_divider_3_collision" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 -0.0165000 0.0125000" class="organizer_collision"/>
+      <geom name="organizer_divider_4_visual" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 0.0165000 0.0125000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.78 0.82 0.86 1"/>
+      <geom name="organizer_divider_4_collision" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 0.0165000 0.0125000" class="organizer_collision"/>
+      <geom name="organizer_divider_5_visual" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 0.0495000 0.0125000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.78 0.82 0.86 1"/>
+      <geom name="organizer_divider_5_collision" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 0.0495000 0.0125000" class="organizer_collision"/>
+      <geom name="organizer_divider_6_visual" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 0.0825000 0.0125000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.78 0.82 0.86 1"/>
+      <geom name="organizer_divider_6_collision" type="box" size="0.0330000 0.0015000 0.0125000" pos="0.0000000 0.0825000 0.0125000" class="organizer_collision"/>
+      <geom name="monday_tab" type="box" size="0.0001 0.0140000 0.009" pos="0.0365000 -0.0990000 0.013" group="1" contype="0" conaffinity="0" mass="0" rgba="0.42 0.64 0.88 1"/>
+      <geom name="tuesday_tab" type="box" size="0.0001 0.0140000 0.009" pos="0.0365000 -0.0660000 0.013" group="1" contype="0" conaffinity="0" mass="0" rgba="0.5 0.72 0.58 1"/>
+      <geom name="wednesday_tab" type="box" size="0.0001 0.0140000 0.009" pos="0.0365000 -0.0330000 0.013" group="1" contype="0" conaffinity="0" mass="0" rgba="0.92 0.7 0.36 1"/>
+      <geom name="thursday_tab" type="box" size="0.0001 0.0140000 0.009" pos="0.0365000 0.0000000 0.013" group="1" contype="0" conaffinity="0" mass="0" rgba="0.7 0.56 0.86 1"/>
+      <geom name="friday_tab" type="box" size="0.0001 0.0140000 0.009" pos="0.0365000 0.0330000 0.013" group="1" contype="0" conaffinity="0" mass="0" rgba="0.9 0.5 0.46 1"/>
+      <geom name="saturday_tab" type="box" size="0.0001 0.0140000 0.009" pos="0.0365000 0.0660000 0.013" group="1" contype="0" conaffinity="0" mass="0" rgba="0.34 0.72 0.76 1"/>
+      <geom name="sunday_tab" type="box" size="0.0001 0.0140000 0.009" pos="0.0365000 0.0990000 0.013" group="1" contype="0" conaffinity="0" mass="0" rgba="0.82 0.58 0.72 1"/>
+      <body name="monday_compartment" pos="0 -0.0990000 0">
+        <geom name="monday_interior_region" type="box"
+              size="0.0330000 0.0150000 0.0110000"
+              pos="0 0 0.0140000" group="3" contype="0"
+              conaffinity="0" mass="0" rgba="0 0 0 0"/>
+        <site name="monday_drop_site" pos="0 0 0.0210000"
+              size="0.004" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="tuesday_compartment" pos="0 -0.0660000 0">
+        <geom name="tuesday_interior_region" type="box"
+              size="0.0330000 0.0150000 0.0110000"
+              pos="0 0 0.0140000" group="3" contype="0"
+              conaffinity="0" mass="0" rgba="0 0 0 0"/>
+        <site name="tuesday_drop_site" pos="0 0 0.0210000"
+              size="0.004" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="wednesday_compartment" pos="0 -0.0330000 0">
+        <geom name="wednesday_interior_region" type="box"
+              size="0.0330000 0.0150000 0.0110000"
+              pos="0 0 0.0140000" group="3" contype="0"
+              conaffinity="0" mass="0" rgba="0 0 0 0"/>
+        <site name="wednesday_drop_site" pos="0 0 0.0210000"
+              size="0.004" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="thursday_compartment" pos="0 0.0000000 0">
+        <geom name="thursday_interior_region" type="box"
+              size="0.0330000 0.0150000 0.0110000"
+              pos="0 0 0.0140000" group="3" contype="0"
+              conaffinity="0" mass="0" rgba="0 0 0 0"/>
+        <site name="thursday_drop_site" pos="0 0 0.0210000"
+              size="0.004" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="friday_compartment" pos="0 0.0330000 0">
+        <geom name="friday_interior_region" type="box"
+              size="0.0330000 0.0150000 0.0110000"
+              pos="0 0 0.0140000" group="3" contype="0"
+              conaffinity="0" mass="0" rgba="0 0 0 0"/>
+        <site name="friday_drop_site" pos="0 0 0.0210000"
+              size="0.004" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="saturday_compartment" pos="0 0.0660000 0">
+        <geom name="saturday_interior_region" type="box"
+              size="0.0330000 0.0150000 0.0110000"
+              pos="0 0 0.0140000" group="3" contype="0"
+              conaffinity="0" mass="0" rgba="0 0 0 0"/>
+        <site name="saturday_drop_site" pos="0 0 0.0210000"
+              size="0.004" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="sunday_compartment" pos="0 0.0990000 0">
+        <geom name="sunday_interior_region" type="box"
+              size="0.0330000 0.0150000 0.0110000"
+              pos="0 0 0.0140000" group="3" contype="0"
+              conaffinity="0" mass="0" rgba="0 0 0 0"/>
+        <site name="sunday_drop_site" pos="0 0 0.0210000"
+              size="0.004" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="organizer_interior" pos="0 0 0">
+        <geom name="organizer_interior_region" type="box"
+              size="0.0330000 0.1140000 0.0110000"
+              pos="0 0 0.0140000" group="3" contype="0"
+              conaffinity="0" mass="0" rgba="0 0 0 0"/>
+      </body>
+      <body name="organizer_monday_lid" pos="-0.036 -0.0990000 0.026">
+        <joint name="organizer_monday_lid_hinge" type="hinge" axis="0 -1 0"
+               limited="true" range="0 1.7453292520" damping="0.0002" stiffness="0"/>
+        <geom name="organizer_monday_lid_panel_visual" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.42 0.64 0.88 1"/>
+        <geom name="organizer_monday_lid_panel_collision" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_monday_lid_lip_visual" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.42 0.64 0.88 1"/>
+        <geom name="organizer_monday_lid_lip_collision" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_monday_lid_print" type="mesh" mesh="organizer_day_tab"
+              pos="0.036 0 0.0011" euler="0 -1.5707963268 0"
+              group="1" contype="0" conaffinity="0" mass="0" material="organizer_monday_plastic"/>
+        <site name="organizer_monday_lid_lip" pos="0.076 0 0"
+              size="0.002" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="organizer_tuesday_lid" pos="-0.036 -0.0660000 0.026">
+        <joint name="organizer_tuesday_lid_hinge" type="hinge" axis="0 -1 0"
+               limited="true" range="0 1.7453292520" damping="0.0002" stiffness="0"/>
+        <geom name="organizer_tuesday_lid_panel_visual" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.5 0.72 0.58 1"/>
+        <geom name="organizer_tuesday_lid_panel_collision" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_tuesday_lid_lip_visual" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.5 0.72 0.58 1"/>
+        <geom name="organizer_tuesday_lid_lip_collision" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_tuesday_lid_print" type="mesh" mesh="organizer_day_tab"
+              pos="0.036 0 0.0011" euler="0 -1.5707963268 0"
+              group="1" contype="0" conaffinity="0" mass="0" material="organizer_tuesday_plastic"/>
+        <site name="organizer_tuesday_lid_lip" pos="0.076 0 0"
+              size="0.002" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="organizer_wednesday_lid" pos="-0.036 -0.0330000 0.026">
+        <joint name="organizer_wednesday_lid_hinge" type="hinge" axis="0 -1 0"
+               limited="true" range="0 1.7453292520" damping="0.0002" stiffness="0"/>
+        <geom name="organizer_wednesday_lid_panel_visual" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.92 0.7 0.36 1"/>
+        <geom name="organizer_wednesday_lid_panel_collision" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_wednesday_lid_lip_visual" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.92 0.7 0.36 1"/>
+        <geom name="organizer_wednesday_lid_lip_collision" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_wednesday_lid_print" type="mesh" mesh="organizer_day_tab"
+              pos="0.036 0 0.0011" euler="0 -1.5707963268 0"
+              group="1" contype="0" conaffinity="0" mass="0" material="organizer_wednesday_plastic"/>
+        <site name="organizer_wednesday_lid_lip" pos="0.076 0 0"
+              size="0.002" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="organizer_thursday_lid" pos="-0.036 0.0000000 0.026">
+        <joint name="organizer_thursday_lid_hinge" type="hinge" axis="0 -1 0"
+               limited="true" range="0 1.7453292520" damping="0.0002" stiffness="0"/>
+        <geom name="organizer_thursday_lid_panel_visual" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.7 0.56 0.86 1"/>
+        <geom name="organizer_thursday_lid_panel_collision" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_thursday_lid_lip_visual" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.7 0.56 0.86 1"/>
+        <geom name="organizer_thursday_lid_lip_collision" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_thursday_lid_print" type="mesh" mesh="organizer_day_tab"
+              pos="0.036 0 0.0011" euler="0 -1.5707963268 0"
+              group="1" contype="0" conaffinity="0" mass="0" material="organizer_thursday_plastic"/>
+        <site name="organizer_thursday_lid_lip" pos="0.076 0 0"
+              size="0.002" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="organizer_friday_lid" pos="-0.036 0.0330000 0.026">
+        <joint name="organizer_friday_lid_hinge" type="hinge" axis="0 -1 0"
+               limited="true" range="0 1.7453292520" damping="0.0002" stiffness="0"/>
+        <geom name="organizer_friday_lid_panel_visual" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.9 0.5 0.46 1"/>
+        <geom name="organizer_friday_lid_panel_collision" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_friday_lid_lip_visual" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.9 0.5 0.46 1"/>
+        <geom name="organizer_friday_lid_lip_collision" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_friday_lid_print" type="mesh" mesh="organizer_day_tab"
+              pos="0.036 0 0.0011" euler="0 -1.5707963268 0"
+              group="1" contype="0" conaffinity="0" mass="0" material="organizer_friday_plastic"/>
+        <site name="organizer_friday_lid_lip" pos="0.076 0 0"
+              size="0.002" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="organizer_saturday_lid" pos="-0.036 0.0660000 0.026">
+        <joint name="organizer_saturday_lid_hinge" type="hinge" axis="0 -1 0"
+               limited="true" range="0 1.7453292520" damping="0.0002" stiffness="0"/>
+        <geom name="organizer_saturday_lid_panel_visual" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.34 0.72 0.76 1"/>
+        <geom name="organizer_saturday_lid_panel_collision" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_saturday_lid_lip_visual" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.34 0.72 0.76 1"/>
+        <geom name="organizer_saturday_lid_lip_collision" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_saturday_lid_print" type="mesh" mesh="organizer_day_tab"
+              pos="0.036 0 0.0011" euler="0 -1.5707963268 0"
+              group="1" contype="0" conaffinity="0" mass="0" material="organizer_saturday_plastic"/>
+        <site name="organizer_saturday_lid_lip" pos="0.076 0 0"
+              size="0.002" group="3" rgba="0 0 0 0"/>
+      </body>
+      <body name="organizer_sunday_lid" pos="-0.036 0.0990000 0.026">
+        <joint name="organizer_sunday_lid_hinge" type="hinge" axis="0 -1 0"
+               limited="true" range="0 1.7453292520" damping="0.0002" stiffness="0"/>
+        <geom name="organizer_sunday_lid_panel_visual" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.82 0.58 0.72 1"/>
+        <geom name="organizer_sunday_lid_panel_collision" type="box" size="0.036 0.016 0.001" pos="0.036 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_sunday_lid_lip_visual" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" group="1" contype="0" conaffinity="0" mass="0" rgba="0.82 0.58 0.72 1"/>
+        <geom name="organizer_sunday_lid_lip_collision" type="box" size="0.004 0.01 0.0015" pos="0.076 0 0" class="organizer_collision" density="900"/>
+        <geom name="organizer_sunday_lid_print" type="mesh" mesh="organizer_day_tab"
+              pos="0.036 0 0.0011" euler="0 -1.5707963268 0"
+              group="1" contype="0" conaffinity="0" mass="0" material="organizer_sunday_plastic"/>
+        <site name="organizer_sunday_lid_lip" pos="0.076 0 0"
+              size="0.002" group="3" rgba="0 0 0 0"/>
+      </body>
+    </body>
+    <body name="capsule_bottle" pos="0.5800 -0.2700 0.77921">
+      <freejoint name="capsule_bottle_joint"/>
+      <inertial pos="0 0 0.041" mass="0.080"
+                diaginertia="0.000055 0.000055 0.000020"/>
+      <geom name="capsule_bottle_body_visual" type="mesh" mesh="bottle_body"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <body name="capsule_rx_label_wrap" pos="0 0 0.037">
+        <geom name="capsule_rx_label" type="mesh" mesh="bottle_label_wrap"
+              material="capsule_label" group="1" contype="0" conaffinity="0" mass="0"/>
+      </body>
+      <geom name="capsule_bottle_floor" type="cylinder" size="0.0225 0.0015"
+            pos="0 0 0.0015" class="bottle_base_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_00" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0204945 0.0032460 0.0375000" euler="0 0 0.1570796327" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_01" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0184884 0.0094203 0.0375000" euler="0 0 0.4712388980" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_02" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0146725 0.0146725 0.0375000" euler="0 0 0.7853981634" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_03" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0094203 0.0184884 0.0375000" euler="0 0 1.0995574288" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_04" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0032460 0.0204945 0.0375000" euler="0 0 1.4137166941" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_05" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0032460 0.0204945 0.0375000" euler="0 0 1.7278759595" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_06" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0094203 0.0184884 0.0375000" euler="0 0 2.0420352248" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_07" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0146725 0.0146725 0.0375000" euler="0 0 2.3561944902" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_08" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0184884 0.0094203 0.0375000" euler="0 0 2.6703537556" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_09" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0204945 0.0032460 0.0375000" euler="0 0 2.9845130209" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_10" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0204945 -0.0032460 0.0375000" euler="0 0 3.2986722863" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_11" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0184884 -0.0094203 0.0375000" euler="0 0 3.6128315516" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_12" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0146725 -0.0146725 0.0375000" euler="0 0 3.9269908170" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_13" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0094203 -0.0184884 0.0375000" euler="0 0 4.2411500823" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_14" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0032460 -0.0204945 0.0375000" euler="0 0 4.5553093477" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_15" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0032460 -0.0204945 0.0375000" euler="0 0 4.8694686131" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_16" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0094203 -0.0184884 0.0375000" euler="0 0 5.1836278784" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_17" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0146725 -0.0146725 0.0375000" euler="0 0 5.4977871438" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_18" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0184884 -0.0094203 0.0375000" euler="0 0 5.8119464091" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_wall_19" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0204945 -0.0032460 0.0375000" euler="0 0 6.1261056745" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_00" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0200007 0.0031678 0.0710000" euler="0 0 0.1570796327" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_01" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0180429 0.0091933 0.0710000" euler="0 0 0.4712388980" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_02" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0143189 0.0143189 0.0710000" euler="0 0 0.7853981634" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_03" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0091933 0.0180429 0.0710000" euler="0 0 1.0995574288" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_04" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0031678 0.0200007 0.0710000" euler="0 0 1.4137166941" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_05" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0031678 0.0200007 0.0710000" euler="0 0 1.7278759595" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_06" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0091933 0.0180429 0.0710000" euler="0 0 2.0420352248" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_07" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0143189 0.0143189 0.0710000" euler="0 0 2.3561944902" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_08" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0180429 0.0091933 0.0710000" euler="0 0 2.6703537556" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_09" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0200007 0.0031678 0.0710000" euler="0 0 2.9845130209" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_10" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0200007 -0.0031678 0.0710000" euler="0 0 3.2986722863" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_11" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0180429 -0.0091933 0.0710000" euler="0 0 3.6128315516" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_12" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0143189 -0.0143189 0.0710000" euler="0 0 3.9269908170" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_13" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0091933 -0.0180429 0.0710000" euler="0 0 4.2411500823" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_14" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0031678 -0.0200007 0.0710000" euler="0 0 4.5553093477" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_15" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0031678 -0.0200007 0.0710000" euler="0 0 4.8694686131" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_16" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0091933 -0.0180429 0.0710000" euler="0 0 5.1836278784" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_17" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0143189 -0.0143189 0.0710000" euler="0 0 5.4977871438" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_18" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0180429 -0.0091933 0.0710000" euler="0 0 5.8119464091" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_shoulder_19" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0200007 -0.0031678 0.0710000" euler="0 0 6.1261056745" class="bottle_collision" mass="0"/>
+      <geom name="capsule_bottle_neck_00" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0187661 0.0029723 0.0770000" euler="0 0 0.1570796327" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_01" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0169291 0.0086258 0.0770000" euler="0 0 0.4712388980" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_02" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0134350 0.0134350 0.0770000" euler="0 0 0.7853981634" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_03" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0086258 0.0169291 0.0770000" euler="0 0 1.0995574288" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_04" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0029723 0.0187661 0.0770000" euler="0 0 1.4137166941" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_05" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0029723 0.0187661 0.0770000" euler="0 0 1.7278759595" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_06" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0086258 0.0169291 0.0770000" euler="0 0 2.0420352248" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_07" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0134350 0.0134350 0.0770000" euler="0 0 2.3561944902" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_08" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0169291 0.0086258 0.0770000" euler="0 0 2.6703537556" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_09" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0187661 0.0029723 0.0770000" euler="0 0 2.9845130209" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_10" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0187661 -0.0029723 0.0770000" euler="0 0 3.2986722863" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_11" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0169291 -0.0086258 0.0770000" euler="0 0 3.6128315516" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_12" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0134350 -0.0134350 0.0770000" euler="0 0 3.9269908170" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_13" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0086258 -0.0169291 0.0770000" euler="0 0 4.2411500823" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_14" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0029723 -0.0187661 0.0770000" euler="0 0 4.5553093477" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_15" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0029723 -0.0187661 0.0770000" euler="0 0 4.8694686131" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_16" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0086258 -0.0169291 0.0770000" euler="0 0 5.1836278784" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_17" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0134350 -0.0134350 0.0770000" euler="0 0 5.4977871438" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_18" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0169291 -0.0086258 0.0770000" euler="0 0 5.8119464091" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_neck_19" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0187661 -0.0029723 0.0770000" euler="0 0 6.1261056745" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_rib_00_collision" type="box" size="0.0012500 0.002 0.0280000" pos="0.0232500 0.0000000 0.0340000" euler="0 0 0.0000000000" class="grip_collision" mass="0"/>
+      <geom name="capsule_bottle_rib_01_collision" type="box" size="0.0012500 0.002 0.0280000" pos="0.0201351 0.0116250 0.0340000" euler="0 0 0.5235987756" class="grip_collision" mass="0"/>
+      <geom name="capsule_bottle_rib_02_collision" type="box" size="0.0012500 0.002 0.0280000" pos="0.0116250 0.0201351 0.0340000" euler="0 0 1.0471975512" class="grip_collision" mass="0"/>
+      <geom name="capsule_bottle_rib_03_visual" type="box" size="0.0012500 0.002 0.0280000" pos="0.0000000 0.0232500 0.0340000" euler="0 0 1.5707963268" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="capsule_bottle_rib_03_collision" type="box" size="0.0012500 0.002 0.0280000" pos="0.0000000 0.0232500 0.0340000" euler="0 0 1.5707963268" class="grip_collision" mass="0"/>
+      <geom name="capsule_bottle_rib_04_visual" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0116250 0.0201351 0.0340000" euler="0 0 2.0943951024" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="capsule_bottle_rib_04_collision" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0116250 0.0201351 0.0340000" euler="0 0 2.0943951024" class="grip_collision" mass="0"/>
+      <geom name="capsule_bottle_rib_05_visual" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0201351 0.0116250 0.0340000" euler="0 0 2.6179938780" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="capsule_bottle_rib_05_collision" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0201351 0.0116250 0.0340000" euler="0 0 2.6179938780" class="grip_collision" mass="0"/>
+      <geom name="capsule_bottle_rib_06_visual" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0232500 0.0000000 0.0340000" euler="0 0 3.1415926536" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="capsule_bottle_rib_06_collision" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0232500 0.0000000 0.0340000" euler="0 0 3.1415926536" class="grip_collision" mass="0"/>
+      <geom name="capsule_bottle_rib_07_visual" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0201351 -0.0116250 0.0340000" euler="0 0 3.6651914292" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="capsule_bottle_rib_07_collision" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0201351 -0.0116250 0.0340000" euler="0 0 3.6651914292" class="grip_collision" mass="0"/>
+      <geom name="capsule_bottle_rib_08_visual" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0116250 -0.0201351 0.0340000" euler="0 0 4.1887902048" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="capsule_bottle_rib_08_collision" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0116250 -0.0201351 0.0340000" euler="0 0 4.1887902048" class="grip_collision" mass="0"/>
+      <geom name="capsule_bottle_rib_09_visual" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0000000 -0.0232500 0.0340000" euler="0 0 4.7123889804" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="capsule_bottle_rib_09_collision" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0000000 -0.0232500 0.0340000" euler="0 0 4.7123889804" class="grip_collision" mass="0"/>
+      <geom name="capsule_bottle_rib_10_collision" type="box" size="0.0012500 0.002 0.0280000" pos="0.0116250 -0.0201351 0.0340000" euler="0 0 5.2359877560" class="grip_collision" mass="0"/>
+      <geom name="capsule_bottle_rib_11_collision" type="box" size="0.0012500 0.002 0.0280000" pos="0.0201351 -0.0116250 0.0340000" euler="0 0 5.7595865316" class="grip_collision" mass="0"/>
+      <geom name="capsule_bottle_lug_0" type="box" size="0.00125 0.00275 0.0015" pos="0.0212500 0.0000000 0.079" euler="0 0 0.0000000000" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <body name="capsule_bottle_press_seat">
+        <joint name="capsule_bottle_press" type="slide" axis="0 0 1"
+               range="-0.003 0" stiffness="2000"
+               damping="0.3" armature="0.001"/>
+        <inertial pos="0 0 0.08475" mass="0.003"
+                  diaginertia="0.00000053 0.00000053 0.00000104"/>
+      <geom name="capsule_bottle_spring_seat_00" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0184904 0.0024343 0.0847500" euler="0 0 0.1308996939" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_01" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0172304 0.0071370 0.0847500" euler="0 0 0.3926990817" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_02" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0147960 0.0113534 0.0847500" euler="0 0 0.6544984695" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_03" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0113534 0.0147960 0.0847500" euler="0 0 0.9162978573" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_04" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0071370 0.0172304 0.0847500" euler="0 0 1.1780972451" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_05" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0024343 0.0184904 0.0847500" euler="0 0 1.4398966329" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_06" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0024343 0.0184904 0.0847500" euler="0 0 1.7016960207" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_07" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0071370 0.0172304 0.0847500" euler="0 0 1.9634954085" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_08" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0113534 0.0147960 0.0847500" euler="0 0 2.2252947963" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_09" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0147960 0.0113534 0.0847500" euler="0 0 2.4870941841" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_10" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0172304 0.0071370 0.0847500" euler="0 0 2.7488935719" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_11" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0184904 0.0024343 0.0847500" euler="0 0 3.0106929597" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_12" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0184904 -0.0024343 0.0847500" euler="0 0 3.2724923475" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_13" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0172304 -0.0071370 0.0847500" euler="0 0 3.5342917353" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_14" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0147960 -0.0113534 0.0847500" euler="0 0 3.7960911231" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_15" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0113534 -0.0147960 0.0847500" euler="0 0 4.0578905109" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_16" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0071370 -0.0172304 0.0847500" euler="0 0 4.3196898987" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_17" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0024343 -0.0184904 0.0847500" euler="0 0 4.5814892865" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_18" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0024343 -0.0184904 0.0847500" euler="0 0 4.8432886743" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_19" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0071370 -0.0172304 0.0847500" euler="0 0 5.1050880621" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_20" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0113534 -0.0147960 0.0847500" euler="0 0 5.3668874499" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_21" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0147960 -0.0113534 0.0847500" euler="0 0 5.6286868377" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_22" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0172304 -0.0071370 0.0847500" euler="0 0 5.8904862255" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_seat_23" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0184904 -0.0024343 0.0847500" euler="0 0 6.1522856133" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_00" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0184904 0.0024343 0.0815000" euler="0 0 0.1308996939" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_01" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0172304 0.0071370 0.0815000" euler="0 0 0.3926990817" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_02" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0147960 0.0113534 0.0815000" euler="0 0 0.6544984695" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_03" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0113534 0.0147960 0.0815000" euler="0 0 0.9162978573" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_04" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0071370 0.0172304 0.0815000" euler="0 0 1.1780972451" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_05" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0024343 0.0184904 0.0815000" euler="0 0 1.4398966329" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_06" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0024343 0.0184904 0.0815000" euler="0 0 1.7016960207" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_07" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0071370 0.0172304 0.0815000" euler="0 0 1.9634954085" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_08" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0113534 0.0147960 0.0815000" euler="0 0 2.2252947963" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_09" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0147960 0.0113534 0.0815000" euler="0 0 2.4870941841" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_10" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0172304 0.0071370 0.0815000" euler="0 0 2.7488935719" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_11" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0184904 0.0024343 0.0815000" euler="0 0 3.0106929597" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_12" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0184904 -0.0024343 0.0815000" euler="0 0 3.2724923475" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_13" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0172304 -0.0071370 0.0815000" euler="0 0 3.5342917353" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_14" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0147960 -0.0113534 0.0815000" euler="0 0 3.7960911231" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_15" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0113534 -0.0147960 0.0815000" euler="0 0 4.0578905109" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_16" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0071370 -0.0172304 0.0815000" euler="0 0 4.3196898987" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_17" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0024343 -0.0184904 0.0815000" euler="0 0 4.5814892865" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_18" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0024343 -0.0184904 0.0815000" euler="0 0 4.8432886743" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_19" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0071370 -0.0172304 0.0815000" euler="0 0 5.1050880621" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_20" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0113534 -0.0147960 0.0815000" euler="0 0 5.3668874499" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_21" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0147960 -0.0113534 0.0815000" euler="0 0 5.6286868377" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_22" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0172304 -0.0071370 0.0815000" euler="0 0 5.8904862255" class="spring_seat_visual" mass="0"/>
+      <geom name="capsule_bottle_spring_sleeve_23" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0184904 -0.0024343 0.0815000" euler="0 0 6.1522856133" class="spring_seat_visual" mass="0"/>
+      </body>
+      <body name="capsule_bottle_lid_seat" pos="0 0 0.082"/>
+      <site name="capsule_bottle_grasp_site" pos="0 0 0.044" size="0.004"
+            group="3" rgba="0 0 0 0"/>
+    </body>
+    <body name="capsule_lid" pos="0.5800 -0.2700 0.86121">
+      <freejoint name="capsule_lid_joint"/>
+      <inertial pos="0 0 -0.004" mass="0.025"
+                diaginertia="0.00000511 0.00000511 0.00000781"/>
+      <geom name="capsule_lid_visual" type="cylinder"
+            size="0.025 0.012" pos="0 0 -0.004"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_top" type="box" size="0.019 0.019 0.0025"
+            pos="0 0 0.0055" class="lid_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_00" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0237947 0.0031326 -0.0040000" euler="0 0 0.1308996939" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_01" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0221731 0.0091844 -0.0040000" euler="0 0 0.3926990817" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_02" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0190405 0.0146103 -0.0040000" euler="0 0 0.6544984695" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_03" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0146103 0.0190405 -0.0040000" euler="0 0 0.9162978573" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_04" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0091844 0.0221731 -0.0040000" euler="0 0 1.1780972451" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_05" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0031326 0.0237947 -0.0040000" euler="0 0 1.4398966329" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_06" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0031326 0.0237947 -0.0040000" euler="0 0 1.7016960207" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_07" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0091844 0.0221731 -0.0040000" euler="0 0 1.9634954085" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_08" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0146103 0.0190405 -0.0040000" euler="0 0 2.2252947963" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_09" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0190405 0.0146103 -0.0040000" euler="0 0 2.4870941841" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_10" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0221731 0.0091844 -0.0040000" euler="0 0 2.7488935719" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_11" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0237947 0.0031326 -0.0040000" euler="0 0 3.0106929597" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_12" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0237947 -0.0031326 -0.0040000" euler="0 0 3.2724923475" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_13" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0221731 -0.0091844 -0.0040000" euler="0 0 3.5342917353" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_14" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0190405 -0.0146103 -0.0040000" euler="0 0 3.7960911231" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_15" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0146103 -0.0190405 -0.0040000" euler="0 0 4.0578905109" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_16" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0091844 -0.0221731 -0.0040000" euler="0 0 4.3196898987" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_17" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0031326 -0.0237947 -0.0040000" euler="0 0 4.5814892865" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_18" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0031326 -0.0237947 -0.0040000" euler="0 0 4.8432886743" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_19" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0091844 -0.0221731 -0.0040000" euler="0 0 5.1050880621" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_20" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0146103 -0.0190405 -0.0040000" euler="0 0 5.3668874499" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_21" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0190405 -0.0146103 -0.0040000" euler="0 0 5.6286868377" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_22" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0221731 -0.0091844 -0.0040000" euler="0 0 5.8904862255" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_skirt_23" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0237947 -0.0031326 -0.0040000" euler="0 0 6.1522856133" class="cap_slide_collision" mass="0"/>
+      <geom name="capsule_lid_guide_00" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0155561 0.0024638 -0.0080000" euler="0 0 0.1570796327" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_01" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0140334 0.0071504 -0.0080000" euler="0 0 0.4712388980" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_02" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0111369 0.0111369 -0.0080000" euler="0 0 0.7853981634" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_03" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0071504 0.0140334 -0.0080000" euler="0 0 1.0995574288" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_04" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0024638 0.0155561 -0.0080000" euler="0 0 1.4137166941" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_05" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0024638 0.0155561 -0.0080000" euler="0 0 1.7278759595" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_06" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0071504 0.0140334 -0.0080000" euler="0 0 2.0420352248" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_07" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0111369 0.0111369 -0.0080000" euler="0 0 2.3561944902" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_08" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0140334 0.0071504 -0.0080000" euler="0 0 2.6703537556" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_09" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0155561 0.0024638 -0.0080000" euler="0 0 2.9845130209" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_10" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0155561 -0.0024638 -0.0080000" euler="0 0 3.2986722863" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_11" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0140334 -0.0071504 -0.0080000" euler="0 0 3.6128315516" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_12" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0111369 -0.0111369 -0.0080000" euler="0 0 3.9269908170" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_13" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0071504 -0.0140334 -0.0080000" euler="0 0 4.2411500823" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_14" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0024638 -0.0155561 -0.0080000" euler="0 0 4.5553093477" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_15" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0024638 -0.0155561 -0.0080000" euler="0 0 4.8694686131" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_16" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0071504 -0.0140334 -0.0080000" euler="0 0 5.1836278784" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_17" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0111369 -0.0111369 -0.0080000" euler="0 0 5.4977871438" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_18" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0140334 -0.0071504 -0.0080000" euler="0 0 5.8119464091" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_guide_19" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0155561 -0.0024638 -0.0080000" euler="0 0 6.1261056745" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_00" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0216672 0.0018956 -0.0057500" euler="0 0 0.0872664626" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_01" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0210089 0.0056293 -0.0057500" euler="0 0 0.2617993878" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_02" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0197122 0.0091919 -0.0057500" euler="0 0 0.4363323130" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_03" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0178166 0.0124753 -0.0057500" euler="0 0 0.6108652382" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_04" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0153796 0.0153796 -0.0057500" euler="0 0 0.7853981634" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_05" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0124753 0.0178166 -0.0057500" euler="0 0 0.9599310886" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_06" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0091919 0.0197122 -0.0057500" euler="0 0 1.1344640138" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_07" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0056293 0.0210089 -0.0057500" euler="0 0 1.3089969390" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_08" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0018956 0.0216672 -0.0057500" euler="0 0 1.4835298642" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_09" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0018956 0.0216672 -0.0057500" euler="0 0 1.6580627894" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_10" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0056293 0.0210089 -0.0057500" euler="0 0 1.8325957146" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_11" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0091919 0.0197122 -0.0057500" euler="0 0 2.0071286398" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_12" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0124753 0.0178166 -0.0057500" euler="0 0 2.1816615650" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_13" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0153796 0.0153796 -0.0057500" euler="0 0 2.3561944902" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_20" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0197122 -0.0091919 -0.0057500" euler="0 0 3.5779249666" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_21" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0178166 -0.0124753 -0.0057500" euler="0 0 3.7524578918" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_22" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0153796 -0.0153796 -0.0057500" euler="0 0 3.9269908170" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_23" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0124753 -0.0178166 -0.0057500" euler="0 0 4.1015237422" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_24" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0091919 -0.0197122 -0.0057500" euler="0 0 4.2760566674" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_25" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0056293 -0.0210089 -0.0057500" euler="0 0 4.4505895926" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_26" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0018956 -0.0216672 -0.0057500" euler="0 0 4.6251225178" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_27" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0018956 -0.0216672 -0.0057500" euler="0 0 4.7996554430" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_28" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0056293 -0.0210089 -0.0057500" euler="0 0 4.9741883682" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_29" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0091919 -0.0197122 -0.0057500" euler="0 0 5.1487212934" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_30" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0124753 -0.0178166 -0.0057500" euler="0 0 5.3232542186" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_31" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0153796 -0.0153796 -0.0057500" euler="0 0 5.4977871438" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_32" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0178166 -0.0124753 -0.0057500" euler="0 0 5.6723200690" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_33" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0197122 -0.0091919 -0.0057500" euler="0 0 5.8468529942" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_34" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0210089 -0.0056293 -0.0057500" euler="0 0 6.0213859194" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_retainer_35" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0216672 -0.0018956 -0.0057500" euler="0 0 6.1959188446" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_stop_end" type="box" size="0.00125 0.0025000 0.004" pos="-0.0210896 0.0053190 -0.003" euler="0 0 2.8945338301" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_stop_start" type="box" size="0.00125 0.0025000 0.004" pos="0.0210896 0.0053190 -0.003" euler="0 0 0.2470588235" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_press_detent" type="box" size="0.00125 0.0025000 0.0005" pos="0.0207327 -0.0065741 -0.004" euler="0 0 -0.3070588235" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="capsule_lid_rib_00_visual" type="box" size="0.0012500 0.002 0.0090000" pos="0.0257500 0.0000000 -0.0040000" euler="0 0 0.0000000000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_rib_00_collision" type="box" size="0.0012500 0.002 0.0090000" pos="0.0257500 0.0000000 -0.0040000" euler="0 0 0.0000000000" class="grip_collision" mass="0"/>
+      <geom name="capsule_lid_rib_01_visual" type="box" size="0.0012500 0.002 0.0090000" pos="0.0223002 0.0128750 -0.0040000" euler="0 0 0.5235987756" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_rib_01_collision" type="box" size="0.0012500 0.002 0.0090000" pos="0.0223002 0.0128750 -0.0040000" euler="0 0 0.5235987756" class="grip_collision" mass="0"/>
+      <geom name="capsule_lid_rib_02_visual" type="box" size="0.0012500 0.002 0.0090000" pos="0.0128750 0.0223002 -0.0040000" euler="0 0 1.0471975512" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_rib_02_collision" type="box" size="0.0012500 0.002 0.0090000" pos="0.0128750 0.0223002 -0.0040000" euler="0 0 1.0471975512" class="grip_collision" mass="0"/>
+      <geom name="capsule_lid_rib_03_visual" type="box" size="0.0012500 0.002 0.0090000" pos="0.0000000 0.0257500 -0.0040000" euler="0 0 1.5707963268" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_rib_03_collision" type="box" size="0.0012500 0.002 0.0090000" pos="0.0000000 0.0257500 -0.0040000" euler="0 0 1.5707963268" class="grip_collision" mass="0"/>
+      <geom name="capsule_lid_rib_04_visual" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0128750 0.0223002 -0.0040000" euler="0 0 2.0943951024" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_rib_04_collision" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0128750 0.0223002 -0.0040000" euler="0 0 2.0943951024" class="grip_collision" mass="0"/>
+      <geom name="capsule_lid_rib_05_visual" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0223002 0.0128750 -0.0040000" euler="0 0 2.6179938780" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_rib_05_collision" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0223002 0.0128750 -0.0040000" euler="0 0 2.6179938780" class="grip_collision" mass="0"/>
+      <geom name="capsule_lid_rib_06_visual" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0257500 0.0000000 -0.0040000" euler="0 0 3.1415926536" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_rib_06_collision" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0257500 0.0000000 -0.0040000" euler="0 0 3.1415926536" class="grip_collision" mass="0"/>
+      <geom name="capsule_lid_rib_07_visual" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0223002 -0.0128750 -0.0040000" euler="0 0 3.6651914292" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_rib_07_collision" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0223002 -0.0128750 -0.0040000" euler="0 0 3.6651914292" class="grip_collision" mass="0"/>
+      <geom name="capsule_lid_rib_08_visual" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0128750 -0.0223002 -0.0040000" euler="0 0 4.1887902048" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_rib_08_collision" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0128750 -0.0223002 -0.0040000" euler="0 0 4.1887902048" class="grip_collision" mass="0"/>
+      <geom name="capsule_lid_rib_09_visual" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0000000 -0.0257500 -0.0040000" euler="0 0 4.7123889804" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_rib_09_collision" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0000000 -0.0257500 -0.0040000" euler="0 0 4.7123889804" class="grip_collision" mass="0"/>
+      <geom name="capsule_lid_rib_10_visual" type="box" size="0.0012500 0.002 0.0090000" pos="0.0128750 -0.0223002 -0.0040000" euler="0 0 5.2359877560" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_rib_10_collision" type="box" size="0.0012500 0.002 0.0090000" pos="0.0128750 -0.0223002 -0.0040000" euler="0 0 5.2359877560" class="grip_collision" mass="0"/>
+      <geom name="capsule_lid_rib_11_visual" type="box" size="0.0012500 0.002 0.0090000" pos="0.0223002 -0.0128750 -0.0040000" euler="0 0 5.7595865316" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="capsule_lid_rib_11_collision" type="box" size="0.0012500 0.002 0.0090000" pos="0.0223002 -0.0128750 -0.0040000" euler="0 0 5.7595865316" class="grip_collision" mass="0"/>
+      <site name="capsule_lid_grasp_site"
+            pos="0 0 -0.004"
+            size="0.004"
+            group="3" rgba="0 0 0 0"/>
+    </body>
+    <body name="tablet_bottle" pos="0.5800 0.2700 0.77921">
+      <freejoint name="tablet_bottle_joint"/>
+      <inertial pos="0 0 0.041" mass="0.080"
+                diaginertia="0.000055 0.000055 0.000020"/>
+      <geom name="tablet_bottle_body_visual" type="mesh" mesh="bottle_body"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <body name="tablet_rx_label_wrap" pos="0 0 0.037">
+        <geom name="tablet_rx_label" type="mesh" mesh="bottle_label_wrap"
+              material="tablet_label" group="1" contype="0" conaffinity="0" mass="0"/>
+      </body>
+      <geom name="tablet_bottle_floor" type="cylinder" size="0.0225 0.0015"
+            pos="0 0 0.0015" class="bottle_base_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_00" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0204945 0.0032460 0.0375000" euler="0 0 0.1570796327" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_01" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0184884 0.0094203 0.0375000" euler="0 0 0.4712388980" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_02" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0146725 0.0146725 0.0375000" euler="0 0 0.7853981634" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_03" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0094203 0.0184884 0.0375000" euler="0 0 1.0995574288" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_04" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0032460 0.0204945 0.0375000" euler="0 0 1.4137166941" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_05" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0032460 0.0204945 0.0375000" euler="0 0 1.7278759595" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_06" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0094203 0.0184884 0.0375000" euler="0 0 2.0420352248" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_07" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0146725 0.0146725 0.0375000" euler="0 0 2.3561944902" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_08" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0184884 0.0094203 0.0375000" euler="0 0 2.6703537556" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_09" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0204945 0.0032460 0.0375000" euler="0 0 2.9845130209" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_10" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0204945 -0.0032460 0.0375000" euler="0 0 3.2986722863" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_11" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0184884 -0.0094203 0.0375000" euler="0 0 3.6128315516" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_12" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0146725 -0.0146725 0.0375000" euler="0 0 3.9269908170" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_13" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0094203 -0.0184884 0.0375000" euler="0 0 4.2411500823" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_14" type="box" size="0.0017500 0.0033851 0.0345000" pos="-0.0032460 -0.0204945 0.0375000" euler="0 0 4.5553093477" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_15" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0032460 -0.0204945 0.0375000" euler="0 0 4.8694686131" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_16" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0094203 -0.0184884 0.0375000" euler="0 0 5.1836278784" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_17" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0146725 -0.0146725 0.0375000" euler="0 0 5.4977871438" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_18" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0184884 -0.0094203 0.0375000" euler="0 0 5.8119464091" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_wall_19" type="box" size="0.0017500 0.0033851 0.0345000" pos="0.0204945 -0.0032460 0.0375000" euler="0 0 6.1261056745" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_00" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0200007 0.0031678 0.0710000" euler="0 0 0.1570796327" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_01" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0180429 0.0091933 0.0710000" euler="0 0 0.4712388980" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_02" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0143189 0.0143189 0.0710000" euler="0 0 0.7853981634" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_03" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0091933 0.0180429 0.0710000" euler="0 0 1.0995574288" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_04" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0031678 0.0200007 0.0710000" euler="0 0 1.4137166941" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_05" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0031678 0.0200007 0.0710000" euler="0 0 1.7278759595" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_06" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0091933 0.0180429 0.0710000" euler="0 0 2.0420352248" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_07" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0143189 0.0143189 0.0710000" euler="0 0 2.3561944902" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_08" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0180429 0.0091933 0.0710000" euler="0 0 2.6703537556" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_09" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0200007 0.0031678 0.0710000" euler="0 0 2.9845130209" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_10" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0200007 -0.0031678 0.0710000" euler="0 0 3.2986722863" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_11" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0180429 -0.0091933 0.0710000" euler="0 0 3.6128315516" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_12" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0143189 -0.0143189 0.0710000" euler="0 0 3.9269908170" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_13" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0091933 -0.0180429 0.0710000" euler="0 0 4.2411500823" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_14" type="box" size="0.0022500 0.0033035 0.0010000" pos="-0.0031678 -0.0200007 0.0710000" euler="0 0 4.5553093477" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_15" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0031678 -0.0200007 0.0710000" euler="0 0 4.8694686131" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_16" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0091933 -0.0180429 0.0710000" euler="0 0 5.1836278784" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_17" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0143189 -0.0143189 0.0710000" euler="0 0 5.4977871438" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_18" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0180429 -0.0091933 0.0710000" euler="0 0 5.8119464091" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_shoulder_19" type="box" size="0.0022500 0.0033035 0.0010000" pos="0.0200007 -0.0031678 0.0710000" euler="0 0 6.1261056745" class="bottle_collision" mass="0"/>
+      <geom name="tablet_bottle_neck_00" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0187661 0.0029723 0.0770000" euler="0 0 0.1570796327" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_01" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0169291 0.0086258 0.0770000" euler="0 0 0.4712388980" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_02" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0134350 0.0134350 0.0770000" euler="0 0 0.7853981634" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_03" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0086258 0.0169291 0.0770000" euler="0 0 1.0995574288" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_04" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0029723 0.0187661 0.0770000" euler="0 0 1.4137166941" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_05" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0029723 0.0187661 0.0770000" euler="0 0 1.7278759595" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_06" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0086258 0.0169291 0.0770000" euler="0 0 2.0420352248" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_07" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0134350 0.0134350 0.0770000" euler="0 0 2.3561944902" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_08" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0169291 0.0086258 0.0770000" euler="0 0 2.6703537556" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_09" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0187661 0.0029723 0.0770000" euler="0 0 2.9845130209" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_10" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0187661 -0.0029723 0.0770000" euler="0 0 3.2986722863" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_11" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0169291 -0.0086258 0.0770000" euler="0 0 3.6128315516" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_12" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0134350 -0.0134350 0.0770000" euler="0 0 3.9269908170" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_13" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0086258 -0.0169291 0.0770000" euler="0 0 4.2411500823" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_14" type="box" size="0.0010000 0.0030996 0.0050000" pos="-0.0029723 -0.0187661 0.0770000" euler="0 0 4.5553093477" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_15" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0029723 -0.0187661 0.0770000" euler="0 0 4.8694686131" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_16" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0086258 -0.0169291 0.0770000" euler="0 0 5.1836278784" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_17" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0134350 -0.0134350 0.0770000" euler="0 0 5.4977871438" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_18" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0169291 -0.0086258 0.0770000" euler="0 0 5.8119464091" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_neck_19" type="box" size="0.0010000 0.0030996 0.0050000" pos="0.0187661 -0.0029723 0.0770000" euler="0 0 6.1261056745" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_rib_00_collision" type="box" size="0.0012500 0.002 0.0280000" pos="0.0232500 0.0000000 0.0340000" euler="0 0 0.0000000000" class="grip_collision" mass="0"/>
+      <geom name="tablet_bottle_rib_01_collision" type="box" size="0.0012500 0.002 0.0280000" pos="0.0201351 0.0116250 0.0340000" euler="0 0 0.5235987756" class="grip_collision" mass="0"/>
+      <geom name="tablet_bottle_rib_02_collision" type="box" size="0.0012500 0.002 0.0280000" pos="0.0116250 0.0201351 0.0340000" euler="0 0 1.0471975512" class="grip_collision" mass="0"/>
+      <geom name="tablet_bottle_rib_03_visual" type="box" size="0.0012500 0.002 0.0280000" pos="0.0000000 0.0232500 0.0340000" euler="0 0 1.5707963268" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="tablet_bottle_rib_03_collision" type="box" size="0.0012500 0.002 0.0280000" pos="0.0000000 0.0232500 0.0340000" euler="0 0 1.5707963268" class="grip_collision" mass="0"/>
+      <geom name="tablet_bottle_rib_04_visual" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0116250 0.0201351 0.0340000" euler="0 0 2.0943951024" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="tablet_bottle_rib_04_collision" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0116250 0.0201351 0.0340000" euler="0 0 2.0943951024" class="grip_collision" mass="0"/>
+      <geom name="tablet_bottle_rib_05_visual" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0201351 0.0116250 0.0340000" euler="0 0 2.6179938780" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="tablet_bottle_rib_05_collision" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0201351 0.0116250 0.0340000" euler="0 0 2.6179938780" class="grip_collision" mass="0"/>
+      <geom name="tablet_bottle_rib_06_visual" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0232500 0.0000000 0.0340000" euler="0 0 3.1415926536" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="tablet_bottle_rib_06_collision" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0232500 0.0000000 0.0340000" euler="0 0 3.1415926536" class="grip_collision" mass="0"/>
+      <geom name="tablet_bottle_rib_07_visual" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0201351 -0.0116250 0.0340000" euler="0 0 3.6651914292" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="tablet_bottle_rib_07_collision" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0201351 -0.0116250 0.0340000" euler="0 0 3.6651914292" class="grip_collision" mass="0"/>
+      <geom name="tablet_bottle_rib_08_visual" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0116250 -0.0201351 0.0340000" euler="0 0 4.1887902048" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="tablet_bottle_rib_08_collision" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0116250 -0.0201351 0.0340000" euler="0 0 4.1887902048" class="grip_collision" mass="0"/>
+      <geom name="tablet_bottle_rib_09_visual" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0000000 -0.0232500 0.0340000" euler="0 0 4.7123889804" group="1" contype="0" conaffinity="0" mass="0" rgba="0.86 0.4 0.07 1"/>
+      <geom name="tablet_bottle_rib_09_collision" type="box" size="0.0012500 0.002 0.0280000" pos="-0.0000000 -0.0232500 0.0340000" euler="0 0 4.7123889804" class="grip_collision" mass="0"/>
+      <geom name="tablet_bottle_rib_10_collision" type="box" size="0.0012500 0.002 0.0280000" pos="0.0116250 -0.0201351 0.0340000" euler="0 0 5.2359877560" class="grip_collision" mass="0"/>
+      <geom name="tablet_bottle_rib_11_collision" type="box" size="0.0012500 0.002 0.0280000" pos="0.0201351 -0.0116250 0.0340000" euler="0 0 5.7595865316" class="grip_collision" mass="0"/>
+      <geom name="tablet_bottle_lug_0" type="box" size="0.00125 0.00275 0.0015" pos="0.0212500 0.0000000 0.079" euler="0 0 0.0000000000" class="bottle_collision" solref="0.001 1" mass="0"/>
+      <body name="tablet_bottle_press_seat">
+        <joint name="tablet_bottle_press" type="slide" axis="0 0 1"
+               range="-0.003 0" stiffness="2000"
+               damping="0.3" armature="0.001"/>
+        <inertial pos="0 0 0.08475" mass="0.003"
+                  diaginertia="0.00000053 0.00000053 0.00000104"/>
+      <geom name="tablet_bottle_spring_seat_00" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0184904 0.0024343 0.0847500" euler="0 0 0.1308996939" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_01" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0172304 0.0071370 0.0847500" euler="0 0 0.3926990817" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_02" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0147960 0.0113534 0.0847500" euler="0 0 0.6544984695" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_03" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0113534 0.0147960 0.0847500" euler="0 0 0.9162978573" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_04" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0071370 0.0172304 0.0847500" euler="0 0 1.1780972451" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_05" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0024343 0.0184904 0.0847500" euler="0 0 1.4398966329" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_06" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0024343 0.0184904 0.0847500" euler="0 0 1.7016960207" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_07" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0071370 0.0172304 0.0847500" euler="0 0 1.9634954085" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_08" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0113534 0.0147960 0.0847500" euler="0 0 2.2252947963" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_09" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0147960 0.0113534 0.0847500" euler="0 0 2.4870941841" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_10" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0172304 0.0071370 0.0847500" euler="0 0 2.7488935719" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_11" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0184904 0.0024343 0.0847500" euler="0 0 3.0106929597" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_12" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0184904 -0.0024343 0.0847500" euler="0 0 3.2724923475" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_13" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0172304 -0.0071370 0.0847500" euler="0 0 3.5342917353" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_14" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0147960 -0.0113534 0.0847500" euler="0 0 3.7960911231" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_15" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0113534 -0.0147960 0.0847500" euler="0 0 4.0578905109" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_16" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0071370 -0.0172304 0.0847500" euler="0 0 4.3196898987" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_17" type="box" size="0.0008500 0.0025290 0.0007500" pos="-0.0024343 -0.0184904 0.0847500" euler="0 0 4.5814892865" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_18" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0024343 -0.0184904 0.0847500" euler="0 0 4.8432886743" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_19" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0071370 -0.0172304 0.0847500" euler="0 0 5.1050880621" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_20" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0113534 -0.0147960 0.0847500" euler="0 0 5.3668874499" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_21" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0147960 -0.0113534 0.0847500" euler="0 0 5.6286868377" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_22" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0172304 -0.0071370 0.0847500" euler="0 0 5.8904862255" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_seat_23" type="box" size="0.0008500 0.0025290 0.0007500" pos="0.0184904 -0.0024343 0.0847500" euler="0 0 6.1522856133" class="spring_seat_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_00" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0184904 0.0024343 0.0815000" euler="0 0 0.1308996939" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_01" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0172304 0.0071370 0.0815000" euler="0 0 0.3926990817" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_02" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0147960 0.0113534 0.0815000" euler="0 0 0.6544984695" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_03" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0113534 0.0147960 0.0815000" euler="0 0 0.9162978573" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_04" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0071370 0.0172304 0.0815000" euler="0 0 1.1780972451" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_05" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0024343 0.0184904 0.0815000" euler="0 0 1.4398966329" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_06" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0024343 0.0184904 0.0815000" euler="0 0 1.7016960207" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_07" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0071370 0.0172304 0.0815000" euler="0 0 1.9634954085" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_08" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0113534 0.0147960 0.0815000" euler="0 0 2.2252947963" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_09" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0147960 0.0113534 0.0815000" euler="0 0 2.4870941841" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_10" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0172304 0.0071370 0.0815000" euler="0 0 2.7488935719" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_11" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0184904 0.0024343 0.0815000" euler="0 0 3.0106929597" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_12" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0184904 -0.0024343 0.0815000" euler="0 0 3.2724923475" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_13" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0172304 -0.0071370 0.0815000" euler="0 0 3.5342917353" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_14" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0147960 -0.0113534 0.0815000" euler="0 0 3.7960911231" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_15" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0113534 -0.0147960 0.0815000" euler="0 0 4.0578905109" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_16" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0071370 -0.0172304 0.0815000" euler="0 0 4.3196898987" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_17" type="box" size="0.0008500 0.0025290 0.0040000" pos="-0.0024343 -0.0184904 0.0815000" euler="0 0 4.5814892865" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_18" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0024343 -0.0184904 0.0815000" euler="0 0 4.8432886743" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_19" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0071370 -0.0172304 0.0815000" euler="0 0 5.1050880621" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_20" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0113534 -0.0147960 0.0815000" euler="0 0 5.3668874499" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_21" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0147960 -0.0113534 0.0815000" euler="0 0 5.6286868377" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_22" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0172304 -0.0071370 0.0815000" euler="0 0 5.8904862255" class="spring_seat_visual" mass="0"/>
+      <geom name="tablet_bottle_spring_sleeve_23" type="box" size="0.0008500 0.0025290 0.0040000" pos="0.0184904 -0.0024343 0.0815000" euler="0 0 6.1522856133" class="spring_seat_visual" mass="0"/>
+      </body>
+      <body name="tablet_bottle_lid_seat" pos="0 0 0.082"/>
+      <site name="tablet_bottle_grasp_site" pos="0 0 0.044" size="0.004"
+            group="3" rgba="0 0 0 0"/>
+    </body>
+    <body name="tablet_lid" pos="0.5800 0.2700 0.86121">
+      <freejoint name="tablet_lid_joint"/>
+      <inertial pos="0 0 -0.004" mass="0.025"
+                diaginertia="0.00000511 0.00000511 0.00000781"/>
+      <geom name="tablet_lid_visual" type="cylinder"
+            size="0.025 0.012" pos="0 0 -0.004"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_top" type="box" size="0.019 0.019 0.0025"
+            pos="0 0 0.0055" class="lid_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_00" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0237947 0.0031326 -0.0040000" euler="0 0 0.1308996939" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_01" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0221731 0.0091844 -0.0040000" euler="0 0 0.3926990817" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_02" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0190405 0.0146103 -0.0040000" euler="0 0 0.6544984695" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_03" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0146103 0.0190405 -0.0040000" euler="0 0 0.9162978573" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_04" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0091844 0.0221731 -0.0040000" euler="0 0 1.1780972451" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_05" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0031326 0.0237947 -0.0040000" euler="0 0 1.4398966329" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_06" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0031326 0.0237947 -0.0040000" euler="0 0 1.7016960207" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_07" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0091844 0.0221731 -0.0040000" euler="0 0 1.9634954085" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_08" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0146103 0.0190405 -0.0040000" euler="0 0 2.2252947963" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_09" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0190405 0.0146103 -0.0040000" euler="0 0 2.4870941841" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_10" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0221731 0.0091844 -0.0040000" euler="0 0 2.7488935719" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_11" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0237947 0.0031326 -0.0040000" euler="0 0 3.0106929597" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_12" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0237947 -0.0031326 -0.0040000" euler="0 0 3.2724923475" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_13" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0221731 -0.0091844 -0.0040000" euler="0 0 3.5342917353" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_14" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0190405 -0.0146103 -0.0040000" euler="0 0 3.7960911231" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_15" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0146103 -0.0190405 -0.0040000" euler="0 0 4.0578905109" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_16" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0091844 -0.0221731 -0.0040000" euler="0 0 4.3196898987" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_17" type="box" size="0.0010000 0.0032544 0.0120000" pos="-0.0031326 -0.0237947 -0.0040000" euler="0 0 4.5814892865" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_18" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0031326 -0.0237947 -0.0040000" euler="0 0 4.8432886743" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_19" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0091844 -0.0221731 -0.0040000" euler="0 0 5.1050880621" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_20" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0146103 -0.0190405 -0.0040000" euler="0 0 5.3668874499" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_21" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0190405 -0.0146103 -0.0040000" euler="0 0 5.6286868377" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_22" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0221731 -0.0091844 -0.0040000" euler="0 0 5.8904862255" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_skirt_23" type="box" size="0.0010000 0.0032544 0.0120000" pos="0.0237947 -0.0031326 -0.0040000" euler="0 0 6.1522856133" class="cap_slide_collision" mass="0"/>
+      <geom name="tablet_lid_guide_00" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0155561 0.0024638 -0.0080000" euler="0 0 0.1570796327" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_01" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0140334 0.0071504 -0.0080000" euler="0 0 0.4712388980" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_02" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0111369 0.0111369 -0.0080000" euler="0 0 0.7853981634" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_03" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0071504 0.0140334 -0.0080000" euler="0 0 1.0995574288" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_04" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0024638 0.0155561 -0.0080000" euler="0 0 1.4137166941" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_05" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0024638 0.0155561 -0.0080000" euler="0 0 1.7278759595" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_06" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0071504 0.0140334 -0.0080000" euler="0 0 2.0420352248" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_07" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0111369 0.0111369 -0.0080000" euler="0 0 2.3561944902" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_08" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0140334 0.0071504 -0.0080000" euler="0 0 2.6703537556" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_09" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0155561 0.0024638 -0.0080000" euler="0 0 2.9845130209" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_10" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0155561 -0.0024638 -0.0080000" euler="0 0 3.2986722863" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_11" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0140334 -0.0071504 -0.0080000" euler="0 0 3.6128315516" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_12" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0111369 -0.0111369 -0.0080000" euler="0 0 3.9269908170" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_13" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0071504 -0.0140334 -0.0080000" euler="0 0 4.2411500823" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_14" type="box" size="0.0007500 0.0025694 0.0080000" pos="-0.0024638 -0.0155561 -0.0080000" euler="0 0 4.5553093477" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_15" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0024638 -0.0155561 -0.0080000" euler="0 0 4.8694686131" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_16" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0071504 -0.0140334 -0.0080000" euler="0 0 5.1836278784" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_17" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0111369 -0.0111369 -0.0080000" euler="0 0 5.4977871438" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_18" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0140334 -0.0071504 -0.0080000" euler="0 0 5.8119464091" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_guide_19" type="box" size="0.0007500 0.0025694 0.0080000" pos="0.0155561 -0.0024638 -0.0080000" euler="0 0 6.1261056745" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_00" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0216672 0.0018956 -0.0057500" euler="0 0 0.0872664626" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_01" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0210089 0.0056293 -0.0057500" euler="0 0 0.2617993878" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_02" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0197122 0.0091919 -0.0057500" euler="0 0 0.4363323130" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_03" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0178166 0.0124753 -0.0057500" euler="0 0 0.6108652382" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_04" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0153796 0.0153796 -0.0057500" euler="0 0 0.7853981634" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_05" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0124753 0.0178166 -0.0057500" euler="0 0 0.9599310886" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_06" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0091919 0.0197122 -0.0057500" euler="0 0 1.1344640138" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_07" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0056293 0.0210089 -0.0057500" euler="0 0 1.3089969390" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_08" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0018956 0.0216672 -0.0057500" euler="0 0 1.4835298642" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_09" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0018956 0.0216672 -0.0057500" euler="0 0 1.6580627894" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_10" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0056293 0.0210089 -0.0057500" euler="0 0 1.8325957146" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_11" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0091919 0.0197122 -0.0057500" euler="0 0 2.0071286398" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_12" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0124753 0.0178166 -0.0057500" euler="0 0 2.1816615650" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_13" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0153796 0.0153796 -0.0057500" euler="0 0 2.3561944902" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_20" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0197122 -0.0091919 -0.0057500" euler="0 0 3.5779249666" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_21" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0178166 -0.0124753 -0.0057500" euler="0 0 3.7524578918" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_22" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0153796 -0.0153796 -0.0057500" euler="0 0 3.9269908170" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_23" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0124753 -0.0178166 -0.0057500" euler="0 0 4.1015237422" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_24" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0091919 -0.0197122 -0.0057500" euler="0 0 4.2760566674" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_25" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0056293 -0.0210089 -0.0057500" euler="0 0 4.4505895926" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_26" type="box" size="0.0012500 0.0019600 0.0007500" pos="-0.0018956 -0.0216672 -0.0057500" euler="0 0 4.6251225178" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_27" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0018956 -0.0216672 -0.0057500" euler="0 0 4.7996554430" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_28" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0056293 -0.0210089 -0.0057500" euler="0 0 4.9741883682" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_29" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0091919 -0.0197122 -0.0057500" euler="0 0 5.1487212934" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_30" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0124753 -0.0178166 -0.0057500" euler="0 0 5.3232542186" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_31" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0153796 -0.0153796 -0.0057500" euler="0 0 5.4977871438" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_32" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0178166 -0.0124753 -0.0057500" euler="0 0 5.6723200690" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_33" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0197122 -0.0091919 -0.0057500" euler="0 0 5.8468529942" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_34" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0210089 -0.0056293 -0.0057500" euler="0 0 6.0213859194" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_retainer_35" type="box" size="0.0012500 0.0019600 0.0007500" pos="0.0216672 -0.0018956 -0.0057500" euler="0 0 6.1959188446" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_stop_end" type="box" size="0.00125 0.0025000 0.004" pos="-0.0210896 0.0053190 -0.003" euler="0 0 2.8945338301" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_stop_start" type="box" size="0.00125 0.0025000 0.004" pos="0.0210896 0.0053190 -0.003" euler="0 0 0.2470588235" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_press_detent" type="box" size="0.00125 0.0025000 0.0005" pos="0.0207327 -0.0065741 -0.004" euler="0 0 -0.3070588235" class="cap_slide_collision" solref="0.001 1" mass="0"/>
+      <geom name="tablet_lid_rib_00_visual" type="box" size="0.0012500 0.002 0.0090000" pos="0.0257500 0.0000000 -0.0040000" euler="0 0 0.0000000000" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_rib_00_collision" type="box" size="0.0012500 0.002 0.0090000" pos="0.0257500 0.0000000 -0.0040000" euler="0 0 0.0000000000" class="grip_collision" mass="0"/>
+      <geom name="tablet_lid_rib_01_visual" type="box" size="0.0012500 0.002 0.0090000" pos="0.0223002 0.0128750 -0.0040000" euler="0 0 0.5235987756" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_rib_01_collision" type="box" size="0.0012500 0.002 0.0090000" pos="0.0223002 0.0128750 -0.0040000" euler="0 0 0.5235987756" class="grip_collision" mass="0"/>
+      <geom name="tablet_lid_rib_02_visual" type="box" size="0.0012500 0.002 0.0090000" pos="0.0128750 0.0223002 -0.0040000" euler="0 0 1.0471975512" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_rib_02_collision" type="box" size="0.0012500 0.002 0.0090000" pos="0.0128750 0.0223002 -0.0040000" euler="0 0 1.0471975512" class="grip_collision" mass="0"/>
+      <geom name="tablet_lid_rib_03_visual" type="box" size="0.0012500 0.002 0.0090000" pos="0.0000000 0.0257500 -0.0040000" euler="0 0 1.5707963268" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_rib_03_collision" type="box" size="0.0012500 0.002 0.0090000" pos="0.0000000 0.0257500 -0.0040000" euler="0 0 1.5707963268" class="grip_collision" mass="0"/>
+      <geom name="tablet_lid_rib_04_visual" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0128750 0.0223002 -0.0040000" euler="0 0 2.0943951024" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_rib_04_collision" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0128750 0.0223002 -0.0040000" euler="0 0 2.0943951024" class="grip_collision" mass="0"/>
+      <geom name="tablet_lid_rib_05_visual" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0223002 0.0128750 -0.0040000" euler="0 0 2.6179938780" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_rib_05_collision" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0223002 0.0128750 -0.0040000" euler="0 0 2.6179938780" class="grip_collision" mass="0"/>
+      <geom name="tablet_lid_rib_06_visual" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0257500 0.0000000 -0.0040000" euler="0 0 3.1415926536" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_rib_06_collision" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0257500 0.0000000 -0.0040000" euler="0 0 3.1415926536" class="grip_collision" mass="0"/>
+      <geom name="tablet_lid_rib_07_visual" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0223002 -0.0128750 -0.0040000" euler="0 0 3.6651914292" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_rib_07_collision" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0223002 -0.0128750 -0.0040000" euler="0 0 3.6651914292" class="grip_collision" mass="0"/>
+      <geom name="tablet_lid_rib_08_visual" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0128750 -0.0223002 -0.0040000" euler="0 0 4.1887902048" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_rib_08_collision" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0128750 -0.0223002 -0.0040000" euler="0 0 4.1887902048" class="grip_collision" mass="0"/>
+      <geom name="tablet_lid_rib_09_visual" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0000000 -0.0257500 -0.0040000" euler="0 0 4.7123889804" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_rib_09_collision" type="box" size="0.0012500 0.002 0.0090000" pos="-0.0000000 -0.0257500 -0.0040000" euler="0 0 4.7123889804" class="grip_collision" mass="0"/>
+      <geom name="tablet_lid_rib_10_visual" type="box" size="0.0012500 0.002 0.0090000" pos="0.0128750 -0.0223002 -0.0040000" euler="0 0 5.2359877560" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_rib_10_collision" type="box" size="0.0012500 0.002 0.0090000" pos="0.0128750 -0.0223002 -0.0040000" euler="0 0 5.2359877560" class="grip_collision" mass="0"/>
+      <geom name="tablet_lid_rib_11_visual" type="box" size="0.0012500 0.002 0.0090000" pos="0.0223002 -0.0128750 -0.0040000" euler="0 0 5.7595865316" group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.93 1"/>
+      <geom name="tablet_lid_rib_11_collision" type="box" size="0.0012500 0.002 0.0090000" pos="0.0223002 -0.0128750 -0.0040000" euler="0 0 5.7595865316" class="grip_collision" mass="0"/>
+      <site name="tablet_lid_grasp_site"
+            pos="0 0 -0.004"
+            size="0.004"
+            group="3" rgba="0 0 0 0"/>
+    </body>
+    <body name="monday_tablet" pos="0.5620000 -0.0990000 0.7872100" euler="0 0 0.0000000000">
+      <freejoint name="monday_tablet_joint"/>
+      <geom name="monday_tablet_visual" type="cylinder"
+            size="0.012000 0.005000"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.92 1"/>
+      <geom name="monday_tablet_collision" type="cylinder"
+            size="0.012000 0.005000"
+            class="pill_collision" density="1250"/>
+    </body>
+    <body name="monday_capsule_1" pos="0.5937500 -0.1065000 0.7881475" euler="0 0 0.0000000000">
+      <freejoint name="monday_capsule_1_joint"/>
+      <geom name="monday_capsule_1_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="monday_capsule_1_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="monday_capsule_1_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="monday_capsule_1_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="monday_capsule_1_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="monday_capsule_2" pos="0.5937500 -0.0915000 0.7881475" euler="0 0 0.0000000000">
+      <freejoint name="monday_capsule_2_joint"/>
+      <geom name="monday_capsule_2_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="monday_capsule_2_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="monday_capsule_2_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="monday_capsule_2_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="monday_capsule_2_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="tuesday_tablet" pos="0.5620000 -0.0660000 0.7872100" euler="0 0 0.0000000000">
+      <freejoint name="tuesday_tablet_joint"/>
+      <geom name="tuesday_tablet_visual" type="cylinder"
+            size="0.012000 0.005000"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.92 1"/>
+      <geom name="tuesday_tablet_collision" type="cylinder"
+            size="0.012000 0.005000"
+            class="pill_collision" density="1250"/>
+    </body>
+    <body name="tuesday_capsule_1" pos="0.5937500 -0.0735000 0.7881475" euler="0 0 0.0000000000">
+      <freejoint name="tuesday_capsule_1_joint"/>
+      <geom name="tuesday_capsule_1_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="tuesday_capsule_1_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="tuesday_capsule_1_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="tuesday_capsule_1_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="tuesday_capsule_1_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="tuesday_capsule_2" pos="0.5937500 -0.0585000 0.7881475" euler="0 0 0.0000000000">
+      <freejoint name="tuesday_capsule_2_joint"/>
+      <geom name="tuesday_capsule_2_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="tuesday_capsule_2_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="tuesday_capsule_2_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="tuesday_capsule_2_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="tuesday_capsule_2_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="wednesday_tablet" pos="0.5620000 -0.0330000 0.7872100" euler="0 0 0.0000000000">
+      <freejoint name="wednesday_tablet_joint"/>
+      <geom name="wednesday_tablet_visual" type="cylinder"
+            size="0.012000 0.005000"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.92 1"/>
+      <geom name="wednesday_tablet_collision" type="cylinder"
+            size="0.012000 0.005000"
+            class="pill_collision" density="1250"/>
+    </body>
+    <body name="wednesday_capsule_1" pos="0.5937500 -0.0405000 0.7881475" euler="0 0 0.0000000000">
+      <freejoint name="wednesday_capsule_1_joint"/>
+      <geom name="wednesday_capsule_1_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="wednesday_capsule_1_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="wednesday_capsule_1_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="wednesday_capsule_1_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="wednesday_capsule_1_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="wednesday_capsule_2" pos="0.5937500 -0.0255000 0.7881475" euler="0 0 0.0000000000">
+      <freejoint name="wednesday_capsule_2_joint"/>
+      <geom name="wednesday_capsule_2_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="wednesday_capsule_2_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="wednesday_capsule_2_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="wednesday_capsule_2_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="wednesday_capsule_2_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="thursday_tablet" pos="0.5620000 0.0000000 0.7872100" euler="0 0 0.0000000000">
+      <freejoint name="thursday_tablet_joint"/>
+      <geom name="thursday_tablet_visual" type="cylinder"
+            size="0.012000 0.005000"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.92 1"/>
+      <geom name="thursday_tablet_collision" type="cylinder"
+            size="0.012000 0.005000"
+            class="pill_collision" density="1250"/>
+    </body>
+    <body name="thursday_capsule_1" pos="0.5937500 -0.0075000 0.7881475" euler="0 0 0.0000000000">
+      <freejoint name="thursday_capsule_1_joint"/>
+      <geom name="thursday_capsule_1_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="thursday_capsule_1_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="thursday_capsule_1_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="thursday_capsule_1_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="thursday_capsule_1_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="thursday_capsule_2" pos="0.5937500 0.0075000 0.7881475" euler="0 0 0.0000000000">
+      <freejoint name="thursday_capsule_2_joint"/>
+      <geom name="thursday_capsule_2_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="thursday_capsule_2_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="thursday_capsule_2_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="thursday_capsule_2_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="thursday_capsule_2_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="friday_tablet" pos="0.5620000 0.0330000 0.7872100" euler="0 0 0.0000000000">
+      <freejoint name="friday_tablet_joint"/>
+      <geom name="friday_tablet_visual" type="cylinder"
+            size="0.012000 0.005000"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.92 1"/>
+      <geom name="friday_tablet_collision" type="cylinder"
+            size="0.012000 0.005000"
+            class="pill_collision" density="1250"/>
+    </body>
+    <body name="friday_capsule_1" pos="0.5937500 0.0255000 0.7881475" euler="0 0 0.0000000000">
+      <freejoint name="friday_capsule_1_joint"/>
+      <geom name="friday_capsule_1_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="friday_capsule_1_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="friday_capsule_1_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="friday_capsule_1_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="friday_capsule_1_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="friday_capsule_2" pos="0.5937500 0.0405000 0.7881475" euler="0 0 0.0000000000">
+      <freejoint name="friday_capsule_2_joint"/>
+      <geom name="friday_capsule_2_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="friday_capsule_2_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="friday_capsule_2_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="friday_capsule_2_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="friday_capsule_2_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="bottle_capsule_1" pos="0.5800000 -0.2765000 0.7881475" euler="0 0 0.0000000000">
+      <freejoint name="bottle_capsule_1_joint"/>
+      <geom name="bottle_capsule_1_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="bottle_capsule_1_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="bottle_capsule_1_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="bottle_capsule_1_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="bottle_capsule_1_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="bottle_capsule_2" pos="0.5800000 -0.2635000 0.7881475" euler="0 0 0.0000000000">
+      <freejoint name="bottle_capsule_2_joint"/>
+      <geom name="bottle_capsule_2_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="bottle_capsule_2_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="bottle_capsule_2_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="bottle_capsule_2_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="bottle_capsule_2_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="bottle_capsule_3" pos="0.5800000 -0.2765000 0.8005475" euler="0 0 0.0000000000">
+      <freejoint name="bottle_capsule_3_joint"/>
+      <geom name="bottle_capsule_3_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="bottle_capsule_3_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="bottle_capsule_3_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="bottle_capsule_3_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="bottle_capsule_3_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="bottle_capsule_4" pos="0.5800000 -0.2635000 0.8005475" euler="0 0 0.0000000000">
+      <freejoint name="bottle_capsule_4_joint"/>
+      <geom name="bottle_capsule_4_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="bottle_capsule_4_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="bottle_capsule_4_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="bottle_capsule_4_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="bottle_capsule_4_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="bottle_capsule_5" pos="0.5800000 -0.2765000 0.8129475" euler="0 0 0.0000000000">
+      <freejoint name="bottle_capsule_5_joint"/>
+      <geom name="bottle_capsule_5_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="bottle_capsule_5_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="bottle_capsule_5_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="bottle_capsule_5_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="bottle_capsule_5_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="bottle_capsule_6" pos="0.5800000 -0.2635000 0.8129475" euler="0 0 0.0000000000">
+      <freejoint name="bottle_capsule_6_joint"/>
+      <geom name="bottle_capsule_6_collision" type="capsule"
+            size="0.0059375 0.0103125"
+            euler="0 1.5707963268 0" class="pill_collision"
+            density="1250"/>
+      <geom name="bottle_capsule_6_blue_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="-0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="bottle_capsule_6_blue_cap" type="sphere" size="0.0059375"
+            pos="-0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.08 0.32 0.82 1"/>
+      <geom name="bottle_capsule_6_cream_barrel" type="cylinder"
+            size="0.0059375 0.0051563"
+            pos="0.0051563 0 0" euler="0 1.5707963268 0"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.94 0.86 0.61 1"/>
+      <geom name="bottle_capsule_6_cream_cap" type="sphere" size="0.0059375"
+            pos="0.0103125 0 0" group="1" contype="0" conaffinity="0"
+            mass="0" rgba="0.94 0.86 0.61 1"/>
+    </body>
+    <body name="bottle_tablet_1" pos="0.5800000 0.2700000 0.7872100" euler="0 0 0.0000000000">
+      <freejoint name="bottle_tablet_1_joint"/>
+      <geom name="bottle_tablet_1_visual" type="cylinder"
+            size="0.012000 0.005000"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.92 1"/>
+      <geom name="bottle_tablet_1_collision" type="cylinder"
+            size="0.012000 0.005000"
+            class="pill_collision" density="1250"/>
+    </body>
+    <body name="bottle_tablet_2" pos="0.5800000 0.2700000 0.7977100" euler="0 0 0.0000000000">
+      <freejoint name="bottle_tablet_2_joint"/>
+      <geom name="bottle_tablet_2_visual" type="cylinder"
+            size="0.012000 0.005000"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.92 1"/>
+      <geom name="bottle_tablet_2_collision" type="cylinder"
+            size="0.012000 0.005000"
+            class="pill_collision" density="1250"/>
+    </body>
+    <body name="bottle_tablet_3" pos="0.5800000 0.2700000 0.8082100" euler="0 0 0.0000000000">
+      <freejoint name="bottle_tablet_3_joint"/>
+      <geom name="bottle_tablet_3_visual" type="cylinder"
+            size="0.012000 0.005000"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.92 1"/>
+      <geom name="bottle_tablet_3_collision" type="cylinder"
+            size="0.012000 0.005000"
+            class="pill_collision" density="1250"/>
+    </body>
+    <body name="bottle_tablet_4" pos="0.5800000 0.2700000 0.8187100" euler="0 0 0.0000000000">
+      <freejoint name="bottle_tablet_4_joint"/>
+      <geom name="bottle_tablet_4_visual" type="cylinder"
+            size="0.012000 0.005000"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.92 1"/>
+      <geom name="bottle_tablet_4_collision" type="cylinder"
+            size="0.012000 0.005000"
+            class="pill_collision" density="1250"/>
+    </body>
+    <body name="bottle_tablet_5" pos="0.5800000 0.2700000 0.8292100" euler="0 0 0.0000000000">
+      <freejoint name="bottle_tablet_5_joint"/>
+      <geom name="bottle_tablet_5_visual" type="cylinder"
+            size="0.012000 0.005000"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.92 1"/>
+      <geom name="bottle_tablet_5_collision" type="cylinder"
+            size="0.012000 0.005000"
+            class="pill_collision" density="1250"/>
+    </body>
+    <body name="bottle_tablet_6" pos="0.5800000 0.2700000 0.8397100" euler="0 0 0.0000000000">
+      <freejoint name="bottle_tablet_6_joint"/>
+      <geom name="bottle_tablet_6_visual" type="cylinder"
+            size="0.012000 0.005000"
+            group="1" contype="0" conaffinity="0" mass="0" rgba="0.95 0.95 0.92 1"/>
+      <geom name="bottle_tablet_6_collision" type="cylinder"
+            size="0.012000 0.005000"
+            class="pill_collision" density="1250"/>
+    </body>
+    <camera name="pcleft" pos="0.755 0.95 1.6"
+            quat="0 0 0.48106 0.87669" fovy="58"/>
+    <camera name="pcright" pos="0.755 -0.95 1.6"
+            quat="0.87669 0.48106 0 0" fovy="58"/>
+    <camera name="tpview" pos="1.95 0 1.55"
+            quat="0.61017 0.35733 0.35733 0.61017" fovy="30"/>
+  </worldbody>
+</mujoco>

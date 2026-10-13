@@ -1,0 +1,35 @@
+{
+ "source": {
+  "repo": "github.com/yunshengtian/Fabrica",
+  "commit": "215a30fe51e59299588a5b5e417a9cb934fb393e",
+  "license": "MIT"
+ },
+ "generated_by": "datagen/fabrica/convert.py",
+ "date": "2026-09-06",
+ "coacd": {
+  "threshold": 0.03
+ },
+ "mesh_cache": [
+  "stool_circular_0_18aad3ce60c6",
+  "stool_circular_1_5387f5320a75",
+  "stool_circular_2_6c9aea70cd20",
+  "stool_circular_3_63979eeb535e",
+  "stool_circular_4_80b718f9c92a",
+  "stool_circular_5_c34faa6cfd79",
+  "stool_circular_6_06ca37d56295",
+  "stool_circular_7_87dbb2372bf5",
+  "stool_circular_8_b34da94bc66d"
+ ],
+ "scale": 0.015,
+ "contact": {
+  "mechanism": "collision hulls eroded inward per face (visual full-size)",
+  "erosion_m": 0.002,
+  "erosion_mm": 2.0,
+  "total_mate_slack_mm": 4.0,
+  "hulls_kept_full": 51
+ },
+ "files": {
+  "scene.xml": "4e619527c14f7579",
+  "task.json": "3b439eb824f4524b"
+ }
+}

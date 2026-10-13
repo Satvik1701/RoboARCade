@@ -1,0 +1,198 @@
+<mujoco model="autobio_set_up_pcr_run">
+  <!-- assetdir, not meshdir: the C1000 carries a panel texture as well as meshes -->
+  <compiler angle="radian" assetdir="../../../autobio" />
+  <option integrator="implicitfast" impratio="20" density="1.2" viscosity="2e-05"
+          cone="elliptic" />
+  <visual>
+    <map znear="0.001" shadowclip="0.04" />
+    <quality shadowsize="4096" />
+    <headlight ambient="0.32 0.32 0.33" diffuse="0.18 0.18 0.18" specular="0.3 0.3 0.3" />
+  </visual>
+
+  <default>
+    <default class="visual">
+      <geom type="mesh" contype="0" conaffinity="0" density="0" group="2" />
+      <mesh inertia="shell" />
+    </default>
+    <default class="inertia">
+      <geom type="mesh" contype="0" conaffinity="0" group="5" />
+      <mesh inertia="exact" />
+    </default>
+    <default class="collision">
+      <geom type="mesh" contype="0" conaffinity="1" density="0" group="3" />
+    </default>
+  </default>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.85 0.87 0.90" rgb2="0.30 0.34 0.40"
+             width="256" height="1536" />
+    <material name="bench_mat" rgba="0.80 0.81 0.82 1" specular="0.2" shininess="0.25" />
+    <material name="plate_mat" rgba="0.93 0.94 0.96 1" specular="0.35" shininess="0.5" />
+    <material name="seat_mat" rgba="0.18 0.20 0.22 1" specular="0.25" shininess="0.35" />
+    <mesh class="visual" name="body_visual_0" file="instrument/thermal_cycler_biorad_c1000/body-visual-0.obj" />
+    <material name="body_0" rgba="0.498039 0.498039 0.498039 1" metallic="0.0" roughness="1.0" />
+    <mesh class="visual" name="body_visual_1" file="instrument/thermal_cycler_biorad_c1000/body-visual-1.obj" />
+    <material name="body_1" rgba="0.286275 0.662745 0.329412 1" metallic="0.0" roughness="1.0" />
+    <mesh class="visual" name="body_visual_2" file="instrument/thermal_cycler_biorad_c1000/body-visual-2.obj" />
+    <material name="body_2" rgba="0.84313725 0.81176471 0.70196078 1" metallic="0.0" roughness="1.0" />
+    <mesh class="visual" name="body_visual_3" file="instrument/thermal_cycler_biorad_c1000/body-visual-3.obj" />
+    <texture name="body_0" type="2d" file="instrument/thermal_cycler_biorad_c1000/body-0.png" />
+    <material name="body_3" rgba="1 1 1 1" metallic="0.0" roughness="1.0" texture="body_0" />
+    <mesh class="inertia" name="body_inertia" file="instrument/thermal_cycler_biorad_c1000/body-inertia.obj" />
+    <mesh class="collision" name="body_collision_0" file="instrument/thermal_cycler_biorad_c1000/body-collision-0.obj" />
+    <mesh class="visual" name="lid_visual_0" file="instrument/thermal_cycler_biorad_c1000/lid-visual-0.obj" />
+    <material name="lid_0" rgba="0.84313725 0.81176471 0.70196078 1" metallic="0.0" roughness="1.0" />
+    <mesh class="visual" name="lid_visual_1" file="instrument/thermal_cycler_biorad_c1000/lid-visual-1.obj" />
+    <material name="lid_1" rgba="0.498039 0.498039 0.498039 1" metallic="0.0" roughness="1.0" />
+    <mesh class="inertia" name="lid_inertia" file="instrument/thermal_cycler_biorad_c1000/lid-inertia.obj" />
+    <mesh class="visual" name="lid_lever_visual_0" file="instrument/thermal_cycler_biorad_c1000/lid-lever-visual-0.obj" />
+    <material name="lid_lever_0" rgba="0.286275 0.662745 0.329412 1" metallic="0.0" roughness="1.0" />
+    <mesh class="visual" name="lid_lever_visual_1" file="instrument/thermal_cycler_biorad_c1000/lid-lever-visual-1.obj" />
+    <material name="lid_lever_1" rgba="0.84313725 0.81176471 0.70196078 1" metallic="0.0" roughness="1.0" />
+    <mesh class="inertia" name="lid_lever_inertia" file="instrument/thermal_cycler_biorad_c1000/lid-lever-inertia.obj" />
+    <mesh class="visual" name="lid_force_knob_visual_0" file="instrument/thermal_cycler_biorad_c1000/lid-force-knob-visual-0.obj" />
+    <material name="lid_force_knob_0" rgba="0.84313725 0.81176471 0.70196078 1" metallic="0.0" roughness="1.0" />
+    <mesh class="inertia" name="lid_force_knob_inertia" file="instrument/thermal_cycler_biorad_c1000/lid-force-knob-inertia.obj" />
+    <mesh class="visual" name="reaction_block_visual_0" file="instrument/thermal_cycler_biorad_c1000/reaction-block-visual-0.obj" />
+    <material name="reaction_block_0" rgba="0.498039 0.498039 0.498039 1" metallic="0.0" roughness="1.0" />
+    <mesh class="inertia" name="reaction_block_inertia" file="instrument/thermal_cycler_biorad_c1000/reaction-block-inertia.obj" />
+    <mesh class="collision" name="reaction_block_collision_0" file="instrument/thermal_cycler_biorad_c1000/reaction-block-collision/0.obj" />
+    <texture name="lid_force_knob_label_texture" type="2d"
+             file="../tasks/autobio/set_up_pcr_run/force-knob-label.png" />
+    <material name="lid_force_knob_label" texture="lid_force_knob_label_texture"
+              metallic="0" roughness="1" />
+    <mesh class="visual" name="lid_force_knob_label_decal"
+          file="../tasks/autobio/set_up_pcr_run/force-knob-label-decal.obj"
+          scale="0.0027 0.0223 1" />
+    <mesh name="plate_seat_x_rail"
+          file="../tasks/autobio/set_up_pcr_run/plate-seat-x-rail.obj" />
+    <mesh name="plate_seat_y_rail"
+          file="../tasks/autobio/set_up_pcr_run/plate-seat-y-rail.obj" />
+    <mesh name="pcr_plate_96well-visual_visual" file="container/pcr_plate_96well_vis/visual.obj" scale="0.00085 0.00085 0.00085" />
+    <mesh class="inertia" name="pcr_plate_inertia" file="container/pcr_plate_96well_vis/visual.obj" scale="0.00085 0.00085 0.00085" />
+  </asset>
+
+  <worldbody>
+    <geom name="floor" size="3 3 0.125" type="plane" group="1" rgba="0.50 0.51 0.53 1" />
+    <!-- do_bio's agentview pulled 0.25 m straight back along its own view axis: this
+         machine stands 0.36 m tall with the lid open and at do_bio's (0.5, 0, 1.35) the
+         forced 55 deg third-person fovy cuts the lid off at the top of the frame. -->
+    <camera name="agentview" pos="0.677 0 1.5265" quat="0.653098 0.271041 0.271041 0.653098" fovy="55" />
+    <camera name="leftview" pos="0.338472 -0.389964 1.35"
+            quat="0.853314 0.354132 0.146686 0.353454" />
+    <camera name="rightview" pos="0.338472 0.389964 1.35"
+            quat="0.353454 0.146686 0.354132 0.853314" />
+    <light name="key" pos="0.9 -0.7 1.7" dir="-0.46 0.41 -0.78" directional="true"
+           castshadow="true" diffuse="0.42 0.42 0.41" specular="0.35 0.35 0.35" />
+    <light name="fill" pos="-0.4 1.2 1.6" dir="0.22 -0.62 -0.75" directional="true"
+           castshadow="false" diffuse="0.24 0.25 0.28" specular="0.05 0.05 0.05" />
+
+    <body name="table" pos="0 0 0.775">
+      <geom name="table_collision" size="0.4 0.4 0.025" type="box" group="3"
+            rgba="0.5 0.5 0 1" />
+      <geom name="table_top" size="0.4 0.4 0.025" type="box" material="bench_mat"
+            contype="0" conaffinity="0" group="1" mass="0" />
+      <site name="table_top" pos="0 0 0.025" size="0.001" rgba="0 0 0 0" />
+    </body>
+
+    <body name="cycler" pos="-0.1000 0.1100 0.8974" quat="0 0 0 1">
+      <geom class="visual" mesh="body_visual_0" material="body_0" />
+      <geom class="visual" mesh="body_visual_1" material="body_1" />
+      <geom class="visual" mesh="body_visual_2" material="body_2" />
+      <geom class="visual" mesh="body_visual_3" material="body_3" />
+      <geom class="inertia" mesh="body_inertia" density="1000" />
+      <geom class="collision" mesh="body_collision_0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom class="collision" type="box" size="0.16531634 0.1768885 0.09141993" pos="0 -0.01750868 -0.00415259" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom class="collision" type="box" size="0.04705458 0.05891233 0.00550538" pos="-0.11857205 -0.0259347 0.09345097" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom class="collision" type="box" size="0.04705458 0.05891233 0.00550538" pos="0.11818152 -0.0259347 0.09345097" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom class="collision" type="box" size="0.16531634 0.05323186 0.00545543" pos="0 -0.13729936 0.09345097" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom class="collision" type="box" size="0.16531634 0.064804 0.00545543" pos="0 0.09293923 0.09345097" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom class="collision" type="box" size="0.11763413 0.03564314 0.01211631" pos="0 -0.11857569 0.10963205" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom class="collision" type="box" size="0.07844975 0.00706048 0.00431473" pos="0 0.04603181 0.1023905" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <body name="lid" pos="-0 -0.11407998 0.14201831" quat="0 -0 -0.15695801 0.98760528">
+        <joint name="lid" type="hinge" pos="-0.07835153 0.00491715 -0.02499539" axis="-1 -0 0" range="-1.9 0" damping="1.0" />
+        <geom class="visual" mesh="lid_visual_0" material="lid_0" />
+        <geom class="visual" mesh="lid_visual_1" material="lid_1" />
+        <geom class="inertia" mesh="lid_inertia" density="1000" />
+        <geom class="collision" type="box" size="0.056 0.01887199 0.01316" pos="-0.00085045 0.00096269 -0.01868714" quat="0.70710681 -0.70710675 0 0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom class="collision" type="box" size="0.07751919 0.01744181 0.01968988" pos="-0.00023828 0.00745284 -0.00582981" quat="0.70710681 -0.70710675 0 0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom class="collision" type="box" size="0.07751919 0.00635657 0.01968988" pos="-0.00023828 0.00745283 0.11228961" quat="0.70710681 -0.70710675 0 0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom class="collision" type="box" size="0.07097511 0.00581996 0.02001498" pos="-0.07195542 0.00738207 0.04790889" quat="0.4999889 -0.49998886 0.5000111 0.50001114" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom class="collision" type="box" size="0.07097511 0.00581996 0.02001498" pos="0.07156257 0.00738207 0.04790889" quat="0.4999889 -0.49998886 0.5000111 0.50001114" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom class="collision" type="box" size="0.05709077 0.05115333 0.01804068" pos="-0.00213858 0.04121279 0.05533712" quat="0.70710681 -0.70710675 0 0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <body name="lid_lever" pos="0.00000001 0.02497296 0.01787273" quat="0.99983132 0.01836635 0 -0">
+          <joint name="lid_lever" type="hinge" pos="0.05808487 0.02498769 0.04570046" axis="-1 -0 -0" range="-0.94 0" armature="0.0005" user="2" damping="0.036310" />
+          <geom class="visual" mesh="lid_lever_visual_0" material="lid_lever_0" />
+          <geom class="visual" mesh="lid_lever_visual_1" material="lid_lever_1" />
+          <geom class="inertia" mesh="lid_lever_inertia" density="1000" />
+          <geom class="collision" type="box" size="0.07402492 0.00599602 0.0142868" pos="0.00000558 0.07184963 0.07713565" quat="0.95760974 0.28806872 -0 -0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+          <geom class="collision" type="box" size="0.07402492 0.00599602 0.00673626" pos="0.00000558 0.10147841 0.10633726" quat="0.95760974 0.28806872 -0 -0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+          <site name="lid_lever" pos="0.00000558 0.10147841 0.10633726" quat="0.95760974 0.28806872 -0 -0" rgba="0 0 0 0" />
+          <geom class="collision" type="box" size="0.00745335 0.03336119 0.01475018" pos="-0.06579017 0.04027029 0.05656042" quat="0.95760974 0.28806872 -0 -0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+          <geom class="collision" type="box" size="0.00745335 0.03336119 0.01475018" pos="0.06588534 0.04027029 0.05656042" quat="0.95760974 0.28806872 -0 -0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+          <geom class="collision" type="box" size="0.00745335 0.03336119 0.00648441" pos="-0.06579017 0.07820781 0.09137272" quat="0.95760974 0.28806872 -0 -0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+          <geom class="collision" type="box" size="0.00745335 0.03336119 0.00648441" pos="0.06595135 0.07820781 0.09137272" quat="0.95760974 0.28806872 -0 -0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        </body>
+        <body name="lid_force_knob" pos="0.04853316 0.01582532 0.04458983" quat="0.76837396 0.00000003 -0.64000113 -0.00000001">
+          <joint name="lid_force_knob" type="hinge" pos="0.00000062 0.04339292 0.04934651" axis="0 -1 0" range="0 60" frictionloss="0.01" damping="0.001" solimpfriction="0.999 0.9999 0.0001" solreffriction="0.004 1" />
+          <site name="lid_force_knob" pos="0.00000062 0.04339292 0.04934651" quat="1 -1 0 0" />
+          <geom class="visual" mesh="lid_force_knob_visual_0" material="lid_force_knob_0" />
+          <geom class="inertia" mesh="lid_force_knob_inertia" density="1000" />
+          <geom class="collision" type="sphere" size="0.02515104" pos="0.00008293 0.0370119 0.04934166" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+          <geom class="collision" type="cylinder" size="0.0239007 0.0032983" pos="0 0.04713839 0.04956995" quat="0.7071261 0.70708746 0 0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+          <geom class="collision" type="box" size="0.02396715 0.01078522 0.00318763" pos="0 0.05702952 0.04948573" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+          <geom name="lid_force_knob_label" class="visual" mesh="lid_force_knob_label_decal" material="lid_force_knob_label" pos="0.0000000 0.0680527 0.0493463" quat="0.5 -0.5 -0.5 -0.5" contype="0" conaffinity="0" mass="0" />
+        </body>
+        <geom name="lid_heated_platen_collision" class="collision" type="box" size="0.052 0.035 0.003" pos="0.0 0.0093438 0.0601287" quat="0.70710681 -0.70710675 0 0" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998 0.001" solref="0.004 1" />
+        <geom name="lid_heated_platen_visual" class="visual" type="box" size="0.052 0.035 0.003" pos="0.0 0.0093438 0.0601287" quat="0.70710681 -0.70710675 0 0" mass="0" material="seat_mat" />
+      </body>
+      <body name="reaction_block" pos="-0 -0.02582798 0.09007778" quat="1 -0 0 0">
+        <geom class="visual" mesh="reaction_block_visual_0" material="reaction_block_0" />
+        <geom class="inertia" mesh="reaction_block_inertia" density="1000" />
+        <geom class="collision" mesh="reaction_block_collision_0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <site name="plate_seat" size="0.001" pos="0 0 0.016814" rgba="0 0 0 0" />
+        <geom name="plate_seat_floor_collision" class="collision" type="box" size="0.0439252 0.0286252 0.0002000" pos="0 0 0.0080287" mass="0" priority="2" condim="4" friction="0.05 0.01 0.0001" solimp="0.9 0.95 0.001" solref="0.02 1" />
+        <geom name="plate_seat_floor_visual" class="visual" type="box" size="0.0439252 0.0286252 0.0002000" pos="0 0 0.0080287" material="seat_mat" mass="0" />
+        <geom name="plate_seat_x_pos_collision" mesh="plate_seat_x_rail" class="collision" mass="0" priority="2" condim="4" friction="0.6 0.02 0.0001" solimp="0.998 0.998 0.001" solref="0.004 1" />
+        <geom name="plate_seat_x_pos_visual" class="visual" mesh="plate_seat_x_rail" material="seat_mat" mass="0" />
+        <geom name="plate_seat_x_neg_collision" mesh="plate_seat_x_rail" class="collision" mass="0" priority="2" condim="4" friction="0.6 0.02 0.0001" solimp="0.998 0.998 0.001" solref="0.004 1" quat="0 0 0 1" />
+        <geom name="plate_seat_x_neg_visual" class="visual" mesh="plate_seat_x_rail" material="seat_mat" mass="0" quat="0 0 0 1" />
+        <geom name="plate_seat_y_pos_collision" mesh="plate_seat_y_rail" class="collision" mass="0" priority="2" condim="4" friction="0.6 0.02 0.0001" solimp="0.998 0.998 0.001" solref="0.004 1" />
+        <geom name="plate_seat_y_pos_visual" class="visual" mesh="plate_seat_y_rail" material="seat_mat" mass="0" />
+        <geom name="plate_seat_y_neg_collision" mesh="plate_seat_y_rail" class="collision" mass="0" priority="2" condim="4" friction="0.6 0.02 0.0001" solimp="0.998 0.998 0.001" solref="0.004 1" quat="0 0 0 1" />
+        <geom name="plate_seat_y_neg_visual" class="visual" mesh="plate_seat_y_rail" material="seat_mat" mass="0" quat="0 0 0 1" />
+      </body>
+    </body>
+    <body name="pcr_plate" pos="-0.1000 -0.2900 0.8096">
+      <freejoint />
+      <geom type="mesh" contype="0" conaffinity="0" group="2" mesh="pcr_plate_96well-visual_visual" material="plate_mat" density="0" />
+      <geom type="box" group="3" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" size="0.042925 0.027625 0.000128" pos="0 0 -0.008457" />
+      <geom type="box" group="3" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" size="0.042976 0.027676 0.000825" pos="0 0 -0.007506" />
+      <geom type="box" group="3" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" size="0.043306 0.028006 0.000825" pos="0 0 -0.005857" />
+      <geom type="box" group="3" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" size="0.043636 0.028336 0.000824" pos="0 0 -0.004208" />
+      <geom type="box" group="3" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" size="0.043966 0.028666 0.000825" pos="0 0 -0.002559" />
+      <geom type="box" group="3" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" size="0.044295 0.028995 0.000825" pos="0 0 -0.000910" />
+      <geom type="box" group="3" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" size="0.044625 0.029325 0.000013" pos="0 0 -0.000073" />
+      <geom type="box" group="3" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" size="0.044625 0.029325 0.000921" pos="0 0 0.000861" />
+      <geom type="box" group="3" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" size="0.044625 0.029325 0.000921" pos="0 0 0.002704" />
+      <geom type="box" group="3" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" size="0.044625 0.029325 0.000921" pos="0 0 0.004546" />
+      <geom type="box" group="3" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" size="0.044625 0.029325 0.000921" pos="0 0 0.006389" />
+      <geom type="box" group="3" mass="0" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" size="0.051000 0.034000 0.000638" pos="0 0 0.007947" />
+      <geom class="inertia" mesh="pcr_plate_inertia" density="905" />
+    </body>
+  </worldbody>
+  <tendon>
+    <fixed name="lid_lever_0" stiffness="0.363102" springlength="-0.940000">
+      <joint joint="lid_lever" coef="1" />
+    </fixed>
+    <fixed name="lid_lever_1" stiffness="-3.631020" springlength="-1.880000 -0.517000">
+      <joint joint="lid_lever" coef="1" />
+    </fixed>
+    <fixed name="lid_lever_2" stiffness="3.631020" springlength="-1.880000 -0.423000">
+      <joint joint="lid_lever" coef="1" />
+    </fixed>
+  </tendon>
+  <equality>
+    <joint name="lid_lock" joint1="lid" polycoef="-1.9" active="false" />
+  </equality>
+</mujoco>

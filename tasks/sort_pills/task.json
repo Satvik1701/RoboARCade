@@ -1,0 +1,2281 @@
+{
+ "spec_version": 1,
+ "family": "robodojo",
+ "category": "real_world",
+ "name": "sort_pills",
+ "language": "Monday to Friday are already filled. Press each cap down and turn it counterclockwise half a turn to take it off, then fill the Saturday and Sunday compartments the same way, following the labels. Close the organizer lids you opened, leave the caps off, and pull both arms clear.",
+ "scene": "scene.xml",
+ "support": [
+  "bottle_tablet_1",
+  "bottle_tablet_2",
+  "bottle_tablet_3",
+  "bottle_tablet_4",
+  "bottle_tablet_5",
+  "bottle_tablet_6",
+  "friday_tablet",
+  "monday_tablet",
+  "play_table",
+  "tablet_bottle",
+  "tablet_lid",
+  "thursday_tablet",
+  "tuesday_tablet",
+  "wednesday_tablet"
+ ],
+ "robots": [
+  {
+   "name": "move",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    -0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  },
+  {
+   "name": "hold",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "tpview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "move"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "hold"
+  },
+  {
+   "name": "pcleft",
+   "role": "pc"
+  },
+  {
+   "name": "pcright",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "capsule_bottle",
+  "tablet_bottle",
+  "capsule_lid",
+  "tablet_lid",
+  "monday_capsule_1",
+  "monday_capsule_2",
+  "tuesday_capsule_1",
+  "tuesday_capsule_2",
+  "wednesday_capsule_1",
+  "wednesday_capsule_2",
+  "thursday_capsule_1",
+  "thursday_capsule_2",
+  "friday_capsule_1",
+  "friday_capsule_2",
+  "bottle_capsule_1",
+  "bottle_capsule_2",
+  "bottle_capsule_3",
+  "bottle_capsule_4",
+  "bottle_capsule_5",
+  "bottle_capsule_6",
+  "monday_tablet",
+  "tuesday_tablet",
+  "wednesday_tablet",
+  "thursday_tablet",
+  "friday_tablet",
+  "bottle_tablet_1",
+  "bottle_tablet_2",
+  "bottle_tablet_3",
+  "bottle_tablet_4",
+  "bottle_tablet_5",
+  "bottle_tablet_6"
+ ],
+ "randomization": {
+  "full_rand": true,
+  "groups": [
+   [
+    "weekly_organizer",
+    "monday_capsule_1",
+    "monday_capsule_2",
+    "tuesday_capsule_1",
+    "tuesday_capsule_2",
+    "wednesday_capsule_1",
+    "wednesday_capsule_2",
+    "thursday_capsule_1",
+    "thursday_capsule_2",
+    "friday_capsule_1",
+    "friday_capsule_2",
+    "monday_tablet",
+    "tuesday_tablet",
+    "wednesday_tablet",
+    "thursday_tablet",
+    "friday_tablet"
+   ],
+   [
+    "capsule_bottle",
+    "capsule_lid",
+    "bottle_capsule_1",
+    "bottle_capsule_2",
+    "bottle_capsule_3",
+    "bottle_capsule_4",
+    "bottle_capsule_5",
+    "bottle_capsule_6"
+   ],
+   [
+    "tablet_bottle",
+    "tablet_lid",
+    "bottle_tablet_1",
+    "bottle_tablet_2",
+    "bottle_tablet_3",
+    "bottle_tablet_4",
+    "bottle_tablet_5",
+    "bottle_tablet_6"
+   ]
+  ],
+  "placement_regions": {
+   "weekly_organizer": [
+    {
+     "x": [
+      0.6109374999999999,
+      0.6109374999999999
+     ],
+     "y": [
+      -0.09703125,
+      -0.09703125
+     ],
+     "yaw_offset_deg": [
+      90.0,
+      90.0
+     ]
+    },
+    {
+     "x": [
+      0.5490625,
+      0.5490625
+     ],
+     "y": [
+      0.09703125,
+      0.09703125
+     ],
+     "yaw_offset_deg": [
+      270.0,
+      270.0
+     ]
+    }
+   ],
+   "capsule_bottle": [
+    {
+     "x": [
+      0.45,
+      0.7
+     ],
+     "y": [
+      -0.32,
+      -0.16
+     ],
+     "yaw_offset_deg": [
+      -180.0,
+      180.0
+     ]
+    }
+   ],
+   "tablet_bottle": [
+    {
+     "x": [
+      0.45,
+      0.7
+     ],
+     "y": [
+      0.16,
+      0.32
+     ],
+     "yaw_offset_deg": [
+      -180.0,
+      180.0
+     ]
+    }
+   ]
+  },
+  "lift_reach": {
+   "capsule_bottle": 0.12,
+   "tablet_bottle": 0.12,
+   "capsule_lid": 0.12,
+   "tablet_lid": 0.12,
+   "monday_capsule_1": 0.12,
+   "monday_capsule_2": 0.12,
+   "tuesday_capsule_1": 0.12,
+   "tuesday_capsule_2": 0.12,
+   "wednesday_capsule_1": 0.12,
+   "wednesday_capsule_2": 0.12,
+   "thursday_capsule_1": 0.12,
+   "thursday_capsule_2": 0.12,
+   "friday_capsule_1": 0.12,
+   "friday_capsule_2": 0.12,
+   "bottle_capsule_1": 0.12,
+   "bottle_capsule_2": 0.12,
+   "bottle_capsule_3": 0.12,
+   "bottle_capsule_4": 0.12,
+   "bottle_capsule_5": 0.12,
+   "bottle_capsule_6": 0.12,
+   "monday_tablet": 0.12,
+   "tuesday_tablet": 0.12,
+   "wednesday_tablet": 0.12,
+   "thursday_tablet": 0.12,
+   "friday_tablet": 0.12,
+   "bottle_tablet_1": 0.12,
+   "bottle_tablet_2": 0.12,
+   "bottle_tablet_3": 0.12,
+   "bottle_tablet_4": 0.12,
+   "bottle_tablet_5": 0.12,
+   "bottle_tablet_6": 0.12
+  },
+  "reach_sites": [
+   "monday_drop_site",
+   "tuesday_drop_site",
+   "wednesday_drop_site",
+   "thursday_drop_site",
+   "friday_drop_site",
+   "saturday_drop_site",
+   "sunday_drop_site",
+   "capsule_bottle_grasp_site",
+   "capsule_lid_grasp_site",
+   "tablet_bottle_grasp_site",
+   "tablet_lid_grasp_site"
+  ],
+  "min_sep": [
+   [
+    "capsule_bottle",
+    "tablet_bottle",
+    0.12
+   ]
+  ],
+  "grasp_clearance": 0.002,
+  "region": {
+   "x": [
+    0,
+    0
+   ],
+   "y": [
+    0,
+    0
+   ],
+   "yaw": [
+    -3.141592653589793,
+    3.141592653589793
+   ]
+  }
+ },
+ "success": {
+  "pred": "all",
+  "of": [
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "monday_capsule_1",
+      "b": "monday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "monday_capsule_1",
+      "b": "monday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "monday_capsule_1"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "monday_capsule_2",
+      "b": "monday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "monday_capsule_2",
+      "b": "monday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "monday_capsule_2"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "monday_tablet",
+      "b": "monday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "monday_tablet",
+      "b": "monday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "monday_tablet"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "tuesday_capsule_1",
+      "b": "tuesday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "tuesday_capsule_1",
+      "b": "tuesday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "tuesday_capsule_1"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "tuesday_capsule_2",
+      "b": "tuesday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "tuesday_capsule_2",
+      "b": "tuesday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "tuesday_capsule_2"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "tuesday_tablet",
+      "b": "tuesday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "tuesday_tablet",
+      "b": "tuesday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "tuesday_tablet"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "wednesday_capsule_1",
+      "b": "wednesday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "wednesday_capsule_1",
+      "b": "wednesday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "wednesday_capsule_1"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "wednesday_capsule_2",
+      "b": "wednesday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "wednesday_capsule_2",
+      "b": "wednesday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "wednesday_capsule_2"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "wednesday_tablet",
+      "b": "wednesday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "wednesday_tablet",
+      "b": "wednesday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "wednesday_tablet"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "thursday_capsule_1",
+      "b": "thursday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "thursday_capsule_1",
+      "b": "thursday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "thursday_capsule_1"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "thursday_capsule_2",
+      "b": "thursday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "thursday_capsule_2",
+      "b": "thursday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "thursday_capsule_2"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "thursday_tablet",
+      "b": "thursday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "thursday_tablet",
+      "b": "thursday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "thursday_tablet"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "friday_capsule_1",
+      "b": "friday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "friday_capsule_1",
+      "b": "friday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "friday_capsule_1"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "friday_capsule_2",
+      "b": "friday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "friday_capsule_2",
+      "b": "friday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "friday_capsule_2"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "friday_tablet",
+      "b": "friday_compartment"
+     },
+     {
+      "pred": "depth_in",
+      "a": "friday_tablet",
+      "b": "friday_compartment",
+      "z_threshold": 0.006
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "grasped",
+       "obj": "friday_tablet"
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "count",
+      "min": 2,
+      "of": [
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_capsule_1",
+          "b": "saturday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_capsule_1",
+          "b": "saturday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_capsule_1"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_capsule_2",
+          "b": "saturday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_capsule_2",
+          "b": "saturday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_capsule_2"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_capsule_3",
+          "b": "saturday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_capsule_3",
+          "b": "saturday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_capsule_3"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_capsule_4",
+          "b": "saturday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_capsule_4",
+          "b": "saturday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_capsule_4"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_capsule_5",
+          "b": "saturday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_capsule_5",
+          "b": "saturday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_capsule_5"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_capsule_6",
+          "b": "saturday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_capsule_6",
+          "b": "saturday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_capsule_6"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "count",
+       "min": 3,
+       "of": [
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_capsule_1",
+           "b": "saturday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_capsule_1",
+           "b": "saturday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_capsule_1"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_capsule_2",
+           "b": "saturday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_capsule_2",
+           "b": "saturday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_capsule_2"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_capsule_3",
+           "b": "saturday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_capsule_3",
+           "b": "saturday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_capsule_3"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_capsule_4",
+           "b": "saturday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_capsule_4",
+           "b": "saturday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_capsule_4"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_capsule_5",
+           "b": "saturday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_capsule_5",
+           "b": "saturday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_capsule_5"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_capsule_6",
+           "b": "saturday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_capsule_6",
+           "b": "saturday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_capsule_6"
+           }
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "count",
+      "min": 1,
+      "of": [
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_tablet_1",
+          "b": "saturday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_tablet_1",
+          "b": "saturday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_tablet_1"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_tablet_2",
+          "b": "saturday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_tablet_2",
+          "b": "saturday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_tablet_2"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_tablet_3",
+          "b": "saturday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_tablet_3",
+          "b": "saturday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_tablet_3"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_tablet_4",
+          "b": "saturday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_tablet_4",
+          "b": "saturday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_tablet_4"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_tablet_5",
+          "b": "saturday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_tablet_5",
+          "b": "saturday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_tablet_5"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_tablet_6",
+          "b": "saturday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_tablet_6",
+          "b": "saturday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_tablet_6"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "count",
+       "min": 2,
+       "of": [
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_tablet_1",
+           "b": "saturday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_tablet_1",
+           "b": "saturday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_tablet_1"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_tablet_2",
+           "b": "saturday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_tablet_2",
+           "b": "saturday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_tablet_2"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_tablet_3",
+           "b": "saturday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_tablet_3",
+           "b": "saturday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_tablet_3"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_tablet_4",
+           "b": "saturday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_tablet_4",
+           "b": "saturday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_tablet_4"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_tablet_5",
+           "b": "saturday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_tablet_5",
+           "b": "saturday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_tablet_5"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_tablet_6",
+           "b": "saturday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_tablet_6",
+           "b": "saturday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_tablet_6"
+           }
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "count",
+      "min": 2,
+      "of": [
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_capsule_1",
+          "b": "sunday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_capsule_1",
+          "b": "sunday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_capsule_1"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_capsule_2",
+          "b": "sunday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_capsule_2",
+          "b": "sunday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_capsule_2"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_capsule_3",
+          "b": "sunday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_capsule_3",
+          "b": "sunday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_capsule_3"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_capsule_4",
+          "b": "sunday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_capsule_4",
+          "b": "sunday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_capsule_4"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_capsule_5",
+          "b": "sunday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_capsule_5",
+          "b": "sunday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_capsule_5"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_capsule_6",
+          "b": "sunday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_capsule_6",
+          "b": "sunday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_capsule_6"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "count",
+       "min": 3,
+       "of": [
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_capsule_1",
+           "b": "sunday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_capsule_1",
+           "b": "sunday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_capsule_1"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_capsule_2",
+           "b": "sunday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_capsule_2",
+           "b": "sunday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_capsule_2"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_capsule_3",
+           "b": "sunday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_capsule_3",
+           "b": "sunday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_capsule_3"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_capsule_4",
+           "b": "sunday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_capsule_4",
+           "b": "sunday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_capsule_4"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_capsule_5",
+           "b": "sunday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_capsule_5",
+           "b": "sunday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_capsule_5"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_capsule_6",
+           "b": "sunday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_capsule_6",
+           "b": "sunday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_capsule_6"
+           }
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "count",
+      "min": 1,
+      "of": [
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_tablet_1",
+          "b": "sunday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_tablet_1",
+          "b": "sunday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_tablet_1"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_tablet_2",
+          "b": "sunday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_tablet_2",
+          "b": "sunday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_tablet_2"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_tablet_3",
+          "b": "sunday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_tablet_3",
+          "b": "sunday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_tablet_3"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_tablet_4",
+          "b": "sunday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_tablet_4",
+          "b": "sunday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_tablet_4"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_tablet_5",
+          "b": "sunday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_tablet_5",
+          "b": "sunday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_tablet_5"
+          }
+         }
+        ]
+       },
+       {
+        "pred": "all",
+        "of": [
+         {
+          "pred": "in_bbox",
+          "a": "bottle_tablet_6",
+          "b": "sunday_compartment"
+         },
+         {
+          "pred": "depth_in",
+          "a": "bottle_tablet_6",
+          "b": "sunday_compartment",
+          "z_threshold": 0.006
+         },
+         {
+          "pred": "not",
+          "of": {
+           "pred": "grasped",
+           "obj": "bottle_tablet_6"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "count",
+       "min": 2,
+       "of": [
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_tablet_1",
+           "b": "sunday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_tablet_1",
+           "b": "sunday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_tablet_1"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_tablet_2",
+           "b": "sunday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_tablet_2",
+           "b": "sunday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_tablet_2"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_tablet_3",
+           "b": "sunday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_tablet_3",
+           "b": "sunday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_tablet_3"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_tablet_4",
+           "b": "sunday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_tablet_4",
+           "b": "sunday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_tablet_4"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_tablet_5",
+           "b": "sunday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_tablet_5",
+           "b": "sunday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_tablet_5"
+           }
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "in_bbox",
+           "a": "bottle_tablet_6",
+           "b": "sunday_compartment"
+          },
+          {
+           "pred": "depth_in",
+           "a": "bottle_tablet_6",
+           "b": "sunday_compartment",
+           "z_threshold": 0.006
+          },
+          {
+           "pred": "not",
+           "of": {
+            "pred": "grasped",
+            "obj": "bottle_tablet_6"
+           }
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "pred": "count",
+    "min": 21,
+    "of": [
+     {
+      "pred": "in_bbox",
+      "a": "monday_capsule_1",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "monday_capsule_2",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "tuesday_capsule_1",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "tuesday_capsule_2",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "wednesday_capsule_1",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "wednesday_capsule_2",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "thursday_capsule_1",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "thursday_capsule_2",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "friday_capsule_1",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "friday_capsule_2",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "bottle_capsule_1",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "bottle_capsule_2",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "bottle_capsule_3",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "bottle_capsule_4",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "bottle_capsule_5",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "bottle_capsule_6",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "monday_tablet",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "tuesday_tablet",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "wednesday_tablet",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "thursday_tablet",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "friday_tablet",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "bottle_tablet_1",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "bottle_tablet_2",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "bottle_tablet_3",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "bottle_tablet_4",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "bottle_tablet_5",
+      "b": "organizer_interior"
+     },
+     {
+      "pred": "in_bbox",
+      "a": "bottle_tablet_6",
+      "b": "organizer_interior"
+     }
+    ]
+   },
+   {
+    "pred": "not",
+    "of": {
+     "pred": "count",
+     "min": 22,
+     "of": [
+      {
+       "pred": "in_bbox",
+       "a": "monday_capsule_1",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "monday_capsule_2",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "tuesday_capsule_1",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "tuesday_capsule_2",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "wednesday_capsule_1",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "wednesday_capsule_2",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "thursday_capsule_1",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "thursday_capsule_2",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "friday_capsule_1",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "friday_capsule_2",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "bottle_capsule_1",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "bottle_capsule_2",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "bottle_capsule_3",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "bottle_capsule_4",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "bottle_capsule_5",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "bottle_capsule_6",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "monday_tablet",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "tuesday_tablet",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "wednesday_tablet",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "thursday_tablet",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "friday_tablet",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "bottle_tablet_1",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "bottle_tablet_2",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "bottle_tablet_3",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "bottle_tablet_4",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "bottle_tablet_5",
+       "b": "organizer_interior"
+      },
+      {
+       "pred": "in_bbox",
+       "a": "bottle_tablet_6",
+       "b": "organizer_interior"
+      }
+     ]
+    }
+   },
+   {
+    "pred": "not",
+    "of": {
+     "pred": "within_dist",
+     "a": "capsule_lid",
+     "b": "capsule_bottle_lid_seat",
+     "tol": 0.05
+    }
+   },
+   {
+    "pred": "not",
+    "of": {
+     "pred": "touching_part",
+     "a": "capsule_lid",
+     "b": "capsule_bottle"
+    }
+   },
+   {
+    "pred": "not",
+    "of": {
+     "pred": "within_dist",
+     "a": "tablet_lid",
+     "b": "tablet_bottle_lid_seat",
+     "tol": 0.05
+    }
+   },
+   {
+    "pred": "not",
+    "of": {
+     "pred": "touching_part",
+     "a": "tablet_lid",
+     "b": "tablet_bottle"
+    }
+   },
+   {
+    "pred": "robot_clear",
+    "bodies": [
+     "capsule_bottle",
+     "tablet_bottle",
+     "capsule_lid",
+     "tablet_lid",
+     "monday_capsule_1",
+     "monday_capsule_2",
+     "tuesday_capsule_1",
+     "tuesday_capsule_2",
+     "wednesday_capsule_1",
+     "wednesday_capsule_2",
+     "thursday_capsule_1",
+     "thursday_capsule_2",
+     "friday_capsule_1",
+     "friday_capsule_2",
+     "bottle_capsule_1",
+     "bottle_capsule_2",
+     "bottle_capsule_3",
+     "bottle_capsule_4",
+     "bottle_capsule_5",
+     "bottle_capsule_6",
+     "monday_tablet",
+     "tuesday_tablet",
+     "wednesday_tablet",
+     "thursday_tablet",
+     "friday_tablet",
+     "bottle_tablet_1",
+     "bottle_tablet_2",
+     "bottle_tablet_3",
+     "bottle_tablet_4",
+     "bottle_tablet_5",
+     "bottle_tablet_6",
+     "weekly_organizer"
+    ]
+   },
+   {
+    "pred": "joint_in",
+    "joint": "organizer_monday_lid_hinge",
+    "lo": -0.01,
+    "hi": 0.05
+   },
+   {
+    "pred": "joint_in",
+    "joint": "organizer_tuesday_lid_hinge",
+    "lo": -0.01,
+    "hi": 0.05
+   },
+   {
+    "pred": "joint_in",
+    "joint": "organizer_wednesday_lid_hinge",
+    "lo": -0.01,
+    "hi": 0.05
+   },
+   {
+    "pred": "joint_in",
+    "joint": "organizer_thursday_lid_hinge",
+    "lo": -0.01,
+    "hi": 0.05
+   },
+   {
+    "pred": "joint_in",
+    "joint": "organizer_friday_lid_hinge",
+    "lo": -0.01,
+    "hi": 0.05
+   },
+   {
+    "pred": "joint_in",
+    "joint": "organizer_saturday_lid_hinge",
+    "lo": -0.01,
+    "hi": 0.05
+   },
+   {
+    "pred": "joint_in",
+    "joint": "organizer_sunday_lid_hinge",
+    "lo": -0.01,
+    "hi": 0.05
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 7000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   0.25,
+   1.26
+  ],
+  "y": [
+   -0.72,
+   0.72
+  ],
+  "z": [
+   0.74,
+   1.25
+  ],
+  "z_min_crop_table": 0.78921,
+  "z_offset": 0.77921,
+  "crop_table": false
+ },
+ "table_z": 0.77921
+}

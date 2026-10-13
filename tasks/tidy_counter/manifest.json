@@ -1,0 +1,42 @@
+{
+ "source": {
+  "robosuite": "1.4.1",
+  "libero": "third_party/LIBERO"
+ },
+ "generated_by": "hand-maintained",
+ "date": "2026-09-08",
+ "files": {
+  "assets/akita_black_bowl_vis.msh": "6474d536a740e995",
+  "assets/burnerplate.stl": "93526fc3f2585e82",
+  "assets/cork_texture.png": "93a9c1d22c7256e4",
+  "assets/cream_cheese_vis.msh": "0110fcd035138417",
+  "assets/dark_fine_wood.png": "9aaa94ef4cd61592",
+  "assets/label_wine.png": "a8caed4b3414dcf4",
+  "assets/light-gray-floor-tile.png": "a2aae4ba3b38c3ab",
+  "assets/light-gray-plaster.png": "d0bdaf13b44ab6ef",
+  "assets/light-wood.png": "967be64bdb170d36",
+  "assets/mahogany.png": "702a734fef1bf0df",
+  "assets/martin_novak_wood_table.png": "9d714fbf44d4d44f",
+  "assets/metal.png": "93784216a66b52be",
+  "assets/model_vis.msh": "7d3278b1cefb2ed4",
+  "assets/plate_texture.png": "6b742142bf0e29a9",
+  "assets/stove_knob_button_vis.msh": "b7cff7b5899505d5",
+  "assets/texture.png": "8a646d98b084b740",
+  "assets/texture_map.png": "6ef390c92c83f6f2",
+  "assets/wine_bottle_red_cork_vis.msh": "2b993448e727c8ab",
+  "assets/wine_bottle_red_logo_vis.msh": "99e4f2bec9c76a52",
+  "assets/wine_bottle_red_main_vis.msh": "92a7a897bdac34f4",
+  "assets/wine_rack_planes_vis.msh": "f3daf4c20ed4b513",
+  "assets/wine_rack_stand_vis.msh": "6b4cf3bd2a65f93f",
+  "assets/wine_rack_stoppers_vis.msh": "8647657c858c45b6",
+  "assets/wooden_cabinet_base_vis.msh": "8bcf371361562de9",
+  "assets/wooden_cabinet_bottom_handle_vis.msh": "a61587cbcebb8a8a",
+  "assets/wooden_cabinet_bottom_vis.msh": "23181bdeb6ce44e3",
+  "assets/wooden_cabinet_middle_handle_vis.msh": "1688f375dde79450",
+  "assets/wooden_cabinet_middle_vis.msh": "580eead06792affb",
+  "assets/wooden_cabinet_top_handle_vis.msh": "58924271007a30a1",
+  "assets/wooden_cabinet_top_vis.msh": "2b7c08ad3740ad45",
+  "scene.xml": "25abea7fd7ec753c",
+  "task.json": "6cfa82174df15f4d"
+ }
+}

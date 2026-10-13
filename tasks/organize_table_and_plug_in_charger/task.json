@@ -1,0 +1,532 @@
+{
+ "spec_version": 1,
+ "family": "robodojo",
+ "name": "organize_table_and_plug_in_charger",
+ "category": "real_world",
+ "language": "Organize the table and plug in the charger, then let go and bring the arm away.",
+ "scene": "scene.xml",
+ "support": [
+  "table"
+ ],
+ "robots": [
+  {
+   "model": "franka_panda",
+   "base_pos": [
+    -0.56,
+    -0.3,
+    0.912
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.19634954084936207,
+    0.0,
+    -2.617993877991494,
+    0.0,
+    2.941592653589793,
+    0.7853981633974483
+   ],
+   "name": "move"
+  },
+  {
+   "model": "franka_panda",
+   "base_pos": [
+    -0.56,
+    0.3,
+    0.912
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.19634954084936207,
+    0.0,
+    -2.617993877991494,
+    0.0,
+    2.941592653589793,
+    0.7853981633974483
+   ],
+   "name": "hold"
+  }
+ ],
+ "cameras": [
+  {
+   "name": "agentview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "src": {
+    "pos": "0.05 0 0",
+    "quat": "0 0.707107 0.707107 0",
+    "fovy": "75"
+   },
+   "robot": "move"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "src": {
+    "pos": "0.05 0 0",
+    "quat": "0 0.707107 0.707107 0",
+    "fovy": "75"
+   },
+   "robot": "hold"
+  },
+  {
+   "name": "leftview",
+   "role": "pc"
+  },
+  {
+   "name": "rightview",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "headphones",
+  "headset_stand",
+  "charger",
+  "holder",
+  "pen0",
+  "pen1",
+  "pen2",
+  "pen3"
+ ],
+ "randomization": {
+  "type": "init_states",
+  "states": [
+   {
+    "objects": {
+     "headphones": [
+      -0.22,
+      0.17,
+      0.841577,
+      0.403579,
+      0.501489,
+      -0.596081,
+      -0.479917
+     ],
+     "headset_stand": [
+      0.03,
+      -0.23,
+      0.9378,
+      0.573576,
+      0.0,
+      0.0,
+      -0.819152
+     ],
+     "charger": [
+      -0.02,
+      0.2,
+      0.813504,
+      0.677911,
+      0.0,
+      0.0,
+      -0.735144
+     ],
+     "holder": [
+      -0.051,
+      -0.091,
+      0.8,
+      0.707107,
+      0.0,
+      0.0,
+      -0.707107
+     ],
+     "pen0": [
+      -0.1,
+      0.031,
+      0.8099,
+      0.615945,
+      0.0,
+      0.0,
+      -0.787789
+     ],
+     "pen1": [
+      -0.008,
+      0.035,
+      0.8099,
+      0.577497,
+      0.0,
+      0.0,
+      -0.816393
+     ],
+     "pen2": [
+      -0.15,
+      -0.16,
+      0.8099,
+      0.822656,
+      0.0,
+      0.0,
+      -0.568539
+     ],
+     "pen3": [
+      -0.056,
+      0.05,
+      0.8099,
+      0.686301,
+      0.0,
+      0.0,
+      -0.727318
+     ]
+    },
+    "joints": {}
+   }
+  ],
+  "groups": [
+   [
+    "socket"
+   ],
+   [
+    "headset_stand"
+   ],
+   [
+    "headphones"
+   ],
+   [
+    "charger"
+   ],
+   [
+    "holder"
+   ],
+   [
+    "pen0"
+   ],
+   [
+    "pen1"
+   ],
+   [
+    "pen2"
+   ],
+   [
+    "pen3"
+   ]
+  ],
+  "full_rand": true,
+  "placement_regions": {
+   "socket": [
+    {
+     "x": [
+      -0.061,
+      -0.061
+     ],
+     "y": [
+      0.291,
+      0.291
+     ],
+     "yaw_offset_deg": [
+      0,
+      0
+     ]
+    }
+   ],
+   "headset_stand": [
+    {
+     "x": [
+      0.03,
+      0.03
+     ],
+     "y": [
+      -0.23,
+      -0.23
+     ],
+     "yaw_offset_deg": [
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  "lift_reach": {
+   "headphones": 0.14,
+   "charger": 0.14,
+   "holder": 0.1,
+   "pen0": 0.14,
+   "pen1": 0.14,
+   "pen2": 0.14,
+   "pen3": 0.14
+  },
+  "min_sep": [
+   [
+    "headphones",
+    "charger",
+    0.1
+   ],
+   [
+    "headphones",
+    "holder",
+    0.1
+   ],
+   [
+    "headphones",
+    "pen0",
+    0.1
+   ],
+   [
+    "headphones",
+    "pen1",
+    0.1
+   ],
+   [
+    "headphones",
+    "pen2",
+    0.1
+   ],
+   [
+    "headphones",
+    "pen3",
+    0.1
+   ],
+   [
+    "charger",
+    "holder",
+    0.1
+   ],
+   [
+    "charger",
+    "pen0",
+    0.1
+   ],
+   [
+    "charger",
+    "pen1",
+    0.1
+   ],
+   [
+    "charger",
+    "pen2",
+    0.1
+   ],
+   [
+    "charger",
+    "pen3",
+    0.1
+   ],
+   [
+    "holder",
+    "pen0",
+    0.1
+   ],
+   [
+    "holder",
+    "pen1",
+    0.1
+   ],
+   [
+    "holder",
+    "pen2",
+    0.1
+   ],
+   [
+    "holder",
+    "pen3",
+    0.1
+   ],
+   [
+    "pen0",
+    "pen1",
+    0.1
+   ],
+   [
+    "pen0",
+    "pen2",
+    0.1
+   ],
+   [
+    "pen0",
+    "pen3",
+    0.1
+   ],
+   [
+    "pen1",
+    "pen2",
+    0.1
+   ],
+   [
+    "pen1",
+    "pen3",
+    0.1
+   ],
+   [
+    "pen2",
+    "pen3",
+    0.1
+   ]
+  ],
+  "min_base_distance": {
+   "headset_stand": 0.45,
+   "charger": 0.4
+  },
+  "region": {
+   "x": [
+    0,
+    0
+   ],
+   "y": [
+    0,
+    0
+   ],
+   "yaw": [
+    -3.141592653589793,
+    3.141592653589793
+   ]
+  },
+  "reach_sites": [
+   "headphones_grasp",
+   "charger_grasp",
+   "socket_reach"
+  ]
+ },
+ "success": {
+  "pred": "all",
+  "of": [
+   {
+    "pred": "in_bbox",
+    "a": "headphones",
+    "b": "headset_stand"
+   },
+   {
+    "pred": "touching",
+    "a": "charger",
+    "b": "socket"
+   },
+   {
+    "pred": "in_bbox",
+    "a": "charger",
+    "b": "socket"
+   },
+   {
+    "pred": "tips_in",
+    "a": "charger",
+    "b": "socket",
+    "tips": [
+     "charger_tip_0",
+     "charger_tip_1"
+    ],
+    "z_below": 0.013
+   },
+   {
+    "pred": "axis_up",
+    "obj": "charger",
+    "axis": [
+     0,
+     1,
+     0
+    ],
+    "tol_deg": 20
+   },
+   {
+    "pred": "in_bbox",
+    "a": "pen0",
+    "b": "holder"
+   },
+   {
+    "pred": "depth_in",
+    "a": "pen0",
+    "b": "holder",
+    "z_threshold": 0.04
+   },
+   {
+    "pred": "in_bbox",
+    "a": "pen1",
+    "b": "holder"
+   },
+   {
+    "pred": "depth_in",
+    "a": "pen1",
+    "b": "holder",
+    "z_threshold": 0.04
+   },
+   {
+    "pred": "in_bbox",
+    "a": "pen2",
+    "b": "holder"
+   },
+   {
+    "pred": "depth_in",
+    "a": "pen2",
+    "b": "holder",
+    "z_threshold": 0.04
+   },
+   {
+    "pred": "in_bbox",
+    "a": "pen3",
+    "b": "holder"
+   },
+   {
+    "pred": "depth_in",
+    "a": "pen3",
+    "b": "holder",
+    "z_threshold": 0.04
+   },
+   {
+    "pred": "axis_up",
+    "obj": "holder",
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "tol_deg": 20
+   },
+   {
+    "pred": "robot_clear",
+    "bodies": [
+     "charger",
+     "headphones",
+     "headset_stand",
+     "holder",
+     "pen0",
+     "pen1",
+     "pen2",
+     "pen3"
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 5000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "table_z": 0.8,
+ "pc_crop": {
+  "x": [
+   -0.4,
+   0.4
+  ],
+  "y": [
+   -0.4,
+   0.4
+  ],
+  "z": [
+   0.75,
+   1.3
+  ],
+  "z_min_crop_table": 0.81,
+  "z_offset": 0.8,
+  "crop_table": false
+ }
+}

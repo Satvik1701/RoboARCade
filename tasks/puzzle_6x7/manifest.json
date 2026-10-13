@@ -1,0 +1,14 @@
+{
+ "source": {
+  "repo": "github.com/seohongpark/ogbench",
+  "commit": "1d4140997f60c52c6fb0702ec100dc988b18c548",
+  "license": "MIT"
+ },
+ "generated_by": "datagen/ogbench/convert.py",
+ "date": "2026-09-01",
+ "notes": "button collision geometry + joint params from OGBench button_inner.xml (frame uprighted); collision contact uses the shared generated-geometry defaults; visual meshes replaced by primitives; UR5e swapped for the repo Panda. The scene is neutral red; the init is dealt per reset seed as a board that a known 10 to 20 press set turns all red, which is the goal. The grid is shifted 35 mm outward from the OGBench-relative centre so every fixture stays on the table and every above-button press pose is exact-IK reachable. The 24-seed scripted acceptance measured up to 193 control steps/press and 3023 per full solve. A human teleop press (approach/close/down/up, waypoints 0..3) measured 87 control steps; 20 x 87 x 1.5 = 2610, rounded up to 3000, then raised to the previous-budget floor max_len=8000 so the sim limit does not bind before the 10800 s wall clock.",
+ "files": {
+  "scene.xml": "2fe83accd8d1bfa9",
+  "task.json": "54e43ce156a85969"
+ }
+}

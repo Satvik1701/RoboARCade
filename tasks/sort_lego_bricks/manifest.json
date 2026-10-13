@@ -1,0 +1,15 @@
+{
+ "source": {
+  "reference": "https://abc.bot/",
+  "task": "Sort LEGOs",
+  "geometry": "primitive 2 by 4 bricks and open bins"
+ },
+ "generated_by": "datagen/robodojo/make_sort_lego_bricks.py",
+ "date": "2026-09-06",
+ "notes": "bimanual I2RT YAM task inspired by the ABC benchmark; each colour has two stud-up and one stud-down brick; all nine authored poses bind the union reach gate, then draw independently over the full workspace with full yaw, 75 mm separation, 20 mm grasp clearance, and 140 mm lifted reach; bins are fixed and colour marked",
+ "files": {
+  "scene.xml": "a69c7632ec64a227",
+  "task.json": "c5451f876c9286a5",
+  "thumbnail.png": "0474335bcf5c974f"
+ }
+}

@@ -1,0 +1,396 @@
+{
+ "spec_version": 1,
+ "family": "pix2dex",
+ "name": "kitchen_cleanup/hang_and_rack",
+ "language": "Hang each mug on the mug tree, and stand each plate in the dish rack.",
+ "scene": "scene.xml",
+ "support": [
+  "play_table"
+ ],
+ "robots": [
+  {
+   "name": "move",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    -0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  },
+  {
+   "name": "hold",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "tpview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "move"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "hold"
+  },
+  {
+   "name": "pcleft",
+   "role": "pc"
+  },
+  {
+   "name": "pcright",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "rack_slot",
+  "plate_slot_c",
+  "plate_slot_d",
+  "mug_tree_slot",
+  "mug_slot_a",
+  "mug_slot_d"
+ ],
+ "randomization": {
+  "full_rand": true,
+  "groups": [
+   [
+    "rack_slot",
+    "mug_tree_slot"
+   ],
+   [
+    "mug_slot_a"
+   ],
+   [
+    "mug_slot_d"
+   ],
+   [
+    "plate_slot_c"
+   ],
+   [
+    "plate_slot_d"
+   ]
+  ],
+  "placement_regions": {
+   "rack_slot": [
+    {
+     "x": [
+      0.794995,
+      0.794995
+     ],
+     "y": [
+      -2e-05,
+      -2e-05
+     ],
+     "yaw_offset_deg": [
+      0,
+      0
+     ]
+    }
+   ],
+   "mug_slot_a": [
+    {
+     "x": [
+      0.5,
+      0.75
+     ],
+     "y": [
+      -0.15,
+      0.15
+     ],
+     "yaw_offset_deg": [
+      -180,
+      180
+     ]
+    }
+   ],
+   "mug_slot_d": [
+    {
+     "x": [
+      0.5,
+      0.75
+     ],
+     "y": [
+      -0.15,
+      0.15
+     ],
+     "yaw_offset_deg": [
+      -180,
+      180
+     ]
+    }
+   ]
+  },
+  "lift_reach": {
+   "mug_slot_a": 0.1,
+   "mug_slot_d": 0.1,
+   "plate_slot_c": 0.1,
+   "plate_slot_d": 0.1
+  },
+  "min_sep": [
+   [
+    "mug_slot_a",
+    "mug_slot_d",
+    0.1
+   ],
+   [
+    "mug_slot_a",
+    "plate_slot_c",
+    0.1
+   ],
+   [
+    "mug_slot_a",
+    "plate_slot_d",
+    0.1
+   ],
+   [
+    "mug_slot_d",
+    "plate_slot_c",
+    0.1
+   ],
+   [
+    "mug_slot_d",
+    "plate_slot_d",
+    0.1
+   ],
+   [
+    "plate_slot_c",
+    "plate_slot_d",
+    0.1
+   ]
+  ],
+  "region": {
+   "x": [
+    0,
+    0
+   ],
+   "y": [
+    0,
+    0
+   ],
+   "yaw": [
+    -3.141592653589793,
+    3.141592653589793
+   ]
+  }
+ },
+ "success": {
+  "pred": "all",
+  "of": [
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "within_dist",
+        "a": "mug_slot_a",
+        "b": "mug_tree_slot",
+        "tol": 0.17,
+        "axes": "xy"
+       },
+       {
+        "pred": "lift_above",
+        "obj": "mug_slot_a",
+        "z_above": 0.84921
+       },
+       {
+        "pred": "touching_part",
+        "a": "mug_slot_a",
+        "b": "mug_tree_slot"
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "within_dist",
+        "a": "mug_slot_d",
+        "b": "mug_tree_slot",
+        "tol": 0.17,
+        "axes": "xy"
+       },
+       {
+        "pred": "lift_above",
+        "obj": "mug_slot_d",
+        "z_above": 0.84921
+       },
+       {
+        "pred": "touching_part",
+        "a": "mug_slot_d",
+        "b": "mug_tree_slot"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "within_dist",
+        "a": "plate_slot_c",
+        "b": "rack_slot",
+        "tol": 0.24,
+        "axes": "xy"
+       },
+       {
+        "pred": "axis_dot",
+        "obj": "plate_slot_c",
+        "min_dot": 0.0,
+        "max_dot": 0.6947,
+        "abs": true
+       },
+       {
+        "pred": "lift_above",
+        "obj": "plate_slot_c",
+        "z_above": 0.79921
+       },
+       {
+        "pred": "in_bbox",
+        "a": "plate_slot_c",
+        "b": "rack_slot"
+       },
+       {
+        "pred": "touching_part",
+        "a": "plate_slot_c",
+        "b": "rack_slot"
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "within_dist",
+        "a": "plate_slot_d",
+        "b": "rack_slot",
+        "tol": 0.24,
+        "axes": "xy"
+       },
+       {
+        "pred": "axis_dot",
+        "obj": "plate_slot_d",
+        "min_dot": 0.0,
+        "max_dot": 0.6947,
+        "abs": true
+       },
+       {
+        "pred": "lift_above",
+        "obj": "plate_slot_d",
+        "z_above": 0.79921
+       },
+       {
+        "pred": "in_bbox",
+        "a": "plate_slot_d",
+        "b": "rack_slot"
+       },
+       {
+        "pred": "touching_part",
+        "a": "plate_slot_d",
+        "b": "rack_slot"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "pred": "robot_clear",
+    "bodies": [
+     "mug_slot_a",
+     "mug_slot_d",
+     "mug_tree_slot",
+     "plate_slot_c",
+     "plate_slot_d",
+     "rack_slot"
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 7000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   0.25,
+   1.26
+  ],
+  "y": [
+   -0.72,
+   0.72
+  ],
+  "z": [
+   0.74,
+   1.25
+  ],
+  "z_min_crop_table": 0.78921,
+  "z_offset": 0.77921,
+  "crop_table": false
+ },
+ "category": "real_world"
+}

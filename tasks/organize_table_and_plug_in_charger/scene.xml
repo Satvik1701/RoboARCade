@@ -1,0 +1,1090 @@
+<mujoco model="robodojo_organize_table_and_plug_in_charger">
+  <compiler angle="radian" meshdir="../../../robodojo_mjcf" texturedir="../../../robodojo_mjcf" />
+  <option impratio="20" density="1.2" viscosity="2e-05" cone="elliptic" />
+  <visual>
+    <map znear="0.001" />
+  </visual>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.9 0.9 1" rgb2="0.2 0.3 0.4" width="256" height="1536" />
+    <material name="floor_mat" rgba="0.58 0.58 0.6 1" specular="0" shininess="0" reflectance="0.01" />
+    <material name="table_mat" rgba="0.75 0.72 0.66 1" specular="0.2" shininess="0" />
+    <texture type="2d" name="headphones_tex" file="headphone_0_084b7445fd46/texture.png" />
+    <material name="headphones_mat" texture="headphones_tex" />
+    <mesh name="headphones_visual" file="headphone_0_084b7445fd46/visual.obj" />
+    <mesh name="headphones_hull_000" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_000.obj" />
+    <mesh name="headphones_hull_001" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_001.obj" />
+    <mesh name="headphones_hull_002" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_002.obj" />
+    <mesh name="headphones_hull_003" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_003.obj" />
+    <mesh name="headphones_hull_004" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_004.obj" />
+    <mesh name="headphones_hull_005" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_005.obj" />
+    <mesh name="headphones_hull_006" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_006.obj" />
+    <mesh name="headphones_hull_007" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_007.obj" />
+    <mesh name="headphones_hull_008" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_008.obj" />
+    <mesh name="headphones_hull_009" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_009.obj" />
+    <mesh name="headphones_hull_010" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_010.obj" />
+    <mesh name="headphones_hull_011" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_011.obj" />
+    <mesh name="headphones_hull_012" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_012.obj" />
+    <mesh name="headphones_hull_013" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_013.obj" />
+    <mesh name="headphones_hull_014" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_014.obj" />
+    <mesh name="headphones_hull_015" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_015.obj" />
+    <mesh name="headphones_hull_016" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_016.obj" />
+    <mesh name="headphones_hull_017" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_017.obj" />
+    <mesh name="headphones_hull_018" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_018.obj" />
+    <mesh name="headphones_hull_019" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_019.obj" />
+    <mesh name="headphones_hull_020" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_020.obj" />
+    <mesh name="headphones_hull_021" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_021.obj" />
+    <mesh name="headphones_hull_022" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_022.obj" />
+    <mesh name="headphones_hull_023" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_023.obj" />
+    <mesh name="headphones_hull_024" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_024.obj" />
+    <mesh name="headphones_hull_025" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_025.obj" />
+    <mesh name="headphones_hull_026" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_026.obj" />
+    <mesh name="headphones_hull_027" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_027.obj" />
+    <mesh name="headphones_hull_028" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_028.obj" />
+    <mesh name="headphones_hull_029" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_029.obj" />
+    <mesh name="headphones_hull_030" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_030.obj" />
+    <mesh name="headphones_hull_031" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_031.obj" />
+    <mesh name="headphones_hull_032" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_032.obj" />
+    <mesh name="headphones_hull_033" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_033.obj" />
+    <mesh name="headphones_hull_034" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_034.obj" />
+    <mesh name="headphones_hull_035" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_035.obj" />
+    <mesh name="headphones_hull_036" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_036.obj" />
+    <mesh name="headphones_hull_037" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_037.obj" />
+    <mesh name="headphones_hull_038" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_038.obj" />
+    <mesh name="headphones_hull_039" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_039.obj" />
+    <mesh name="headphones_hull_040" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_040.obj" />
+    <mesh name="headphones_hull_041" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_041.obj" />
+    <mesh name="headphones_hull_042" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_042.obj" />
+    <mesh name="headphones_hull_043" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_043.obj" />
+    <mesh name="headphones_hull_044" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_044.obj" />
+    <mesh name="headphones_hull_045" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_045.obj" />
+    <mesh name="headphones_hull_046" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_046.obj" />
+    <mesh name="headphones_hull_047" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_047.obj" />
+    <mesh name="headphones_hull_048" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_048.obj" />
+    <mesh name="headphones_hull_049" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_049.obj" />
+    <mesh name="headphones_hull_050" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_050.obj" />
+    <mesh name="headphones_hull_051" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_051.obj" />
+    <mesh name="headphones_hull_052" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_052.obj" />
+    <mesh name="headphones_hull_053" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_053.obj" />
+    <mesh name="headphones_hull_054" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_054.obj" />
+    <mesh name="headphones_hull_055" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_055.obj" />
+    <mesh name="headphones_hull_056" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_056.obj" />
+    <mesh name="headphones_hull_057" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_057.obj" />
+    <mesh name="headphones_hull_058" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_058.obj" />
+    <mesh name="headphones_hull_059" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_059.obj" />
+    <mesh name="headphones_hull_060" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_060.obj" />
+    <mesh name="headphones_hull_061" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_061.obj" />
+    <mesh name="headphones_hull_062" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_062.obj" />
+    <mesh name="headphones_hull_063" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_063.obj" />
+    <mesh name="headphones_hull_064" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_064.obj" />
+    <mesh name="headphones_hull_065" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_065.obj" />
+    <mesh name="headphones_hull_066" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_066.obj" />
+    <mesh name="headphones_hull_067" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_067.obj" />
+    <mesh name="headphones_hull_068" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_068.obj" />
+    <mesh name="headphones_hull_069" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_069.obj" />
+    <mesh name="headphones_hull_070" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_070.obj" />
+    <mesh name="headphones_hull_071" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_071.obj" />
+    <mesh name="headphones_hull_072" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_072.obj" />
+    <mesh name="headphones_hull_073" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_073.obj" />
+    <mesh name="headphones_hull_074" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_074.obj" />
+    <mesh name="headphones_hull_075" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_075.obj" />
+    <mesh name="headphones_hull_076" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_076.obj" />
+    <mesh name="headphones_hull_077" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_077.obj" />
+    <mesh name="headphones_hull_078" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_078.obj" />
+    <mesh name="headphones_hull_079" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_079.obj" />
+    <mesh name="headphones_hull_080" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_080.obj" />
+    <mesh name="headphones_hull_081" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_081.obj" />
+    <mesh name="headphones_hull_082" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_082.obj" />
+    <mesh name="headphones_hull_083" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_083.obj" />
+    <mesh name="headphones_hull_084" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_084.obj" />
+    <mesh name="headphones_hull_085" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_085.obj" />
+    <mesh name="headphones_hull_086" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_086.obj" />
+    <mesh name="headphones_hull_087" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_087.obj" />
+    <mesh name="headphones_hull_088" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_088.obj" />
+    <mesh name="headphones_hull_089" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_089.obj" />
+    <mesh name="headphones_hull_090" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_090.obj" />
+    <mesh name="headphones_hull_091" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_091.obj" />
+    <mesh name="headphones_hull_092" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_092.obj" />
+    <mesh name="headphones_hull_093" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_093.obj" />
+    <mesh name="headphones_hull_094" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_094.obj" />
+    <mesh name="headphones_hull_095" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_095.obj" />
+    <mesh name="headphones_hull_096" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_096.obj" />
+    <mesh name="headphones_hull_097" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_097.obj" />
+    <mesh name="headphones_hull_098" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_098.obj" />
+    <mesh name="headphones_hull_099" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_099.obj" />
+    <mesh name="headphones_hull_100" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_100.obj" />
+    <mesh name="headphones_hull_101" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_101.obj" />
+    <mesh name="headphones_hull_102" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_102.obj" />
+    <mesh name="headphones_hull_103" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_103.obj" />
+    <mesh name="headphones_hull_104" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_104.obj" />
+    <mesh name="headphones_hull_105" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_105.obj" />
+    <mesh name="headphones_hull_106" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_106.obj" />
+    <mesh name="headphones_hull_107" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_107.obj" />
+    <mesh name="headphones_hull_108" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_108.obj" />
+    <mesh name="headphones_hull_109" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_109.obj" />
+    <mesh name="headphones_hull_110" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_110.obj" />
+    <mesh name="headphones_hull_111" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_111.obj" />
+    <mesh name="headphones_hull_112" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_112.obj" />
+    <mesh name="headphones_hull_113" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_113.obj" />
+    <mesh name="headphones_hull_114" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_114.obj" />
+    <mesh name="headphones_hull_115" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_115.obj" />
+    <mesh name="headphones_hull_116" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_116.obj" />
+    <mesh name="headphones_hull_117" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_117.obj" />
+    <mesh name="headphones_hull_118" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_118.obj" />
+    <mesh name="headphones_hull_119" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_119.obj" />
+    <mesh name="headphones_hull_120" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_120.obj" />
+    <mesh name="headphones_hull_121" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_121.obj" />
+    <mesh name="headphones_hull_122" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_122.obj" />
+    <mesh name="headphones_hull_123" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_123.obj" />
+    <mesh name="headphones_hull_124" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_124.obj" />
+    <mesh name="headphones_hull_125" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_125.obj" />
+    <mesh name="headphones_hull_126" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_126.obj" />
+    <mesh name="headphones_hull_127" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_127.obj" />
+    <mesh name="headphones_hull_128" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_128.obj" />
+    <mesh name="headphones_hull_129" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_129.obj" />
+    <mesh name="headphones_hull_130" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_130.obj" />
+    <mesh name="headphones_hull_131" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_131.obj" />
+    <mesh name="headphones_hull_132" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_132.obj" />
+    <mesh name="headphones_hull_133" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_133.obj" />
+    <mesh name="headphones_hull_134" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_134.obj" />
+    <mesh name="headphones_hull_135" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_135.obj" />
+    <mesh name="headphones_hull_136" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_136.obj" />
+    <mesh name="headphones_hull_137" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_137.obj" />
+    <mesh name="headphones_hull_138" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_138.obj" />
+    <mesh name="headphones_hull_139" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_139.obj" />
+    <mesh name="headphones_hull_140" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_140.obj" />
+    <mesh name="headphones_hull_141" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_141.obj" />
+    <mesh name="headphones_hull_142" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_142.obj" />
+    <mesh name="headphones_hull_143" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_143.obj" />
+    <mesh name="headphones_hull_144" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_144.obj" />
+    <mesh name="headphones_hull_145" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_145.obj" />
+    <mesh name="headphones_hull_146" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_146.obj" />
+    <mesh name="headphones_hull_147" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_147.obj" />
+    <mesh name="headphones_hull_148" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_148.obj" />
+    <mesh name="headphones_hull_149" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_149.obj" />
+    <mesh name="headphones_hull_150" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_150.obj" />
+    <mesh name="headphones_hull_151" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_151.obj" />
+    <mesh name="headphones_hull_152" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_152.obj" />
+    <mesh name="headphones_hull_153" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_153.obj" />
+    <mesh name="headphones_hull_154" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_154.obj" />
+    <mesh name="headphones_hull_155" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_155.obj" />
+    <mesh name="headphones_hull_156" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_156.obj" />
+    <mesh name="headphones_hull_157" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_157.obj" />
+    <mesh name="headphones_hull_158" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_158.obj" />
+    <mesh name="headphones_hull_159" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_159.obj" />
+    <mesh name="headphones_hull_160" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_160.obj" />
+    <mesh name="headphones_hull_161" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_161.obj" />
+    <mesh name="headphones_hull_162" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_162.obj" />
+    <mesh name="headphones_hull_163" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_163.obj" />
+    <mesh name="headphones_hull_164" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_164.obj" />
+    <mesh name="headphones_hull_165" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_165.obj" />
+    <mesh name="headphones_hull_166" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_166.obj" />
+    <mesh name="headphones_hull_167" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_167.obj" />
+    <mesh name="headphones_hull_168" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_168.obj" />
+    <mesh name="headphones_hull_169" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_169.obj" />
+    <mesh name="headphones_hull_170" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_170.obj" />
+    <mesh name="headphones_hull_171" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_171.obj" />
+    <mesh name="headphones_hull_172" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_172.obj" />
+    <mesh name="headphones_hull_173" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_173.obj" />
+    <mesh name="headphones_hull_174" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_174.obj" />
+    <mesh name="headphones_hull_175" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_175.obj" />
+    <mesh name="headphones_hull_176" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_176.obj" />
+    <mesh name="headphones_hull_177" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_177.obj" />
+    <mesh name="headphones_hull_178" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_178.obj" />
+    <mesh name="headphones_hull_179" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_179.obj" />
+    <mesh name="headphones_hull_180" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_180.obj" />
+    <mesh name="headphones_hull_181" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_181.obj" />
+    <mesh name="headphones_hull_182" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_182.obj" />
+    <mesh name="headphones_hull_183" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_183.obj" />
+    <mesh name="headphones_hull_184" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_184.obj" />
+    <mesh name="headphones_hull_185" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_185.obj" />
+    <mesh name="headphones_hull_186" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_186.obj" />
+    <mesh name="headphones_hull_187" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_187.obj" />
+    <mesh name="headphones_hull_188" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_188.obj" />
+    <mesh name="headphones_hull_189" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_189.obj" />
+    <mesh name="headphones_hull_190" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_190.obj" />
+    <mesh name="headphones_hull_191" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_191.obj" />
+    <mesh name="headphones_hull_192" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_192.obj" />
+    <mesh name="headphones_hull_193" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_193.obj" />
+    <mesh name="headphones_hull_194" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_194.obj" />
+    <mesh name="headphones_hull_195" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_195.obj" />
+    <mesh name="headphones_hull_196" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_196.obj" />
+    <mesh name="headphones_hull_197" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_197.obj" />
+    <mesh name="headphones_hull_198" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_198.obj" />
+    <mesh name="headphones_hull_199" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_199.obj" />
+    <mesh name="headphones_hull_200" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_200.obj" />
+    <mesh name="headphones_hull_201" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_201.obj" />
+    <mesh name="headphones_hull_202" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_202.obj" />
+    <mesh name="headphones_hull_203" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_203.obj" />
+    <mesh name="headphones_hull_204" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_204.obj" />
+    <mesh name="headphones_hull_205" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_205.obj" />
+    <mesh name="headphones_hull_206" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_206.obj" />
+    <mesh name="headphones_hull_207" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_207.obj" />
+    <mesh name="headphones_hull_208" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_208.obj" />
+    <mesh name="headphones_hull_209" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_209.obj" />
+    <mesh name="headphones_hull_210" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_210.obj" />
+    <mesh name="headphones_hull_211" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_211.obj" />
+    <mesh name="headphones_hull_212" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_212.obj" />
+    <mesh name="headphones_hull_213" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_213.obj" />
+    <mesh name="headphones_hull_214" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_214.obj" />
+    <mesh name="headphones_hull_215" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_215.obj" />
+    <mesh name="headphones_hull_216" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_216.obj" />
+    <mesh name="headphones_hull_217" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_217.obj" />
+    <mesh name="headphones_hull_218" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_218.obj" />
+    <mesh name="headphones_hull_219" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_219.obj" />
+    <mesh name="headphones_hull_220" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_220.obj" />
+    <mesh name="headphones_hull_221" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_221.obj" />
+    <mesh name="headphones_hull_222" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_222.obj" />
+    <mesh name="headphones_hull_223" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_223.obj" />
+    <mesh name="headphones_hull_224" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_224.obj" />
+    <mesh name="headphones_hull_225" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_225.obj" />
+    <mesh name="headphones_hull_226" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_226.obj" />
+    <mesh name="headphones_hull_227" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_227.obj" />
+    <mesh name="headphones_hull_228" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_228.obj" />
+    <mesh name="headphones_hull_229" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_229.obj" />
+    <mesh name="headphones_hull_230" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_230.obj" />
+    <mesh name="headphones_hull_231" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_231.obj" />
+    <mesh name="headphones_hull_232" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_232.obj" />
+    <mesh name="headphones_hull_233" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_233.obj" />
+    <mesh name="headphones_hull_234" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_234.obj" />
+    <mesh name="headphones_hull_235" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_235.obj" />
+    <mesh name="headphones_hull_236" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_236.obj" />
+    <mesh name="headphones_hull_237" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_237.obj" />
+    <mesh name="headphones_hull_238" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_238.obj" />
+    <mesh name="headphones_hull_239" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_239.obj" />
+    <mesh name="headphones_hull_240" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_240.obj" />
+    <mesh name="headphones_hull_241" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_241.obj" />
+    <mesh name="headphones_hull_242" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_242.obj" />
+    <mesh name="headphones_hull_243" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_243.obj" />
+    <mesh name="headphones_hull_244" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_244.obj" />
+    <mesh name="headphones_hull_245" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_245.obj" />
+    <mesh name="headphones_hull_246" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_246.obj" />
+    <mesh name="headphones_hull_247" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_247.obj" />
+    <mesh name="headphones_hull_248" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_248.obj" />
+    <mesh name="headphones_hull_249" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_249.obj" />
+    <mesh name="headphones_hull_250" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_250.obj" />
+    <mesh name="headphones_hull_251" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_251.obj" />
+    <mesh name="headphones_hull_252" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_252.obj" />
+    <mesh name="headphones_hull_253" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_253.obj" />
+    <mesh name="headphones_hull_254" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_254.obj" />
+    <mesh name="headphones_hull_255" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_255.obj" />
+    <mesh name="headphones_hull_256" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_256.obj" />
+    <mesh name="headphones_hull_257" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_257.obj" />
+    <mesh name="headphones_hull_258" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_258.obj" />
+    <mesh name="headphones_hull_259" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_259.obj" />
+    <mesh name="headphones_hull_260" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_260.obj" />
+    <mesh name="headphones_hull_261" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_261.obj" />
+    <mesh name="headphones_hull_262" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_262.obj" />
+    <mesh name="headphones_hull_263" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_263.obj" />
+    <mesh name="headphones_hull_264" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_264.obj" />
+    <mesh name="headphones_hull_265" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_265.obj" />
+    <mesh name="headphones_hull_266" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_266.obj" />
+    <mesh name="headphones_hull_267" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_267.obj" />
+    <mesh name="headphones_hull_268" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_268.obj" />
+    <mesh name="headphones_hull_269" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_269.obj" />
+    <mesh name="headphones_hull_270" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_270.obj" />
+    <mesh name="headphones_hull_271" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_271.obj" />
+    <mesh name="headphones_hull_272" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_272.obj" />
+    <mesh name="headphones_hull_273" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_273.obj" />
+    <mesh name="headphones_hull_274" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_274.obj" />
+    <mesh name="headphones_hull_275" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_275.obj" />
+    <mesh name="headphones_hull_276" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_276.obj" />
+    <mesh name="headphones_hull_277" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_277.obj" />
+    <mesh name="headphones_hull_278" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_278.obj" />
+    <mesh name="headphones_hull_279" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_279.obj" />
+    <mesh name="headphones_hull_280" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_280.obj" />
+    <mesh name="headphones_hull_281" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_281.obj" />
+    <mesh name="headphones_hull_282" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_282.obj" />
+    <mesh name="headphones_hull_283" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_283.obj" />
+    <mesh name="headphones_hull_284" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_284.obj" />
+    <mesh name="headphones_hull_285" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_285.obj" />
+    <mesh name="headphones_hull_286" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_286.obj" />
+    <mesh name="headphones_hull_287" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_287.obj" />
+    <mesh name="headphones_hull_288" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_288.obj" />
+    <mesh name="headphones_hull_289" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_289.obj" />
+    <mesh name="headphones_hull_290" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_290.obj" />
+    <mesh name="headphones_hull_291" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_291.obj" />
+    <mesh name="headphones_hull_292" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_292.obj" />
+    <mesh name="headphones_hull_293" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_293.obj" />
+    <mesh name="headphones_hull_294" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_294.obj" />
+    <mesh name="headphones_hull_295" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_295.obj" />
+    <mesh name="headphones_hull_296" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_296.obj" />
+    <mesh name="headphones_hull_297" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_297.obj" />
+    <mesh name="headphones_hull_298" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_298.obj" />
+    <mesh name="headphones_hull_299" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_299.obj" />
+    <mesh name="headphones_hull_300" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_300.obj" />
+    <mesh name="headphones_hull_301" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_301.obj" />
+    <mesh name="headphones_hull_302" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_302.obj" />
+    <mesh name="headphones_hull_303" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_303.obj" />
+    <mesh name="headphones_hull_304" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_304.obj" />
+    <mesh name="headphones_hull_305" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_305.obj" />
+    <mesh name="headphones_hull_306" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_306.obj" />
+    <mesh name="headphones_hull_307" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_307.obj" />
+    <mesh name="headphones_hull_308" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_308.obj" />
+    <mesh name="headphones_hull_309" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_309.obj" />
+    <mesh name="headphones_hull_310" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_310.obj" />
+    <mesh name="headphones_hull_311" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_311.obj" />
+    <mesh name="headphones_hull_312" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_312.obj" />
+    <mesh name="headphones_hull_313" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_313.obj" />
+    <mesh name="headphones_hull_314" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_314.obj" />
+    <mesh name="headphones_hull_315" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_315.obj" />
+    <mesh name="headphones_hull_316" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_316.obj" />
+    <mesh name="headphones_hull_317" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_317.obj" />
+    <mesh name="headphones_hull_318" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_318.obj" />
+    <mesh name="headphones_hull_319" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_319.obj" />
+    <mesh name="headphones_hull_320" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_320.obj" />
+    <mesh name="headphones_hull_321" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_321.obj" />
+    <mesh name="headphones_hull_322" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_322.obj" />
+    <mesh name="headphones_hull_323" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_323.obj" />
+    <mesh name="headphones_hull_324" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_324.obj" />
+    <mesh name="headphones_hull_325" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_325.obj" />
+    <mesh name="headphones_hull_326" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_326.obj" />
+    <mesh name="headphones_hull_327" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_327.obj" />
+    <mesh name="headphones_hull_328" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_328.obj" />
+    <mesh name="headphones_hull_329" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_329.obj" />
+    <mesh name="headphones_hull_330" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_330.obj" />
+    <mesh name="headphones_hull_331" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_331.obj" />
+    <mesh name="headphones_hull_332" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_332.obj" />
+    <mesh name="headphones_hull_333" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_333.obj" />
+    <mesh name="headphones_hull_334" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_334.obj" />
+    <mesh name="headphones_hull_335" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_335.obj" />
+    <mesh name="headphones_hull_336" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_336.obj" />
+    <mesh name="headphones_hull_337" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_337.obj" />
+    <mesh name="headphones_hull_338" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_338.obj" />
+    <mesh name="headphones_hull_339" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_339.obj" />
+    <mesh name="headphones_hull_340" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_340.obj" />
+    <mesh name="headphones_hull_341" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_341.obj" />
+    <mesh name="headphones_hull_342" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_342.obj" />
+    <mesh name="headphones_hull_343" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_343.obj" />
+    <mesh name="headphones_hull_344" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_344.obj" />
+    <mesh name="headphones_hull_345" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_345.obj" />
+    <mesh name="headphones_hull_346" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_346.obj" />
+    <mesh name="headphones_hull_347" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_347.obj" />
+    <mesh name="headphones_hull_348" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_348.obj" />
+    <mesh name="headphones_hull_349" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_349.obj" />
+    <mesh name="headphones_hull_350" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_350.obj" />
+    <mesh name="headphones_hull_351" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_351.obj" />
+    <mesh name="headphones_hull_352" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_352.obj" />
+    <mesh name="headphones_hull_353" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_353.obj" />
+    <mesh name="headphones_hull_354" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_354.obj" />
+    <mesh name="headphones_hull_355" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_355.obj" />
+    <mesh name="headphones_hull_356" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_356.obj" />
+    <mesh name="headphones_hull_357" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_357.obj" />
+    <mesh name="headphones_hull_358" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_358.obj" />
+    <mesh name="headphones_hull_359" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_359.obj" />
+    <mesh name="headphones_hull_360" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_360.obj" />
+    <mesh name="headphones_hull_361" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_361.obj" />
+    <mesh name="headphones_hull_362" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_362.obj" />
+    <mesh name="headphones_hull_363" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_363.obj" />
+    <mesh name="headphones_hull_364" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_364.obj" />
+    <mesh name="headphones_hull_365" file="../tasks/robodojo/organize_table_and_plug_in_charger/headphones_hull_365.obj" />
+    <texture type="2d" name="headset_stand_tex" file="headset_stand_0_82e463d3d006/texture.png" />
+    <material name="headset_stand_mat" texture="headset_stand_tex" />
+    <mesh name="headset_stand_visual" file="headset_stand_0_82e463d3d006/visual.obj" />
+    <mesh name="headset_stand_col_000" file="headset_stand_0_82e463d3d006/col_000.obj" />
+    <mesh name="headset_stand_col_001" file="headset_stand_0_82e463d3d006/col_001.obj" />
+    <mesh name="headset_stand_col_002" file="headset_stand_0_82e463d3d006/col_002.obj" />
+    <mesh name="headset_stand_col_003" file="headset_stand_0_82e463d3d006/col_003.obj" />
+    <mesh name="headset_stand_col_004" file="headset_stand_0_82e463d3d006/col_004.obj" />
+    <mesh name="headset_stand_col_005" file="headset_stand_0_82e463d3d006/col_005.obj" />
+    <mesh name="headset_stand_col_006" file="headset_stand_0_82e463d3d006/col_006.obj" />
+    <mesh name="headset_stand_col_007" file="headset_stand_0_82e463d3d006/col_007.obj" />
+    <mesh name="headset_stand_col_008" file="headset_stand_0_82e463d3d006/col_008.obj" />
+    <mesh name="headset_stand_col_009" file="headset_stand_0_82e463d3d006/col_009.obj" />
+    <mesh name="headset_stand_col_010" file="headset_stand_0_82e463d3d006/col_010.obj" />
+    <mesh name="headset_stand_col_011" file="headset_stand_0_82e463d3d006/col_011.obj" />
+    <mesh name="headset_stand_col_012" file="headset_stand_0_82e463d3d006/col_012.obj" />
+    <mesh name="headset_stand_col_013" file="headset_stand_0_82e463d3d006/col_013.obj" />
+    <mesh name="headset_stand_col_014" file="headset_stand_0_82e463d3d006/col_014.obj" />
+    <mesh name="headset_stand_col_015" file="headset_stand_0_82e463d3d006/col_015.obj" />
+    <mesh name="charger_visual" file="charger_0_ed1dd4c009b2/visual.obj" />
+    <mesh name="charger_col_000" file="charger_0_ed1dd4c009b2/col_000.obj" />
+    <mesh name="charger_col_001" file="charger_0_ed1dd4c009b2/col_001.obj" />
+    <mesh name="charger_col_002" file="charger_0_ed1dd4c009b2/col_002.obj" />
+    <mesh name="socket_visual" file="socket_0_67d20b40a689/visual.obj" />
+    <mesh name="socket_col_000" file="socket_0_67d20b40a689/col_000.obj" />
+    <mesh name="socket_col_001" file="socket_0_67d20b40a689/col_001.obj" />
+    <mesh name="socket_col_002" file="socket_0_67d20b40a689/col_002.obj" />
+    <mesh name="socket_col_003" file="socket_0_67d20b40a689/col_003.obj" />
+    <mesh name="socket_col_004" file="socket_0_67d20b40a689/col_004.obj" />
+    <mesh name="socket_col_005" file="socket_0_67d20b40a689/col_005.obj" />
+    <mesh name="socket_col_006" file="socket_0_67d20b40a689/col_006.obj" />
+    <mesh name="socket_col_007" file="socket_0_67d20b40a689/col_007.obj" />
+    <mesh name="socket_col_008" file="socket_0_67d20b40a689/col_008.obj" />
+    <mesh name="socket_col_009" file="socket_0_67d20b40a689/col_009.obj" />
+    <mesh name="socket_col_010" file="socket_0_67d20b40a689/col_010.obj" />
+    <mesh name="socket_col_011" file="socket_0_67d20b40a689/col_011.obj" />
+    <mesh name="socket_col_012" file="socket_0_67d20b40a689/col_012.obj" />
+    <mesh name="socket_col_013" file="socket_0_67d20b40a689/col_013.obj" />
+    <mesh name="socket_col_014" file="socket_0_67d20b40a689/col_014.obj" />
+    <mesh name="socket_col_015" file="socket_0_67d20b40a689/col_015.obj" />
+    <mesh name="socket_col_016" file="socket_0_67d20b40a689/col_016.obj" />
+    <mesh name="socket_col_017" file="socket_0_67d20b40a689/col_017.obj" />
+    <mesh name="socket_col_018" file="socket_0_67d20b40a689/col_018.obj" />
+    <mesh name="socket_col_019" file="socket_0_67d20b40a689/col_019.obj" />
+    <mesh name="socket_col_020" file="socket_0_67d20b40a689/col_020.obj" />
+    <mesh name="socket_col_021" file="socket_0_67d20b40a689/col_021.obj" />
+    <mesh name="socket_col_022" file="socket_0_67d20b40a689/col_022.obj" />
+    <mesh name="socket_col_023" file="socket_0_67d20b40a689/col_023.obj" />
+    <mesh name="socket_col_024" file="socket_0_67d20b40a689/col_024.obj" />
+    <mesh name="socket_col_025" file="socket_0_67d20b40a689/col_025.obj" />
+    <mesh name="socket_col_026" file="socket_0_67d20b40a689/col_026.obj" />
+    <mesh name="socket_col_027" file="socket_0_67d20b40a689/col_027.obj" />
+    <mesh name="socket_col_028" file="socket_0_67d20b40a689/col_028.obj" />
+    <mesh name="socket_col_029" file="socket_0_67d20b40a689/col_029.obj" />
+    <mesh name="socket_col_030" file="socket_0_67d20b40a689/col_030.obj" />
+    <mesh name="socket_col_031" file="socket_0_67d20b40a689/col_031.obj" />
+    <mesh name="socket_col_032" file="socket_0_67d20b40a689/col_032.obj" />
+    <mesh name="socket_col_033" file="socket_0_67d20b40a689/col_033.obj" />
+    <mesh name="socket_col_034" file="socket_0_67d20b40a689/col_034.obj" />
+    <mesh name="socket_col_035" file="socket_0_67d20b40a689/col_035.obj" />
+    <mesh name="socket_col_036" file="socket_0_67d20b40a689/col_036.obj" />
+    <texture type="2d" name="holder_tex" file="pen_holder_0_f1e33706bb8d/texture.png" />
+    <material name="holder_mat" texture="holder_tex" />
+    <mesh name="holder_visual" file="pen_holder_0_f1e33706bb8d/visual.obj" />
+    <mesh name="holder_base" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_base.obj" />
+    <mesh name="holder_wall_a" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_wall_a.obj" />
+    <mesh name="holder_skirt_a" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_skirt_a.obj" />
+    <mesh name="holder_band_low_a" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_low_a.obj" />
+    <mesh name="holder_band_mid_a" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_mid_a.obj" />
+    <mesh name="holder_band_top_a" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_top_a.obj" />
+    <mesh name="holder_wall_b" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_wall_b.obj" />
+    <mesh name="holder_skirt_b" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_skirt_b.obj" />
+    <mesh name="holder_band_low_b" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_low_b.obj" />
+    <mesh name="holder_band_mid_b" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_mid_b.obj" />
+    <mesh name="holder_band_top_b" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_top_b.obj" />
+    <mesh name="holder_wall_c" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_wall_c.obj" />
+    <mesh name="holder_skirt_c" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_skirt_c.obj" />
+    <mesh name="holder_band_low_c" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_low_c.obj" />
+    <mesh name="holder_band_mid_c" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_mid_c.obj" />
+    <mesh name="holder_band_top_c" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_top_c.obj" />
+    <mesh name="holder_wall_d" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_wall_d.obj" />
+    <mesh name="holder_skirt_d" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_skirt_d.obj" />
+    <mesh name="holder_band_low_d" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_low_d.obj" />
+    <mesh name="holder_band_mid_d" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_mid_d.obj" />
+    <mesh name="holder_band_top_d" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_top_d.obj" />
+    <mesh name="holder_wall_e" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_wall_e.obj" />
+    <mesh name="holder_skirt_e" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_skirt_e.obj" />
+    <mesh name="holder_band_low_e" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_low_e.obj" />
+    <mesh name="holder_band_mid_e" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_mid_e.obj" />
+    <mesh name="holder_band_top_e" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_top_e.obj" />
+    <mesh name="holder_wall_f" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_wall_f.obj" />
+    <mesh name="holder_skirt_f" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_skirt_f.obj" />
+    <mesh name="holder_band_low_f" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_low_f.obj" />
+    <mesh name="holder_band_mid_f" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_mid_f.obj" />
+    <mesh name="holder_band_top_f" file="../tasks/robodojo/organize_table_and_plug_in_charger/holder_band_top_f.obj" />
+    <texture type="2d" name="pen0_tex" file="pen_0_31054120cb43/texture.png" />
+    <material name="pen0_mat" texture="pen0_tex" />
+    <mesh name="pen0_visual" file="pen_0_31054120cb43/visual.obj" />
+    <mesh name="pen0_col_000" file="pen_0_31054120cb43/col_000.obj" />
+    <mesh name="pen0_col_001" file="pen_0_31054120cb43/col_001.obj" />
+    <mesh name="pen0_col_002" file="pen_0_31054120cb43/col_002.obj" />
+    <mesh name="pen0_col_003" file="pen_0_31054120cb43/col_003.obj" />
+    <mesh name="pen0_col_004" file="pen_0_31054120cb43/col_004.obj" />
+    <mesh name="pen0_col_005" file="pen_0_31054120cb43/col_005.obj" />
+    <mesh name="pen0_col_006" file="pen_0_31054120cb43/col_006.obj" />
+    <mesh name="pen0_col_007" file="pen_0_31054120cb43/col_007.obj" />
+    <mesh name="pen0_col_008" file="pen_0_31054120cb43/col_008.obj" />
+    <texture type="2d" name="pen1_tex" file="pen_0_31054120cb43/texture.png" />
+    <material name="pen1_mat" texture="pen1_tex" />
+    <mesh name="pen1_visual" file="pen_0_31054120cb43/visual.obj" />
+    <mesh name="pen1_col_000" file="pen_0_31054120cb43/col_000.obj" />
+    <mesh name="pen1_col_001" file="pen_0_31054120cb43/col_001.obj" />
+    <mesh name="pen1_col_002" file="pen_0_31054120cb43/col_002.obj" />
+    <mesh name="pen1_col_003" file="pen_0_31054120cb43/col_003.obj" />
+    <mesh name="pen1_col_004" file="pen_0_31054120cb43/col_004.obj" />
+    <mesh name="pen1_col_005" file="pen_0_31054120cb43/col_005.obj" />
+    <mesh name="pen1_col_006" file="pen_0_31054120cb43/col_006.obj" />
+    <mesh name="pen1_col_007" file="pen_0_31054120cb43/col_007.obj" />
+    <mesh name="pen1_col_008" file="pen_0_31054120cb43/col_008.obj" />
+    <texture type="2d" name="pen2_tex" file="pen_0_31054120cb43/texture.png" />
+    <material name="pen2_mat" texture="pen2_tex" />
+    <mesh name="pen2_visual" file="pen_0_31054120cb43/visual.obj" />
+    <mesh name="pen2_col_000" file="pen_0_31054120cb43/col_000.obj" />
+    <mesh name="pen2_col_001" file="pen_0_31054120cb43/col_001.obj" />
+    <mesh name="pen2_col_002" file="pen_0_31054120cb43/col_002.obj" />
+    <mesh name="pen2_col_003" file="pen_0_31054120cb43/col_003.obj" />
+    <mesh name="pen2_col_004" file="pen_0_31054120cb43/col_004.obj" />
+    <mesh name="pen2_col_005" file="pen_0_31054120cb43/col_005.obj" />
+    <mesh name="pen2_col_006" file="pen_0_31054120cb43/col_006.obj" />
+    <mesh name="pen2_col_007" file="pen_0_31054120cb43/col_007.obj" />
+    <mesh name="pen2_col_008" file="pen_0_31054120cb43/col_008.obj" />
+    <texture type="2d" name="pen3_tex" file="pen_0_31054120cb43/texture.png" />
+    <material name="pen3_mat" texture="pen3_tex" />
+    <mesh name="pen3_visual" file="pen_0_31054120cb43/visual.obj" />
+    <mesh name="pen3_col_000" file="pen_0_31054120cb43/col_000.obj" />
+    <mesh name="pen3_col_001" file="pen_0_31054120cb43/col_001.obj" />
+    <mesh name="pen3_col_002" file="pen_0_31054120cb43/col_002.obj" />
+    <mesh name="pen3_col_003" file="pen_0_31054120cb43/col_003.obj" />
+    <mesh name="pen3_col_004" file="pen_0_31054120cb43/col_004.obj" />
+    <mesh name="pen3_col_005" file="pen_0_31054120cb43/col_005.obj" />
+    <mesh name="pen3_col_006" file="pen_0_31054120cb43/col_006.obj" />
+    <mesh name="pen3_col_007" file="pen_0_31054120cb43/col_007.obj" />
+    <mesh name="pen3_col_008" file="pen_0_31054120cb43/col_008.obj" />
+  </asset>
+  <worldbody>
+    <geom name="floor" size="3 3 0.125" type="plane" group="1" material="floor_mat" />
+    <camera name="agentview" pos="0.5 0 1.35" quat="0.653098 0.271041 0.271041 0.653098" fovy="55" />
+    <camera name="leftview" pos="0.338472 -0.389964 1.35" quat="0.853314 0.354132 0.146686 0.353454" />
+    <camera name="rightview" pos="0.338472 0.389964 1.35" quat="0.353454 0.146686 0.354132 0.853314" />
+    <light pos="1 1 1.5" dir="-0.19245 -0.19245 -0.96225" directional="true" castshadow="false" />
+    <body name="table" pos="0 0 0.775">
+      <geom name="table_top" size="0.4 0.4 0.025" type="box" group="1" material="table_mat" />
+    </body>
+    <body name="headphones" pos="-0.265000 -0.022000 0.900000">
+      <freejoint />
+      <inertial pos="-0.000122714878 1.48892588e-05 -0.0232039878" quat="0.707301267 -0.00114054975 -0.000903783216 0.706910744" mass="0.924542287" diaginertia="0.00483200844 0.0031664828 0.00267969972" />
+      <geom type="mesh" mesh="headphones_visual" material="headphones_mat" contype="0" conaffinity="0" group="1" mass="0" />
+      <geom type="mesh" mesh="headphones_hull_000" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_001" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_002" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_003" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_004" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_005" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_006" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_007" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_008" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_009" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_010" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_011" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_012" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_013" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_014" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_015" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_016" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_017" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_018" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_019" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_020" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_021" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_022" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_023" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_024" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_025" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_026" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_027" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_028" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_029" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_030" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_031" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_032" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_033" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_034" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_035" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_036" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_037" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_038" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_039" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_040" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_041" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_042" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_043" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_044" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_045" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_046" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_047" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_048" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_049" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_050" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_051" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_052" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_053" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_054" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_055" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_056" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_057" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_058" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_059" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_060" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_061" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_062" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_063" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_064" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_065" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_066" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_067" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_068" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_069" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_070" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_071" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_072" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_073" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_074" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_075" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_076" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_077" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_078" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_079" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_080" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_081" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_082" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_083" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_084" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_085" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_086" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_087" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_088" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_089" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_090" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_091" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_092" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_093" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_094" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_095" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_096" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_097" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_098" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_099" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_100" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_101" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_102" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_103" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_104" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_105" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_106" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_107" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_108" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_109" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_110" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_111" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_112" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_113" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_114" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_115" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_116" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_117" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_118" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_119" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_120" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_121" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_122" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_123" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_124" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_125" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_126" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_127" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_128" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_129" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_130" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_131" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_132" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_133" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_134" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_135" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_136" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_137" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_138" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_139" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_140" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_141" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_142" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_143" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_144" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_145" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_146" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_147" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_148" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_149" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_150" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_151" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_152" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_153" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_154" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_155" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_156" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_157" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_158" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_159" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_160" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_161" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_162" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_163" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_164" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_165" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_166" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_167" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_168" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_169" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_170" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_171" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_172" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_173" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_174" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_175" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_176" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_177" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_178" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_179" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_180" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_181" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_182" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_183" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_184" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_185" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_186" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_187" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_188" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_189" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_190" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_191" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_192" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_193" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_194" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_195" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_196" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_197" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_198" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_199" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_200" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_201" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_202" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_203" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_204" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_205" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_206" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_207" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_208" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_209" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_210" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_211" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_212" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_213" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_214" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_215" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_216" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_217" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_218" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_219" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_220" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_221" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_222" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_223" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_224" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_225" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_226" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_227" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_228" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_229" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_230" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_231" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_232" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_233" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_234" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_235" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_236" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_237" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_238" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_239" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_240" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_241" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_242" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_243" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_244" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_245" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_246" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_247" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_248" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_249" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_250" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_251" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_252" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_253" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_254" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_255" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_256" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_257" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_258" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_259" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_260" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_261" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_262" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_263" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_264" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_265" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_266" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_267" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_268" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_269" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_270" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_271" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_272" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_273" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_274" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_275" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_276" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_277" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_278" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_279" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_280" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_281" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_282" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_283" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_284" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_285" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_286" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_287" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_288" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_289" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_290" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_291" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_292" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_293" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_294" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_295" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_296" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_297" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_298" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_299" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_300" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_301" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_302" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_303" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_304" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_305" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_306" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_307" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_308" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_309" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_310" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_311" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_312" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_313" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_314" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_315" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_316" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_317" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_318" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_319" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_320" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_321" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_322" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_323" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_324" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_325" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_326" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_327" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_328" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_329" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_330" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_331" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_332" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_333" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_334" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_335" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_336" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_337" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_338" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_339" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_340" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_341" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_342" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_343" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_344" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_345" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_346" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_347" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_348" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_349" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_350" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_351" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_352" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_353" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_354" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_355" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_356" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_357" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_358" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_359" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_360" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_361" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_362" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_363" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_364" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headphones_hull_365" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <site name="headphones_grasp" pos="0.035274 -0.027855 -0.070040" size="0.003" rgba="0 0 0 0" />
+    </body>
+    <body name="headset_stand" pos="-0.270000 -0.230000 0.937800">
+      <freejoint />
+      <geom type="mesh" mesh="headset_stand_visual" material="headset_stand_mat" contype="0" conaffinity="0" group="1" mass="0" />
+      <geom type="mesh" mesh="headset_stand_col_000" group="3" density="2000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_001" group="3" density="2000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_002" group="3" density="12000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_003" group="3" density="2000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_004" group="3" density="12000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_005" group="3" density="12000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_006" group="3" density="12000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_007" group="3" density="2000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_008" group="3" density="12000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_009" group="3" density="12000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_010" group="3" density="12000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_011" group="3" density="12000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_012" group="3" density="12000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_013" group="3" density="12000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_014" group="3" density="12000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="headset_stand_col_015" group="3" density="12000" solref="0.004 1" solimp="0.998 0.998" />
+    </body>
+    <body name="charger" pos="-0.021000 -0.282000 0.813504">
+      <freejoint />
+      <geom type="mesh" mesh="charger_visual" rgba="0.5 0.5 0.5 1" contype="0" conaffinity="0" group="1" mass="0" />
+      <geom type="mesh" mesh="charger_col_000" group="3" solref="0.004 1" solimp="0.998 0.998" priority="1" condim="4" friction="1 0.3 0.0001" />
+      <geom type="mesh" mesh="charger_col_001" group="3" solref="0.004 1" solimp="0.998 0.998" priority="1" condim="4" friction="1 0.3 0.0001" />
+      <geom type="mesh" mesh="charger_col_002" group="3" solref="0.004 1" solimp="0.998 0.998" priority="1" condim="4" friction="1 0.3 0.0001" />
+      <geom name="charger_tip_0" type="sphere" group="3" mass="0" size="0.001" pos="-0.00595 -0.01507 0.00000" solref="0.004 1" solimp="0.998 0.998" priority="1" condim="4" friction="1 0.3 0.0001" />
+      <geom name="charger_tip_1" type="sphere" group="3" mass="0" size="0.001" pos="0.00596 -0.01506 0.00000" solref="0.004 1" solimp="0.998 0.998" priority="1" condim="4" friction="1 0.3 0.0001" />
+      <site name="charger_grasp" pos="0.000016 0.023497 -0.000002" size="0.003" rgba="0 0 0 0" />
+    </body>
+    <body name="socket" pos="-0.061000 0.291000 0.799200">
+      <geom type="mesh" mesh="socket_visual" rgba="0.5 0.5 0.5 1" contype="0" conaffinity="0" group="1" mass="0" />
+      <geom type="mesh" mesh="socket_col_000" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_003" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_004" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_006" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_007" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_008" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_009" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_010" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_011" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_012" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_013" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_014" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_015" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_016" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_017" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_018" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_019" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_020" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_021" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_022" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_023" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_024" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_025" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_026" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_027" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_028" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_029" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_030" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_031" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_032" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_033" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_034" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_035" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="socket_col_036" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_0" type="box" group="3" pos="-0.034500 -0.006000 0.010500" size="0.000800 0.007900 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_1" type="box" group="3" pos="-0.034500 0.014950 0.010500" size="0.000800 0.004050 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_2" type="box" group="3" pos="-0.034500 0.006400 0.004000" size="0.000800 0.004500 0.004000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_3" type="box" group="3" pos="-0.029450 0.002550 0.010500" size="0.004250 0.016450 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_4" type="box" group="3" pos="-0.021700 -0.006000 0.010500" size="0.003500 0.007900 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_5" type="box" group="3" pos="-0.021700 0.014950 0.010500" size="0.003500 0.004050 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_6" type="box" group="3" pos="-0.021700 0.006400 0.004000" size="0.003500 0.004500 0.004000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_7" type="box" group="3" pos="-0.011225 0.002550 0.010500" size="0.006975 0.016450 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_8" type="box" group="3" pos="-0.000750 -0.006000 0.010500" size="0.003500 0.007900 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_9" type="box" group="3" pos="-0.000750 0.014950 0.010500" size="0.003500 0.004050 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_10" type="box" group="3" pos="-0.000750 0.006400 0.004000" size="0.003500 0.004500 0.004000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_11" type="box" group="3" pos="0.007000 0.002550 0.010500" size="0.004250 0.016450 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_12" type="box" group="3" pos="0.014750 -0.006000 0.010500" size="0.003500 0.007900 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_13" type="box" group="3" pos="0.014750 0.014950 0.010500" size="0.003500 0.004050 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_14" type="box" group="3" pos="0.014750 0.006400 0.004000" size="0.003500 0.004500 0.004000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_15" type="box" group="3" pos="0.025300 0.002550 0.010500" size="0.007050 0.016450 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_16" type="box" group="3" pos="0.035850 -0.006000 0.010500" size="0.003500 0.007900 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_17" type="box" group="3" pos="0.035850 0.014950 0.010500" size="0.003500 0.004050 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_18" type="box" group="3" pos="0.035850 0.006400 0.004000" size="0.003500 0.004500 0.004000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_19" type="box" group="3" pos="0.043600 0.002550 0.010500" size="0.004250 0.016450 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_20" type="box" group="3" pos="0.051350 -0.006000 0.010500" size="0.003500 0.007900 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_21" type="box" group="3" pos="0.051350 0.014950 0.010500" size="0.003500 0.004050 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_22" type="box" group="3" pos="0.051350 0.006400 0.004000" size="0.003500 0.004500 0.004000" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_23" type="box" group="3" pos="0.056375 0.002550 0.010500" size="0.001525 0.016450 0.010500" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_24" type="box" group="3" pos="-0.044300 0.007400 0.015700" size="0.003600 0.006800 0.005300" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_25" type="box" group="3" pos="-0.038000 0.001250 0.015700" size="0.002700 0.000650 0.005300" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_26" type="box" group="3" pos="-0.038000 0.012550 0.015700" size="0.002700 0.001650 0.005300" solref="0.004 1" solimp="0.998 0.998" />
+      <geom name="socket_outlet_27" type="box" group="3" pos="-0.038000 0.006400 0.006500" size="0.002700 0.004500 0.001500" solref="0.004 1" solimp="0.998 0.998" />
+      <site name="socket_reach" pos="-0.045000 -0.006000 0.015800" size="0.003" rgba="0 0 0 0" />
+    </body>
+    <body name="holder" pos="-0.051000 -0.091000 0.800000">
+      <freejoint />
+      <inertial pos="-0.000100551042 -0.00109737022 0.0561606509" quat="0.999987098 -0.000158867361 -0.000225608182 0.00507218071" mass="0.190058941" diaginertia="0.000362312316 0.000361531946 0.00020824351" />
+      <geom type="mesh" mesh="holder_visual" material="holder_mat" contype="0" conaffinity="0" group="1" mass="0" />
+      <geom type="mesh" mesh="holder_base" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_wall_a" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_skirt_a" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_low_a" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_mid_a" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_top_a" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_wall_b" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_skirt_b" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_low_b" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_mid_b" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_top_b" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_wall_c" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_skirt_c" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_low_c" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_mid_c" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_top_c" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_wall_d" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_skirt_d" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_low_d" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_mid_d" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_top_d" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_wall_e" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_skirt_e" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_low_e" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_mid_e" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_top_e" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_wall_f" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_skirt_f" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_low_f" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_mid_f" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="holder_band_top_f" group="3" solref="0.004 1" solimp="0.998 0.998" />
+    </body>
+    <body name="pen0" pos="-0.145000 0.031000 0.809900">
+      <freejoint />
+      <geom type="mesh" mesh="pen0_visual" material="pen0_mat" contype="0" conaffinity="0" group="1" mass="0" />
+      <geom type="mesh" mesh="pen0_col_000" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen0_col_001" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen0_col_002" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen0_col_003" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen0_col_004" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen0_col_005" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen0_col_006" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen0_col_007" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen0_col_008" group="3" solref="0.004 1" solimp="0.998 0.998" />
+    </body>
+    <body name="pen1" pos="0.039000 0.035000 0.809900">
+      <freejoint />
+      <geom type="mesh" mesh="pen1_visual" material="pen1_mat" contype="0" conaffinity="0" group="1" mass="0" />
+      <geom type="mesh" mesh="pen1_col_000" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen1_col_001" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen1_col_002" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen1_col_003" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen1_col_004" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen1_col_005" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen1_col_006" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen1_col_007" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen1_col_008" group="3" solref="0.004 1" solimp="0.998 0.998" />
+    </body>
+    <body name="pen2" pos="0.034000 -0.138000 0.809900">
+      <freejoint />
+      <geom type="mesh" mesh="pen2_visual" material="pen2_mat" contype="0" conaffinity="0" group="1" mass="0" />
+      <geom type="mesh" mesh="pen2_col_000" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen2_col_001" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen2_col_002" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen2_col_003" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen2_col_004" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen2_col_005" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen2_col_006" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen2_col_007" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen2_col_008" group="3" solref="0.004 1" solimp="0.998 0.998" />
+    </body>
+    <body name="pen3" pos="-0.056000 0.050000 0.809900">
+      <freejoint />
+      <geom type="mesh" mesh="pen3_visual" material="pen3_mat" contype="0" conaffinity="0" group="1" mass="0" />
+      <geom type="mesh" mesh="pen3_col_000" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen3_col_001" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen3_col_002" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen3_col_003" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen3_col_004" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen3_col_005" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen3_col_006" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen3_col_007" group="3" solref="0.004 1" solimp="0.998 0.998" />
+      <geom type="mesh" mesh="pen3_col_008" group="3" solref="0.004 1" solimp="0.998 0.998" />
+    </body>
+  </worldbody>
+</mujoco>

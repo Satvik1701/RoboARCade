@@ -1,0 +1,1093 @@
+<mujoco model="fabrica_beam">
+  <compiler angle="radian" meshdir="../../../fabrica_mjcf"/>
+  <option impratio="20" density="1.2" viscosity="2e-05" cone="elliptic"/>
+  <visual>
+    <map znear="0.001"/>
+  </visual>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.9 0.9 1" rgb2="0.2 0.3 0.4" width="256" height="1536"/>
+    <material name="floor_mat" rgba="0.58 0.58 0.6 1" specular="0" shininess="0" reflectance="0.01"/>
+    <material name="table_mat" rgba="0.75 0.72 0.66 1" specular="0.2" shininess="0"/>
+    <mesh name="p0_visual" file="beam_0_1c8886356ea2/visual.obj"/>
+    <mesh name="p0_col_000" file="beam_0_1c8886356ea2/col_000.obj"/>
+    <mesh name="p0_col_001" file="beam_0_1c8886356ea2/col_001.obj"/>
+    <mesh name="p0_col_002" file="beam_0_1c8886356ea2/col_002.obj"/>
+    <mesh name="p0_col_003" file="beam_0_1c8886356ea2/col_003.obj"/>
+    <mesh name="p0_col_004" file="beam_0_1c8886356ea2/col_004.obj"/>
+    <mesh name="p0_col_005" file="beam_0_1c8886356ea2/col_005.obj"/>
+    <mesh name="p0_col_006" file="beam_0_1c8886356ea2/col_006.obj"/>
+    <mesh name="p0_col_007" file="beam_0_1c8886356ea2/col_007.obj"/>
+    <mesh name="p0_col_008" file="beam_0_1c8886356ea2/col_008.obj"/>
+    <mesh name="p0_col_009" file="beam_0_1c8886356ea2/col_009.obj"/>
+    <mesh name="p0_col_010" file="beam_0_1c8886356ea2/col_010.obj"/>
+    <mesh name="p0_col_011" file="beam_0_1c8886356ea2/col_011.obj"/>
+    <mesh name="p0_col_012" file="beam_0_1c8886356ea2/col_012.obj"/>
+    <mesh name="p0_col_013" file="beam_0_1c8886356ea2/col_013.obj"/>
+    <mesh name="p0_col_014" file="beam_0_1c8886356ea2/col_014.obj"/>
+    <mesh name="p0_col_015" file="beam_0_1c8886356ea2/col_015.obj"/>
+    <mesh name="p0_col_016" file="beam_0_1c8886356ea2/col_016.obj"/>
+    <mesh name="p0_col_017" file="beam_0_1c8886356ea2/col_017.obj"/>
+    <mesh name="p0_col_018" file="beam_0_1c8886356ea2/col_018.obj"/>
+    <mesh name="p0_col_019" file="beam_0_1c8886356ea2/col_019.obj"/>
+    <mesh name="p0_col_020" file="beam_0_1c8886356ea2/col_020.obj"/>
+    <mesh name="p0_col_021" file="beam_0_1c8886356ea2/col_021.obj"/>
+    <mesh name="p0_col_022" file="beam_0_1c8886356ea2/col_022.obj"/>
+    <mesh name="p0_col_023" file="beam_0_1c8886356ea2/col_023.obj"/>
+    <mesh name="p0_col_024" file="beam_0_1c8886356ea2/col_024.obj"/>
+    <mesh name="p1_visual" file="beam_1_acfc5d89b554/visual.obj"/>
+    <mesh name="p1_col_000" file="beam_1_acfc5d89b554/col_000.obj"/>
+    <mesh name="p1_col_001" file="beam_1_acfc5d89b554/col_001.obj"/>
+    <mesh name="p1_col_002" file="beam_1_acfc5d89b554/col_002.obj"/>
+    <mesh name="p1_col_003" file="beam_1_acfc5d89b554/col_003.obj"/>
+    <mesh name="p1_col_004" file="beam_1_acfc5d89b554/col_004.obj"/>
+    <mesh name="p1_col_005" file="beam_1_acfc5d89b554/col_005.obj"/>
+    <mesh name="p1_col_006" file="beam_1_acfc5d89b554/col_006.obj"/>
+    <mesh name="p1_col_007" file="beam_1_acfc5d89b554/col_007.obj"/>
+    <mesh name="p1_col_008" file="beam_1_acfc5d89b554/col_008.obj"/>
+    <mesh name="p1_col_009" file="beam_1_acfc5d89b554/col_009.obj"/>
+    <mesh name="p1_col_010" file="beam_1_acfc5d89b554/col_010.obj"/>
+    <mesh name="p1_col_011" file="beam_1_acfc5d89b554/col_011.obj"/>
+    <mesh name="p1_col_012" file="beam_1_acfc5d89b554/col_012.obj"/>
+    <mesh name="p1_col_013" file="beam_1_acfc5d89b554/col_013.obj"/>
+    <mesh name="p1_col_014" file="beam_1_acfc5d89b554/col_014.obj"/>
+    <mesh name="p1_col_015" file="beam_1_acfc5d89b554/col_015.obj"/>
+    <mesh name="p1_col_016" file="beam_1_acfc5d89b554/col_016.obj"/>
+    <mesh name="p1_col_017" file="beam_1_acfc5d89b554/col_017.obj"/>
+    <mesh name="p1_col_018" file="beam_1_acfc5d89b554/col_018.obj"/>
+    <mesh name="p1_col_019" file="beam_1_acfc5d89b554/col_019.obj"/>
+    <mesh name="p1_col_020" file="beam_1_acfc5d89b554/col_020.obj"/>
+    <mesh name="p1_col_021" file="beam_1_acfc5d89b554/col_021.obj"/>
+    <mesh name="p1_col_022" file="beam_1_acfc5d89b554/col_022.obj"/>
+    <mesh name="p1_col_023" file="beam_1_acfc5d89b554/col_023.obj"/>
+    <mesh name="p2_visual" file="beam_2_29af32662ecf/visual.obj"/>
+    <mesh name="p2_col_000" file="beam_2_29af32662ecf/col_000.obj"/>
+    <mesh name="p2_col_001" file="beam_2_29af32662ecf/col_001.obj"/>
+    <mesh name="p2_col_002" file="beam_2_29af32662ecf/col_002.obj"/>
+    <mesh name="p2_col_003" file="beam_2_29af32662ecf/col_003.obj"/>
+    <mesh name="p2_col_004" file="beam_2_29af32662ecf/col_004.obj"/>
+    <mesh name="p2_col_005" file="beam_2_29af32662ecf/col_005.obj"/>
+    <mesh name="p2_col_006" file="beam_2_29af32662ecf/col_006.obj"/>
+    <mesh name="p2_col_007" file="beam_2_29af32662ecf/col_007.obj"/>
+    <mesh name="p2_col_008" file="beam_2_29af32662ecf/col_008.obj"/>
+    <mesh name="p2_col_009" file="beam_2_29af32662ecf/col_009.obj"/>
+    <mesh name="p2_col_010" file="beam_2_29af32662ecf/col_010.obj"/>
+    <mesh name="p2_col_011" file="beam_2_29af32662ecf/col_011.obj"/>
+    <mesh name="p2_col_012" file="beam_2_29af32662ecf/col_012.obj"/>
+    <mesh name="p2_col_013" file="beam_2_29af32662ecf/col_013.obj"/>
+    <mesh name="p2_col_014" file="beam_2_29af32662ecf/col_014.obj"/>
+    <mesh name="p2_col_015" file="beam_2_29af32662ecf/col_015.obj"/>
+    <mesh name="p2_col_016" file="beam_2_29af32662ecf/col_016.obj"/>
+    <mesh name="p2_col_017" file="beam_2_29af32662ecf/col_017.obj"/>
+    <mesh name="p2_col_018" file="beam_2_29af32662ecf/col_018.obj"/>
+    <mesh name="p2_col_019" file="beam_2_29af32662ecf/col_019.obj"/>
+    <mesh name="p2_col_020" file="beam_2_29af32662ecf/col_020.obj"/>
+    <mesh name="p2_col_021" file="beam_2_29af32662ecf/col_021.obj"/>
+    <mesh name="p2_col_022" file="beam_2_29af32662ecf/col_022.obj"/>
+    <mesh name="p2_col_023" file="beam_2_29af32662ecf/col_023.obj"/>
+    <mesh name="p2_col_024" file="beam_2_29af32662ecf/col_024.obj"/>
+    <mesh name="p2_col_025" file="beam_2_29af32662ecf/col_025.obj"/>
+    <mesh name="p2_col_026" file="beam_2_29af32662ecf/col_026.obj"/>
+    <mesh name="p2_col_027" file="beam_2_29af32662ecf/col_027.obj"/>
+    <mesh name="p2_col_028" file="beam_2_29af32662ecf/col_028.obj"/>
+    <mesh name="p3_visual" file="beam_3_9863a39c17fe/visual.obj"/>
+    <mesh name="p3_col_000" file="beam_3_9863a39c17fe/col_000.obj"/>
+    <mesh name="p3_col_001" file="beam_3_9863a39c17fe/col_001.obj"/>
+    <mesh name="p3_col_002" file="beam_3_9863a39c17fe/col_002.obj"/>
+    <mesh name="p3_col_003" file="beam_3_9863a39c17fe/col_003.obj"/>
+    <mesh name="p3_col_004" file="beam_3_9863a39c17fe/col_004.obj"/>
+    <mesh name="p3_col_005" file="beam_3_9863a39c17fe/col_005.obj"/>
+    <mesh name="p3_col_006" file="beam_3_9863a39c17fe/col_006.obj"/>
+    <mesh name="p3_col_007" file="beam_3_9863a39c17fe/col_007.obj"/>
+    <mesh name="p3_col_008" file="beam_3_9863a39c17fe/col_008.obj"/>
+    <mesh name="p3_col_009" file="beam_3_9863a39c17fe/col_009.obj"/>
+    <mesh name="p3_col_010" file="beam_3_9863a39c17fe/col_010.obj"/>
+    <mesh name="p3_col_011" file="beam_3_9863a39c17fe/col_011.obj"/>
+    <mesh name="p3_col_012" file="beam_3_9863a39c17fe/col_012.obj"/>
+    <mesh name="p3_col_013" file="beam_3_9863a39c17fe/col_013.obj"/>
+    <mesh name="p3_col_014" file="beam_3_9863a39c17fe/col_014.obj"/>
+    <mesh name="p3_col_015" file="beam_3_9863a39c17fe/col_015.obj"/>
+    <mesh name="p3_col_016" file="beam_3_9863a39c17fe/col_016.obj"/>
+    <mesh name="p3_col_017" file="beam_3_9863a39c17fe/col_017.obj"/>
+    <mesh name="p3_col_018" file="beam_3_9863a39c17fe/col_018.obj"/>
+    <mesh name="p3_col_019" file="beam_3_9863a39c17fe/col_019.obj"/>
+    <mesh name="p3_col_020" file="beam_3_9863a39c17fe/col_020.obj"/>
+    <mesh name="p3_col_021" file="beam_3_9863a39c17fe/col_021.obj"/>
+    <mesh name="p3_col_022" file="beam_3_9863a39c17fe/col_022.obj"/>
+    <mesh name="p3_col_023" file="beam_3_9863a39c17fe/col_023.obj"/>
+    <mesh name="p3_col_024" file="beam_3_9863a39c17fe/col_024.obj"/>
+    <mesh name="p3_col_025" file="beam_3_9863a39c17fe/col_025.obj"/>
+    <mesh name="p3_col_026" file="beam_3_9863a39c17fe/col_026.obj"/>
+    <mesh name="p3_col_027" file="beam_3_9863a39c17fe/col_027.obj"/>
+    <mesh name="p3_col_028" file="beam_3_9863a39c17fe/col_028.obj"/>
+    <mesh name="p3_col_029" file="beam_3_9863a39c17fe/col_029.obj"/>
+    <mesh name="p3_col_030" file="beam_3_9863a39c17fe/col_030.obj"/>
+    <mesh name="p3_col_031" file="beam_3_9863a39c17fe/col_031.obj"/>
+    <mesh name="p3_col_032" file="beam_3_9863a39c17fe/col_032.obj"/>
+    <mesh name="p3_col_033" file="beam_3_9863a39c17fe/col_033.obj"/>
+    <mesh name="p3_col_034" file="beam_3_9863a39c17fe/col_034.obj"/>
+    <mesh name="p3_col_035" file="beam_3_9863a39c17fe/col_035.obj"/>
+    <mesh name="p6_visual" file="beam_6_39123263e871/visual.obj"/>
+    <mesh name="p6_col_000" file="beam_6_39123263e871/col_000.obj"/>
+    <mesh name="p6_col_001" file="beam_6_39123263e871/col_001.obj"/>
+    <mesh name="p6_col_002" file="beam_6_39123263e871/col_002.obj"/>
+    <mesh name="p6_col_003" file="beam_6_39123263e871/col_003.obj"/>
+    <mesh name="p6_col_004" file="beam_6_39123263e871/col_004.obj"/>
+    <mesh name="p6_col_005" file="beam_6_39123263e871/col_005.obj"/>
+    <mesh name="p6_col_006" file="beam_6_39123263e871/col_006.obj"/>
+    <mesh name="p6_col_007" file="beam_6_39123263e871/col_007.obj"/>
+    <mesh name="p6_col_008" file="beam_6_39123263e871/col_008.obj"/>
+    <mesh name="p6_col_009" file="beam_6_39123263e871/col_009.obj"/>
+    <mesh name="p6_col_010" file="beam_6_39123263e871/col_010.obj"/>
+    <mesh name="p6_col_011" file="beam_6_39123263e871/col_011.obj"/>
+    <mesh name="p6_col_012" file="beam_6_39123263e871/col_012.obj"/>
+    <mesh name="p6_col_013" file="beam_6_39123263e871/col_013.obj"/>
+    <mesh name="p6_col_014" file="beam_6_39123263e871/col_014.obj"/>
+    <mesh name="p6_col_015" file="beam_6_39123263e871/col_015.obj"/>
+    <mesh name="s_cooling_manifold_visual" file="cooling_manifold_5_67a21995d487/visual.obj"/>
+    <mesh name="s_cooling_manifold_col_000" file="cooling_manifold_5_67a21995d487/col_000.obj"/>
+    <mesh name="s_cooling_manifold_col_001" file="cooling_manifold_5_67a21995d487/col_001.obj"/>
+    <mesh name="s_cooling_manifold_col_002" file="cooling_manifold_5_67a21995d487/col_002.obj"/>
+    <mesh name="s_cooling_manifold_col_003" file="cooling_manifold_5_67a21995d487/col_003.obj"/>
+    <mesh name="s_cooling_manifold_col_004" file="cooling_manifold_5_67a21995d487/col_004.obj"/>
+    <mesh name="s_cooling_manifold_col_005" file="cooling_manifold_5_67a21995d487/col_005.obj"/>
+    <mesh name="s_cooling_manifold_col_006" file="cooling_manifold_5_67a21995d487/col_006.obj"/>
+    <mesh name="s_cooling_manifold_col_007" file="cooling_manifold_5_67a21995d487/col_007.obj"/>
+    <mesh name="s_cooling_manifold_col_008" file="cooling_manifold_5_67a21995d487/col_008.obj"/>
+    <mesh name="s_cooling_manifold_col_009" file="cooling_manifold_5_67a21995d487/col_009.obj"/>
+    <mesh name="s_cooling_manifold_col_010" file="cooling_manifold_5_67a21995d487/col_010.obj"/>
+    <mesh name="s_cooling_manifold_col_011" file="cooling_manifold_5_67a21995d487/col_011.obj"/>
+    <mesh name="s_cooling_manifold_col_012" file="cooling_manifold_5_67a21995d487/col_012.obj"/>
+    <mesh name="s_cooling_manifold_col_013" file="cooling_manifold_5_67a21995d487/col_013.obj"/>
+    <mesh name="s_cooling_manifold_col_014" file="cooling_manifold_5_67a21995d487/col_014.obj"/>
+    <mesh name="s_cooling_manifold_col_015" file="cooling_manifold_5_67a21995d487/col_015.obj"/>
+    <mesh name="s_cooling_manifold_col_016" file="cooling_manifold_5_67a21995d487/col_016.obj"/>
+    <mesh name="s_cooling_manifold_col_017" file="cooling_manifold_5_67a21995d487/col_017.obj"/>
+    <mesh name="s_cooling_manifold_col_018" file="cooling_manifold_5_67a21995d487/col_018.obj"/>
+    <mesh name="s_cooling_manifold_col_019" file="cooling_manifold_5_67a21995d487/col_019.obj"/>
+    <mesh name="s_cooling_manifold_col_020" file="cooling_manifold_5_67a21995d487/col_020.obj"/>
+    <mesh name="s_cooling_manifold_col_021" file="cooling_manifold_5_67a21995d487/col_021.obj"/>
+    <mesh name="s_cooling_manifold_col_022" file="cooling_manifold_5_67a21995d487/col_022.obj"/>
+    <mesh name="s_cooling_manifold_col_023" file="cooling_manifold_5_67a21995d487/col_023.obj"/>
+    <mesh name="s_cooling_manifold_col_024" file="cooling_manifold_5_67a21995d487/col_024.obj"/>
+    <mesh name="s_cooling_manifold_col_025" file="cooling_manifold_5_67a21995d487/col_025.obj"/>
+    <mesh name="s_cooling_manifold_col_026" file="cooling_manifold_5_67a21995d487/col_026.obj"/>
+    <mesh name="s_cooling_manifold_col_027" file="cooling_manifold_5_67a21995d487/col_027.obj"/>
+    <mesh name="s_cooling_manifold_col_028" file="cooling_manifold_5_67a21995d487/col_028.obj"/>
+    <mesh name="s_cooling_manifold_col_029" file="cooling_manifold_5_67a21995d487/col_029.obj"/>
+    <mesh name="s_cooling_manifold_col_030" file="cooling_manifold_5_67a21995d487/col_030.obj"/>
+    <mesh name="s_cooling_manifold_col_031" file="cooling_manifold_5_67a21995d487/col_031.obj"/>
+    <mesh name="s_cooling_manifold_col_032" file="cooling_manifold_5_67a21995d487/col_032.obj"/>
+    <mesh name="s_cooling_manifold_col_033" file="cooling_manifold_5_67a21995d487/col_033.obj"/>
+    <mesh name="s_cooling_manifold_col_034" file="cooling_manifold_5_67a21995d487/col_034.obj"/>
+    <mesh name="s_cooling_manifold_col_035" file="cooling_manifold_5_67a21995d487/col_035.obj"/>
+    <mesh name="s_cooling_manifold_col_036" file="cooling_manifold_5_67a21995d487/col_036.obj"/>
+    <mesh name="s_cooling_manifold_col_037" file="cooling_manifold_5_67a21995d487/col_037.obj"/>
+    <mesh name="s_cooling_manifold_col_038" file="cooling_manifold_5_67a21995d487/col_038.obj"/>
+    <mesh name="s_cooling_manifold_col_039" file="cooling_manifold_5_67a21995d487/col_039.obj"/>
+    <mesh name="s_cooling_manifold_col_040" file="cooling_manifold_5_67a21995d487/col_040.obj"/>
+    <mesh name="s_cooling_manifold_col_041" file="cooling_manifold_5_67a21995d487/col_041.obj"/>
+    <mesh name="s_cooling_manifold_col_042" file="cooling_manifold_5_67a21995d487/col_042.obj"/>
+    <mesh name="s_cooling_manifold_col_043" file="cooling_manifold_5_67a21995d487/col_043.obj"/>
+    <mesh name="s_cooling_manifold_col_044" file="cooling_manifold_5_67a21995d487/col_044.obj"/>
+    <mesh name="s_cooling_manifold_col_045" file="cooling_manifold_5_67a21995d487/col_045.obj"/>
+    <mesh name="s_cooling_manifold_col_046" file="cooling_manifold_5_67a21995d487/col_046.obj"/>
+    <mesh name="s_cooling_manifold_col_047" file="cooling_manifold_5_67a21995d487/col_047.obj"/>
+    <mesh name="s_cooling_manifold_col_048" file="cooling_manifold_5_67a21995d487/col_048.obj"/>
+    <mesh name="s_cooling_manifold_col_049" file="cooling_manifold_5_67a21995d487/col_049.obj"/>
+    <mesh name="s_cooling_manifold_col_050" file="cooling_manifold_5_67a21995d487/col_050.obj"/>
+    <mesh name="s_cooling_manifold_col_051" file="cooling_manifold_5_67a21995d487/col_051.obj"/>
+    <mesh name="s_cooling_manifold_col_052" file="cooling_manifold_5_67a21995d487/col_052.obj"/>
+    <mesh name="s_cooling_manifold_col_053" file="cooling_manifold_5_67a21995d487/col_053.obj"/>
+    <mesh name="s_cooling_manifold_col_054" file="cooling_manifold_5_67a21995d487/col_054.obj"/>
+    <mesh name="s_cooling_manifold_col_055" file="cooling_manifold_5_67a21995d487/col_055.obj"/>
+    <mesh name="s_cooling_manifold_col_056" file="cooling_manifold_5_67a21995d487/col_056.obj"/>
+    <mesh name="s_cooling_manifold_col_057" file="cooling_manifold_5_67a21995d487/col_057.obj"/>
+    <mesh name="s_cooling_manifold_col_058" file="cooling_manifold_5_67a21995d487/col_058.obj"/>
+    <mesh name="s_cooling_manifold_col_059" file="cooling_manifold_5_67a21995d487/col_059.obj"/>
+    <mesh name="s_cooling_manifold_col_060" file="cooling_manifold_5_67a21995d487/col_060.obj"/>
+    <mesh name="s_cooling_manifold_col_061" file="cooling_manifold_5_67a21995d487/col_061.obj"/>
+    <mesh name="s_cooling_manifold_col_062" file="cooling_manifold_5_67a21995d487/col_062.obj"/>
+    <mesh name="s_cooling_manifold_col_063" file="cooling_manifold_5_67a21995d487/col_063.obj"/>
+    <mesh name="s_cooling_manifold_col_064" file="cooling_manifold_5_67a21995d487/col_064.obj"/>
+    <mesh name="s_cooling_manifold_col_065" file="cooling_manifold_5_67a21995d487/col_065.obj"/>
+    <mesh name="s_cooling_manifold_col_066" file="cooling_manifold_5_67a21995d487/col_066.obj"/>
+    <mesh name="s_cooling_manifold_col_067" file="cooling_manifold_5_67a21995d487/col_067.obj"/>
+    <mesh name="s_cooling_manifold_col_068" file="cooling_manifold_5_67a21995d487/col_068.obj"/>
+    <mesh name="s_cooling_manifold_col_069" file="cooling_manifold_5_67a21995d487/col_069.obj"/>
+    <mesh name="s_cooling_manifold_col_070" file="cooling_manifold_5_67a21995d487/col_070.obj"/>
+    <mesh name="s_cooling_manifold_col_071" file="cooling_manifold_5_67a21995d487/col_071.obj"/>
+    <mesh name="s_cooling_manifold_col_072" file="cooling_manifold_5_67a21995d487/col_072.obj"/>
+    <mesh name="s_cooling_manifold_col_073" file="cooling_manifold_5_67a21995d487/col_073.obj"/>
+    <mesh name="s_cooling_manifold_col_074" file="cooling_manifold_5_67a21995d487/col_074.obj"/>
+    <mesh name="s_cooling_manifold_col_075" file="cooling_manifold_5_67a21995d487/col_075.obj"/>
+    <mesh name="s_cooling_manifold_col_076" file="cooling_manifold_5_67a21995d487/col_076.obj"/>
+    <mesh name="s_cooling_manifold_col_077" file="cooling_manifold_5_67a21995d487/col_077.obj"/>
+    <mesh name="s_cooling_manifold_col_078" file="cooling_manifold_5_67a21995d487/col_078.obj"/>
+    <mesh name="s_cooling_manifold_col_079" file="cooling_manifold_5_67a21995d487/col_079.obj"/>
+    <mesh name="s_cooling_manifold_col_080" file="cooling_manifold_5_67a21995d487/col_080.obj"/>
+    <mesh name="s_cooling_manifold_col_081" file="cooling_manifold_5_67a21995d487/col_081.obj"/>
+    <mesh name="s_cooling_manifold_col_082" file="cooling_manifold_5_67a21995d487/col_082.obj"/>
+    <mesh name="s_cooling_manifold_col_083" file="cooling_manifold_5_67a21995d487/col_083.obj"/>
+    <mesh name="s_cooling_manifold_col_084" file="cooling_manifold_5_67a21995d487/col_084.obj"/>
+    <mesh name="s_cooling_manifold_col_085" file="cooling_manifold_5_67a21995d487/col_085.obj"/>
+    <mesh name="s_cooling_manifold_col_086" file="cooling_manifold_5_67a21995d487/col_086.obj"/>
+    <mesh name="s_cooling_manifold_col_087" file="cooling_manifold_5_67a21995d487/col_087.obj"/>
+    <mesh name="s_cooling_manifold_col_088" file="cooling_manifold_5_67a21995d487/col_088.obj"/>
+    <mesh name="s_cooling_manifold_col_089" file="cooling_manifold_5_67a21995d487/col_089.obj"/>
+    <mesh name="s_cooling_manifold_col_090" file="cooling_manifold_5_67a21995d487/col_090.obj"/>
+    <mesh name="s_cooling_manifold_col_091" file="cooling_manifold_5_67a21995d487/col_091.obj"/>
+    <mesh name="s_cooling_manifold_col_092" file="cooling_manifold_5_67a21995d487/col_092.obj"/>
+    <mesh name="s_cooling_manifold_col_093" file="cooling_manifold_5_67a21995d487/col_093.obj"/>
+    <mesh name="s_cooling_manifold_col_094" file="cooling_manifold_5_67a21995d487/col_094.obj"/>
+    <mesh name="s_cooling_manifold_col_095" file="cooling_manifold_5_67a21995d487/col_095.obj"/>
+    <mesh name="s_cooling_manifold_col_096" file="cooling_manifold_5_67a21995d487/col_096.obj"/>
+    <mesh name="s_cooling_manifold_col_097" file="cooling_manifold_5_67a21995d487/col_097.obj"/>
+    <mesh name="s_cooling_manifold_col_098" file="cooling_manifold_5_67a21995d487/col_098.obj"/>
+    <mesh name="s_cooling_manifold_col_099" file="cooling_manifold_5_67a21995d487/col_099.obj"/>
+    <mesh name="s_cooling_manifold_col_100" file="cooling_manifold_5_67a21995d487/col_100.obj"/>
+    <mesh name="s_cooling_manifold_col_101" file="cooling_manifold_5_67a21995d487/col_101.obj"/>
+    <mesh name="s_cooling_manifold_col_102" file="cooling_manifold_5_67a21995d487/col_102.obj"/>
+    <mesh name="s_cooling_manifold_col_103" file="cooling_manifold_5_67a21995d487/col_103.obj"/>
+    <mesh name="s_cooling_manifold_col_104" file="cooling_manifold_5_67a21995d487/col_104.obj"/>
+    <mesh name="s_cooling_manifold_col_105" file="cooling_manifold_5_67a21995d487/col_105.obj"/>
+    <mesh name="s_cooling_manifold_col_106" file="cooling_manifold_5_67a21995d487/col_106.obj"/>
+    <mesh name="s_cooling_manifold_col_107" file="cooling_manifold_5_67a21995d487/col_107.obj"/>
+    <mesh name="s_cooling_manifold_col_108" file="cooling_manifold_5_67a21995d487/col_108.obj"/>
+    <mesh name="s_cooling_manifold_col_109" file="cooling_manifold_5_67a21995d487/col_109.obj"/>
+    <mesh name="s_cooling_manifold_col_110" file="cooling_manifold_5_67a21995d487/col_110.obj"/>
+    <mesh name="s_cooling_manifold_col_111" file="cooling_manifold_5_67a21995d487/col_111.obj"/>
+    <mesh name="s_cooling_manifold_col_112" file="cooling_manifold_5_67a21995d487/col_112.obj"/>
+    <mesh name="s_cooling_manifold_col_113" file="cooling_manifold_5_67a21995d487/col_113.obj"/>
+    <mesh name="s_cooling_manifold_col_114" file="cooling_manifold_5_67a21995d487/col_114.obj"/>
+    <mesh name="s_cooling_manifold_col_115" file="cooling_manifold_5_67a21995d487/col_115.obj"/>
+    <mesh name="s_cooling_manifold_col_116" file="cooling_manifold_5_67a21995d487/col_116.obj"/>
+    <mesh name="s_cooling_manifold_col_117" file="cooling_manifold_5_67a21995d487/col_117.obj"/>
+    <mesh name="s_cooling_manifold_col_118" file="cooling_manifold_5_67a21995d487/col_118.obj"/>
+    <mesh name="s_cooling_manifold_col_119" file="cooling_manifold_5_67a21995d487/col_119.obj"/>
+    <mesh name="s_cooling_manifold_col_120" file="cooling_manifold_5_67a21995d487/col_120.obj"/>
+    <mesh name="s_cooling_manifold_col_121" file="cooling_manifold_5_67a21995d487/col_121.obj"/>
+    <mesh name="s_gamepad_visual" file="gamepad_0_32a4504daf3b/visual.obj"/>
+    <mesh name="s_gamepad_col_000" file="gamepad_0_32a4504daf3b/col_000.obj"/>
+    <mesh name="s_gamepad_col_001" file="gamepad_0_32a4504daf3b/col_001.obj"/>
+    <mesh name="s_gamepad_col_002" file="gamepad_0_32a4504daf3b/col_002.obj"/>
+    <mesh name="s_gamepad_col_003" file="gamepad_0_32a4504daf3b/col_003.obj"/>
+    <mesh name="s_gamepad_col_004" file="gamepad_0_32a4504daf3b/col_004.obj"/>
+    <mesh name="s_gamepad_col_005" file="gamepad_0_32a4504daf3b/col_005.obj"/>
+    <mesh name="s_gamepad_col_006" file="gamepad_0_32a4504daf3b/col_006.obj"/>
+    <mesh name="s_gamepad_col_007" file="gamepad_0_32a4504daf3b/col_007.obj"/>
+    <mesh name="s_gamepad_col_008" file="gamepad_0_32a4504daf3b/col_008.obj"/>
+    <mesh name="s_gamepad_col_009" file="gamepad_0_32a4504daf3b/col_009.obj"/>
+    <mesh name="s_gamepad_col_010" file="gamepad_0_32a4504daf3b/col_010.obj"/>
+    <mesh name="s_gamepad_col_011" file="gamepad_0_32a4504daf3b/col_011.obj"/>
+    <mesh name="s_gamepad_col_012" file="gamepad_0_32a4504daf3b/col_012.obj"/>
+    <mesh name="s_gamepad_col_013" file="gamepad_0_32a4504daf3b/col_013.obj"/>
+    <mesh name="s_gamepad_col_014" file="gamepad_0_32a4504daf3b/col_014.obj"/>
+    <mesh name="s_gamepad_col_015" file="gamepad_0_32a4504daf3b/col_015.obj"/>
+    <mesh name="s_gamepad_col_016" file="gamepad_0_32a4504daf3b/col_016.obj"/>
+    <mesh name="s_gamepad_col_017" file="gamepad_0_32a4504daf3b/col_017.obj"/>
+    <mesh name="s_gamepad_col_018" file="gamepad_0_32a4504daf3b/col_018.obj"/>
+    <mesh name="s_gamepad_col_019" file="gamepad_0_32a4504daf3b/col_019.obj"/>
+    <mesh name="s_gamepad_col_020" file="gamepad_0_32a4504daf3b/col_020.obj"/>
+    <mesh name="s_gamepad_col_021" file="gamepad_0_32a4504daf3b/col_021.obj"/>
+    <mesh name="s_gamepad_col_022" file="gamepad_0_32a4504daf3b/col_022.obj"/>
+    <mesh name="s_gamepad_col_023" file="gamepad_0_32a4504daf3b/col_023.obj"/>
+    <mesh name="s_gamepad_col_024" file="gamepad_0_32a4504daf3b/col_024.obj"/>
+    <mesh name="s_gamepad_col_025" file="gamepad_0_32a4504daf3b/col_025.obj"/>
+    <mesh name="s_gamepad_col_026" file="gamepad_0_32a4504daf3b/col_026.obj"/>
+    <mesh name="s_gamepad_col_027" file="gamepad_0_32a4504daf3b/col_027.obj"/>
+    <mesh name="s_gamepad_col_028" file="gamepad_0_32a4504daf3b/col_028.obj"/>
+    <mesh name="s_gamepad_col_029" file="gamepad_0_32a4504daf3b/col_029.obj"/>
+    <mesh name="s_gamepad_col_030" file="gamepad_0_32a4504daf3b/col_030.obj"/>
+    <mesh name="s_gamepad_col_031" file="gamepad_0_32a4504daf3b/col_031.obj"/>
+    <mesh name="s_gamepad_col_032" file="gamepad_0_32a4504daf3b/col_032.obj"/>
+    <mesh name="s_gamepad_col_033" file="gamepad_0_32a4504daf3b/col_033.obj"/>
+    <mesh name="s_gamepad_col_034" file="gamepad_0_32a4504daf3b/col_034.obj"/>
+    <mesh name="s_gamepad_col_035" file="gamepad_0_32a4504daf3b/col_035.obj"/>
+    <mesh name="s_gamepad_col_036" file="gamepad_0_32a4504daf3b/col_036.obj"/>
+    <mesh name="s_gamepad_col_037" file="gamepad_0_32a4504daf3b/col_037.obj"/>
+    <mesh name="s_gamepad_col_038" file="gamepad_0_32a4504daf3b/col_038.obj"/>
+    <mesh name="s_gamepad_col_039" file="gamepad_0_32a4504daf3b/col_039.obj"/>
+    <mesh name="s_gamepad_col_040" file="gamepad_0_32a4504daf3b/col_040.obj"/>
+    <mesh name="s_gamepad_col_041" file="gamepad_0_32a4504daf3b/col_041.obj"/>
+    <mesh name="s_gamepad_col_042" file="gamepad_0_32a4504daf3b/col_042.obj"/>
+    <mesh name="s_gamepad_col_043" file="gamepad_0_32a4504daf3b/col_043.obj"/>
+    <mesh name="s_gamepad_col_044" file="gamepad_0_32a4504daf3b/col_044.obj"/>
+    <mesh name="s_gamepad_col_045" file="gamepad_0_32a4504daf3b/col_045.obj"/>
+    <mesh name="s_gamepad_col_046" file="gamepad_0_32a4504daf3b/col_046.obj"/>
+    <mesh name="s_gamepad_col_047" file="gamepad_0_32a4504daf3b/col_047.obj"/>
+    <mesh name="s_gamepad_col_048" file="gamepad_0_32a4504daf3b/col_048.obj"/>
+    <mesh name="s_gamepad_col_049" file="gamepad_0_32a4504daf3b/col_049.obj"/>
+    <mesh name="s_gamepad_col_050" file="gamepad_0_32a4504daf3b/col_050.obj"/>
+    <mesh name="s_gamepad_col_051" file="gamepad_0_32a4504daf3b/col_051.obj"/>
+    <mesh name="s_gamepad_col_052" file="gamepad_0_32a4504daf3b/col_052.obj"/>
+    <mesh name="s_gamepad_col_053" file="gamepad_0_32a4504daf3b/col_053.obj"/>
+    <mesh name="s_gamepad_col_054" file="gamepad_0_32a4504daf3b/col_054.obj"/>
+    <mesh name="s_gamepad_col_055" file="gamepad_0_32a4504daf3b/col_055.obj"/>
+    <mesh name="s_gamepad_col_056" file="gamepad_0_32a4504daf3b/col_056.obj"/>
+    <mesh name="s_gamepad_col_057" file="gamepad_0_32a4504daf3b/col_057.obj"/>
+    <mesh name="s_gamepad_col_058" file="gamepad_0_32a4504daf3b/col_058.obj"/>
+    <mesh name="s_gamepad_col_059" file="gamepad_0_32a4504daf3b/col_059.obj"/>
+    <mesh name="s_gamepad_col_060" file="gamepad_0_32a4504daf3b/col_060.obj"/>
+    <mesh name="s_gamepad_col_061" file="gamepad_0_32a4504daf3b/col_061.obj"/>
+    <mesh name="s_gamepad_col_062" file="gamepad_0_32a4504daf3b/col_062.obj"/>
+    <mesh name="s_gamepad_col_063" file="gamepad_0_32a4504daf3b/col_063.obj"/>
+    <mesh name="s_gamepad_col_064" file="gamepad_0_32a4504daf3b/col_064.obj"/>
+    <mesh name="s_gamepad_col_065" file="gamepad_0_32a4504daf3b/col_065.obj"/>
+    <mesh name="s_gamepad_col_066" file="gamepad_0_32a4504daf3b/col_066.obj"/>
+    <mesh name="s_gamepad_col_067" file="gamepad_0_32a4504daf3b/col_067.obj"/>
+    <mesh name="s_gamepad_col_068" file="gamepad_0_32a4504daf3b/col_068.obj"/>
+    <mesh name="s_gamepad_col_069" file="gamepad_0_32a4504daf3b/col_069.obj"/>
+    <mesh name="s_gamepad_col_070" file="gamepad_0_32a4504daf3b/col_070.obj"/>
+    <mesh name="s_gamepad_col_071" file="gamepad_0_32a4504daf3b/col_071.obj"/>
+    <mesh name="s_gamepad_col_072" file="gamepad_0_32a4504daf3b/col_072.obj"/>
+    <mesh name="s_gamepad_col_073" file="gamepad_0_32a4504daf3b/col_073.obj"/>
+    <mesh name="s_gamepad_col_074" file="gamepad_0_32a4504daf3b/col_074.obj"/>
+    <mesh name="s_gamepad_col_075" file="gamepad_0_32a4504daf3b/col_075.obj"/>
+    <mesh name="s_gamepad_col_076" file="gamepad_0_32a4504daf3b/col_076.obj"/>
+    <mesh name="s_gamepad_col_077" file="gamepad_0_32a4504daf3b/col_077.obj"/>
+    <mesh name="s_gamepad_col_078" file="gamepad_0_32a4504daf3b/col_078.obj"/>
+    <mesh name="s_gamepad_col_079" file="gamepad_0_32a4504daf3b/col_079.obj"/>
+    <mesh name="s_gamepad_col_080" file="gamepad_0_32a4504daf3b/col_080.obj"/>
+    <mesh name="s_gamepad_col_081" file="gamepad_0_32a4504daf3b/col_081.obj"/>
+    <mesh name="s_gamepad_col_082" file="gamepad_0_32a4504daf3b/col_082.obj"/>
+    <mesh name="s_gamepad_col_083" file="gamepad_0_32a4504daf3b/col_083.obj"/>
+    <mesh name="s_gamepad_col_084" file="gamepad_0_32a4504daf3b/col_084.obj"/>
+    <mesh name="s_gamepad_col_085" file="gamepad_0_32a4504daf3b/col_085.obj"/>
+    <mesh name="s_gamepad_col_086" file="gamepad_0_32a4504daf3b/col_086.obj"/>
+    <mesh name="s_gamepad_col_087" file="gamepad_0_32a4504daf3b/col_087.obj"/>
+    <mesh name="s_gamepad_col_088" file="gamepad_0_32a4504daf3b/col_088.obj"/>
+    <mesh name="s_gamepad_col_089" file="gamepad_0_32a4504daf3b/col_089.obj"/>
+    <mesh name="s_gamepad_col_090" file="gamepad_0_32a4504daf3b/col_090.obj"/>
+    <mesh name="s_gamepad_col_091" file="gamepad_0_32a4504daf3b/col_091.obj"/>
+    <mesh name="s_gamepad_col_092" file="gamepad_0_32a4504daf3b/col_092.obj"/>
+    <mesh name="s_gamepad_col_093" file="gamepad_0_32a4504daf3b/col_093.obj"/>
+    <mesh name="s_gamepad_col_094" file="gamepad_0_32a4504daf3b/col_094.obj"/>
+    <mesh name="s_gamepad_col_095" file="gamepad_0_32a4504daf3b/col_095.obj"/>
+    <mesh name="s_gamepad_col_096" file="gamepad_0_32a4504daf3b/col_096.obj"/>
+    <mesh name="s_gamepad_col_097" file="gamepad_0_32a4504daf3b/col_097.obj"/>
+    <mesh name="s_gamepad_col_098" file="gamepad_0_32a4504daf3b/col_098.obj"/>
+    <mesh name="s_gamepad_col_099" file="gamepad_0_32a4504daf3b/col_099.obj"/>
+    <mesh name="s_gamepad_col_100" file="gamepad_0_32a4504daf3b/col_100.obj"/>
+    <mesh name="s_gamepad_col_101" file="gamepad_0_32a4504daf3b/col_101.obj"/>
+    <mesh name="s_gamepad_col_102" file="gamepad_0_32a4504daf3b/col_102.obj"/>
+    <mesh name="s_gamepad_col_103" file="gamepad_0_32a4504daf3b/col_103.obj"/>
+    <mesh name="s_gamepad_col_104" file="gamepad_0_32a4504daf3b/col_104.obj"/>
+    <mesh name="s_gamepad_col_105" file="gamepad_0_32a4504daf3b/col_105.obj"/>
+    <mesh name="s_gamepad_col_106" file="gamepad_0_32a4504daf3b/col_106.obj"/>
+    <mesh name="s_gamepad_col_107" file="gamepad_0_32a4504daf3b/col_107.obj"/>
+    <mesh name="s_gamepad_col_108" file="gamepad_0_32a4504daf3b/col_108.obj"/>
+    <mesh name="s_gamepad_col_109" file="gamepad_0_32a4504daf3b/col_109.obj"/>
+    <mesh name="s_gamepad_col_110" file="gamepad_0_32a4504daf3b/col_110.obj"/>
+    <mesh name="s_gamepad_col_111" file="gamepad_0_32a4504daf3b/col_111.obj"/>
+    <mesh name="s_gamepad_col_112" file="gamepad_0_32a4504daf3b/col_112.obj"/>
+    <mesh name="s_gamepad_col_113" file="gamepad_0_32a4504daf3b/col_113.obj"/>
+    <mesh name="s_gamepad_col_114" file="gamepad_0_32a4504daf3b/col_114.obj"/>
+    <mesh name="s_gamepad_col_115" file="gamepad_0_32a4504daf3b/col_115.obj"/>
+    <mesh name="s_gamepad_col_116" file="gamepad_0_32a4504daf3b/col_116.obj"/>
+    <mesh name="s_gamepad_col_117" file="gamepad_0_32a4504daf3b/col_117.obj"/>
+    <mesh name="s_gamepad_col_118" file="gamepad_0_32a4504daf3b/col_118.obj"/>
+    <mesh name="s_gamepad_col_119" file="gamepad_0_32a4504daf3b/col_119.obj"/>
+    <mesh name="s_gamepad_col_120" file="gamepad_0_32a4504daf3b/col_120.obj"/>
+    <mesh name="s_gamepad_col_121" file="gamepad_0_32a4504daf3b/col_121.obj"/>
+    <mesh name="s_gamepad_col_122" file="gamepad_0_32a4504daf3b/col_122.obj"/>
+    <mesh name="s_gamepad_col_123" file="gamepad_0_32a4504daf3b/col_123.obj"/>
+    <mesh name="s_gamepad_col_124" file="gamepad_0_32a4504daf3b/col_124.obj"/>
+    <mesh name="s_gamepad_col_125" file="gamepad_0_32a4504daf3b/col_125.obj"/>
+    <mesh name="s_gamepad_col_126" file="gamepad_0_32a4504daf3b/col_126.obj"/>
+    <mesh name="s_gamepad_col_127" file="gamepad_0_32a4504daf3b/col_127.obj"/>
+    <mesh name="s_gamepad_col_128" file="gamepad_0_32a4504daf3b/col_128.obj"/>
+    <mesh name="s_gamepad_col_129" file="gamepad_0_32a4504daf3b/col_129.obj"/>
+    <mesh name="s_gamepad_col_130" file="gamepad_0_32a4504daf3b/col_130.obj"/>
+    <mesh name="s_gamepad_col_131" file="gamepad_0_32a4504daf3b/col_131.obj"/>
+    <mesh name="s_gamepad_col_132" file="gamepad_0_32a4504daf3b/col_132.obj"/>
+    <mesh name="s_gamepad_col_133" file="gamepad_0_32a4504daf3b/col_133.obj"/>
+    <mesh name="s_gamepad_col_134" file="gamepad_0_32a4504daf3b/col_134.obj"/>
+    <mesh name="s_gamepad_col_135" file="gamepad_0_32a4504daf3b/col_135.obj"/>
+    <mesh name="s_gamepad_col_136" file="gamepad_0_32a4504daf3b/col_136.obj"/>
+    <mesh name="s_gamepad_col_137" file="gamepad_0_32a4504daf3b/col_137.obj"/>
+    <mesh name="s_gamepad_col_138" file="gamepad_0_32a4504daf3b/col_138.obj"/>
+    <mesh name="s_gamepad_col_139" file="gamepad_0_32a4504daf3b/col_139.obj"/>
+    <mesh name="s_gamepad_col_140" file="gamepad_0_32a4504daf3b/col_140.obj"/>
+    <mesh name="s_gamepad_col_141" file="gamepad_0_32a4504daf3b/col_141.obj"/>
+    <mesh name="s_gamepad_col_142" file="gamepad_0_32a4504daf3b/col_142.obj"/>
+    <mesh name="s_gamepad_col_143" file="gamepad_0_32a4504daf3b/col_143.obj"/>
+    <mesh name="s_gamepad_col_144" file="gamepad_0_32a4504daf3b/col_144.obj"/>
+    <mesh name="s_gamepad_col_145" file="gamepad_0_32a4504daf3b/col_145.obj"/>
+    <mesh name="s_gamepad_col_146" file="gamepad_0_32a4504daf3b/col_146.obj"/>
+    <mesh name="s_gamepad_col_147" file="gamepad_0_32a4504daf3b/col_147.obj"/>
+    <mesh name="s_gamepad_col_148" file="gamepad_0_32a4504daf3b/col_148.obj"/>
+    <mesh name="s_gamepad_col_149" file="gamepad_0_32a4504daf3b/col_149.obj"/>
+    <mesh name="s_gamepad_col_150" file="gamepad_0_32a4504daf3b/col_150.obj"/>
+    <mesh name="s_gamepad_col_151" file="gamepad_0_32a4504daf3b/col_151.obj"/>
+    <mesh name="s_gamepad_col_152" file="gamepad_0_32a4504daf3b/col_152.obj"/>
+    <mesh name="s_gamepad_col_153" file="gamepad_0_32a4504daf3b/col_153.obj"/>
+    <mesh name="s_gamepad_col_154" file="gamepad_0_32a4504daf3b/col_154.obj"/>
+    <mesh name="s_gamepad_col_155" file="gamepad_0_32a4504daf3b/col_155.obj"/>
+    <mesh name="s_gamepad_col_156" file="gamepad_0_32a4504daf3b/col_156.obj"/>
+    <mesh name="s_gamepad_col_157" file="gamepad_0_32a4504daf3b/col_157.obj"/>
+    <mesh name="s_gamepad_col_158" file="gamepad_0_32a4504daf3b/col_158.obj"/>
+    <mesh name="s_gamepad_col_159" file="gamepad_0_32a4504daf3b/col_159.obj"/>
+    <mesh name="s_gamepad_col_160" file="gamepad_0_32a4504daf3b/col_160.obj"/>
+    <mesh name="s_gamepad_col_161" file="gamepad_0_32a4504daf3b/col_161.obj"/>
+    <mesh name="s_gamepad_col_162" file="gamepad_0_32a4504daf3b/col_162.obj"/>
+    <mesh name="s_gamepad_col_163" file="gamepad_0_32a4504daf3b/col_163.obj"/>
+    <mesh name="s_gamepad_col_164" file="gamepad_0_32a4504daf3b/col_164.obj"/>
+    <mesh name="s_gamepad_col_165" file="gamepad_0_32a4504daf3b/col_165.obj"/>
+    <mesh name="s_gamepad_col_166" file="gamepad_0_32a4504daf3b/col_166.obj"/>
+    <mesh name="s_gamepad_col_167" file="gamepad_0_32a4504daf3b/col_167.obj"/>
+    <mesh name="s_gamepad_col_168" file="gamepad_0_32a4504daf3b/col_168.obj"/>
+    <mesh name="s_gamepad_col_169" file="gamepad_0_32a4504daf3b/col_169.obj"/>
+    <mesh name="s_gamepad_col_170" file="gamepad_0_32a4504daf3b/col_170.obj"/>
+    <mesh name="s_gamepad_col_171" file="gamepad_0_32a4504daf3b/col_171.obj"/>
+    <mesh name="s_gamepad_col_172" file="gamepad_0_32a4504daf3b/col_172.obj"/>
+    <mesh name="s_gamepad_col_173" file="gamepad_0_32a4504daf3b/col_173.obj"/>
+    <mesh name="s_gamepad_col_174" file="gamepad_0_32a4504daf3b/col_174.obj"/>
+    <mesh name="s_gamepad_col_175" file="gamepad_0_32a4504daf3b/col_175.obj"/>
+    <mesh name="s_gamepad_col_176" file="gamepad_0_32a4504daf3b/col_176.obj"/>
+    <mesh name="s_gamepad_col_177" file="gamepad_0_32a4504daf3b/col_177.obj"/>
+    <mesh name="s_gamepad_col_178" file="gamepad_0_32a4504daf3b/col_178.obj"/>
+    <mesh name="s_gamepad_col_179" file="gamepad_0_32a4504daf3b/col_179.obj"/>
+    <mesh name="s_gamepad_col_180" file="gamepad_0_32a4504daf3b/col_180.obj"/>
+    <mesh name="s_gamepad_col_181" file="gamepad_0_32a4504daf3b/col_181.obj"/>
+    <mesh name="s_gamepad_col_182" file="gamepad_0_32a4504daf3b/col_182.obj"/>
+    <mesh name="s_gamepad_col_183" file="gamepad_0_32a4504daf3b/col_183.obj"/>
+    <mesh name="s_gamepad_col_184" file="gamepad_0_32a4504daf3b/col_184.obj"/>
+    <mesh name="s_gamepad_col_185" file="gamepad_0_32a4504daf3b/col_185.obj"/>
+    <mesh name="s_gamepad_col_186" file="gamepad_0_32a4504daf3b/col_186.obj"/>
+    <mesh name="s_gamepad_col_187" file="gamepad_0_32a4504daf3b/col_187.obj"/>
+    <mesh name="s_gamepad_col_188" file="gamepad_0_32a4504daf3b/col_188.obj"/>
+    <mesh name="s_gamepad_col_189" file="gamepad_0_32a4504daf3b/col_189.obj"/>
+    <mesh name="s_gamepad_col_190" file="gamepad_0_32a4504daf3b/col_190.obj"/>
+    <mesh name="s_gamepad_col_191" file="gamepad_0_32a4504daf3b/col_191.obj"/>
+    <mesh name="s_gamepad_col_192" file="gamepad_0_32a4504daf3b/col_192.obj"/>
+    <mesh name="s_gamepad_col_193" file="gamepad_0_32a4504daf3b/col_193.obj"/>
+    <mesh name="s_gamepad_col_194" file="gamepad_0_32a4504daf3b/col_194.obj"/>
+    <mesh name="s_gamepad_col_195" file="gamepad_0_32a4504daf3b/col_195.obj"/>
+    <mesh name="s_gamepad_col_196" file="gamepad_0_32a4504daf3b/col_196.obj"/>
+    <mesh name="s_gamepad_col_197" file="gamepad_0_32a4504daf3b/col_197.obj"/>
+    <mesh name="s_gamepad_col_198" file="gamepad_0_32a4504daf3b/col_198.obj"/>
+    <mesh name="s_gamepad_col_199" file="gamepad_0_32a4504daf3b/col_199.obj"/>
+    <mesh name="s_gamepad_col_200" file="gamepad_0_32a4504daf3b/col_200.obj"/>
+    <mesh name="s_gamepad_col_201" file="gamepad_0_32a4504daf3b/col_201.obj"/>
+    <mesh name="s_gamepad_col_202" file="gamepad_0_32a4504daf3b/col_202.obj"/>
+    <mesh name="s_gamepad_col_203" file="gamepad_0_32a4504daf3b/col_203.obj"/>
+    <mesh name="s_gamepad_col_204" file="gamepad_0_32a4504daf3b/col_204.obj"/>
+    <mesh name="s_gamepad_col_205" file="gamepad_0_32a4504daf3b/col_205.obj"/>
+    <mesh name="s_gamepad_col_206" file="gamepad_0_32a4504daf3b/col_206.obj"/>
+    <mesh name="s_gamepad_col_207" file="gamepad_0_32a4504daf3b/col_207.obj"/>
+    <mesh name="s_gamepad_col_208" file="gamepad_0_32a4504daf3b/col_208.obj"/>
+    <mesh name="s_gamepad_col_209" file="gamepad_0_32a4504daf3b/col_209.obj"/>
+    <mesh name="s_gamepad_col_210" file="gamepad_0_32a4504daf3b/col_210.obj"/>
+    <mesh name="s_gamepad_col_211" file="gamepad_0_32a4504daf3b/col_211.obj"/>
+    <mesh name="s_gamepad_col_212" file="gamepad_0_32a4504daf3b/col_212.obj"/>
+    <mesh name="s_gamepad_col_213" file="gamepad_0_32a4504daf3b/col_213.obj"/>
+    <mesh name="s_gamepad_col_214" file="gamepad_0_32a4504daf3b/col_214.obj"/>
+    <mesh name="s_gamepad_col_215" file="gamepad_0_32a4504daf3b/col_215.obj"/>
+    <mesh name="s_gamepad_col_216" file="gamepad_0_32a4504daf3b/col_216.obj"/>
+    <mesh name="s_gamepad_col_217" file="gamepad_0_32a4504daf3b/col_217.obj"/>
+    <mesh name="s_gamepad_col_218" file="gamepad_0_32a4504daf3b/col_218.obj"/>
+    <mesh name="s_gamepad_col_219" file="gamepad_0_32a4504daf3b/col_219.obj"/>
+    <mesh name="s_gamepad_col_220" file="gamepad_0_32a4504daf3b/col_220.obj"/>
+    <mesh name="s_gamepad_col_221" file="gamepad_0_32a4504daf3b/col_221.obj"/>
+    <mesh name="s_gamepad_col_222" file="gamepad_0_32a4504daf3b/col_222.obj"/>
+    <mesh name="s_gamepad_col_223" file="gamepad_0_32a4504daf3b/col_223.obj"/>
+    <mesh name="s_gamepad_col_224" file="gamepad_0_32a4504daf3b/col_224.obj"/>
+    <mesh name="s_gamepad_col_225" file="gamepad_0_32a4504daf3b/col_225.obj"/>
+    <mesh name="s_gamepad_col_226" file="gamepad_0_32a4504daf3b/col_226.obj"/>
+    <mesh name="s_stool_circular_visual" file="stool_circular_4_80b718f9c92a/visual.obj"/>
+    <mesh name="s_stool_circular_col_000" file="stool_circular_4_80b718f9c92a/col_000.obj"/>
+    <mesh name="s_stool_circular_col_001" file="stool_circular_4_80b718f9c92a/col_001.obj"/>
+    <mesh name="s_stool_circular_col_002" file="stool_circular_4_80b718f9c92a/col_002.obj"/>
+    <mesh name="s_stool_circular_col_003" file="stool_circular_4_80b718f9c92a/col_003.obj"/>
+    <mesh name="s_stool_circular_col_004" file="stool_circular_4_80b718f9c92a/col_004.obj"/>
+    <mesh name="s_stool_circular_col_005" file="stool_circular_4_80b718f9c92a/col_005.obj"/>
+    <mesh name="s_stool_circular_col_006" file="stool_circular_4_80b718f9c92a/col_006.obj"/>
+    <mesh name="s_stool_circular_col_007" file="stool_circular_4_80b718f9c92a/col_007.obj"/>
+    <mesh name="s_stool_circular_col_008" file="stool_circular_4_80b718f9c92a/col_008.obj"/>
+    <mesh name="s_stool_circular_col_009" file="stool_circular_4_80b718f9c92a/col_009.obj"/>
+    <mesh name="s_stool_circular_col_010" file="stool_circular_4_80b718f9c92a/col_010.obj"/>
+    <mesh name="s_stool_circular_col_011" file="stool_circular_4_80b718f9c92a/col_011.obj"/>
+    <mesh name="s_stool_circular_col_012" file="stool_circular_4_80b718f9c92a/col_012.obj"/>
+    <mesh name="s_stool_circular_col_013" file="stool_circular_4_80b718f9c92a/col_013.obj"/>
+    <mesh name="s_stool_circular_col_014" file="stool_circular_4_80b718f9c92a/col_014.obj"/>
+    <mesh name="s_stool_circular_col_015" file="stool_circular_4_80b718f9c92a/col_015.obj"/>
+    <mesh name="s_stool_circular_col_016" file="stool_circular_4_80b718f9c92a/col_016.obj"/>
+    <mesh name="s_stool_circular_col_017" file="stool_circular_4_80b718f9c92a/col_017.obj"/>
+    <mesh name="s_stool_circular_col_018" file="stool_circular_4_80b718f9c92a/col_018.obj"/>
+    <mesh name="s_stool_circular_col_019" file="stool_circular_4_80b718f9c92a/col_019.obj"/>
+    <mesh name="s_stool_circular_col_020" file="stool_circular_4_80b718f9c92a/col_020.obj"/>
+    <mesh name="s_stool_circular_col_021" file="stool_circular_4_80b718f9c92a/col_021.obj"/>
+    <mesh name="s_stool_circular_col_022" file="stool_circular_4_80b718f9c92a/col_022.obj"/>
+    <mesh name="s_stool_circular_col_023" file="stool_circular_4_80b718f9c92a/col_023.obj"/>
+    <mesh name="s_stool_circular_col_024" file="stool_circular_4_80b718f9c92a/col_024.obj"/>
+    <mesh name="s_stool_circular_col_025" file="stool_circular_4_80b718f9c92a/col_025.obj"/>
+    <mesh name="s_stool_circular_col_026" file="stool_circular_4_80b718f9c92a/col_026.obj"/>
+    <mesh name="s_stool_circular_col_027" file="stool_circular_4_80b718f9c92a/col_027.obj"/>
+    <mesh name="s_stool_circular_col_028" file="stool_circular_4_80b718f9c92a/col_028.obj"/>
+    <mesh name="s_stool_circular_col_029" file="stool_circular_4_80b718f9c92a/col_029.obj"/>
+    <mesh name="s_stool_circular_col_030" file="stool_circular_4_80b718f9c92a/col_030.obj"/>
+    <mesh name="s_stool_circular_col_031" file="stool_circular_4_80b718f9c92a/col_031.obj"/>
+    <mesh name="s_stool_circular_col_032" file="stool_circular_4_80b718f9c92a/col_032.obj"/>
+    <mesh name="s_stool_circular_col_033" file="stool_circular_4_80b718f9c92a/col_033.obj"/>
+    <mesh name="s_stool_circular_col_034" file="stool_circular_4_80b718f9c92a/col_034.obj"/>
+  </asset>
+  <worldbody>
+    <geom name="floor" size="3 3 0.125" type="plane" group="1" material="floor_mat"/>
+    <!-- libero_10's third-person framing, dropped 0.1 m to fabrica's lower table
+         (same 0.71 m height above the tabletop, 39 deg pitch, fovy 65) so the
+         agentview perspective matches the libero tasks -->
+    <camera name="agentview" pos="0.658613 0 1.51035" quat="0.638018 0.30485 0.30485 0.638018" fovy="65"/>
+    <camera name="leftview" pos="0.2369 -0.273 1.185" quat="0.853314 0.354132 0.146686 0.353454"/>
+    <camera name="rightview" pos="0.2369 0.273 1.185" quat="0.353454 0.146686 0.354132 0.853314"/>
+    <light pos="1 1 1.5" dir="-0.19245 -0.19245 -0.96225" directional="true" castshadow="false"/>
+    <body name="table" pos="0 0 0.775">
+      <geom name="table_top" size="0.4 0.4 0.025" type="box" group="1" material="table_mat"/>
+    </body>
+    <body name="part0" pos="-0.04 0.15 0.813084" quat="1 0 0 0">
+      <freejoint/>
+      <geom type="mesh" mesh="p0_visual" rgba="0.824 0.341 0.349 1" contype="0" conaffinity="0" group="1" mass="0"/>
+      <geom type="mesh" mesh="p0_col_000" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_001" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_002" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_003" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_004" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_005" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_006" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_007" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_008" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_009" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_010" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_011" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_012" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_013" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_014" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_015" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_016" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_017" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_018" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_019" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_020" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_021" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_022" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_023" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p0_col_024" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+    </body>
+    <body name="part1" pos="0.0666749 -1.06301e-09 0.906333">
+      <freejoint/>
+      <geom type="mesh" mesh="p1_visual" rgba="0.929 0.8 0.286 1" contype="0" conaffinity="0" group="1" mass="0"/>
+      <geom type="mesh" mesh="p1_col_000" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_001" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_002" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_003" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_004" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_005" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_006" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_007" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_008" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_009" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_010" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_011" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_012" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_013" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_014" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_015" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_016" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_017" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_018" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_019" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_020" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_021" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_022" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p1_col_023" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+    </body>
+    <body name="part2" pos="-0.0667122 -1.01969e-09 0.857921">
+      <freejoint/>
+      <geom type="mesh" mesh="p2_visual" rgba="0.235 0.655 0.867 1" contype="0" conaffinity="0" group="1" mass="0"/>
+      <geom type="mesh" mesh="p2_col_000" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_001" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_002" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_003" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_004" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_005" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_006" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_007" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_008" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_009" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_010" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_011" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_012" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_013" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_014" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_015" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_016" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_017" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_018" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_019" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_020" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_021" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_022" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_023" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_024" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_025" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_026" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_027" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p2_col_028" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+    </body>
+    <body name="part3" pos="0.0667119 -1.07133e-09 0.857921">
+      <freejoint/>
+      <geom type="mesh" mesh="p3_visual" rgba="0.745 0.494 0.816 1" contype="0" conaffinity="0" group="1" mass="0"/>
+      <geom type="mesh" mesh="p3_col_000" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_001" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_002" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_003" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_004" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_005" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_006" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_007" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_008" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_009" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_010" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_011" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_012" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_013" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_014" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_015" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_016" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_017" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_018" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_019" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_020" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_021" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_022" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_023" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_024" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_025" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_026" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_027" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_028" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_029" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_030" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_031" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_032" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_033" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_034" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p3_col_035" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+    </body>
+    <body name="part6" pos="-1.15711e-07 -1.00701e-09 0.809481">
+      <freejoint/>
+      <geom type="mesh" mesh="p6_visual" rgba="0.424 0.753 0.353 1" contype="0" conaffinity="0" group="1" mass="0"/>
+      <geom type="mesh" mesh="p6_col_000" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_001" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_002" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_003" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_004" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_005" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_006" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_007" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_008" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_009" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_010" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_011" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_012" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_013" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_014" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="p6_col_015" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+    </body>
+    <body name="stray_cooling_manifold" pos="-0.14 -0.18 0.81663" quat="0.707107 0 0.707107 0">
+      <freejoint/>
+      <geom type="mesh" mesh="s_cooling_manifold_visual" rgba="0.824 0.341 0.349 1" contype="0" conaffinity="0" group="1" mass="0"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_000" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_001" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_002" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_003" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_004" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_005" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_006" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_007" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_008" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_009" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_010" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_011" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_012" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_013" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_014" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_015" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_016" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_017" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_018" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_019" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_020" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_021" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_022" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_023" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_024" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_025" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_026" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_027" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_028" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_029" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_030" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_031" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_032" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_033" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_034" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_035" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_036" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_037" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_038" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_039" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_040" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_041" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_042" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_043" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_044" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_045" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_046" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_047" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_048" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_049" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_050" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_051" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_052" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_053" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_054" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_055" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_056" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_057" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_058" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_059" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_060" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_061" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_062" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_063" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_064" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_065" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_066" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_067" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_068" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_069" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_070" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_071" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_072" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_073" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_074" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_075" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_076" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_077" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_078" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_079" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_080" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_081" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_082" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_083" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_084" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_085" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_086" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_087" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_088" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_089" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_090" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_091" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_092" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_093" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_094" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_095" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_096" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_097" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_098" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_099" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_100" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_101" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_102" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_103" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_104" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_105" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_106" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_107" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_108" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_109" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_110" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_111" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_112" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_113" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_114" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_115" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_116" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_117" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_118" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_119" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_120" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_cooling_manifold_col_121" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+    </body>
+    <body name="stray_gamepad" pos="0 -0.18 0.811" quat="0.707107 0 0.707107 0">
+      <freejoint/>
+      <geom type="mesh" mesh="s_gamepad_visual" rgba="0.824 0.341 0.349 1" contype="0" conaffinity="0" group="1" mass="0"/>
+      <geom type="mesh" mesh="s_gamepad_col_000" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_001" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_002" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_003" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_004" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_005" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_006" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_007" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_008" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_009" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_010" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_011" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_012" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_013" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_014" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_015" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_016" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_017" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_018" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_019" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_020" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_021" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_022" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_023" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_024" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_025" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_026" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_027" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_028" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_029" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_030" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_031" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_032" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_033" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_034" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_035" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_036" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_037" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_038" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_039" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_040" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_041" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_042" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_043" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_044" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_045" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_046" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_047" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_048" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_049" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_050" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_051" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_052" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_053" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_054" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_055" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_056" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_057" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_058" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_059" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_060" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_061" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_062" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_063" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_064" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_065" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_066" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_067" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_068" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_069" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_070" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_071" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_072" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_073" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_074" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_075" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_076" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_077" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_078" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_079" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_080" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_081" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_082" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_083" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_084" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_085" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_086" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_087" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_088" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_089" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_090" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_091" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_092" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_093" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_094" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_095" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_096" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_097" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_098" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_099" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_100" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_101" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_102" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_103" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_104" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_105" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_106" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_107" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_108" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_109" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_110" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_111" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_112" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_113" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_114" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_115" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_116" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_117" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_118" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_119" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_120" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_121" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_122" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_123" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_124" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_125" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_126" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_127" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_128" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_129" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_130" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_131" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_132" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_133" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_134" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_135" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_136" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_137" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_138" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_139" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_140" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_141" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_142" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_143" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_144" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_145" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_146" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_147" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_148" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_149" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_150" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_151" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_152" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_153" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_154" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_155" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_156" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_157" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_158" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_159" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_160" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_161" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_162" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_163" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_164" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_165" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_166" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_167" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_168" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_169" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_170" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_171" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_172" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_173" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_174" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_175" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_176" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_177" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_178" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_179" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_180" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_181" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_182" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_183" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_184" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_185" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_186" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_187" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_188" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_189" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_190" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_191" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_192" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_193" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_194" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_195" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_196" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_197" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_198" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_199" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_200" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_201" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_202" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_203" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_204" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_205" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_206" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_207" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_208" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_209" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_210" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_211" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_212" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_213" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_214" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_215" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_216" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_217" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_218" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_219" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_220" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_221" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_222" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_223" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_224" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_225" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_gamepad_col_226" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+    </body>
+    <body name="stray_stool_circular" pos="0.14 -0.18 0.8155" quat="0.707107 0 0.707107 0">
+      <freejoint/>
+      <geom type="mesh" mesh="s_stool_circular_visual" rgba="0.424 0.753 0.353 1" contype="0" conaffinity="0" group="1" mass="0"/>
+      <geom type="mesh" mesh="s_stool_circular_col_000" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_001" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_002" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_003" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_004" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_005" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_006" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_007" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_008" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_009" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_010" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_011" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_012" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_013" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_014" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_015" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_016" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_017" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_018" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_019" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_020" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_021" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_022" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_023" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_024" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_025" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_026" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_027" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_028" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_029" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_030" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_031" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_032" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_033" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+      <geom type="mesh" mesh="s_stool_circular_col_034" group="3" condim="4" friction="0.6 0.3 0.0001" priority="1" solimp="0.998 0.998" solref="0.004 1"/>
+    </body>
+  </worldbody>
+</mujoco>

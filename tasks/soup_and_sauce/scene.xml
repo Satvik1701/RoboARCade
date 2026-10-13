@@ -1,0 +1,265 @@
+<mujoco model="base">
+  <compiler angle="radian" />
+
+  <option impratio="20" density="1.2" viscosity="2e-05" cone="elliptic" />
+
+  <size njmax="5000" nconmax="5000" />
+
+  <visual>
+    <map znear="0.001" />
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.9 0.9 1" rgb2="0.2 0.3 0.4" width="256" height="1536" />
+    <texture type="2d" name="texplane" file="assets/seamless_wood_planks_floor.png" />
+    <texture type="cube" name="tex-table" file="assets/seamless_wood_planks_floor.png" />
+    <texture type="cube" name="tex-table-legs" file="assets/seamless_wood_planks_floor.png" />
+    <texture type="2d" name="tex-wall" file="assets/light-gray-plaster.png" />
+    <texture type="cube" name="textable" builtin="flat" rgb1="0.5 0.5 0.5" width="512" height="3072" />
+    <texture type="2d" name="tex-living_room_table" file="assets/living_room_table_texture.png" />
+    <texture type="2d" name="tex-wall_decoration" file="assets/wall_decoration_texture.png" />
+    <texture type="2d" name="tex-living_room" file="assets/living_room_wall_unit.png" />
+    <texture type="2d" name="alphabet_soup_1_tex-textured" file="assets/texture_map.png" />
+    <texture type="2d" name="cream_cheese_1_tex-cream_cheese" file="assets/cream_cheese_texture_map.png" />
+    <texture type="2d" name="tomato_sauce_1_tex-textured" file="assets/tomato_sauce_texture_map.png" />
+    <texture type="2d" name="ketchup_1_tex-textured" file="assets/ketchup_texture_map.png" />
+    <texture type="2d" name="orange_juice_1_tex-textured" file="assets/orange_juice_texture_map.png" />
+    <texture type="2d" name="milk_1_tex-textured" file="assets/milk_texture_map.png" />
+    <texture type="2d" name="butter_1_tex-butter" file="assets/butter_texture_map.png" />
+    <texture type="2d" name="basket_1_tex-basket" file="assets/texture.png" />
+    <material name="floorplane" texture="texplane" texuniform="true" texrepeat="3 3" specular="0" shininess="0" />
+    <material name="table_texture" texture="tex-table" specular="0.2" shininess="0" />
+    <material name="table_legs" texture="tex-table-legs" shininess="0.8" reflectance="0.8" />
+    <material name="walls_mat" texture="tex-wall" texuniform="true" texrepeat="3 3" specular="0.9" shininess="0.2" />
+    <material name="table_mat" texture="textable" />
+    <material name="living_room_table" texture="tex-living_room_table" reflectance="0.5" />
+    <material name="wall_decoration" texture="tex-wall_decoration" reflectance="0.5" />
+    <material name="living_room" texture="tex-living_room" reflectance="0.5" />
+    <material name="robot0_Face636_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1" />
+    <material name="robot0_Part__Feature017_001" shininess="0.45" />
+    <material name="robot0_Part__Feature018_001" shininess="0.45" />
+    <material name="robot0_Part__Feature019_001" shininess="0.45" />
+    <material name="robot0_Part__Feature022_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1" />
+    <material name="robot0_Part__Feature023_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Shell001_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Shell002_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1" />
+    <material name="robot0_Shell003_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1" />
+    <material name="robot0_Shell009_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Shell010_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1" />
+    <material name="robot0_Shell_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Feature_001" shininess="0.45" />
+    <material name="robot0_Part__Feature024" shininess="0.45" />
+    <material name="robot0_Part__Feature001_010_001_002" shininess="0.45" />
+    <material name="robot0_Part__Feature002_007_001_002" shininess="0.45" />
+    <material name="robot0_Part__Feature003_004_001_002" shininess="0.45" />
+    <material name="robot0_Part__Feature_001_001_001_002" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Feature001_001_003_001" shininess="0.45" />
+    <material name="robot0_Part__Feature002_001_003_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Feature003_001_003_001" shininess="0.45" />
+    <material name="robot0_Part__Feature_002_003_001" shininess="0.45" />
+    <material name="robot0_Part__Feature_002_004_003" shininess="0.45" />
+    <material name="robot0_Shell001_001_001_003" shininess="0.45" rgba="0.25 0.25 0.25 1" />
+    <material name="robot0_Shell_001_001_003" shininess="0.45" />
+    <material name="robot0_Face064_002_001_002_001" shininess="0.45" rgba="1 0 0 1" />
+    <material name="robot0_Face065_002_001_002_001" shininess="0.45" rgba="0 1 0 1" />
+    <material name="robot0_Face374_002_001_002_001" shininess="0.45" />
+    <material name="robot0_Face539_002_001_002_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Feature001_009_001_002_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Feature002_006_001_002_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Shell002_002_001_002_001" shininess="0.45" />
+    <material name="robot0_Shell003_002_001_002_001" shininess="0.45" />
+    <material name="robot0_Shell004_001_001_002_001" shininess="0.45" />
+    <material name="robot0_Shell005_001_001_002_001" shininess="0.45" />
+    <material name="robot0_Shell006_003_002_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1" />
+    <material name="robot0_Shell007_002_002_001" shininess="0.45" rgba="0.25 0.25 0.25 1" />
+    <material name="robot0_Shell011_002_002_001" shininess="0.45" />
+    <material name="robot0_Shell012_002_002_001" shininess="0.45" />
+    <material name="robot0_Shell_003_001_002_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Union001_001_001_002_001" shininess="0.45" rgba="0.039216 0.541176 0.780392 1" />
+    <material name="robot0_Union_001_001_002_001" shininess="0.45" rgba="0.039216 0.541176 0.780392 1" />
+    <material name="robot0_Part__Mirroring001_004_002" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Mirroring002_004_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Mirroring003_004_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Mirroring004_004_002" shininess="0.45" />
+    <material name="robot0_Part__Mirroring005_004_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Mirroring006_004_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Mirroring007_004_001" shininess="0.45" rgba="0.25098 0.25098 0.25098 1" />
+    <material name="robot0_Part__Mirroring_004_001" shininess="0.45" rgba="0.898039 0.917647 0.929412 1" />
+    <material name="alphabet_soup_1_textured" texture="alphabet_soup_1_tex-textured" reflectance="0.5" />
+    <material name="cream_cheese_1_cream_cheese" texture="cream_cheese_1_tex-cream_cheese" reflectance="0.5" />
+    <material name="tomato_sauce_1_textured" texture="tomato_sauce_1_tex-textured" reflectance="0.5" />
+    <material name="ketchup_1_textured" texture="ketchup_1_tex-textured" reflectance="0.5" />
+    <material name="orange_juice_1_textured" texture="orange_juice_1_tex-textured" reflectance="0.5" />
+    <material name="milk_1_textured" texture="milk_1_tex-textured" reflectance="0.5" />
+    <material name="butter_1_butter" texture="butter_1_tex-butter" reflectance="0.5" />
+    <material name="basket_1_basket" texture="basket_1_tex-basket" reflectance="0.5" />
+    <mesh name="living_room_table_vis" file="assets/living_room_table_vis.msh" scale="1.5 1.5 1.5" />
+    <mesh name="wall_decoration_vis" file="assets/wall_decoration_vis.msh" scale="0.4 0.1 0.4" />
+    <mesh name="living_room_vis" file="assets/living_room_vis.msh" scale="0.7 0.7 0.7" />
+    <mesh name="alphabet_soup_1_textured_vis" file="assets/textured_vis.msh" scale="0.01 0.01 0.01" />
+    <mesh name="cream_cheese_1_cream_cheese_vis" file="assets/cream_cheese_vis.msh" scale="0.008 0.008 0.008" />
+    <mesh name="tomato_sauce_1_textured_vis" file="assets/visual_textured_vis.msh" scale="0.01 0.01 0.01" />
+    <mesh name="ketchup_1_textured_vis" file="assets/ketchup_textured_vis.msh" scale="0.01 0.01 0.01" />
+    <mesh name="orange_juice_1_textured_vis" file="assets/orange_juice_textured_vis.msh" scale="0.0075 0.0075 0.0075" />
+    <mesh name="milk_1_textured_vis" file="assets/milk_textured_vis.msh" scale="0.0075 0.0075 0.0075" />
+    <mesh name="butter_1_butter_vis" file="assets/butter_vis.msh" scale="0.0075 0.0075 0.0075" />
+    <mesh name="basket_1_basket_vis" file="assets/basket_vis.msh" />
+  <material name="surface_wood" texture="tex-table" texrepeat="3 3" specular="0.2" shininess="0.3" /></asset>
+
+  <worldbody>
+    <geom name="wall_decoration" pos="-1.95 0.6 1.992" quat="0.707107 0 0 -0.707107" type="mesh" contype="0" conaffinity="0" group="1" material="wall_decoration" mesh="wall_decoration_vis" />
+    <geom name="living_room" pos="-1.7 0 0.492" quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" material="living_room" mesh="living_room_vis" />
+    <geom name="wall_leftcorner_visual" size="1.06 1.5 0.01" pos="-1.25 2.25 1.992" quat="0.653281 0.653281 0.270598 0.270598" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <geom name="wall_rightcorner_visual" size="1.06 1.5 0.01" pos="-1.25 -2.25 1.992" quat="0.653281 0.653281 -0.270598 -0.270598" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <geom name="wall_left_visual" size="1.75 1.5 0.01" pos="1.25 3 1.992" quat="0.707107 0.707107 0 0" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <geom name="wall_right_visual" size="1.75 1.5 0.01" pos="1.25 -3 1.992" quat="0.707107 -0.707107 0 0" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <geom name="wall_rear_visual" size="1.5 1.5 0.01" pos="-2 0 1.992" quat="0.5 0.5 0.5 0.5" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <geom name="wall_front_visual" size="3 1.5 0.01" pos="3 0 1.992" quat="0.5 0.5 -0.5 -0.5" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <camera name="frontview" pos="1.5 0 1.392" quat="0.560842 0.430646 0.430646 0.560842" />
+    <camera name="birdview" pos="-0.2 0 3.492" quat="0.707107 0 0 0.707107" />
+    <camera name="agentview" pos="0.606577 0 1.452" quat="0.618217 0.343231 0.343231 0.618218" fovy="65" />
+    <camera name="sideview" pos="-0.0565177 1.27612 1.97996" quat="0.00990507 0.00687796 0.591223 0.806418" />
+    <camera name="galleryview" pos="2.84455 2.12797 3.62062" quat="0.422614 0.233744 0.416469 0.770269" />
+    <camera name="paperview" pos="2.1 0.735 2.367" quat="0.512987 0.352991 0.442988 0.644983" />
+    <camera name="leftview" pos="0.578369 -0.0681016 1.452" quat="0.807739 0.448453 0.185756 0.334577" />
+    <camera name="rightview" pos="0.578369 0.0681015 1.452" quat="0.334576 0.185755 0.448453 0.80774" />
+    <light name="light1" pos="1 1 4" dir="0 -0.14834 -0.988936" castshadow="false" diffuse="0.8 0.8 0.8" />
+    <light name="light2" pos="-3 -3 4" dir="0 -0.14834 -0.988936" castshadow="false" diffuse="0.8 0.8 0.8" />
+    <body name="floor">
+      <geom name="floor" size="3 3 0.125" type="plane" group="1" material="floorplane" />
+    </body>
+    <body name="living_room_table" pos="0 0 0.492">
+      <site name="living_room_table_basket_init_region" pos="0 0.26 0.41" size="0.01 0.01 0.007" type="box" rgba="0 0 1 0" />
+      <site name="living_room_table_milk_init_region" pos="0.05 -0.1 0.41" size="0.025 0.025 0.007" type="box" rgba="0 0 1 0" />
+      <site name="living_room_table_cream_cheese_init_region" pos="0.1 -0.2 0.41" size="0.025 0.025 0.007" type="box" rgba="0 0 1 0" />
+      <site name="living_room_table_orange_juice_init_region" pos="0 -0.25 0.41" size="0.025 0.025 0.007" type="box" rgba="0 0 1 0" />
+      <site name="living_room_table_tomato_sauce_init_region" pos="-0.1 0.05 0.41" size="0.025 0.025 0.007" type="box" rgba="0 0 1 0" />
+      <site name="living_room_table_alphabet_soup_init_region" pos="-0.1 -0.15 0.41" size="0.025 0.025 0.007" type="box" rgba="0 0 1 0" />
+      <site name="living_room_table_butter_init_region" pos="0.05 0.05 0.41" size="0.025 0.025 0.007" type="box" rgba="0 0 1 0" />
+      <site name="living_room_table_ketchup_init_region" pos="-0.25 -0.15 0.41" size="0.025 0.025 0.007" type="box" rgba="0 0 1 0" />
+      <body name="living_room_table_col" pos="-0.25 0.25 0" quat="0.707107 0 0 0.707107">
+        <geom type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="living_room_table" mesh="living_room_table_vis" />
+        <geom size="0.01184 0.44432 0.67171" pos="-0.19761 0 0.42492" quat="0.707107 0 0.707107 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="surface_wood" />
+        <geom size="0.01184 0.10133 0.41675" pos="0.54936 0 0.42492" quat="0.5 0.5 0.5 -0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="surface_wood" />
+        <geom size="0.01184 0.10133 0.41675" pos="-0.97006 0 0.42492" quat="0.5 -0.5 -0.5 -0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="surface_wood" />
+        <geom size="0.01184 0.07752 0.67171" pos="-0.19761 -0.51121 0.42492" quat="0.707107 0 0.707107 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="surface_wood" />
+        <geom size="0.01184 0.07752 0.67171" pos="-0.19761 0.49665 0.42492" quat="0.707107 0 0.707107 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="surface_wood" />
+        <geom size="0.20884 0.41162 0.43516" pos="0 0 0.20414" quat="0.707107 0 -0.707107 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="surface_wood" />
+      </body>
+    </body>
+    <body name="alphabet_soup_1_main">
+      <joint name="alphabet_soup_1_joint0" type="free" limited="false" actuatorfrclimited="false" damping="0.0005" />
+      <geom name="alphabet_soup_1_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="alphabet_soup_1_textured" mesh="alphabet_soup_1_textured_vis" />
+      <geom name="alphabet_soup_1_g1" size="0.01874 0.02352 0.03625" pos="0 -0.00104 -0.00235" quat="0.5 -0.5 0.5 0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g2" size="0.00226 0.01471 0.0376" pos="0.02599 0 -0.00209" quat="0.707107 0.707107 0 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g3" size="0.00226 0.01662 0.0376" pos="-0.0247 -0.0006 -0.00209" quat="0.707107 0.707107 0 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g4" size="0.00421 0.01985 0.0376" pos="-0.00012 -0.0006 -0.02413" quat="0.5 -0.5 0.5 0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g5" size="0.00421 0.01985 0.0376" pos="-0.00012 -0.0006 0.01776" quat="0.5 -0.5 0.5 0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g6" size="0.00177 0.00694 0.0376" pos="-0.00012 -0.0006 -0.0326" quat="0.5 0.5 0.5 -0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g7" size="0.00177 0.00694 0.0376" pos="-0.00012 -0.0006 0.02575" quat="0.5 0.5 0.5 -0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g8" size="0.00177 0.00694 0.0376" pos="-0.02944 -0.0006 -0.00291" quat="0.000299999 0.000299999 -0.707107 0.707107" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g9" size="0.00177 0.00694 0.0376" pos="0.02931 -0.0006 -0.00291" quat="0.707107 0.707107 0.000299999 -0.000299999" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g10" size="0.00177 0.00694 0.0376" pos="0.02689 -0.0006 0.00853" quat="0.696606 0.696606 -0.121409 0.121409" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g11" size="0.00177 0.00694 0.0376" pos="-0.02654 -0.0006 -0.01619" quat="0.169931 -0.169931 0.686384 0.686384" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g12" size="0.00177 0.00694 0.0376" pos="-0.01763 -0.0006 -0.02495" quat="0.303302 -0.303302 0.638755 0.638755" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g13" size="0.00177 0.00694 0.0376" pos="-0.00964 -0.0006 -0.03099" quat="0.41278 -0.41278 0.574119 0.574119" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g14" size="0.00177 0.00694 0.0376" pos="0.0127 -0.0006 0.02274" quat="0.41278 -0.41278 0.574119 0.574119" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g15" size="0.00177 0.00694 0.0376" pos="0.0124 -0.0006 -0.02961" quat="0.369019 0.369019 -0.603179 0.603179" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g16" size="0.00177 0.00694 0.0376" pos="0.02167 -0.0006 -0.02144" quat="0.651373 0.651373 0.275161 -0.275161" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g17" size="0.00177 0.00694 0.0376" pos="0.02696 -0.00099 -0.01169" quat="0.0520499 0.0520499 -0.705188 0.705188" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g18" size="0.00177 0.00694 0.0376" pos="-0.027 -0.0006 0.00886" quat="0.13049 0.13049 -0.694962 0.694962" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g19" size="0.00177 0.00694 0.0376" pos="-0.02005 -0.0006 0.01808" quat="0.655721 0.655721 0.264631 -0.264631" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g20" size="0.00177 0.00694 0.0376" pos="0.02026 -0.0006 0.01494" quat="0.20946 -0.20946 0.675371 0.675371" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="alphabet_soup_1_g21" size="0.00177 0.00694 0.0376" pos="-0.01084 -0.0006 0.02397" quat="0.562041 -0.562041 0.429081 0.429081" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <site name="alphabet_soup_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+    </body>
+    <body name="cream_cheese_1_main">
+      <joint name="cream_cheese_1_joint0" type="free" limited="false" actuatorfrclimited="false" damping="0.0005" />
+      <geom name="cream_cheese_1_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="cream_cheese_1_cream_cheese" mesh="cream_cheese_1_cream_cheese_vis" />
+      <geom name="cream_cheese_1_g1" size="0.008936 0.021336 0.040608" quat="0.707107 0 0.707107 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <site name="cream_cheese_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+    </body>
+    <body name="tomato_sauce_1_main">
+      <joint name="tomato_sauce_1_joint0" type="free" limited="false" actuatorfrclimited="false" damping="0.0005" />
+      <geom name="tomato_sauce_1_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="tomato_sauce_1_textured" mesh="tomato_sauce_1_textured_vis" />
+      <geom name="tomato_sauce_1_g1" size="0.01874 0.02352 0.03625" pos="0 -0.00104 -0.00235" quat="0.5 -0.5 0.5 0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g2" size="0.00226 0.01471 0.0376" pos="0.02595 0 -0.00209" quat="0.707107 0.707107 0 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g3" size="0.00226 0.01662 0.0376" pos="-0.0247 -0.0006 -0.00209" quat="0.707107 0.707107 0 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g4" size="0.00421 0.01985 0.0376" pos="-0.00012 -0.0006 -0.02325" quat="0.5 -0.5 0.5 0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g5" size="0.00421 0.01985 0.0376" pos="-0.00012 -0.0006 0.01776" quat="0.5 -0.5 0.5 0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g6" size="0.00177 0.00694 0.0376" pos="-0.00012 -0.0006 -0.03162" quat="0.5 0.5 0.5 -0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g7" size="0.00177 0.00694 0.0376" pos="-0.00012 -0.0006 0.02575" quat="0.5 0.5 0.5 -0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g8" size="0.00177 0.00694 0.0376" pos="-0.02944 -0.0006 -0.00291" quat="0.000299999 0.000299999 -0.707107 0.707107" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g9" size="0.00177 0.00694 0.0376" pos="0.0292 -0.0006 -0.00286" quat="0.707107 0.707107 0.000299999 -0.000299999" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g10" size="0.00177 0.00694 0.0376" pos="0.02685 -0.0006 0.00853" quat="0.121409 -0.121409 0.696606 0.696606" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g11" size="0.00177 0.00694 0.0376" pos="-0.02626 -0.0006 -0.01619" quat="0.686384 0.686384 -0.169931 0.169931" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g12" size="0.00177 0.00694 0.0376" pos="-0.01937 -0.0006 -0.02393" quat="0.303302 -0.303302 0.638755 0.638755" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g13" size="0.00177 0.00694 0.0376" pos="-0.00969 -0.0006 -0.03023" quat="0.41278 -0.41278 0.574119 0.574119" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g14" size="0.00177 0.00694 0.0376" pos="0.0127 -0.0006 0.02274" quat="0.41278 -0.41278 0.574119 0.574119" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g15" size="0.00177 0.00694 0.0376" pos="0.0124 -0.0006 -0.02883" quat="0.603179 0.603179 0.369019 -0.369019" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g16" size="0.00177 0.00694 0.0376" pos="0.02211 -0.0006 -0.02076" quat="0.651373 0.651373 0.275161 -0.275161" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g17" size="0.00177 0.00694 0.0376" pos="0.02745 -0.00099 -0.01027" quat="0.0520499 0.0520499 -0.705188 0.705188" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g18" size="0.00177 0.00694 0.0376" pos="-0.027 -0.0006 0.00886" quat="0.694962 0.694962 0.13049 -0.13049" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g19" size="0.00177 0.00694 0.0376" pos="-0.02005 -0.0006 0.01808" quat="0.655721 0.655721 0.264631 -0.264631" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g20" size="0.00177 0.00694 0.0376" pos="-0.01084 -0.0006 0.02397" quat="0.562041 -0.562041 0.429081 0.429081" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g21" size="0.00177 0.00694 0.0376" pos="0.02211 -0.0006 -0.02076" quat="0.651373 0.651373 0.275161 -0.275161" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g22" size="0.00177 0.00694 0.0376" pos="0.0127 -0.0006 0.02274" quat="0.41278 -0.41278 0.574119 0.574119" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g23" size="0.0011 0.00624 0.0375" pos="0.02305 -0.00037 0.01722" quat="0.663328 0.663328 -0.244939 0.244939" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="tomato_sauce_1_g24" size="0.0011 0.00624 0.0375" pos="0.02305 -0.00037 0.01722" quat="0.663328 0.663328 -0.244939 0.244939" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <site name="tomato_sauce_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+    </body>
+    <body name="ketchup_1_main">
+      <joint name="ketchup_1_joint0" type="free" limited="false" actuatorfrclimited="false" damping="0.0005" />
+      <geom name="ketchup_1_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="ketchup_1_textured" mesh="ketchup_1_textured_vis" />
+      <geom name="ketchup_1_g1" size="0.01695 0.02811 0.03307" pos="0.00045 -0.03935 0.00079" quat="0.5 0.5 0.5 -0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="ketchup_1_g2" size="0.01126 0.01834 0.02393" pos="0.00045 0.00369 0.00079" quat="0.5 0.5 -0.5 -0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="ketchup_1_g3" size="0.01126 0.01834 0.01869" pos="0.00045 0.02513 0.00079" quat="0.5 0.5 -0.5 -0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="ketchup_1_g4" size="0.01032 0.01414 0.01848" pos="0.00045 0.05471 0.00079" quat="0 0 0.707107 -0.707107" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="ketchup_1_g5" size="0.00292 0.00405 0.01848" pos="0.01368 0.05471 0.00079" quat="0.707107 0.707107 0 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="ketchup_1_g6" size="0.00315 0.0046 0.01848" pos="-0.01322 0.05471 0.00079" quat="0 0 0.707107 0.707107" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="ketchup_1_g7" size="0.00209 0.00685 0.01848" pos="8e-05 0.05471 -0.01554" quat="0.5 -0.5 0.5 0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="ketchup_1_g8" size="0.00186 0.0074 0.01848" pos="2e-05 0.05471 0.01682" quat="0.5 -0.5 0.5 0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="ketchup_1_g9" size="0.00259 0.00413 0.01848" pos="0.01333 0.05471 0.00901" quat="0.707107 0.707107 0 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="ketchup_1_g10" size="0.00259 0.00392 0.01848" pos="0.01333 0.05471 -0.00727" quat="0 0 0.707107 0.707107" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="ketchup_1_g11" size="0.00259 0.00405 0.01848" pos="-0.01254 0.05471 -0.00799" quat="0 0 0.707107 0.707107" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="ketchup_1_g12" size="0.00259 0.0038 0.01848" pos="-0.01259 0.05471 0.00929" quat="0 0 0.707107 0.707107" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <site name="ketchup_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+    </body>
+    <body name="orange_juice_1_main">
+      <joint name="orange_juice_1_joint0" type="free" limited="false" actuatorfrclimited="false" damping="0.0005" />
+      <geom name="orange_juice_1_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="orange_juice_1_textured" mesh="orange_juice_1_textured_vis" />
+      <geom name="orange_juice_1_g1" size="0.02625 0.02625 0.05475" pos="-0.00037 -0.015 0" quat="0.707107 0.707107 0 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="orange_juice_1_g2" size="0.00218 0.01381 0.02631" pos="-5e-05 0.04784 -0.01352" quat="0.286871 -0.646301 -0.286871 0.646301" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="orange_juice_1_g3" size="0.00218 0.01381 0.02631" pos="-5e-05 0.04784 0.01344" quat="0.296301 0.642032 -0.296301 -0.642032" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="orange_juice_1_g4" size="0.00295 0.00348 0.0265" pos="-5e-05 0.05849 -5e-05" quat="0.5 0.5 -0.5 -0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <site name="orange_juice_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+    </body>
+    <body name="milk_1_main">
+      <joint name="milk_1_joint0" type="free" limited="false" actuatorfrclimited="false" damping="0.0005" />
+      <geom name="milk_1_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="milk_1_textured" mesh="milk_1_textured_vis" />
+      <geom name="milk_1_g1" size="0.02625 0.02625 0.05475" pos="0.00037 -0.015 0" quat="0.707107 0.707107 0 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="milk_1_g2" size="0.00218 0.01381 0.02631" pos="5e-05 0.04784 0.01352" quat="0.286871 0.646301 -0.286871 -0.646301" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="milk_1_g3" size="0.00218 0.01381 0.02631" pos="5e-05 0.04784 -0.01344" quat="0.642032 0.296301 0.642032 0.296301" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="milk_1_g4" size="0.00295 0.00348 0.0265" pos="5e-05 0.05849 5e-05" quat="0.5 0.5 -0.5 -0.5" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <site name="milk_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+    </body>
+    <body name="butter_1_main">
+      <joint name="butter_1_joint0" type="free" limited="false" actuatorfrclimited="false" damping="0.0005" />
+      <geom name="butter_1_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="butter_1_butter" mesh="butter_1_butter_vis" />
+      <geom name="butter_1_g1" size="0.00871 0.01977 0.03809" quat="0.707107 0 0.707107 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <site name="butter_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+    </body>
+    <body name="basket_1_main">
+      <joint name="basket_1_joint0" type="free" limited="false" actuatorfrclimited="false" damping="0.0005" />
+      <geom name="basket_1_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="basket_1_basket" mesh="basket_1_basket_vis" />
+      <geom name="basket_1_g1" size="0.0085 0.0724 0.07658" pos="0.00251 0 0.01308" quat="0.7088 0 0.70541 0" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="basket_1_g2" size="0.00667 0.06368 0.0724" pos="-0.07265 0 0.07657" quat="0.0267201 -0.0267201 0.706602 0.706602" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="basket_1_g3" size="0.00667 0.06368 0.0724" pos="0.00047 -0.06855 0.08177" quat="0.512632 -0.490251 0.509562 -0.487041" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="basket_1_g4" size="0.00667 0.06368 0.0724" pos="-0.0002 0.06909 0.08177" quat="0.487941 -0.510431 -0.489351 0.511771" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <geom name="basket_1_g5" size="0.00667 0.06368 0.0724" pos="0.07557 0 0.07657" quat="0.0176499 0.0176499 -0.706886 0.706886" type="box" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" rgba="0.8 0.8 0.8 0" />
+      <site name="basket_1_contain_region" pos="0 0 0.07185" quat="0 0 0 1" size="0.06108 0.06108 0.06949" type="box" rgba="0.8 0 0 0" />
+      <site name="basket_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0" />
+    </body>
+  </worldbody>
+
+  </mujoco>

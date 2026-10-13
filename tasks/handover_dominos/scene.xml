@@ -1,0 +1,225 @@
+<mujoco model="workcell_base">
+  <compiler angle="radian" />
+
+  <option integrator="implicitfast" cone="elliptic" noslip_iterations="1">
+    <flag sleep="enable" />
+  </option>
+
+  <size memory="256M" />
+
+  <visual>
+    <global azimuth="120" elevation="-20" offwidth="1920" offheight="1080" />
+    <quality shadowsize="8192" offsamples="16" />
+    <headlight ambient="0.5 0.5 0.5" diffuse="0.15 0.15 0.15" specular="0.03 0.03 0.03" />
+  </visual>
+
+  <default>
+    <default class="jenga_task">
+      <default class="jenga_block">
+        <geom type="mesh" contype="0" conaffinity="0" condim="4" group="1" priority="1" density="0" />
+      </default>
+      <default class="jenga_col">
+        <geom type="box" condim="4" group="3" priority="1" friction="0.5 0.002 0.0002" solref="0.004" solimp="0.998 0.998" rgba="0 0 0 0" />
+      </default>
+    </default>
+    <default class="left-arm-main">
+      <default class="left-arm-yam">
+        <joint frictionloss="0.1" />
+        <general biastype="affine" biasprm="0 -1" />
+        <default class="left-arm-dm4340">
+          <joint armature="0.032" />
+          <general forcerange="-28 28" gainprm="40" biasprm="0 -40 -2.5" />
+        </default>
+        <default class="left-arm-dm4310">
+          <joint armature="0.0018" />
+          <general forcerange="-10 10" gainprm="10" biasprm="0 -10 -1" />
+        </default>
+        <default class="left-arm-visual">
+          <geom type="mesh" contype="0" conaffinity="0" group="2" density="0" material="black" />
+        </default>
+        <default class="left-arm-collision">
+          <geom type="capsule" condim="6" group="3" friction="2 0.1 0.01" />
+          <default class="left-arm-sphere_collision">
+            <geom size="0.0006 0 0" type="sphere" priority="2" friction="4" solref="0.004" solimp="0.998 0.998" rgba="1 0 0 1" />
+          </default>
+        </default>
+        <default class="left-arm-finger">
+          <joint type="slide" armature="0.1" />
+          <general ctrlrange="0 0.0495" gainprm="400" biasprm="0 -400 -14" />
+        </default>
+      </default>
+      <default class="left-arm-jenga_block">
+        <geom type="mesh" contype="0" conaffinity="0" condim="6" group="1" priority="1" density="0" />
+      </default>
+      <default class="left-arm-jenga_col">
+        <geom type="box" group="3" priority="1" friction="0.4 0.005 0.001" solref="0.002" solimp="0.999 0.999" rgba="0 0 0 0" />
+      </default>
+    </default>
+    <default class="right-arm-main">
+      <default class="right-arm-yam">
+        <joint frictionloss="0.1" />
+        <general biastype="affine" biasprm="0 -1" />
+        <default class="right-arm-dm4340">
+          <joint armature="0.032" />
+          <general forcerange="-28 28" gainprm="40" biasprm="0 -40 -2.5" />
+        </default>
+        <default class="right-arm-dm4310">
+          <joint armature="0.0018" />
+          <general forcerange="-10 10" gainprm="10" biasprm="0 -10 -1" />
+        </default>
+        <default class="right-arm-visual">
+          <geom type="mesh" contype="0" conaffinity="0" group="2" density="0" material="black" />
+        </default>
+        <default class="right-arm-collision">
+          <geom type="capsule" condim="6" group="3" friction="2 0.1 0.01" />
+          <default class="right-arm-sphere_collision">
+            <geom size="0.0006 0 0" type="sphere" priority="2" friction="4" solref="0.004" solimp="0.998 0.998" rgba="1 0 0 1" />
+          </default>
+        </default>
+        <default class="right-arm-finger">
+          <joint type="slide" armature="0.1" />
+          <general ctrlrange="0 0.0495" gainprm="400" biasprm="0 -400 -14" />
+        </default>
+      </default>
+      <default class="right-arm-jenga_block">
+        <geom type="mesh" contype="0" conaffinity="0" condim="6" group="1" priority="1" density="0" />
+      </default>
+      <default class="right-arm-jenga_col">
+        <geom type="box" group="3" priority="1" friction="0.4 0.005 0.001" solref="0.002" solimp="0.999 0.999" rgba="0 0 0 0" />
+      </default>
+    </default>
+  </default>
+
+  <asset>
+    <texture type="2d" colorspace="linear" name="jenga_tex" file="assets/blinn1.png" />
+    <material name="jenga_mat" texture="jenga_tex" specular="0.3" shininess="0.3" />
+    <mesh name="base_visual_gate" file="assets/base_visual_gate.stl" />
+    <mesh name="camera_d405" file="assets/camera_d405.stl" />
+    <mesh name="jenga_block" file="assets/jenga_block.obj" scale="0.0254 0.04064 0.039045" />
+    </asset>
+
+  <worldbody>
+    <geom name="floor" size="0 0 0.05" type="plane" rgba="0.75 0.75 0.75 1" />
+    <geom name="base_visual_gate" type="mesh" contype="0" conaffinity="0" group="3" density="0" rgba="0.6 0.62 0.68 1" mesh="base_visual_gate" />
+    <geom name="base_gate_collision" size="0.305 0.61 0.375" pos="0 0 0.375" type="box" group="3" rgba="1 0 0 0" />
+    <geom name="back_wall" size="0.005 0.61 1" pos="1.2144 0 1" type="box" group="3" rgba="0.88 0.88 0.88 0.2" />
+    <geom name="left_wall" size="0.4572 0.005 1" pos="0.7522 0.61 1" type="box" group="3" rgba="0.88 0.88 0.88 0.2" />
+    <geom name="right_wall" size="0.4572 0.005 1" pos="0.7522 -0.61 1" type="box" group="3" rgba="0.88 0.88 0.88 0.2" />
+    <light name="overhead_key" pos="0.55 0 1.8" dir="0 0 -1" type="directional" diffuse="0.65 0.65 0.65" specular="0.12 0.12 0.12" />
+    <body name="top_camera_d405" pos="0.3125 -0.009 1.5" quat="-0.183004 -0.683015 -0.683015 -0.183004">
+      <geom type="mesh" contype="0" conaffinity="0" group="2" mass="0.001" rgba="0 0 0 0" mesh="camera_d405" />
+      <body name="top_camera_frame" pos="0.009 0 0" quat="0 0 0 1">
+        <camera name="top" pos="0 0 0" quat="0 1 0 0" fovy="63" />
+      </body>
+    </body>
+    <body name="overhead_camera" pos="0.55 0 1.6">
+      <camera name="overhead" pos="0 0 0" quat="0.707107 0 0 -0.707107" fovy="60" />
+    </body>
+    <body name="mid_camera" pos="0.4 0 1.05">
+      <camera name="mid" pos="0 0 0" quat="0.666058 0.237417 -0.237417 -0.666058" fovy="90" />
+    </body>
+    <body name="left_side_camera" pos="0.5 0.55 1.05" quat="1.05624e-06 -8.02958e-07 0.605186 0.796084">
+      <camera name="left_side" pos="0 0 0" fovy="70" />
+    </body>
+    <body name="right_side_camera" pos="0.5 -0.55 1.05" quat="0.796084 0.605186 0 0">
+      <camera name="right_side" pos="0 0 0" fovy="70" />
+    </body>
+    <body name="play_table">
+      <geom name="table_visual" size="0.4572 0.61 0.05" pos="0.7522 0 0.72921" type="box" contype="0" conaffinity="0" group="2" rgba="0.24 0.25 0.27 1" />
+      <geom name="table_plane" size="0.4572 0.61 0.05" pos="0.7522 0 0.72921" type="box" condim="4" group="3" priority="1" friction="1 0.05 0.001" solref="0.008" solimp="0.998 0.998" rgba="0 0 0 0" />
+    </body>
+    <frame name="jenga_task_frame">
+      <body name="jenga_1" pos="0.76154 -0.17088 0.79132" quat="0.11906 0.69701 -0.11906 0.69701">
+        <joint name="jenga_1_jnt" type="free" />
+        <geom name="jenga_1_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_1_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_2" pos="0.59841 0.41736 0.83655" quat="0.46085 0.51317 0.64778 -0.32352">
+        <joint name="jenga_2_jnt" type="free" />
+        <geom name="jenga_2_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_2_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_3" pos="0.64628 -0.39289 0.79132" quat="-0.70703 -0.01054 0.70703 -0.01054">
+        <joint name="jenga_3_jnt" type="free" />
+        <geom name="jenga_3_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_3_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_4" pos="0.79545 -0.32549 0.79132" quat="-0.44055 -0.55310 0.44055 -0.55310">
+        <joint name="jenga_4_jnt" type="free" />
+        <geom name="jenga_4_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_4_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_5" pos="0.63035 -0.35748 0.79858" quat="0.50303 0.50303 0.49695 0.49695">
+        <joint name="jenga_5_jnt" type="free" />
+        <geom name="jenga_5_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_5_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_6" pos="0.74836 -0.33754 0.79132" quat="-0.42658 0.56394 -0.42659 -0.56394">
+        <joint name="jenga_6_jnt" type="free" />
+        <geom name="jenga_6_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_6_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_7" pos="0.64823 0.18864 0.79132" quat="0.65929 0.25560 -0.65929 0.25560">
+        <joint name="jenga_7_jnt" type="free" />
+        <geom name="jenga_7_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_7_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_8" pos="0.68469 -0.51795 0.79858" quat="-0.70708 0.70708 0.00658 -0.00658">
+        <joint name="jenga_8_jnt" type="free" />
+        <geom name="jenga_8_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_8_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_9" pos="0.61332 0.29072 0.79858" quat="0.65874 -0.65874 0.25703 -0.25703">
+        <joint name="jenga_9_jnt" type="free" />
+        <geom name="jenga_9_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_9_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_10" pos="0.68671 0.41106 0.80190" quat="0.64376 0.68542 0.17378 -0.29252">
+        <joint name="jenga_10_jnt" type="free" />
+        <geom name="jenga_10_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_10_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_11" pos="0.63701 -0.26210 0.79132" quat="-0.68235 -0.18546 0.68235 -0.18546">
+        <joint name="jenga_11_jnt" type="free" />
+        <geom name="jenga_11_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_11_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_12" pos="0.79214 0.21346 0.79132" quat="0.01812 0.70687 -0.01812 0.70687">
+        <joint name="jenga_12_jnt" type="free" />
+        <geom name="jenga_12_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_12_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_13" pos="0.66539 -0.29372 0.79858" quat="0.35978 0.35978 0.60873 0.60873">
+        <joint name="jenga_13_jnt" type="free" />
+        <geom name="jenga_13_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_13_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_14" pos="0.60942 0.39154 0.79132" quat="-0.40224 0.58155 -0.40225 -0.58155">
+        <joint name="jenga_14_jnt" type="free" />
+        <geom name="jenga_14_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_14_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_15" pos="0.71639 0.34791 0.79132" quat="-0.27710 -0.65055 -0.27710 0.65055">
+        <joint name="jenga_15_jnt" type="free" />
+        <geom name="jenga_15_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_15_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_16" pos="0.70791 0.26010 0.79858" quat="0.52221 0.52221 0.47676 0.47676">
+        <joint name="jenga_16_jnt" type="free" />
+        <geom name="jenga_16_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_16_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_17" pos="0.68597 -0.31192 0.82565" quat="0.01640 -0.64305 -0.22493 0.73187">
+        <joint name="jenga_17_jnt" type="free" />
+        <geom name="jenga_17_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_17_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+      <body name="jenga_18" pos="0.61250 0.44921 0.81553" quat="0.04650 0.70557 0.04649 -0.70558">
+        <joint name="jenga_18_jnt" type="free" />
+        <geom name="jenga_18_vis" class="jenga_block" material="jenga_mat" mesh="jenga_block" />
+        <geom name="jenga_18_col" class="jenga_col" size="0.0127 0.02032 0.060325" mass="0.06" />
+      </body>
+    </frame>
+    <camera name="pcleft" pos="0.7550 0.9500 1.6000" quat="0.00000 0.00000 0.48106 0.87669" fovy="58" /><camera name="pcright" pos="0.7550 -0.9500 1.6000" quat="0.87669 0.48106 0.00000 0.00000" fovy="58" /><camera name="tpview" pos="1.9500 0.0000 1.5500" quat="0.61017 0.35733 0.35733 0.61017" fovy="52" /></worldbody>
+
+  </mujoco>

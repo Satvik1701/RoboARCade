@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<!-- The agent's 3D browser page: camera feeds, the fused point cloud, the target gripper and its controls, driven by
+     the via_cam tools over window.roboarcade and talking to sim_env_server's JSON and command WebSocket. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
+  <title>Robot Control Interface</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; }
+    body {
+      overflow: hidden; background: #05070d;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    canvas { display: block; }
+
+    #app-shell {
+      display: grid;
+      grid-template-columns: minmax(260px, 3fr) minmax(0, 9fr);
+      width: 100vw;
+      height: 100vh;
+      background: #05070d;
+    }
+    #sidebar {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 12px;
+      overflow-y: auto;
+      background: #080b13;
+      border-right: 1px solid rgba(255,255,255,0.09);
+    }
+    #viewport {
+      position: relative;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+      background: #000;
+    }
+    #viewport canvas { width: 100%; height: 100%; }
+
+    .panel {
+      position: relative;
+      width: 100%;
+      background: rgba(10, 12, 20, 0.80);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 8px;
+      color: #e2e8f0;
+    }
+
+    #status-panel {
+      padding: 10px 12px; min-width: 0;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    #init-groups { margin-top: 7px; font-size: 11px; line-height: 1.45; }
+    #init-groups .g { display: flex; gap: 5px; align-items: baseline; padding: 1px 0; }
+    #init-groups .gid {
+      flex: none; min-width: 20px; padding: 0 3px; border-radius: 3px;
+      background: rgba(255,255,255,0.09); color: rgba(255,255,255,0.6);
+      font-family: ui-monospace, Menlo, monospace; font-size: 10px; text-align: center;
+    }
+    #init-groups .gobj { flex: 1; font-family: ui-monospace, Menlo, monospace;
+      color: rgba(255,255,255,0.85); word-break: break-word; }
+    #init-groups .grng { flex: none; opacity: 0.6; white-space: nowrap; }
+    #init-groups .gdet { display: flex; gap: 4px; align-items: baseline;
+      margin-left: 25px; font-family: ui-monospace, Menlo, monospace; font-size: 10px;
+      color: rgba(255,255,255,0.62); }
+    #init-groups .gdot { flex: none; width: 7px; height: 7px; border-radius: 2px;
+      align-self: center; }
+    #init-groups .fbadge {
+      display: inline-block; margin-left: 3px; padding: 0 3px; border-radius: 3px;
+      background: rgba(56,189,248,0.22); color: #7dd3fc;
+      font-size: 9px; font-weight: 600; vertical-align: 1px; }
+    #success-crit { margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.10); padding-top: 6px; }
+    #success-crit .crit-head {
+      font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); margin-bottom: 3px;
+    }
+    #success-rows .crit-ok { color: #4ade80; }
+    #success-rows .crit-ok::after { content: " \2713"; }
+    #success-rows div { font-size: 11px; line-height: 1.45; color: rgba(255,255,255,0.85);
+      word-break: break-word; }
+    #success-rows .pchips { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 5px;
+      padding-left: 0; }
+    #success-rows .pchip { font-family: ui-monospace, Menlo, monospace; font-size: 9.5px;
+      padding: 1px 4px; border-radius: 3px; background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.6); }
+
+    #action-panel { padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+    .action-row { display: flex; gap: 6px; }
+    .action-row .btn { width: auto; flex: 1; }
+    .btn {
+      width: 100%; border: none; border-radius: 8px; padding: 11px 10px;
+      font-size: 13px; font-weight: 600; font-family: inherit;
+      cursor: pointer; letter-spacing: 0.2px;
+      transition: filter 0.12s, transform 0.1s;
+    }
+    .btn:hover  { filter: brightness(1.15); transform: translateY(-1px); }
+    .btn:active { filter: brightness(0.92); transform: translateY(0); }
+    #btn-record        { background: #2563eb; color: #fff; }
+    #btn-record.flash  { background: #16a34a; }
+    #btn-home          { background: #334155; color: #fff; }
+    #btn-home.flash    { background: #16a34a; }
+    #btn-end           { background: #b91c1c; color: #fff; }
+    #btn-dash          { background: #334155; color: #fff; }
+
+    #cam-panel { padding: 10px 12px 8px; }
+    #cam-header {
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 8px;
+    }
+    #cam-title {
+      font-size: 13px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: rgba(255,255,255,0.9);
+    }
+    #cam-feeds { display: flex; flex-direction: column; gap: 10px; }
+    .cam-feed { display: flex; flex-direction: column; gap: 4px; }
+    #wrist-row { display: flex; gap: 8px; }
+    #wrist-row .cam-feed { flex: 1 1 0; min-width: 0; }
+    #wrist-row .cam-label { font-size: 10px; letter-spacing: 0.5px; }
+    .cam-label {
+      font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
+      color: rgba(255,255,255,0.9); text-align: center;
+    }
+    .cam-img {
+      width: 100%; aspect-ratio: 1; border-radius: 6px;
+      background: rgba(255,255,255,0.05); object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: crosshair;
+    }
+    #obj-poses { margin-top:6px; font-family:monospace; font-size:10.5px; }
+    #obj-poses table { border-collapse:collapse; width:100%; }
+    #obj-poses th { text-align:right; opacity:.55; font-weight:600; padding:1px 4px; }
+    #obj-poses td { text-align:right; padding:1px 4px; white-space:nowrap; }
+    #obj-poses td:nth-child(2) { text-align:left; opacity:.85; }
+    #obj-poses tr td:nth-child(5) { opacity:.7; }
+  </style>
+</head>
+<body>
+
+  <div id="app-shell">
+    <aside id="sidebar">
+      <div id="status-panel" class="panel">
+        <div id="status-task" style="font-family:ui-monospace,Menlo,monospace;font-size:13px;
+          font-weight:600;color:#60a5fa;line-height:1.3"></div>
+        <div id="status-lang" style="font-size:11px;opacity:0.75"></div>
+        <div id="reach-readout" style="font-size:11px;margin-top:3px"></div>
+        <div id="step-readout" style="display:none;font-size:11px;margin-top:3px;opacity:0.85"></div>
+        <div id="arm-chip" style="display:none;font-size:11px;font-weight:600;margin-top:3px"></div>
+        <div id="init-groups"></div>
+        <div id="success-crit" style="display:none">
+          <div class="crit-head">scored on</div>
+          <div id="success-rows"></div>
+        </div>
+      </div>
+
+      <div id="action-panel" class="panel">
+        <div class="action-row">
+          <button id="btn-record" class="btn">Execute Waypoint</button>
+          <button id="btn-home"   class="btn">Home arm</button>
+        </div>
+        <button id="btn-end"    class="btn">End Episode</button>
+        <button id="btn-undo" class="btn" style="display:none;background:#334155">Undo waypoint</button>
+        <button id="btn-restart" class="btn" style="display:none;background:#334155">Restart episode</button>
+        <button id="btn-dash"   class="btn" style="display:none">&#8962; Dashboard</button>
+        <button id="btn-blender" class="btn" style="display:none;background:#334155"
+                title="Render this exact state in Blender and show it in both camera feeds and the point cloud, until the scene next moves">&#127912; Blender preview</button>
+        <button id="btn-cams" class="btn" style="display:none;background:#334155"
+                title="Show every camera at once; click a tile to make it the 3rd-person feed">&#128247; Camera views</button>
+      </div>
+
+      <div id="init-panel" class="panel" style="display:none">
+        <div style="font-size:11px;opacity:.7;margin:2px 0 6px">tick a group to see where
+          its centroid may land: blue &cap; red &cap; purple at that object's own height
+          · the group also spins ±yaw about it
+          · <b>F</b> = yaw set by position, always facing the robot</div>
+        <button id="btn-randomize" class="btn" style="background:#334155">Randomize</button>
+        <button id="btn-systematic" class="btn" style="background:#334155"
+                title="Step through the CORNERS of each station (y and yaw at their limits) instead of drawing uniformly: uniform draws almost never show a region's edge, which is where a layout breaks">Systematic randomize</button>
+        <button id="demo-rec" class="btn" style="background:#334155" title="Save this episode's video as the task's dashboard hover demo">&#x23FA; Record demo</button>
+        <button id="demo-pause" class="btn" style="background:#334155" title="Waypoints keep executing but are left out of the demo until resumed">&#x23F8; Pause recording</button>
+        <button id="demo-stop" class="btn" style="background:#334155" title="Finalize the demo now; Record again starts a new one">&#x23F9; Stop recording</button>
+        <div id="region-editor" style="margin-top:8px;border-top:1px solid #334155;padding-top:6px">
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px">
+            <b style="flex:1">Stations</b>
+            <select id="re-body" style="max-width:150px;font-size:10px"></select>
+            <button id="re-add" class="btn" style="padding:1px 6px;font-size:10px">+ add</button>
+          </div>
+          <div id="re-rows" style="font-size:10px;margin-top:4px"></div>
+          <div style="display:flex;gap:6px;margin-top:5px">
+            <button id="re-copy" class="btn" style="flex:1;padding:2px;font-size:10px">Copy JSON</button>
+          </div>
+          <div id="re-out" style="font-size:9px;opacity:.65;margin-top:4px;white-space:pre-wrap"></div>
+        </div>
+      </div>
+
+      <div id="cam-panel" class="panel">
+        <div id="cam-header">
+          <span id="cam-title">Camera Feeds</span>
+        </div>
+        <div id="cam-feeds">
+          <div class="cam-feed">
+            <div class="cam-label">3rd-person view</div>
+            <img id="cam-agentview" class="cam-img" />
+          </div>
+          <div id="wrist-row">
+            <div class="cam-feed">
+              <div class="cam-label">wrist view</div>
+              <img id="cam-wrist" class="cam-img" />
+            </div>
+            <div class="cam-feed" style="display:none">
+              <div class="cam-label">wrist view 2</div>
+              <img id="cam-wrist2" class="cam-img" />
+            </div>
+          </div>
+        </div>
+        <div id="obj-poses"></div>
+      </div>
+    </aside>
+
+    <main id="viewport"></main>
+  </div>
+
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/OBJLoader.js"></script>
+  <script src="vendor/TransformControls.js"></script>
+  <script src="vendor/msgpack.min.js"></script>
+
+  <script>
+    const BASE_PORT = parseInt(location.port || '8100');
+    const JSON_BASE = 'http://' + location.hostname + ':' + (BASE_PORT + 1);
+    const MESH_BASE = location.origin + '/';
+    (async () => {
+      let cfg = null;
+      while (!cfg || !cfg.arms) {
+        try { cfg = await (await fetch(JSON_BASE + '/ui_config.json', { cache: 'no-store' })).json(); }
+        catch (_) { await new Promise(r => setTimeout(r, 300)); }
+      }
+      window.UI_CONFIG = cfg;
+      const classicScript = document.createElement('script');
+      classicScript.textContent = document.getElementById('main-src').textContent;
+      document.body.appendChild(classicScript);
+    })();
+  </script>
+
+  <script type="text/plain" id="main-src">
+    const viewportEl = document.getElementById('viewport');
+    function getViewportSize() {
+      const rect = viewportEl.getBoundingClientRect();
+      return {
+        width: Math.max(1, Math.floor(rect.width)),
+        height: Math.max(1, Math.floor(rect.height)),
+      };
+    }
+    let viewportSize = getViewportSize();
+
+    const scene  = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      45,
+      viewportSize.width / viewportSize.height,
+      0.1,
+      1000
+    );
+    camera.position.copy(new THREE.Vector3(7, 7, 0));
+    camera.position.applyAxisAngle(new THREE.Vector3(0, 0, -1), 15 * Math.PI / 180);
+    const cameraTarget = new THREE.Vector3(0, 0, 0);
+    let cameraTargetInitialized = false;
+    camera.lookAt(cameraTarget);
+    const cameraHomePosition = camera.position.clone();
+    const cameraHomeTarget = cameraTarget.clone();
+
+    function resetCameraView() {
+      camera.position.copy(cameraHomePosition);
+      cameraTarget.copy(cameraHomeTarget);
+      camera.lookAt(cameraTarget);
+    }
+
+    const AZ_STEP_DEG = 90;
+    const TOP_ELEVATION_DEG = 85;
+    function nextAzimuthFace(azDeg, dir) {
+      const n = dir > 0
+        ? Math.floor(azDeg / AZ_STEP_DEG + 1e-6) + 1
+        : Math.ceil(azDeg / AZ_STEP_DEG - 1e-6) - 1;
+      return ((n * AZ_STEP_DEG) % 360 + 360) % 360;
+    }
+    function snapCameraToFace(key) {
+      const offset = new THREE.Vector3().subVectors(camera.position, cameraTarget);
+      const sph = new THREE.Spherical().setFromVector3(offset);
+      let azDeg = sph.theta * 180 / Math.PI;
+      let elDeg = 90 - sph.phi * 180 / Math.PI;
+      if (key === 'ArrowLeft')  azDeg = nextAzimuthFace(azDeg, +1);
+      if (key === 'ArrowRight') azDeg = nextAzimuthFace(azDeg, -1);
+      if (key === 'ArrowUp')    elDeg = TOP_ELEVATION_DEG;
+      if (key === 'ArrowDown')  elDeg = 0;
+      const theta = azDeg * Math.PI / 180;
+      const phi   = (90 - elDeg) * Math.PI / 180;
+      offset.setFromSphericalCoords(sph.radius, phi, theta);
+      camera.position.copy(cameraTarget).add(offset);
+      camera.lookAt(cameraTarget);
+    }
+
+    function maybeInitializeCameraTarget(posArray) {
+      if (cameraTargetInitialized || !posArray || posArray.length < 3) return;
+      let minX = Infinity, minY = Infinity, minZ = Infinity;
+      let maxX = -Infinity, maxY = -Infinity, maxZ = -Infinity;
+      for (let i = 0; i < posArray.length; i += 3) {
+        const x = posArray[i], y = posArray[i + 1], z = posArray[i + 2];
+        if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(z)) continue;
+        minX = Math.min(minX, x); minY = Math.min(minY, y); minZ = Math.min(minZ, z);
+        maxX = Math.max(maxX, x); maxY = Math.max(maxY, y); maxZ = Math.max(maxZ, z);
+      }
+      const span = Math.max(maxX - minX, maxY - minY, maxZ - minZ);
+      if (!Number.isFinite(span) || span < 1e-3) return;
+
+      const nextTarget = new THREE.Vector3(
+        (minX + maxX) * 0.5,
+        (minY + maxY) * 0.5,
+        (minZ + maxZ) * 0.5
+      );
+      const delta = nextTarget.clone().sub(cameraTarget);
+      cameraTarget.copy(nextTarget);
+      camera.position.add(delta);
+      camera.lookAt(cameraTarget);
+      cameraHomePosition.copy(camera.position);
+      cameraHomeTarget.copy(cameraTarget);
+      cameraTargetInitialized = true;
+    }
+
+    const renderer = new THREE.WebGLRenderer({ antialias: !!UI_CONFIG.teleop, preserveDrawingBuffer: true });
+    renderer.setClearColor(0x000000);
+    renderer.autoClear = false;
+    renderer.setSize(viewportSize.width, viewportSize.height);
+    renderer.domElement.style.visibility = 'hidden';
+    viewportEl.appendChild(renderer.domElement);
+
+    function resizeRenderer() {
+      viewportSize = getViewportSize();
+      camera.aspect = viewportSize.width / viewportSize.height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(viewportSize.width, viewportSize.height);
+      needsRender = true;
+    }
+    new ResizeObserver(resizeRenderer).observe(viewportEl);
+
+    function makeAxisLabel(text, color) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 96;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = 'rgba(5, 7, 13, 0.72)';
+      ctx.fillRect(15, 9, 66, 46);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 4;
+      ctx.strokeRect(15, 9, 66, 46);
+      ctx.font = '700 34px Segoe UI, system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = color;
+      ctx.fillText(text, 48, 32);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+        depthTest: false,
+      }));
+      sprite.scale.set(0.62, 0.42, 1);
+      return sprite;
+    }
+
+    const gizmoScene = new THREE.Scene();
+    const gizmoAxisLen = 1.0;
+    function makeAxisArrow(dir, color) {
+      const headLen = 0.3, shaftLen = gizmoAxisLen - headLen;
+      const mat = new THREE.MeshBasicMaterial({ color });
+      const shaft = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.035, 0.035, shaftLen, 16), mat);
+      shaft.position.y = shaftLen / 2;
+      const head = new THREE.Mesh(
+        new THREE.ConeGeometry(0.11, headLen, 24), mat);
+      head.position.y = shaftLen + headLen / 2;
+      const arrow = new THREE.Group();
+      arrow.add(shaft, head);
+      arrow.quaternion.setFromUnitVectors(
+        new THREE.Vector3(0, 1, 0), dir.clone().normalize());
+      return arrow;
+    }
+    gizmoScene.add(makeAxisArrow(new THREE.Vector3(1, 0, 0), 0xff4444));
+    gizmoScene.add(makeAxisArrow(new THREE.Vector3(0, 0, -1), 0x22c55e));
+    gizmoScene.add(makeAxisArrow(new THREE.Vector3(0, 1, 0), 0x3b82f6));
+    const xLabel = makeAxisLabel('X', '#ff6b6b');
+    xLabel.position.set(gizmoAxisLen + 0.38, 0, 0);
+    const yLabel = makeAxisLabel('Y', '#4ade80');
+    yLabel.position.set(0, 0, -gizmoAxisLen - 0.38);
+    const zLabel = makeAxisLabel('Z', '#60a5fa');
+    zLabel.position.set(0, gizmoAxisLen + 0.38, 0);
+    gizmoScene.add(xLabel, yLabel, zLabel);
+    const originSphere = new THREE.Mesh(
+      new THREE.SphereGeometry(0.1, 16, 12),
+      new THREE.MeshBasicMaterial({ color: 0xe5e7eb })
+    );
+    gizmoScene.add(originSphere);
+
+    const GIZMO_HALF_EXTENT = 1.85;
+    const GIZMO_CAM_DIST = 5;
+    const GIZMO_SIZE_PX = 396;
+    const GIZMO_MARGIN_PX = 14;
+    const gizmoCamera = new THREE.OrthographicCamera(
+      -GIZMO_HALF_EXTENT, GIZMO_HALF_EXTENT, GIZMO_HALF_EXTENT, -GIZMO_HALF_EXTENT, 0.1, 100
+    );
+    const _gizmoDir = new THREE.Vector3();
+
+    const homeTargetKeys = [];
+    const targetKey = obj => [...obj.position.toArray(), ...obj.quaternion.toArray()].join(',');
+
+    function renderFrame() {
+      const size = viewportSize;
+      controlPoints.forEach((obj, i) => {
+        if (homeTargetKeys[i] && homeTargetKeys[i] !== targetKey(obj)) homeTargetKeys[i] = null;
+      });
+      renderer.clear();
+      renderer.setViewport(0, 0, size.width, size.height);
+      renderer.setScissorTest(false);
+      renderer.render(scene, camera);
+
+      const gx = size.width  - GIZMO_SIZE_PX - GIZMO_MARGIN_PX;
+      const gy = size.height - GIZMO_SIZE_PX - GIZMO_MARGIN_PX;
+      renderer.setViewport(gx, gy, GIZMO_SIZE_PX, GIZMO_SIZE_PX);
+      renderer.setScissor(gx, gy, GIZMO_SIZE_PX, GIZMO_SIZE_PX);
+      renderer.setScissorTest(true);
+      renderer.clearDepth();
+      camera.getWorldDirection(_gizmoDir);
+      gizmoCamera.position.copy(_gizmoDir).multiplyScalar(-GIZMO_CAM_DIST);
+      gizmoCamera.up.copy(camera.up);
+      gizmoCamera.lookAt(0, 0, 0);
+      renderer.render(gizmoScene, gizmoCamera);
+      renderer.setScissorTest(false);
+    }
+
+    const cubeMesh = new THREE.Mesh(
+      new THREE.SphereGeometry(0.12, 16, 12),
+      new THREE.MeshBasicMaterial({ color: 0xff4444 })
+    );
+    cubeMesh.visible = false;
+    scene.add(cubeMesh);
+
+    let selectedObject    = null;
+    let transformControl  = null;
+    let isTranslationMode = true;
+    let isMouseDown       = false;
+    let panDown           = false;
+    let isDraggingEmpty   = false;
+    let keys              = {};
+    const controlPoints   = [];
+    const jawsOpen        = [];
+    let inputLog          = [];
+
+    let rotationMode      = false;
+    let rotationAxis      = null;
+    let currentAngleInput = '';
+    let camInfo           = { ...(UI_CONFIG.static_cam_info || {}) };
+
+    const arrowHelper = new THREE.ArrowHelper(
+      new THREE.Vector3(1, 0, 0), new THREE.Vector3(), 1.3, 0xFFA500, 0.6
+    );
+    arrowHelper.visible = false;
+    scene.add(arrowHelper);
+
+    const guideCylinder = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.07, 0.07, 3, 32),
+      new THREE.MeshBasicMaterial({ color: 0xADD8E6, transparent: true, opacity: 0.5 })
+    );
+    guideCylinder.visible = false;
+    scene.add(guideCylinder);
+
+    function updateGuideCylinder(visible) {
+      guideCylinder.visible = visible && !!selectedObject;
+      if (visible && selectedObject) {
+        guideCylinder.position.copy(selectedObject.position);
+        guideCylinder.rotation.copy(selectedObject.rotation);
+      }
+    }
+
+    const numPoints = UI_CONFIG.num_point;
+    const pcGeo = new THREE.BufferGeometry();
+    pcGeo.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(numPoints * 3), 3));
+    pcGeo.setAttribute('color',    new THREE.Float32BufferAttribute(new Float32Array(numPoints * 3), 3));
+    const pointCloud = new THREE.Points(pcGeo, new THREE.PointsMaterial({ size: 0.1, vertexColors: true }));
+    pointCloud.frustumCulled = false;
+    scene.add(pointCloud);
+
+    const uiEuler      = e => new THREE.Euler(e[0], e[2], -e[1], 'YZX');
+    const initialPos   = new THREE.Vector3(...UI_CONFIG.fingertip_pos_ui);
+    const initialRot   = uiEuler(UI_CONFIG.ee_euler_ui);
+    const gripperName  = UI_CONFIG.gripper_name;
+    const gripperScale = UI_CONFIG.gripper_scale;
+    const UI_Z_OFFSET  = UI_CONFIG.ui_z_offset;
+    const UI_ARMS      = UI_CONFIG.arms;
+    const isDualArm    = UI_ARMS.length > 1;
+    let selectedArmIdx = 0;
+    const lastArmPoses = {};
+    const armSynced    = {};
+    let pendingExecArm = null;
+
+    const ARM_SIDES = {};
+    const SIDE_ARMS = {};
+    if (isDualArm) {
+      const bases = UI_CONFIG.robot_bases || {};
+      const byY = [...UI_ARMS].sort((a, b) =>
+        ((bases[b] || [])[1] || 0) - ((bases[a] || [])[1] || 0));
+      byY.forEach((a, i) => {
+        const side = i === 0 ? 'right' : 'left';
+        ARM_SIDES[a] = side; SIDE_ARMS[side] = a;
+      });
+    }
+    const ARM_COLORS = { right: { active: 0x2563eb, dim: 0x93c5fd },
+                         left:  { active: 0xf97316, dim: 0xfdba74 } };
+    window.__armInfo = isDualArm ? (() => ({
+      selected: ARM_SIDES[UI_ARMS[selectedArmIdx]],
+      arms: { right: SIDE_ARMS.right, left: SIDE_ARMS.left },
+    })) : null;
+
+    const WRIST_FEEDS = [{ label: 'wrist', img: 'cam-wrist', name: 'wrist' }];
+    if (isDualArm && UI_CONFIG.wrist_arms) {
+      WRIST_FEEDS.length = 0;
+      for (const label of Object.keys(UI_CONFIG.wrist_arms)) {
+        const side = ARM_SIDES[UI_CONFIG.wrist_arms[label]];
+        if (!side || WRIST_FEEDS.length >= 2) continue;
+        const img = side === 'left' || WRIST_FEEDS.some(f => f.img === 'cam-wrist2')
+          ? 'cam-wrist' : 'cam-wrist2';
+        WRIST_FEEDS.push({ label, img, name: side + ' wrist' });
+        const feed = document.getElementById(img).closest('.cam-feed');
+        feed.style.display = '';
+        feed.querySelector('.cam-label').textContent = side.toUpperCase()
+          + ' wrist view (' + (side === 'right' ? 'blue' : 'orange') + ' arm)';
+      }
+      if (WRIST_FEEDS.length && !WRIST_FEEDS.some(f => f.img === 'cam-wrist'))
+        document.getElementById('cam-wrist').closest('.cam-feed').style.display = 'none';
+    }
+
+    function refreshGripperOpacity() {
+      controlPoints.forEach((obj, idx) => {
+        const active = obj === selectedObject;
+        const c = ARM_COLORS[isDualArm ? ARM_SIDES[UI_ARMS[idx]] : 'right'];
+        obj.material.color.set(obj.__reachBad ? 0xdc2626 : (active ? c.active : c.dim));
+        obj.material.transparent = !active;
+        obj.material.opacity     = active ? 1.0 : (isDualArm ? 0.55 : 0.18);
+        obj.material.depthTest   = !active;
+        obj.material.needsUpdate = true;
+        needsRender = true;
+        obj.renderOrder          = active ? 999 : 0;
+      });
+    }
+
+    const gripperGeoms = {};
+    const showsRealJaws = [];
+
+    function applyGripperWidth(idx) {
+      if (jawsOpen[idx]) return;
+      const go = gripperGeoms.open.attributes.position.array;
+      const gc = gripperGeoms.closed.attributes.position.array;
+      const attr = controlPoints[idx].geometry.attributes.position;
+      const frac = (lastArmPoses[UI_ARMS[idx]] || {}).widthFrac;
+      const s = (showsRealJaws[idx] && typeof frac === 'number') ? Math.min(Math.max(frac, 0), 1) : 0;
+      if (s === attr.__jawFrac) return;
+      attr.__jawFrac = s; needsRender = true;
+      const a = attr.array;
+      for (let i = 0; i < a.length; i++) a[i] = gc[i] + (go[i] - gc[i]) * s;
+      attr.needsUpdate = true;
+      controlPoints[idx].geometry.computeBoundingSphere();
+    }
+    function applyAllGripperWidths() {
+      for (let i = 0; i < controlPoints.length; i++) applyGripperWidth(i);
+    }
+    function setGripperOpen(idx, open) {
+      const mesh = controlPoints[idx];
+      mesh.geometry.dispose();
+      mesh.geometry = gripperGeoms[open ? 'open' : 'closed'].clone();
+      jawsOpen[idx] = open;
+      applyGripperWidth(idx);
+    }
+
+    let geomsLeft = 2;
+    ['open', 'closed'].forEach(k => {
+      new THREE.OBJLoader().load(MESH_BASE + gripperName + (k === 'open' ? '' : '_closed') + '.obj', o => {
+        o.traverse(c => { if (!gripperGeoms[k] && c.isMesh) gripperGeoms[k] = c.geometry; });
+        if (--geomsLeft === 0) buildTargetGrippers();
+      });
+    });
+    function buildTargetGrippers() {
+      gripperGeoms.open.computeBoundingBox();
+      const bb = gripperGeoms.open.boundingBox;
+      for (let i = 0; i < UI_ARMS.length; i++) {
+        const mesh = new THREE.Mesh(gripperGeoms.open.clone(),
+                                    new THREE.MeshBasicMaterial({ color: 0x2563eb }));
+        mesh.scale.setScalar(gripperScale);
+        mesh.position.copy(initialPos);
+        mesh.quaternion.setFromEuler(initialRot);
+        const peg = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.006, 0.006, 0.015, 10),
+          new THREE.MeshBasicMaterial({ color: 0xff2222, depthTest: false }));
+        peg.renderOrder = 999;
+        peg.rotation.z = Math.PI / 2;
+        peg.position.set(bb.max.x, bb.min.y + (bb.max.y - bb.min.y) * 0.75, (bb.min.z + bb.max.z) / 2);
+        mesh.add(peg);
+        controlPoints[i] = mesh;
+        jawsOpen[i] = true;
+        scene.add(mesh);
+      }
+      selectedObject = controlPoints[selectedArmIdx];
+      refreshGripperOpacity();
+    }
+
+    const SELECTABLE_CAMS = (UI_CONFIG.cams || []);
+    const camAgentEl = document.getElementById('cam-agentview');
+    let tpCam = 'agentview';
+    let tpFetch = null;
+    function refreshTpFeed() {
+      if (tpCam === 'agentview' || tpFetch) return tpFetch;
+      tpFetch = (async () => {
+        try {
+          const r = await fetch(JSON_BASE + '/cam/' + tpCam + '.jpg?t=' + performance.now(),
+                                { cache: 'no-store' });
+          if (r.ok) {
+            const url = URL.createObjectURL(await r.blob());
+            camAgentEl.onload = () => URL.revokeObjectURL(url);
+            camAgentEl.src = url;
+          }
+        } catch (_) {}
+        tpFetch = null;
+      })();
+      return tpFetch;
+    }
+    window.__setTpCam = async function (name) {
+      if (!SELECTABLE_CAMS.includes(name)) return { ok: false, known: SELECTABLE_CAMS };
+      tpCam = name;
+      camAgentEl.closest('.cam-feed').querySelector('.cam-label').textContent =
+          name === 'agentview' ? '3rd-person view' : '3rd-person view \u00b7 ' + name;
+      await tpFetch;
+      await refreshTpFeed();
+      if (camAgentEl.decode) { try { await camAgentEl.decode(); } catch (_) {} }
+      return { ok: true, name };
+    };
+    window.__camGallery = async function (show, interactive) {
+      let ov = document.getElementById('cam-gallery');
+      if (ov) ov.remove();
+      if (!show) return { ok: true, shown: false };
+      ov = document.createElement('div');
+      ov.id = 'cam-gallery';
+      const vp = document.getElementById('viewport').getBoundingClientRect();
+      Object.assign(ov.style, {
+        position: 'fixed', left: vp.left + 'px', top: vp.top + 'px',
+        width: vp.width + 'px', height: vp.height + 'px',
+        background: 'rgba(8,12,18,0.94)', zIndex: 2147483000, display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)', gridAutoRows: '1fr', gap: '6px',
+        padding: '8px', pointerEvents: interactive ? 'auto' : 'none',
+        boxSizing: 'border-box',
+      });
+      const loads = [];
+      for (const n of SELECTABLE_CAMS) {
+        const cell = document.createElement('div');
+        Object.assign(cell.style, { position: 'relative', minHeight: '0' });
+        const img = document.createElement('img');
+        img.src = JSON_BASE + '/cam/' + n + '.jpg?t=' + performance.now();
+        Object.assign(img.style, { width: '100%', height: '100%',
+          objectFit: 'contain', borderRadius: '4px' });
+        loads.push(new Promise(res => { img.onload = res; img.onerror = res; }));
+        const pickable = interactive;
+        if (pickable) {
+          cell.style.cursor = 'pointer';
+          cell.addEventListener('click', async () => {
+            await window.__setTpCam(n);
+            window.__camGallery(false);
+            const b = document.getElementById('btn-cams');
+            if (b) b.textContent = '\u{1F4F7} Camera views';
+          });
+        }
+        const tag = document.createElement('div');
+        tag.textContent = n + (n === tpCam ? ' \u00b7 CURRENT'
+                               : pickable ? ' \u00b7 click to pin' : '');
+        Object.assign(tag.style, { position: 'absolute', left: '0', top: '0',
+          background: n === tpCam ? '#2563eb' : 'rgba(0,0,0,0.75)', color: '#fff',
+          font: '600 12px ' + 'ui-monospace,monospace', padding: '2px 6px',
+          borderRadius: '4px 0 6px 0' });
+        cell.appendChild(img); cell.appendChild(tag); ov.appendChild(cell);
+      }
+      document.body.appendChild(ov);
+      await Promise.all(loads);
+      return { ok: true, shown: true, cams: SELECTABLE_CAMS };
+    };
+
+    let waypointArm = null;
+    function selectArm(arm) {
+      const name = SIDE_ARMS[arm] || arm;
+      const idx = UI_ARMS.indexOf(name);
+      if (idx < 0) return;
+      waypointArm = name;
+      if (idx === selectedArmIdx) return;
+      if (rotationMode || transformControl) exitRotationMode();
+      selectedArmIdx = idx;
+      if (controlPoints[idx]) selectedObject = controlPoints[idx];
+      refreshGripperOpacity();
+      updateArmChip();
+    }
+    function updateArmChip() {
+      const chip = document.getElementById('arm-chip');
+      if (!chip || !isDualArm) return;
+      const side = ARM_SIDES[UI_ARMS[selectedArmIdx]];
+      chip.style.display = '';
+      chip.style.color = side === 'right' ? '#60a5fa' : '#fb923c';
+      chip.textContent = 'Commanding: ' + side.toUpperCase() + ' arm ('
+        + (side === 'right' ? 'blue' : 'orange') + ' \u00b7 ' + UI_ARMS[selectedArmIdx] + ')';
+    }
+    if (isDualArm) updateArmChip();
+
+    function cellsMesh(centers, step, y, color, opacity) {
+      const h = step * 0.92 / 2;
+      const pos = new Float32Array(centers.length * 18);
+      centers.forEach(([cx, cz], i) => {
+        [[-h, -h], [h, -h], [h, h], [-h, -h], [h, h], [-h, h]].forEach(([dx, dz], j) => {
+          pos.set([cx + dx, y, cz + dz], (i * 6 + j) * 3);
+        });
+      });
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+      const mesh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
+        color, transparent: true, opacity, depthWrite: false, side: THREE.DoubleSide }));
+      mesh.raycast = function () {};
+      return mesh;
+    }
+
+    if (isDualArm && UI_CONFIG.workspaces) {
+      const LIFT_M = { right: 0.030, left: 0.045 };
+      for (const [arm, sl] of Object.entries(UI_CONFIG.workspaces)) {
+        const side = ARM_SIDES[arm];
+        if (!side || !sl.cells || !sl.cells.length) continue;
+        scene.add(cellsMesh(sl.cells.map(([x, ry]) => [10 * x, -10 * ry]), sl.step * 10,
+                            10 * (sl.z + LIFT_M[side] - UI_Z_OFFSET), ARM_COLORS[side].active, 0.13));
+      }
+    }
+
+    function moveSelectedObjectToPos(position) {
+      if (!selectedObject) return;
+      const standoff = new THREE.Vector3(0, 0.7, 0).applyQuaternion(selectedObject.quaternion);
+      selectedObject.position.copy(position).add(standoff);
+    }
+
+    function snapForwardToClick(overshootUI = 0.25) {
+      if (!selectedObject || !cubeMesh.visible) return false;
+      const forward = new THREE.Vector3(0, -1, 0).applyQuaternion(selectedObject.quaternion);
+      selectedObject.geometry.computeBoundingBox();
+      const fingerOffset = -selectedObject.geometry.boundingBox.min.y * selectedObject.scale.y;
+      const fingertip = selectedObject.position.clone().addScaledVector(forward, fingerOffset);
+      const d = cubeMesh.position.clone().sub(fingertip).dot(forward) + overshootUI;
+      selectedObject.position.addScaledVector(forward, d);
+      return true;
+    }
+
+    function buildRaycaster(event) {
+      const r = new THREE.Raycaster();
+      const rect = renderer.domElement.getBoundingClientRect();
+      r.setFromCamera(new THREE.Vector2(
+        ((event.clientX - rect.left) / rect.width)  * 2 - 1,
+        -((event.clientY - rect.top)  / rect.height) * 2 + 1
+      ), camera);
+      return r;
+    }
+
+    function hitsGripper(event) {
+      if (!selectedObject) return false;
+      const raycaster = buildRaycaster(event);
+      selectedObject.updateMatrixWorld(true);
+      return raycaster.intersectObject(selectedObject, false).length > 0;
+    }
+
+    const PICK_RADIUS_UI = 0.14;
+    const DEPTH_BAND_UI  = 0.20;
+    function pickCloudPointAlongRay(ox, oy, oz, dx, dy, dz, minDepth = 0, requireCylinderHit = false) {
+      const pos = pcGeo.attributes.position.array;
+      const n = pos.length / 3;
+      const r2 = PICK_RADIUS_UI * PICK_RADIUS_UI;
+
+      let minProj = Infinity;
+      let bestPerp2 = Infinity, fx = 0, fy = 0, fz = 0;
+      for (let i = 0; i < n; i++) {
+        const px = pos[i*3], py = pos[i*3+1], pz = pos[i*3+2];
+        const vx = px - ox, vy = py - oy, vz = pz - oz;
+        const proj = vx*dx + vy*dy + vz*dz;
+        if (proj < minDepth) continue;
+        const perp2 = vx*vx + vy*vy + vz*vz - proj*proj;
+        if (perp2 <= r2 && proj < minProj) minProj = proj;
+        if (perp2 < bestPerp2) { bestPerp2 = perp2; fx = px; fy = py; fz = pz; }
+      }
+
+      if (minProj < Infinity) {
+        const maxProj = minProj + DEPTH_BAND_UI;
+        let surfPerp2 = Infinity, sx = 0, sy = 0, sz = 0;
+        for (let i = 0; i < n; i++) {
+          const px = pos[i*3], py = pos[i*3+1], pz = pos[i*3+2];
+          const vx = px - ox, vy = py - oy, vz = pz - oz;
+          const proj = vx*dx + vy*dy + vz*dz;
+          if (proj < minDepth || proj > maxProj) continue;
+          const perp2 = vx*vx + vy*vy + vz*vz - proj*proj;
+          if (perp2 <= r2 && perp2 < surfPerp2) {
+            surfPerp2 = perp2; sx = px; sy = py; sz = pz;
+          }
+        }
+        if (surfPerp2 < Infinity) return new THREE.Vector3(sx, sy, sz);
+      }
+      if (requireCylinderHit) return null;
+      if (bestPerp2 < Infinity) return new THREE.Vector3(fx, fy, fz);
+      return null;
+    }
+
+    function placeGripper(event) {
+      if (!isTranslationMode) return;
+      const r = buildRaycaster(event);
+      const O = r.ray.origin, D = r.ray.direction;
+      const p = pickCloudPointAlongRay(O.x, O.y, O.z, D.x, D.y, D.z);
+      if (p) {
+        cubeMesh.position.copy(p);
+        cubeMesh.visible = true;
+        moveSelectedObjectToPos(p);
+      }
+    }
+
+    const traceCanvas = document.createElement('canvas');
+    let frameLog = [], frameIdx = 0, lastFrame = { i: -1, t: -1e9 };
+
+    function widgetState() {
+      return [...document.querySelectorAll('#sidebar [id]')].map(el => {
+        const r = el.getBoundingClientRect();
+        if (!r.width || !r.height) return null;
+        const w = { id: el.id, rect: [r.left | 0, r.top | 0, r.width | 0, r.height | 0] };
+        if (el.type === 'checkbox') w.checked = el.checked;
+        else if (el.tagName === 'INPUT' || el.tagName === 'SELECT') w.value = el.value;
+        else if (!el.querySelector('[id]')) w.text = el.textContent.trim().slice(0, 120);
+        return w;
+      }).filter(Boolean);
+    }
+
+    function captureFrame() {
+      const now = Date.now();
+      if (now - lastFrame.t < 100) return lastFrame.i;
+
+      const w = window.innerWidth, h = window.innerHeight;
+      traceCanvas.width = w; traceCanvas.height = h;
+      const g = traceCanvas.getContext('2d');
+      g.fillStyle = getComputedStyle(document.body).backgroundColor || '#0b1220';
+      g.fillRect(0, 0, w, h);
+      renderFrame();
+      for (const el of [renderer.domElement,
+                        document.getElementById('cam-agentview'),
+                        document.getElementById('cam-wrist'),
+                        document.getElementById('cam-wrist2')]) {
+        const r = el.getBoundingClientRect();
+        if (!r.width || !r.height) continue;
+        if (el.tagName === 'IMG' && !el.naturalWidth) continue;
+        g.drawImage(el, r.left, r.top, r.width, r.height);
+      }
+      const i = frameIdx++;
+      frameLog.push({ type: 'frame', i, t: now, w, h, dpr: devicePixelRatio,
+                      jpeg: traceCanvas.toDataURL('image/jpeg', 0.7).split(',')[1],
+                      widgets: widgetState() });
+      lastFrame = { i, t: now };
+      return i;
+    }
+
+    const camPose = () => [+camera.position.x.toFixed(5), +camera.position.y.toFixed(5),
+                           +camera.position.z.toFixed(5), +cameraTarget.x.toFixed(5),
+                           +cameraTarget.y.toFixed(5), +cameraTarget.z.toFixed(5)];
+
+    const modsOf = e => ({ shift: e.shiftKey, ctrl: e.ctrlKey, alt: e.altKey, meta: e.metaKey });
+    const heldKeys = () => Object.keys(keys).filter(k => keys[k]);
+
+    function targetInfo(e) {
+      const el = e.target, r = el.getBoundingClientRect();
+      return { target: el.id || el.tagName,
+               rect: [r.left | 0, r.top | 0, r.width | 0, r.height | 0],
+               nx: +((e.clientX - r.left) / (r.width  || 1)).toFixed(4),
+               ny: +((e.clientY - r.top)  / (r.height || 1)).toFixed(4) };
+    }
+
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    const pressedByButton = new Map();
+    document.addEventListener('mousedown', e => {
+      pressedByButton.set(e.button, { button: e.button, x0: e.clientX, y0: e.clientY, t: Date.now(),
+                              mods: modsOf(e), ...targetInfo(e),
+                              frame: captureFrame(), cam0: camPose() });
+      if (e.target !== renderer.domElement) return;
+      if (e.button === 0) {
+        isMouseDown     = true;
+        isDraggingEmpty = !hitsGripper(e);
+      } else if (e.button === 1 || e.button === 2) {
+        panDown = true;
+        if (e.button === 1) e.preventDefault();
+      }
+    });
+
+    document.addEventListener('mouseup', e => {
+      const p = pressedByButton.get(e.button);
+      const moved = !p || Math.hypot(e.clientX - p.x0, e.clientY - p.y0) >= 5;
+      if (p) {
+        pressedByButton.delete(e.button);
+        inputLog.push({ ...p, type: moved ? 'drag' : 'click',
+                        x1: e.clientX, y1: e.clientY, dur: Date.now() - p.t,
+                        cam1: camPose(), held: heldKeys() });
+      }
+      if (e.button === 0) {
+        if (isDraggingEmpty && keys['s'] && !moved) placeGripper(e);
+        isMouseDown = false;
+        isDraggingEmpty = false;
+        arrowHelper.visible = false;
+      } else if (e.button === 1 || e.button === 2) panDown = false;
+    });
+
+    let wheelAcc = null, wheelTimer = null;
+    document.addEventListener('wheel', e => {
+      if (e.target !== renderer.domElement) return;
+      e.preventDefault();
+      zoomCameraAtPointer(e);
+      if (!wheelAcc) wheelAcc = { type: 'wheel', x: e.clientX, y: e.clientY, dy: 0,
+                                  t: Date.now(), ...targetInfo(e),
+                                  frame: captureFrame(), cam0: camPose() };
+      wheelAcc.dy += e.deltaY;
+      clearTimeout(wheelTimer);
+      wheelTimer = setTimeout(() => {
+        inputLog.push({ ...wheelAcc, dur: Date.now() - wheelAcc.t, cam1: camPose() });
+        wheelAcc = null;
+      }, 200);
+    }, { passive: false });
+
+    document.addEventListener('mousemove', e => {
+      if (!isMouseDown && !panDown && !transformControl) return;
+      e.preventDefault();
+
+      if (transformControl) { updateGuideCylinder(true); return; }
+
+      if (isMouseDown && isDraggingEmpty && !keys['s']) {
+        const offset = new THREE.Vector3().subVectors(camera.position, cameraTarget);
+        const sph = new THREE.Spherical().setFromVector3(offset);
+        sph.theta -= 0.005 * e.movementX;
+        sph.phi   -= 0.005 * e.movementY;
+        sph.makeSafe();
+        offset.setFromSpherical(sph);
+        camera.position.copy(cameraTarget).add(offset);
+        camera.lookAt(cameraTarget);
+        return;
+      }
+
+      if (panDown) {
+        const right = new THREE.Vector3();
+        camera.getWorldDirection(right);
+        right.cross(camera.up).normalize();
+        const pan = new THREE.Vector3()
+          .addScaledVector(right,      -e.movementX * 0.01)
+          .addScaledVector(camera.up,   e.movementY * 0.01);
+        camera.position.add(pan);
+        cameraTarget.add(pan);
+        camera.lookAt(cameraTarget);
+        return;
+      }
+
+      if (isMouseDown && !isDraggingEmpty && selectedObject && isTranslationMode) {
+        const right   = new THREE.Vector3();
+        const up      = new THREE.Vector3();
+        const forward = new THREE.Vector3();
+        camera.getWorldDirection(forward);
+        camera.up.normalize();
+        right.crossVectors(camera.up, forward).normalize();
+        up.crossVectors(forward, right).normalize();
+
+        let mv = new THREE.Vector3()
+          .addScaledVector(right, -e.movementX)
+          .addScaledVector(up,   -e.movementY);
+
+        const point = selectedObject.position;
+
+        if      (keys['x']) { mv.set(mv.x, 0, 0);     setArrow(mv.x, 0, 0); }
+        else if (keys['z']) { mv.set(0, mv.y, 0);     setArrow(0, mv.y, 0); }
+        else if (keys['p']) { mv.set(mv.x, 0, mv.z);  setArrow(mv.x, 0, mv.z); }
+        else if (keys['y']) { mv.set(0, 0, mv.z);     setArrow(0, 0, mv.z); }
+        else                { arrowHelper.visible = false; }
+
+        arrowHelper.position.copy(point);
+        point.add(mv.multiplyScalar(0.006));
+      }
+    });
+
+    const feedEls = {};
+    function updateCamFeed(elemId, bytes) {
+      if (!bytes) return;
+      const img = feedEls[elemId] || (feedEls[elemId] = document.getElementById(elemId));
+      const newUrl = URL.createObjectURL(new Blob([bytes], { type: 'image/jpeg' }));
+      if (img._blobUrl) URL.revokeObjectURL(img._blobUrl);
+      img._blobUrl = newUrl;
+      img.src = newUrl;
+    }
+
+    function setArrow(x, y, z) {
+      const dir = new THREE.Vector3(x, y, z);
+      if (dir.length() > 1e-6) {
+        arrowHelper.setDirection(dir.normalize());
+        arrowHelper.visible = true;
+      } else {
+        arrowHelper.visible = false;
+      }
+    }
+
+    function zoomCameraAtPointer(event) {
+      const ray = buildRaycaster(event).ray;
+      const viewDir = new THREE.Vector3();
+      camera.getWorldDirection(viewDir);
+
+      const anchor = new THREE.Vector3();
+      const plane = new THREE.Plane().setFromNormalAndCoplanarPoint(viewDir, cameraTarget);
+      if (!ray.intersectPlane(plane, anchor)) anchor.copy(cameraTarget);
+
+      const distance = camera.position.distanceTo(cameraTarget);
+      const zoomIn = event.deltaY < 0;
+      const stepUI = zoomIn ? Math.min(0.3, Math.max(0, distance - 0.3)) : 0.3;
+      if (stepUI <= 0) return;
+
+      const alpha = (zoomIn ? 1 : -1) * Math.min(0.2, stepUI / Math.max(distance, 1e-6));
+      camera.position.lerp(anchor, alpha);
+      cameraTarget.lerp(anchor, alpha);
+      camera.lookAt(cameraTarget);
+    }
+
+    document.addEventListener('keydown', e => {
+      keys[e.key.toLowerCase()] = true;
+      if (!e.repeat) inputLog.push({ type: 'key', key: e.key, ...modsOf(e), t: Date.now(),
+                                     frame: captureFrame(), cam0: camPose() });
+      if (['INPUT', 'SELECT'].includes(document.activeElement.tagName)) return;
+
+      if (['x','y','z','p','a'].includes(e.key.toLowerCase()) && selectedObject && !rotationMode) {
+        updateGuideCylinder(true);
+      }
+
+      if (e.key === 'Escape') { e.preventDefault(); exitRotationMode(); return; }
+      if (e.key.toLowerCase() === 'h') { e.preventDefault(); resetCameraView(); return; }
+      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+        e.preventDefault();
+        snapCameraToFace(e.key);
+        return;
+      }
+      if (isDualArm && e.key === 'Tab') {
+        e.preventDefault();
+        selectArm(UI_ARMS[(selectedArmIdx + 1) % UI_ARMS.length]);
+        return;
+      }
+      if (e.key.toLowerCase() === 'q') { e.preventDefault(); setGizmoHold(true); return; }
+      if (e.key === 'r') {
+        rotationMode = true; isTranslationMode = false;
+        rotationAxis = null; currentAngleInput = '';
+        showGizmo();
+        return;
+      }
+      if (e.key.toLowerCase() === 'e' && !rotationMode) {
+        e.preventDefault();
+        if (sendSocket.readyState === WebSocket.OPEN)
+          sendSocket.send(JSON.stringify([{ undo: true }]));
+        return;
+      }
+      if (e.key === ' ' && !rotationMode) {
+        e.preventDefault();
+        document.getElementById('btn-record').click();
+        return;
+      }
+      if (e.key.toLowerCase() === 't') {
+        e.preventDefault();
+        snapGripperToArmPose(selectedArmIdx);
+        return;
+      }
+
+      if (rotationMode && selectedObject) {
+        if (e.shiftKey && ['x','y','z'].includes(e.key.toLowerCase())) {
+          e.preventDefault();
+          rotateSelectedObject(e.key.toLowerCase(), Math.PI / 2);
+          rotationAxis = null; currentAngleInput = '';
+          return;
+        }
+        if (['x','y','z'].includes(e.key)) {
+          rotationAxis = e.key; currentAngleInput = '';
+          if (transformControl) transformControl.detach();
+          return;
+        }
+        if (rotationAxis && (/^[0-9]$/.test(e.key) || e.key === '-' || e.key === '.')) {
+          currentAngleInput += e.key;
+          return;
+        }
+        if (rotationAxis && e.key === 'Enter' && currentAngleInput) {
+          rotateSelectedObject(rotationAxis, parseFloat(currentAngleInput) * Math.PI / 180);
+          exitRotationMode(); return;
+        }
+        return;
+      }
+
+      if (e.key === 'g') {
+        e.preventDefault();
+        if (!selectedObject) return;
+        toggleTargetJaws();
+        return;
+      }
+
+      if (e.key === 'f' || e.key === 'b') {
+        if (!selectedObject) return;
+        updateGuideCylinder(true);
+        stepAlongApproach(e.key);
+      }
+      if (e.key === 'c') snapForwardToClick();
+    });
+
+    document.addEventListener('keyup', e => {
+      keys[e.key.toLowerCase()] = false;
+      inputLog.push({ type: 'keyup', key: e.key, t: Date.now() });
+      if (e.key.toLowerCase() === 'q') setGizmoHold(false);
+      updateGuideCylinder(false);
+      arrowHelper.visible = false;
+    });
+
+    let gizmoHeld = false;
+    function setGizmoHold(on) {
+      if (on === gizmoHeld) return;
+      gizmoHeld = on;
+      updateGuideCylinder(on);
+      if (!rotationMode) { on ? showGizmo() : hideGizmo(); }
+    }
+    window.addEventListener('blur', () => { keys = {}; setGizmoHold(false); });
+
+    function toggleTargetJaws() {
+      const idx = controlPoints.indexOf(selectedObject);
+      showsRealJaws[idx] = false;
+      setGripperOpen(idx, !jawsOpen[idx]);
+    }
+
+    function stepAlongApproach(dir) {
+      selectedObject.position.add(new THREE.Vector3(0, dir === 'f' ? -0.06 : 0.06, 0)
+        .applyQuaternion(selectedObject.quaternion));
+    }
+
+    function rotateSelectedObject(axis, angle) {
+      if (axis === 'x') selectedObject.rotateX(angle);
+      else if (axis === 'z') selectedObject.rotateY(angle);
+      else if (axis === 'y') selectedObject.rotateZ(angle);
+    }
+
+    function addRingArrows(rotateGizmo) {
+      const ringRadius = 0.5;
+      const specs = [
+        ['X', 'X', 0xff4444, '#ff6b6b', new THREE.Vector3(0, 0, ringRadius), new THREE.Vector3(0, -1, 0), new THREE.Vector3(0,  ringRadius * 1.4, 0)],
+        ['Y', 'Z', 0x3b82f6, '#60a5fa', new THREE.Vector3(0, 0, ringRadius), new THREE.Vector3(1,  0, 0), new THREE.Vector3(-ringRadius * 1.4, 0, 0)],
+        ['Z', 'Y', 0x22c55e, '#4ade80', new THREE.Vector3(ringRadius, 0, 0), new THREE.Vector3(0,  1, 0), new THREE.Vector3(0, -ringRadius * 1.4, 0)],
+      ];
+      specs.forEach(([ringName, label, colorHex, labelColor, pos, tan, labelPos]) => {
+        const ring = rotateGizmo.getObjectByName(ringName);
+        if (!ring) return;
+        if (ring.material) {
+          ring.material.color.setHex(colorHex);
+          ring.material._color = ring.material.color.clone();
+        }
+        const cone = new THREE.Mesh(
+          new THREE.ConeGeometry(0.07, 0.22, 16),
+          new THREE.MeshBasicMaterial({ color: colorHex, depthTest: false, depthWrite: false, transparent: true })
+        );
+        cone.renderOrder = Infinity;
+        cone.position.copy(pos);
+        cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), tan);
+        ring.add(cone);
+
+        const labelSprite = makeAxisLabel(label, labelColor);
+        labelSprite.scale.set(0.34, 0.22, 1);
+        labelSprite.position.copy(labelPos);
+        labelSprite.renderOrder = Infinity;
+        ring.add(labelSprite);
+      });
+    }
+
+    function showGizmo() {
+      if (!selectedObject) return;
+      if (!transformControl) {
+        transformControl = new THREE.TransformControls(camera, renderer.domElement);
+        transformControl.setSize(0.75);
+        const eHandles = [];
+        transformControl.traverse(obj => { if (obj.name === 'E') eHandles.push(obj); });
+        eHandles.forEach(obj => obj.parent && obj.parent.remove(obj));
+        addRingArrows(transformControl._gizmo.gizmo['rotate']);
+        scene.add(transformControl);
+      }
+      transformControl.attach(selectedObject);
+      transformControl.setSpace('local');
+      transformControl.setMode('rotate');
+    }
+
+    function hideGizmo() {
+      if (transformControl) {
+        scene.remove(transformControl);
+        transformControl.detach();
+        transformControl.dispose();
+        transformControl = null;
+      }
+    }
+
+    function exitRotationMode() {
+      isTranslationMode = true; rotationMode = false;
+      rotationAxis = null; currentAngleInput = '';
+      hideGizmo();
+    }
+
+    function flashButton(btn) {
+      btn.classList.add('flash');
+      setTimeout(() => btn.classList.remove('flash'), 250);
+      btn.blur();
+    }
+    function executeWaypoint() {
+      sendPositionAndOrientation();
+      flashButton(document.getElementById('btn-record'));
+    }
+    document.getElementById('btn-record').addEventListener('click', executeWaypoint);
+
+    function homeArm(arm = null) {
+      if (arm) selectArm(arm);
+      const obj = controlPoints[selectedArmIdx];
+      const pose = (UI_CONFIG.home_poses || {})[UI_ARMS[selectedArmIdx]];
+      if (!obj) return { status: 'no_selection' };
+      if (!pose) return { status: 'no_home_pose' };
+      if (rotationMode || transformControl) exitRotationMode();
+      obj.position.copy(new THREE.Vector3(...pose.fingertip_pos_ui));
+      obj.quaternion.setFromEuler(uiEuler(pose.ee_euler_ui));
+      needsRender = true;
+      homeTargetKeys[selectedArmIdx] = targetKey(obj);
+      flashButton(document.getElementById('btn-home'));
+      return { status: 'ok' };
+    }
+    document.getElementById('btn-home').addEventListener('click', () => homeArm());
+
+    function endEpisode(by) { sendPositionAndOrientation(by || 'ui'); }
+    document.getElementById('btn-end').addEventListener('click', function() {
+      endEpisode('ui');
+      this.blur();
+    });
+
+    if (UI_CONFIG.dashboard) {
+      const dash = document.getElementById('btn-dash');
+      dash.style.display = '';
+      dash.addEventListener('click', function() { endEpisode('ui'); this.blur(); });
+    }
+
+    const camsBtn = document.getElementById('btn-cams');
+    if (UI_CONFIG.teleop) {
+      camsBtn.style.display = '';
+      camsBtn.addEventListener('click', async function () {
+        const open = !!document.getElementById('cam-gallery');
+        camsBtn.textContent = open ? '\u{1F4F7} Camera views' : '\u2715 Close views';
+        await window.__camGallery(!open, true);
+        this.blur();
+      });
+    }
+
+    const blenderBtn = document.getElementById('btn-blender');
+    if (UI_CONFIG.teleop) {
+      blenderBtn.style.display = '';
+      blenderBtn.addEventListener('click', function() {
+        if (sendSocket.readyState !== WebSocket.OPEN) return;
+        blenderBtn.disabled = true;
+        blenderBtn.textContent = 'rendering...';
+        sendSocket.send(JSON.stringify([{ blender_render: true }]));
+        this.blur();
+      });
+    }
+    function blenderDone(note) {
+      blenderBtn.disabled = false;
+      blenderBtn.textContent = note;
+      setTimeout(() => { blenderBtn.innerHTML = '&#127912; Blender preview'; }, 4000);
+    }
+
+    const pendingWaypoints = [];
+
+    const robotEuler = obj => new THREE.Euler().setFromQuaternion(obj.quaternion, 'YZX');
+
+    function sendPositionAndOrientation(doneBy = null) {
+      const obj = selectedObject;
+      if (!obj) return;
+      const ori = robotEuler(obj);
+      const idx = controlPoints.indexOf(obj);
+      const payload = [{
+        done: !!doneBy,
+        done_by: doneBy,
+        arm: waypointArm,
+        home: homeTargetKeys[idx] === targetKey(obj),
+        position:    { x: obj.position.x, y: obj.position.y, z: obj.position.z },
+        orientation: { x: ori.x,          y: ori.y,          z: ori.z },
+        gripper_open: jawsOpen[idx],
+      }];
+      homeTargetKeys[idx] = null;
+      if (isDualArm && !doneBy) pendingExecArm = waypointArm || UI_ARMS[0];
+      if (sendSocket.readyState !== WebSocket.OPEN) {
+        pendingWaypoints.push(JSON.stringify(payload));
+        return;
+      }
+      flushInputs();
+      sendSocket.send(JSON.stringify(payload));
+    }
+
+    let recvSocket, sendSocket;
+    let wsReconnecting = false;
+
+    let recvEverOpen = false;
+    let sockFails = 0;
+
+    function connBanner(show) {
+      let b = document.getElementById('conn-lost');
+      if (!b) {
+        b = document.createElement('div');
+        b.id = 'conn-lost';
+        b.textContent = 'SIM CONNECTION LOST, retrying…';
+        b.style.cssText = 'position:fixed;top:8px;left:50%;transform:translateX(-50%);' +
+          'background:#c62828;color:#fff;padding:6px 14px;border-radius:6px;' +
+          'font:600 13px sans-serif;z-index:9999;display:none';
+        document.body.appendChild(b);
+      }
+      b.style.display = show ? 'block' : 'none';
+    }
+
+    let simInstanceId = null;
+    fetch('/instance.json', { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : null).then(d => { simInstanceId = d && d.id; })
+      .catch(() => {});
+
+    function onSocketClose(e) {
+      if (e.target !== recvSocket && e.target !== sendSocket) return;
+      if (wsReconnecting) return;
+      wsReconnecting = true;
+      if (!recvEverOpen) sockFails += 1;
+      if (sockFails >= 5) connBanner(true);
+      const delayMs = sockFails >= 5 ? 2000 : 400;
+      const poll = async () => {
+        let resp = null;
+        try { resp = await fetch('/instance.json', { cache: 'no-store' }); } catch {}
+        if (!resp) { setTimeout(poll, delayMs); return; }
+        let id = null;
+        if (resp.ok) { try { id = (await resp.json()).id; } catch {} }
+        if (id && simInstanceId && id === simInstanceId) {
+          wsReconnecting = false;
+          openSockets();
+          return;
+        }
+        location.reload();
+      };
+      setTimeout(poll, delayMs);
+    }
+
+    function openSockets() {
+      const oldRecv = recvSocket, oldSend = sendSocket;
+      recvEverOpen = false;
+      recvSocket = new WebSocket('ws://' + location.hostname + ':' + (BASE_PORT + 1));
+      recvSocket.binaryType = 'arraybuffer';
+      sendSocket = new WebSocket('ws://' + location.hostname + ':' + (BASE_PORT + 2));
+      recvSocket.addEventListener('open', () => {
+        recvEverOpen = true; sockFails = 0; connBanner(false);
+      });
+      sendSocket.addEventListener('open', () => {
+        flushInputs();
+        while (pendingWaypoints.length) sendSocket.send(pendingWaypoints.shift());
+      });
+      recvSocket.addEventListener('message', onRecvMessage);
+      recvSocket.addEventListener('close', onSocketClose);
+      sendSocket.addEventListener('close', onSocketClose);
+      if (oldRecv) oldRecv.close();
+      if (oldSend) oldSend.close();
+    }
+    openSockets();
+
+    function flushInputs() {
+      if (sendSocket.readyState !== WebSocket.OPEN) return;
+      if (inputLog.length) {
+        sendSocket.send(JSON.stringify([{ inputs: inputLog }]));
+        inputLog = [];
+      }
+      while (frameLog.length) sendSocket.send(JSON.stringify([{ frame: frameLog.shift() }]));
+    }
+    setInterval(flushInputs, 1000);
+
+    async function checkReachable(obj, arm) {
+      const ori = robotEuler(obj);
+      const u = JSON_BASE + '/reachable?fx=' + obj.position.x + '&fy=' + obj.position.y +
+                '&fz=' + obj.position.z + '&rx=' + ori.x + '&ry=' + ori.y + '&rz=' + ori.z +
+                (arm ? '&arm=' + encodeURIComponent(arm) : '');
+      try { return await (await fetch(u, { cache: 'no-store' })).json(); }
+      catch (_) { return null; }
+    }
+    (function () {
+      const out = document.getElementById('reach-readout');
+      let pending = false;
+      const lastKeys = [];
+      let lastSel = null;
+      async function pollReach() {
+        if (pending) return;
+        pending = true;
+        try {
+          if (selectedObject !== lastSel) {
+            lastSel = selectedObject;
+            const si = controlPoints.indexOf(selectedObject);
+            if (si >= 0) lastKeys[si] = null;
+          }
+          for (let i = 0; i < controlPoints.length; i++) {
+            const obj = controlPoints[i];
+            const key = [obj.position.x, obj.position.y, obj.position.z,
+                         obj.rotation.x, obj.rotation.y, obj.rotation.z]
+                        .map(v => v.toFixed(4)).join(',');
+            if (key === lastKeys[i]) continue;
+            const r = await checkReachable(obj, isDualArm ? UI_ARMS[i] : null);
+            if (!r || r.reachable == null) continue;
+            lastKeys[i] = key;
+            const bad = r.reachable === false;
+            const was = obj.__reachBad;
+            obj.__reachBad = bad;
+            if (was !== bad) refreshGripperOpacity();
+            if (obj === selectedObject) {
+              const tag = isDualArm ? ARM_SIDES[UI_ARMS[i]].toUpperCase() + ': ' : '';
+              out.style.color = bad ? '#dc2626' : '#16a34a';
+              out.innerHTML = tag + 'controller live-branch error here: '
+                + r.pos_mm.toFixed(1) + ' mm / ' + r.rot_deg.toFixed(1) + '&deg;';
+            }
+          }
+        } finally { pending = false; }
+      }
+      setInterval(pollReach, 250);
+    })();
+
+    const STATION_HEX = ['#ef4444', '#eab308', '#3b82f6', '#a855f7'];
+
+    const initRegions = (async () => {
+      for (let tries = 0; tries < 20; tries++) {
+        const r = await fetch(JSON_BASE + '/init_regions', { cache: 'no-store' }).catch(() => null);
+        if (r && r.status === 403) return null;
+        const j = r && r.ok ? await r.json().catch(() => null) : null;
+        if (j && j.regions && Object.keys(j.regions).length) return j;
+        await new Promise(s => setTimeout(s, 800));
+      }
+      return null;
+    })();
+    let editedStations = {};
+    let redrawRegions;
+
+    (function () {
+      const rows = document.getElementById('re-rows');
+      const sel  = document.getElementById('re-body');
+      let stations = [];
+      const num = (v, w) => '<input type="number" step="0.01" value="' + v +
+        '" style="width:' + w + 'px;font-size:10px" />';
+      function render() {
+        rows.innerHTML = stations.map((st, i) => {
+          const cl = st.clipped
+            ? '<span title="narrowed by workspace + pc crop + reach" style="color:#eab308">&#9888; ' +
+              st.clipped + '</span>' : '';
+          return '<div class="re-row" data-i="' + i + '" style="display:flex;gap:3px;align-items:center;margin:2px 0;flex-wrap:wrap">' +
+          '<span style="width:9px;height:9px;border-radius:2px;background:' + STATION_HEX[i % STATION_HEX.length] + '"></span>' +
+          '<span style="opacity:.6">x</span>' + num(st.x ? st.x[0] : '', 40) + num(st.x ? st.x[1] : '', 40) +
+          '<span style="opacity:.6">y</span>' + num(st.y[0], 40) + num(st.y[1], 40) +
+          '<span style="opacity:.6">yaw</span>' + num(st.yaw[0], 38) + num(st.yaw[1], 38) +
+          '<button class="re-del" style="font-size:9px;padding:0 4px">x</button>' + cl + '</div>';
+        }).join('');
+        rows.querySelectorAll('.re-del').forEach(b => b.onclick = e => {
+          stations.splice(+e.target.closest('.re-row').dataset.i, 1); render(); publish();
+        });
+        rows.querySelectorAll('input').forEach(inp => {
+          const go = () => { read(); publish(); };
+          inp.onchange = go; inp.oninput = go;
+        });
+      }
+      function read() {
+        stations = [...rows.querySelectorAll('.re-row')].map((r, i) => {
+          const raw = [...r.querySelectorAll('input')].map(i => i.value.trim());
+          const v = raw.map(t => parseFloat(t));
+          const hasX = raw[0] !== '' && raw[1] !== '' && !isNaN(v[0]) && !isNaN(v[1]);
+          const prev = stations[i] || {};
+          return { x: hasX ? [Math.min(v[0], v[1]), Math.max(v[0], v[1])] : null,
+                   y: [Math.min(v[2], v[3]), Math.max(v[2], v[3])],
+                   yaw: [Math.min(v[4], v[5]), Math.max(v[4], v[5])],
+                   clipped: prev.clipped };
+        });
+      }
+      function publish() {
+        editedStations = { [sel.value]: stations };
+        redrawRegions();
+      }
+      document.getElementById('re-add').onclick = () => {
+        read(); stations.push({ x: null, y: [0.10, 0.20], yaw: [-15, 0] }); render(); publish();
+      };
+      document.getElementById('re-copy').onclick = () => {
+        read();
+        const body = sel.value || 'OBJECT';
+        const js = JSON.stringify({ [body]: stations.map(st => (
+          st.x ? { x: st.x, y: st.y, yaw_offset_deg: st.yaw }
+               : { y: st.y, yaw_offset_deg: st.yaw })) }, null, 1);
+        document.getElementById('re-out').textContent = js;
+        if (navigator.clipboard) navigator.clipboard.writeText(js).catch(() => {});
+      };
+      initRegions.then(d => {
+        if (!d) return;
+        const names = Object.keys(d.regions);
+        sel.innerHTML = names.map(n => '<option>' + n + '</option>').join('');
+        stations = (d.stations && d.stations[sel.value] || []).map(st => ({
+          x: st.x || null, y: st.y, yaw: st.yaw_offset_deg || [0, 0],
+          clipped: st.was_clipped
+            ? ('y&rarr;[' + st.clipped_y.map(v => v.toFixed(2)).join(', ') + ']' +
+               (st.clipped_x ? ' x&rarr;[' + st.clipped_x.map(v => v.toFixed(2)).join(', ') + ']' : ''))
+            : null }));
+        if (!stations.length) stations = [{ x: null, y: [0.10, 0.20], yaw: [-15, 0] }];
+        render(); publish();
+      });
+    })();
+
+    (function () {
+      const panel = document.getElementById('init-panel');
+      const btn = document.getElementById('btn-randomize');
+      const robotToUI = (x, y, z) => [10 * x, 10 * (z - UI_Z_OFFSET), -10 * y];
+      const overlay = new THREE.Group();
+      scene.add(overlay);
+      const OVERLAY_LIFT_M = 0.05;
+      function drawWorkspace(reach, zkey) {
+        if (!reach || !reach.slice) return;
+        const sl = reach.slice, sz = sl.z + OVERLAY_LIFT_M;
+        const cells = (zkey && sl.slices && sl.slices[zkey]) ? sl.slices[zkey] : sl.cells;
+        if (sl.pc) {
+          const [px0, px1, py0, py1] = sl.pc;
+          const a = robotToUI(px0, py0, sz), b = robotToUI(px1, py1, sz);
+          const g = new THREE.PlaneGeometry(Math.abs(b[0]-a[0]), Math.abs(b[2]-a[2]));
+          const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial(
+            { color: 0xa855f7, transparent: true, opacity: 0.16,
+              depthWrite: false, side: THREE.DoubleSide }));
+          m.rotation.x = -Math.PI / 2;
+          m.position.set((a[0]+b[0])/2, a[1] - 0.07, (a[2]+b[2])/2);
+          m.add(new THREE.LineSegments(new THREE.EdgesGeometry(g),
+            new THREE.LineBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.9 })));
+          m.raycast = function () {};
+          overlay.add(m);
+        }
+        if (sl.table) {
+          const [x0, x1, y0, y1] = sl.table;
+          const a = robotToUI(x0, y0, sz), b = robotToUI(x1, y1, sz);
+          const g = new THREE.PlaneGeometry(Math.abs(b[0] - a[0]), Math.abs(b[2] - a[2]));
+          const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial(
+            { color: 0xef4444, transparent: true, opacity: 0.10,
+              depthWrite: false, side: THREE.DoubleSide }));
+          m.rotation.x = -Math.PI / 2;
+          m.position.set((a[0] + b[0]) / 2, a[1] - 0.06, (a[2] + b[2]) / 2);
+          m.add(new THREE.LineSegments(new THREE.EdgesGeometry(g),
+            new THREE.LineBasicMaterial({ color: 0xef4444, transparent: true, opacity: 0.8 })));
+          m.raycast = function () {};
+          overlay.add(m);
+        }
+        if (cells.length)
+          overlay.add(cellsMesh(cells.map(([x, y]) => [10 * x, -10 * y]), sl.step * 10,
+                                robotToUI(0, 0, sz)[1] - 0.05, 0x2f81f7, 0.13));
+      }
+      let lastRegions = null;
+      function redrawOverlay() {
+        if (!lastRegions) return;
+        drawRegions(lastRegions.regions || {}, lastRegions.reach);
+        drawWorkspace(lastRegions.reach, shownHeight());
+      }
+      redrawRegions = redrawOverlay;
+      function shownHeight() {
+        const show = shownGroups();
+        const regs = (lastRegions && lastRegions.regions) || {};
+        const masks = (lastRegions && lastRegions.reach && lastRegions.reach.masks) || {};
+        for (const name in regs)
+          if (show.has(regs[name].group) && masks[name])
+            return masks[name].z.toFixed(4);
+        return null;
+      }
+      function shownGroups() {
+        return new Set([...document.querySelectorAll('.gshow')]
+          .filter(cb => cb.checked).map(cb => +cb.dataset.group));
+      }
+      function drawRegions(regions, reach) {
+        overlay.traverse(o => { if (o.geometry) { o.geometry.dispose(); o.material.dispose(); } });
+        overlay.clear();
+        const show = shownGroups();
+        const groups = new Map();
+        for (const name in regions) {
+          const r = regions[name];
+          if (r.group == null || (!r.x && !r.y)) continue;
+          if (!groups.has(r.group)) groups.set(r.group, []);
+          groups.get(r.group).push(Object.assign({ name: name }, r));
+        }
+        for (const [gkey, members] of groups.entries()) {
+          if (!show.has(gkey)) continue;
+          const r = members[0];
+          const mean = i => members.reduce((s, m) => s + m.base[i], 0) / members.length;
+          const rz = ((reach && reach.slice) ? reach.slice.z : mean(2)) + OVERLAY_LIFT_M;
+          const p = robotToUI(mean(0), mean(1), rz);
+          const c = new THREE.Color((r.color || [0.13, 0.77, 0.37])[0],
+                                    (r.color || [])[1] ?? 0.77,
+                                    (r.color || [])[2] ?? 0.37);
+          c.lerp(new THREE.Color(1, 1, 1), 0.25);
+          const box = new THREE.Group();
+          const mask = reach && reach.masks && reach.masks[members[0].name];
+          if (mask) {
+            const byColor = new Map();
+            const ed = editedStations[members[0].name] || null;
+            const bx = r.base[0], by = r.base[1];
+            const stationIndexAt = (ax, ay) => {
+              if (!ed) return null;
+              for (let i = 0; i < ed.length; i++) {
+                const st = ed[i];
+                const inY = ay >= st.y[0] && ay <= st.y[1];
+                const inX = !st.x || (ax >= st.x[0] && ax <= st.x[1]);
+                if (inY && inX) return i;
+              }
+              return -1;
+            };
+            for (const cell of mask.cells) {
+              const dx = cell[0], dy = cell[1];
+              const t = stationIndexAt(bx + dx, by + dy);
+              const si = (t !== null) ? t : ((cell.length > 2) ? cell[2] : -1);
+              if (ed && si < 0) continue;
+              const col = si >= 0 ? STATION_HEX[si % STATION_HEX.length] : '#22c55e';
+              if (!byColor.has(col)) byColor.set(col, []);
+              byColor.get(col).push([dx * 10, -dy * 10]);
+            }
+            for (const [col, centers] of byColor)
+              box.add(cellsMesh(centers, mask.step * 10, -0.04, col, 0.42));
+            if (ed) {
+              ed.forEach((st, i) => {
+                const cy = (st.y[0] + st.y[1]) / 2;
+                const cx = st.x ? (st.x[0] + st.x[1]) / 2 : r.base[0];
+                const yaw0Rad = st.yaw[0] * Math.PI / 180, yaw1Rad = st.yaw[1] * Math.PI / 180;
+                const span = Math.max(Math.abs(yaw1Rad - yaw0Rad), 0.05);
+                const wedge = new THREE.Mesh(
+                  new THREE.CircleGeometry(0.42, 28, -Math.max(yaw0Rad, yaw1Rad), span),
+                  new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true,
+                    opacity: 0.65, depthWrite: false, side: THREE.DoubleSide }));
+                wedge.rotation.x = -Math.PI / 2;
+                wedge.position.set((cx - r.base[0]) * 10, 0.05, -(cy - r.base[1]) * 10);
+                wedge.raycast = function () {};
+                box.add(wedge);
+              });
+            }
+          } else {
+            const g = new THREE.BoxGeometry(Math.max(r.x * 2 * 10, 0.05), 0.4,
+                                            Math.max(r.y * 2 * 10, 0.05));
+            const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial(
+              { color: c, transparent: true, opacity: 0.10, depthWrite: false }));
+            m.add(new THREE.LineSegments(new THREE.EdgesGeometry(g),
+              new THREE.LineBasicMaterial({ color: c, transparent: true, opacity: 0.85 })));
+            m.raycast = function () {};
+            box.add(m);
+          }
+          const dot = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 8),
+            new THREE.MeshBasicMaterial({ color: c }));
+          dot.raycast = function () {};
+          box.add(dot);
+          box.position.set(p[0], p[1], p[2]);
+          box.raycast = function () {};
+          overlay.add(box);
+        }
+      }
+      function drawGroups(payload) {
+        const regions  = payload.regions || {};
+        const stations = payload.stations || {};
+        const masks    = (payload.reach && payload.reach.masks) || {};
+        const full     = !!payload.full_rand;
+        const groups = new Map(), fixed = [];
+        for (const name in regions) {
+          const r = regions[name];
+          const label = '#' + r.num + ' ' + name + (r.face_robot
+            ? '<span class="fbadge" title="face_robot: yaw is set by WHERE it lands, not' +
+              ' drawn: it keeps the same face turned toward the arm, with no free yaw' +
+              ' jitter, so a drawer or door stays operable">F</span>'
+            : '');
+          if (r.group == null || (!r.x && !r.y && !r.yaw)) { fixed.push(label); continue; }
+          if (!groups.has(r.group))
+            groups.set(r.group, { objs: [], names: [], r, face: false });
+          const G = groups.get(r.group);
+          G.objs.push(label);
+          G.names.push(name);
+          G.face = G.face || !!r.face_robot;
+        }
+        const cm  = v => (v < 0 ? '\u2212' : '+') + Math.abs(v * 100).toFixed(0);
+        const deg = v => (v < 0 ? '\u2212' : '+') + Math.abs(v).toFixed(0);
+        const span = (a, b, f) => f(a) + '&hellip;' + f(b);
+        const bands = w => (Array.isArray(w) && Array.isArray(w[0])) ? w : [w || [0, 0]];
+        function detail(g) {
+          const st = stations[g.names.find(n => stations[n])];
+          if (st && st.length) return {
+            tag: 'stations &times;' + st.length,
+            lines: st.map((t, i) => {
+              const x = t.clipped_x || t.x, y = t.clipped_y || t.y;
+              return { c: STATION_HEX[i % STATION_HEX.length],
+                       t: (x ? 'x ' + span(x[0], x[1], cm) + ' ' : '') +
+                          'y ' + span(y[0], y[1], cm) + ' cm  yaw ' +
+                          bands(t.yaw_offset_deg)
+                            .map(b => span(b[0], b[1], deg)).join(' or ') + '&deg;' +
+                          (t.was_clipped ? '  &#9888; clipped' : '') };
+            }) };
+          const yaw = g.face ? 'yaw&rarr;arm'
+                             : 'yaw &plusmn;' + Math.round(g.r.yaw * 57.3) + '&deg;';
+          const m = masks[g.names[0]];
+          if (full) {
+            if (!(m && m.cells.length)) return { tag: 'full_rand', lines: [] };
+            const px = g.names.reduce((a, n) => a + regions[n].base[0], 0) / g.names.length;
+            const py = g.names.reduce((a, n) => a + regions[n].base[1], 0) / g.names.length;
+            const ext = i => m.cells.reduce(
+              (a, c) => [Math.min(a[0], c[i]), Math.max(a[1], c[i])], [Infinity, -Infinity]);
+            const ex = ext(0), ey = ext(1);
+            return { tag: 'full_rand', lines: [{ c: '#22c55e',
+              t: 'x ' + span(px + ex[0], px + ex[1], cm) +
+                 '  y ' + span(py + ey[0], py + ey[1], cm) + ' cm  ' + yaw }] };
+          }
+          return { tag: 'jitter', lines: [{ c: '#22c55e',
+            t: 'x &plusmn;' + Math.round(g.r.x * 100) + '  y &plusmn;' +
+               Math.round(g.r.y * 100) + ' cm  ' + yaw }] };
+        }
+        const row = (id, objs, rng, key, lines) =>
+          '<div class="g">' +
+          (key == null ? '<span style="width:13px"></span>'
+                       : '<input type="checkbox" class="gshow" data-group="' + key + '">') +
+          '<span class="gid">' + id + '</span>' +
+          '<span class="gobj">' + objs.join(' ') + '</span>' +
+          '<span class="grng">' + rng + '</span></div>' +
+          (lines || []).map(l => '<div class="gdet"><span class="gdot" style="background:' +
+            l.c + '"></span><span>' + l.t + '</span></div>').join('');
+        const out = [...groups.keys()].sort((a, b) => a - b).map(k => {
+          const g = groups.get(k), d = detail(g);
+          return row('G' + (k + 1), g.objs, d.tag, k, d.lines);
+        });
+        if (fixed.length) out.push(row('&middot;', fixed, 'fixed'));
+        document.getElementById('init-groups').innerHTML = out.join('');
+        for (const cb of document.querySelectorAll('.gshow'))
+          cb.addEventListener('change', () => redrawOverlay());
+      }
+      async function refreshRegions() {
+        const j = await fetch(JSON_BASE + '/init_regions', { cache: 'no-store' })
+          .then(r => r.json()).catch(() => null);
+        if (j) { lastRegions = j; redrawOverlay(); }
+      }
+      const sysBtn = document.getElementById('btn-systematic');
+      sysBtn.addEventListener('click', () => {
+        if (sendSocket.readyState !== WebSocket.OPEN) return;
+        const show = shownGroups();
+        const bodies = [];
+        for (const name in (lastRegions && lastRegions.regions) || {}) {
+          const r = lastRegions.regions[name];
+          if (r.group != null && show.has(r.group)) bodies.push(name);
+        }
+        if (!bodies.length) {
+          sysBtn.textContent = 'tick an asset first';
+          setTimeout(() => { sysBtn.textContent = 'Systematic randomize'; }, 1400);
+          return;
+        }
+        const edited = {};
+        for (const b in editedStations) {
+          edited[b] = editedStations[b].map(st => Object.assign(
+            { y: st.y, yaw_offset_deg: st.yaw }, st.x ? { x: st.x } : {}));
+        }
+        sendSocket.send(JSON.stringify(
+          [{ reroll_init: true, randomize: true, systematic: true,
+             bodies: bodies, stations: edited }]));
+        refreshRegions();
+      });
+
+      btn.addEventListener('click', () => {
+        if (sendSocket.readyState !== WebSocket.OPEN) return;
+        sendSocket.send(JSON.stringify([{ reroll_init: true, randomize: true }]));
+        refreshRegions();
+      });
+      const recBtn = document.getElementById('demo-rec');
+      let recOn = false;
+      recBtn.addEventListener('click', () => {
+        recOn = !recOn;
+        recBtn.style.background = recOn ? '#b91c1c' : '#334155';
+        recBtn.innerHTML = recOn ? '&#x23FA; Recording, saves on End' : '&#x23FA; Record demo';
+        if (sendSocket.readyState === WebSocket.OPEN)
+          sendSocket.send(JSON.stringify([{ record_demo: recOn }]));
+      });
+      const pauseBtn = document.getElementById('demo-pause');
+      let recPaused = false;
+      pauseBtn.addEventListener('click', () => {
+        recPaused = !recPaused;
+        pauseBtn.style.background = recPaused ? '#a16207' : '#334155';
+        pauseBtn.innerHTML = recPaused ? '&#x25B6; Resume recording' : '&#x23F8; Pause recording';
+        if (sendSocket.readyState === WebSocket.OPEN)
+          sendSocket.send(JSON.stringify([{ record_pause: recPaused }]));
+      });
+      document.getElementById('demo-stop').addEventListener('click', () => {
+        if (sendSocket.readyState !== WebSocket.OPEN) return;
+        sendSocket.send(JSON.stringify([{ record_stop: true }]));
+        recOn = false; recPaused = false;
+        recBtn.style.background = '#334155'; recBtn.innerHTML = '&#x23FA; Record demo';
+        pauseBtn.style.background = '#334155'; pauseBtn.innerHTML = '&#x23F8; Pause recording';
+      });
+      const undoBtn = document.getElementById('btn-undo');
+      if (UI_CONFIG.teleop) undoBtn.style.display = 'inline-block';
+      undoBtn.addEventListener('click', () => {
+        if (sendSocket.readyState === WebSocket.OPEN) sendSocket.send(JSON.stringify([{ undo: true }]));
+      });
+      const restartBtn = document.getElementById('btn-restart');
+      if (UI_CONFIG.teleop) restartBtn.style.display = 'inline-block';
+      restartBtn.addEventListener('click', () => {
+        if (sendSocket.readyState !== WebSocket.OPEN) return;
+        sendSocket.send(JSON.stringify([{ restart_episode: true }]));
+        recPaused = false;
+        pauseBtn.style.background = '#334155'; pauseBtn.innerHTML = '&#x23F8; Pause recording';
+      });
+      initRegions.then(j => {
+        if (!j) return;
+        panel.style.display = 'block';
+        lastRegions = j;
+        drawGroups(j);
+        redrawOverlay();
+      });
+    })();
+
+    const GAMMA_LUT = Float32Array.from({ length: 256 }, (_, i) => Math.pow(i / 255, 0.65));
+
+    function snapGripperToArmPose(idx) {
+      const obj = controlPoints[idx];
+      const ap  = lastArmPoses[UI_ARMS[idx]];
+      if (!obj) return { status: 'no_selection' };
+      if (!ap)  return { status: 'no_real_pose' };
+      if (obj === selectedObject && (rotationMode || transformControl)) exitRotationMode();
+      obj.position.copy(ap.pos);
+      obj.quaternion.setFromEuler(uiEuler(ap.euler));
+      showsRealJaws[idx] = true;
+      const wantOpen = !!ap.cmdOpen;
+      if (wantOpen !== jawsOpen[idx]) setGripperOpen(idx, wantOpen);
+      return { status: 'ok' };
+    }
+
+    function onRecvMessage(e) {
+      const data = msgpack.decode(new Uint8Array(e.data));
+
+      const freshWaypoint = data.update_ui &&
+        (data.update_ui_seq == null || data.update_ui_seq > (window.__waypointDoneSeq || 0));
+      if (freshWaypoint) {
+        if (data.update_ui_seq != null) window.__waypointDoneSeq = data.update_ui_seq;
+        window.__waypointDoneCount = (window.__waypointDoneCount || 0) + 1;
+      }
+
+      const posBytesUnaligned = data.positions;
+      if (posBytesUnaligned.byteLength) {
+        const geo = pointCloud.geometry;
+        if (posBytesUnaligned.byteLength !== geo.attributes.position.array.byteLength) {
+          geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(posBytesUnaligned.byteLength / 4), 3));
+          geo.setAttribute('color',    new THREE.BufferAttribute(new Float32Array(posBytesUnaligned.byteLength / 4), 3));
+        }
+        const posAttr = geo.attributes.position, colAttr = geo.attributes.color;
+        new Uint8Array(posAttr.array.buffer).set(posBytesUnaligned);
+        new Uint8Array(colAttr.array.buffer).set(data.colors);
+        posAttr.needsUpdate = true; colAttr.needsUpdate = true;
+        if (!data.rendered_colors) {
+          const c = colAttr.array;
+          for (let i = 0; i < c.length; i++) c[i] = GAMMA_LUT[(c[i] * 255 + 0.5) | 0];
+        }
+        maybeInitializeCameraTarget(posAttr.array);
+        renderer.domElement.style.visibility = 'visible';
+        needsRender = true;
+      }
+
+      if (data.cam_images) {
+        if (tpCam === 'agentview') updateCamFeed('cam-agentview', data.cam_images.agentview);
+        else refreshTpFeed();
+        for (const f of WRIST_FEEDS)
+          if (data.cam_images[f.label]) updateCamFeed(f.img, data.cam_images[f.label]);
+      }
+      if (data.render_note) blenderDone(data.render_note);
+      if (data.cam_info) camInfo = { ...(UI_CONFIG.static_cam_info || {}), ...data.cam_info };
+      if (!isDualArm && data.fingertip_pos_ui) {
+        lastArmPoses[UI_ARMS[0]] = { pos: new THREE.Vector3(...data.fingertip_pos_ui), euler: data.ee_euler_ui,
+                                     cmdOpen: data.gripper_cmd_open, widthFrac: data.gripper_width_frac };
+        applyAllGripperWidths();
+      }
+      if (isDualArm && data.arm_poses) {
+        for (const [arm, ap] of Object.entries(data.arm_poses)) {
+          lastArmPoses[arm] = {
+            pos: new THREE.Vector3(...ap.fingertip_pos_ui), euler: ap.ee_euler_ui,
+            cmdOpen: ap.gripper_cmd_open, widthFrac: ap.gripper_open,
+          };
+        }
+        applyAllGripperWidths();
+        UI_ARMS.forEach((arm, i) => {
+          if (!armSynced[arm] && controlPoints[i] && lastArmPoses[arm]) {
+            snapGripperToArmPose(i);
+            armSynced[arm] = true;
+          }
+        });
+      }
+
+      if (selectedObject && freshWaypoint) {
+        needsRender = true;
+        const arm = pendingExecArm || UI_ARMS[selectedArmIdx];
+        pendingExecArm = null;
+        snapGripperToArmPose(UI_ARMS.indexOf(arm));
+      }
+    }
+
+    function pickPointCloudFromCamUV(camLabel, uFrac, vFrac, requireCylinderHit = false) {
+      const info = camInfo[camLabel];
+      if (!info) return null;
+      const u = uFrac * info.img_size;
+      const v = vFrac * info.img_size;
+      const K  = info.K;
+      const f  = K[0], cx = K[2], cy = K[5];
+      const dc = [(u - cx) / f, (v - cy) / f, 1.0];
+      const E = info.E;
+      const ox = E[3], oy = E[7], oz = E[11];
+      const wx = E[0]*dc[0]+E[1]*dc[1]+E[2]*dc[2];
+      const wy = E[4]*dc[0]+E[5]*dc[1]+E[6]*dc[2];
+      const wz = E[8]*dc[0]+E[9]*dc[1]+E[10]*dc[2];
+      const oui_x = 10*ox, oui_y = 10*(oz - UI_Z_OFFSET), oui_z = -10*oy;
+      const dLen = Math.sqrt(wx*wx + wy*wy + wz*wz);
+      const dnx = wx/dLen, dny = wz/dLen, dnz = -wy/dLen;
+
+      const WRIST_GRIPPER_MARGIN_UI = 0.3;
+      let minDepth = 0;
+      let wristTip = null;
+      if (camLabel.indexOf('wrist') === 0) {
+        const arm = isDualArm && UI_CONFIG.wrist_arms ? UI_CONFIG.wrist_arms[camLabel]
+                  : (camLabel === 'wrist' ? UI_ARMS[0] : null);
+        wristTip = arm && lastArmPoses[arm] ? lastArmPoses[arm].pos : null;
+      }
+      if (wristTip) {
+        const fingertipDepth =
+          (wristTip.x - oui_x) * dnx +
+          (wristTip.y - oui_y) * dny +
+          (wristTip.z - oui_z) * dnz;
+        minDepth = Math.max(0, fingertipDepth + WRIST_GRIPPER_MARGIN_UI);
+      }
+      const p = pickCloudPointAlongRay(oui_x, oui_y, oui_z, dnx, dny, dnz, minDepth, requireCylinderHit);
+      if (!p) return null;
+      return { x: p.x, y: p.y, z: p.z };
+    }
+
+    function handleCamImageClick(e, imgEl, camLabel) {
+      const rect = imgEl.getBoundingClientRect();
+      const hit = pickPointCloudFromCamUV(camLabel,
+        (e.clientX - rect.left) / rect.width, (e.clientY - rect.top) / rect.height);
+      if (!hit) return;
+      const p = new THREE.Vector3(hit.x, hit.y, hit.z);
+      cubeMesh.position.copy(p);
+      cubeMesh.visible = true;
+      moveSelectedObjectToPos(p);
+    }
+
+    window.previewContactPointUI = function(x, y) {
+      const el = document.elementFromPoint(x, y);
+      const wf = WRIST_FEEDS.find(f => el === document.getElementById(f.img));
+      if (el === camAgentEl || wf) {
+        const rect = el.getBoundingClientRect();
+        const hit = pickPointCloudFromCamUV(
+          wf ? wf.label : tpCam,
+          (x - rect.left) / rect.width, (y - rect.top) / rect.height, true);
+        return { surface: wf ? wf.name : tpCam, point: hit };
+      }
+      if (el === renderer.domElement && selectedObject) {
+        const ev = { clientX: x, clientY: y };
+        if (hitsGripper(ev)) return { surface: 'gripper', point: null };
+        const r = buildRaycaster(ev);
+        const O = r.ray.origin, D = r.ray.direction;
+        const p = pickCloudPointAlongRay(O.x, O.y, O.z, D.x, D.y, D.z, 0, true);
+        return { surface: 'pointcloud', point: p ? { x: p.x, y: p.y, z: p.z } : null };
+      }
+      return { surface: 'other', point: null };
+    };
+
+    camAgentEl.addEventListener('click', e => {
+      handleCamImageClick(e, e.currentTarget, tpCam);
+    });
+    for (const f of WRIST_FEEDS) {
+      document.getElementById(f.img).addEventListener('click', e => {
+        handleCamImageClick(e, e.currentTarget, f.label);
+      });
+    }
+
+    (function () {
+      const get = path => fetch(JSON_BASE + path, { cache: 'no-store' });
+      const esc = t => t.replace(/</g, '&lt;');
+      let labelled = false, basePos = null, objectsServed = true, pending = false;
+
+      async function labelTask(e) {
+        labelled = true;
+        basePos = e.robot_base.slice(0, 2);
+        document.getElementById('status-task').textContent = e.task;
+        document.getElementById('status-lang').textContent = e.language || '';
+        document.title = (location.port ? ':' + location.port + ' · ' : '') + e.task;
+        const r = await get('/success_spec');
+        const j = r.ok ? await r.json() : null;
+        if (j && j.rows && j.rows.length) {
+          document.getElementById('success-rows').innerHTML = j.rows.map(
+            ([d, txt], i) => `<div class="crit-row" data-row="${i}" style="padding-left:${d * 10}px">` +
+              (d ? '&bull; ' : '') + esc(txt) + '</div>').join('')
+            + ((j.preds || []).length
+               ? '<div class="pchips">' + j.preds.map(
+                   p => '<span class="pchip">' + esc(p) + '</span>').join('') + '</div>'
+               : '');
+          document.getElementById('success-crit').style.display = 'block';
+        }
+      }
+      async function criteriaState() {
+        const rows = document.querySelectorAll('#success-rows .crit-row');
+        if (!rows.length) return;
+        const st = await get('/success_state').then(r => r.ok ? r.json() : null).catch(() => null);
+        if (st && st.state) rows.forEach(el => {
+          el.classList.toggle('crit-ok', st.state[+el.dataset.row] === true);
+        });
+      }
+      function stepReadout(e) {
+        const el = document.getElementById('step-readout');
+        el.style.display = 'block';
+        el.textContent = 'sim steps ' + e.sim_steps_used + ' / ' + e.sim_steps_budget;
+      }
+      async function objectPoses() {
+        try {
+          const r = await get('/objects');
+          if (r.status === 403) { objectsServed = false; return; }
+          const objs = (await r.json()).objects;
+          const yawOf = q => Math.atan2(2 * (q[0] * q[3] + q[1] * q[2]),
+                                        1 - 2 * (q[2] * q[2] + q[3] * q[3])) * 180 / Math.PI;
+          const rows = Object.keys(objs).sort((a, b) => objs[a].num - objs[b].num).map(n => {
+            const o = objs[n], p = o.pose;
+            const d = Math.hypot(p[0] - basePos[0], p[1] - basePos[1]);
+            const side = p[1] > 0.02 ? 'L' : (p[1] < -0.02 ? 'R' : '·');
+            return '<tr><td>#' + o.num + '</td><td>' + n.replace(/_1_main$|_main$/, '') +
+                   '</td><td>' + (p[0] * 100).toFixed(1) + '</td><td>' +
+                   (p[1] * 100).toFixed(1) + '</td><td>' + side + '</td><td>' +
+                   yawOf(p.slice(3)).toFixed(0) + '&deg;</td><td>' +
+                   (d * 100).toFixed(1) + '</td></tr>';
+          }).join('');
+          document.getElementById('obj-poses').innerHTML =
+            '<table><tr><th></th><th>object</th><th>x cm</th><th>y cm</th>' +
+            '<th>side</th><th>yaw</th><th>from base</th></tr>' + rows + '</table>';
+        } catch (_) {}
+      }
+      async function poll() {
+        if (pending) return;
+        pending = true;
+        try {
+          await criteriaState();
+          if (!labelled || UI_CONFIG.teleop) {
+            const e = await get('/env.json').then(r => r.json()).catch(() => null);
+            if (e && UI_CONFIG.teleop) stepReadout(e);
+            if (e && !labelled && e.task) await labelTask(e);
+          }
+          if (labelled && objectsServed) await objectPoses();
+        } finally { pending = false; }
+      }
+      setInterval(poll, 500);
+    })();
+
+    function gripperState() {
+      const obj = selectedObject;
+      const q = obj.quaternion;
+      const toRobotDir = (v) => ({ x: v.x, y: -v.z, z: v.y });
+      return {
+        ui_position: { x: obj.position.x, y: obj.position.y, z: obj.position.z },
+        robot_approach: toRobotDir(new THREE.Vector3(0, -1, 0).applyQuaternion(q)),
+        robot_opening: toRobotDir(new THREE.Vector3(0, 0, 1).applyQuaternion(q)),
+        gripper_open: jawsOpen[controlPoints.indexOf(obj)],
+      };
+    }
+    function cameraState() {
+      const dx = camera.position.x - cameraTarget.x;
+      const dy = camera.position.y - cameraTarget.y;
+      const dz = camera.position.z - cameraTarget.z;
+      const distance = Math.hypot(dx, dy, dz);
+      return {
+        target: { x: cameraTarget.x, y: cameraTarget.y, z: cameraTarget.z },
+        distance,
+        azimuth: distance > 1e-9 ? (Math.atan2(dx, dz) * 180 / Math.PI + 360) % 360 : 0,
+        elevation: distance > 1e-9 ? Math.asin(dy / distance) * 180 / Math.PI : 0,
+      };
+    }
+    const uiState = () => ({ gripper: gripperState(), camera: cameraState() });
+    const drawn = () => { renderFrame(); return uiState(); };
+
+    function setCameraPose(azDeg, elDeg, radius, t) {
+      if (t) cameraTarget.set(t.x, t.y, t.z);
+      if (radius === null) radius = camera.position.distanceTo(cameraTarget);
+      camera.position.copy(cameraTarget).add(new THREE.Vector3().setFromSphericalCoords(
+        radius, (90 - elDeg) * Math.PI / 180, azDeg * Math.PI / 180));
+      camera.lookAt(cameraTarget);
+    }
+
+    window.roboarcade = {
+      state: uiState,
+
+      selectArm(arm) {
+        selectArm(arm);
+        return drawn();
+      },
+
+      showCursor(x, y, x1, y1) {
+        let ov = document.getElementById('mcp-overlay');
+        if (!ov) {
+          ov = document.createElement('div');
+          ov.id = 'mcp-overlay';
+          Object.assign(ov.style, {position: 'fixed', left: '0', top: '0',
+            width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: '2147483647'});
+          document.body.appendChild(ov);
+        }
+        const drag = x1 === null ? '' : `
+          <g id="mcp-drag" style="transition: opacity 0.8s ease-out">
+            <defs><marker id="mcp-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5"
+                          orient="auto" markerUnits="strokeWidth">
+              <path d="M 0 0 L 7 3.5 L 0 7 z" fill="#fde047"/></marker></defs>
+            <line x1="${x1}" y1="${y1}" x2="${x}" y2="${y}" stroke="#fde047" stroke-width="4"
+                  stroke-linecap="round" opacity="0.96" marker-end="url(#mcp-arrow)"/>
+            <circle cx="${x1}" cy="${y1}" r="10" fill="rgba(0,0,0,0.86)"/>
+            <circle cx="${x1}" cy="${y1}" r="6" fill="#22c55e" stroke="white" stroke-width="2"/>
+            <circle cx="${x}" cy="${y}" r="10" fill="rgba(0,0,0,0.86)"/>
+            <circle cx="${x}" cy="${y}" r="6" fill="#38bdf8" stroke="white" stroke-width="2"/>
+          </g>`;
+        ov.innerHTML = `
+          <svg width="100%" height="100%" aria-hidden="true">${drag}
+            <g transform="translate(${x - 14} ${y - 14})" stroke-linecap="round"
+               style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.85))">
+              <path d="M14 3 V10 M14 18 V25 M3 14 H10 M18 14 H25"
+                    stroke="black" stroke-width="4" fill="none"/>
+              <path d="M14 3 V10 M14 18 V25 M3 14 H10 M18 14 H25"
+                    stroke="white" stroke-width="2" fill="none"/>
+              <circle cx="14" cy="14" r="1.6" fill="white" stroke="black" stroke-width="1"/>
+            </g>
+          </svg>`;
+        const g = ov.querySelector('#mcp-drag');
+        if (g) setTimeout(() => {
+          g.style.opacity = '0';
+          setTimeout(() => g.remove(), 900);
+        }, 5000);
+        return drawn();
+      },
+
+      translate(dx, dy, dz) {
+        selectedObject.position.x += dx * 10;
+        selectedObject.position.y += dz * 10;
+        selectedObject.position.z += -dy * 10;
+        return drawn();
+      },
+
+      rotate(axis, deg) {
+        rotateSelectedObject(axis, deg * Math.PI / 180);
+        return drawn();
+      },
+
+      advance(steps) {
+        for (let i = 0; i < Math.abs(steps); i++) stepAlongApproach(steps > 0 ? 'f' : 'b');
+        return drawn();
+      },
+
+      toggleGripper() {
+        toggleTargetJaws();
+        return drawn();
+      },
+
+      endEpisode(by) {
+        endEpisode(by);
+        return true;
+      },
+
+      reset() {
+        return { ...snapGripperToArmPose(selectedArmIdx), ...drawn() };
+      },
+
+      teleport(x, y) {
+        const el = document.elementFromPoint(x, y);
+        const ev = { clientX: x, clientY: y };
+        const wf = WRIST_FEEDS.find(f => el === document.getElementById(f.img));
+        if (el === renderer.domElement) placeGripper(ev);
+        else if (el === camAgentEl) handleCamImageClick(ev, el, tpCam);
+        else if (wf) handleCamImageClick(ev, el, wf.label);
+        const c = cubeMesh.position;
+        return { ...drawn(),
+                 click: cubeMesh.visible ? { x: c.x, y: c.y, z: c.z } : null };
+      },
+
+      guides(kind) {
+        setGizmoHold(kind === 'gizmo');
+        updateGuideCylinder(kind !== 'none');
+        if (kind === 'none') arrowHelper.visible = false;
+        return drawn();
+      },
+
+      cameraOrbit(dAz, dEl) {
+        const cam = cameraState();
+        const wanted = cam.elevation + dEl;
+        const el = Math.min(Math.max(wanted, 0), TOP_ELEVATION_DEG);
+        setCameraPose(((cam.azimuth + dAz) % 360 + 360) % 360, el, null, null);
+        return { ...drawn(), elevation_wanted: wanted, elevation_set: el };
+      },
+
+      cameraSet(azDeg, elDeg, radius, target) {
+        setCameraPose(azDeg, elDeg, radius, target);
+        return drawn();
+      },
+
+      cameraPan(dRight, dUp) {
+        camera.updateMatrixWorld();
+        const e = camera.matrixWorld.elements;
+        const right = new THREE.Vector3(e[0], e[1], e[2]);
+        right.y = 0;
+        if (right.lengthSq() < 1e-9) { right.set(1, 0, 0); }
+        right.normalize();
+        const delta = new THREE.Vector3().addScaledVector(right, dRight);
+        delta.y += dUp;
+        camera.position.add(delta);
+        cameraTarget.add(delta);
+        camera.lookAt(cameraTarget);
+        return drawn();
+      },
+
+      cameraZoom(x, y, steps) {
+        if (document.elementFromPoint(x, y) === renderer.domElement) {
+          for (let i = 0; i < Math.abs(steps); i++) {
+            zoomCameraAtPointer({ clientX: x, clientY: y, deltaY: steps > 0 ? -100 : 100 });
+          }
+        }
+        return drawn();
+      },
+
+      cameraReset() {
+        resetCameraView();
+        return drawn();
+      },
+
+      selectFeed: (name) => window.__setTpCam(name),
+
+      recordWaypoint() {
+        const before = window.__waypointDoneCount || 0;
+        executeWaypoint();
+        return { ...drawn(), waypointDone: before };
+      },
+
+      home(arm) {
+        return { ...homeArm(arm), ...drawn() };
+      },
+    };
+
+    for (const [action, fn] of Object.entries(window.roboarcade)) {
+      if (action === 'state') continue;
+      window.roboarcade[action] = (...args) => {
+        inputLog.push({ type: 'api', action, args, t: Date.now(),
+                        frame: captureFrame(), cam0: camPose() });
+        return fn(...args);
+      };
+    }
+
+    let lastActivity = performance.now(), needsRender = true;
+    const touch = () => { lastActivity = performance.now(); };
+    for (const ev of ['pointerdown', 'pointermove', 'pointerup', 'wheel', 'keydown', 'keyup'])
+      window.addEventListener(ev, touch, { capture: true, passive: true });
+    (function animate() {
+      requestAnimationFrame(animate);
+      const now = performance.now();
+      if (now - lastActivity < 500 || needsRender) {
+        renderFrame(); needsRender = false;
+      }
+    })();
+
+  </script>
+
+</body>
+</html>

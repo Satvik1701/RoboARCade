@@ -1,0 +1,8 @@
+{
+  "name": "via-bimanual-cam",
+  "version": 1,
+  "description": "via-bimanual-cam: the 21 VIA tools with right/left arm semantics plus gripper_home (joint-space return of either arm to its start pose), camera_views (gallery of every selectable camera), camera_feed_select (sticky 3rd-person feed switch), and camera_raw (any single camera at native render fidelity).",
+  "arms": 2,
+  "tools": 25,
+  "source": "interfaces/via_cam subclassed with dual-arm wording (via_cam.py links to its tools.py)"
+}

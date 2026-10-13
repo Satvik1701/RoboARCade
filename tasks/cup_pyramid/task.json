@@ -1,0 +1,547 @@
+{
+ "spec_version": 1,
+ "family": "pix2dex",
+ "name": "cup_stack/pyramid",
+ "language": "Turn the three cups upside down and build a pyramid.",
+ "scene": "scene.xml",
+ "support": [
+  "play_table"
+ ],
+ "robots": [
+  {
+   "name": "move",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    -0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  },
+  {
+   "name": "hold",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "tpview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "move"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "hold"
+  },
+  {
+   "name": "pcleft",
+   "role": "pc"
+  },
+  {
+   "name": "pcright",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "cup_slot_b",
+  "cup_slot_c",
+  "cup_slot_e"
+ ],
+ "randomization": {
+  "full_rand": true,
+  "groups": [
+   [
+    "cup_slot_b"
+   ],
+   [
+    "cup_slot_c"
+   ],
+   [
+    "cup_slot_e"
+   ]
+  ],
+  "lift_reach": {
+   "cup_slot_b": 0.14,
+   "cup_slot_c": 0.14,
+   "cup_slot_e": 0.14
+  },
+  "min_sep": [
+   [
+    "cup_slot_b",
+    "cup_slot_c",
+    0.0863076
+   ],
+   [
+    "cup_slot_b",
+    "cup_slot_e",
+    0.0863076
+   ],
+   [
+    "cup_slot_c",
+    "cup_slot_e",
+    0.0863076
+   ]
+  ],
+  "grasp_clearance": 0.02,
+  "region": {
+   "x": [
+    0,
+    0
+   ],
+   "y": [
+    0,
+    0
+   ],
+   "yaw": [
+    0,
+    0
+   ]
+  }
+ },
+ "success": {
+  "pred": "hold",
+  "steps": 20,
+  "of": {
+   "pred": "all",
+   "of": [
+    {
+     "pred": "any",
+     "of": [
+      {
+       "pred": "all",
+       "of": [
+        {
+         "pred": "axis_dot",
+         "obj": "cup_slot_b",
+         "min_dot": 0.7,
+         "world_axis": [
+          0,
+          0,
+          -1
+         ]
+        },
+        {
+         "pred": "axis_dot",
+         "obj": "cup_slot_c",
+         "min_dot": 0.7,
+         "world_axis": [
+          0,
+          0,
+          -1
+         ]
+        },
+        {
+         "pred": "axis_dot",
+         "obj": "cup_slot_e",
+         "min_dot": 0.7,
+         "world_axis": [
+          0,
+          0,
+          -1
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "lift_above",
+           "obj": "cup_slot_c",
+           "z_above": 0.77921
+          },
+          {
+           "pred": "z_below",
+           "obj": "cup_slot_c",
+           "z_below": 0.8792099999999999
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "lift_above",
+           "obj": "cup_slot_e",
+           "z_above": 0.77921
+          },
+          {
+           "pred": "z_below",
+           "obj": "cup_slot_e",
+           "z_below": 0.8792099999999999
+          }
+         ]
+        },
+        {
+         "pred": "touching_part",
+         "a": "cup_slot_c",
+         "b": "play_table"
+        },
+        {
+         "pred": "touching_part",
+         "a": "cup_slot_e",
+         "b": "play_table"
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "lift_above",
+           "obj": "cup_slot_b",
+           "z_above": 0.8792099999999999
+          },
+          {
+           "pred": "z_below",
+           "obj": "cup_slot_b",
+           "z_below": 0.9992099999999999
+          }
+         ]
+        },
+        {
+         "pred": "within_dist",
+         "a": "cup_slot_b",
+         "b": "cup_slot_c",
+         "tol": 0.06,
+         "axes": "xy"
+        },
+        {
+         "pred": "within_dist",
+         "a": "cup_slot_b",
+         "b": "cup_slot_e",
+         "tol": 0.06,
+         "axes": "xy"
+        },
+        {
+         "pred": "touching_part",
+         "a": "cup_slot_b",
+         "b": "cup_slot_c"
+        },
+        {
+         "pred": "touching_part",
+         "a": "cup_slot_b",
+         "b": "cup_slot_e"
+        }
+       ]
+      },
+      {
+       "pred": "all",
+       "of": [
+        {
+         "pred": "axis_dot",
+         "obj": "cup_slot_b",
+         "min_dot": 0.7,
+         "world_axis": [
+          0,
+          0,
+          -1
+         ]
+        },
+        {
+         "pred": "axis_dot",
+         "obj": "cup_slot_c",
+         "min_dot": 0.7,
+         "world_axis": [
+          0,
+          0,
+          -1
+         ]
+        },
+        {
+         "pred": "axis_dot",
+         "obj": "cup_slot_e",
+         "min_dot": 0.7,
+         "world_axis": [
+          0,
+          0,
+          -1
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "lift_above",
+           "obj": "cup_slot_b",
+           "z_above": 0.77921
+          },
+          {
+           "pred": "z_below",
+           "obj": "cup_slot_b",
+           "z_below": 0.8792099999999999
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "lift_above",
+           "obj": "cup_slot_e",
+           "z_above": 0.77921
+          },
+          {
+           "pred": "z_below",
+           "obj": "cup_slot_e",
+           "z_below": 0.8792099999999999
+          }
+         ]
+        },
+        {
+         "pred": "touching_part",
+         "a": "cup_slot_b",
+         "b": "play_table"
+        },
+        {
+         "pred": "touching_part",
+         "a": "cup_slot_e",
+         "b": "play_table"
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "lift_above",
+           "obj": "cup_slot_c",
+           "z_above": 0.8792099999999999
+          },
+          {
+           "pred": "z_below",
+           "obj": "cup_slot_c",
+           "z_below": 0.9992099999999999
+          }
+         ]
+        },
+        {
+         "pred": "within_dist",
+         "a": "cup_slot_c",
+         "b": "cup_slot_b",
+         "tol": 0.06,
+         "axes": "xy"
+        },
+        {
+         "pred": "within_dist",
+         "a": "cup_slot_c",
+         "b": "cup_slot_e",
+         "tol": 0.06,
+         "axes": "xy"
+        },
+        {
+         "pred": "touching_part",
+         "a": "cup_slot_c",
+         "b": "cup_slot_b"
+        },
+        {
+         "pred": "touching_part",
+         "a": "cup_slot_c",
+         "b": "cup_slot_e"
+        }
+       ]
+      },
+      {
+       "pred": "all",
+       "of": [
+        {
+         "pred": "axis_dot",
+         "obj": "cup_slot_b",
+         "min_dot": 0.7,
+         "world_axis": [
+          0,
+          0,
+          -1
+         ]
+        },
+        {
+         "pred": "axis_dot",
+         "obj": "cup_slot_c",
+         "min_dot": 0.7,
+         "world_axis": [
+          0,
+          0,
+          -1
+         ]
+        },
+        {
+         "pred": "axis_dot",
+         "obj": "cup_slot_e",
+         "min_dot": 0.7,
+         "world_axis": [
+          0,
+          0,
+          -1
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "lift_above",
+           "obj": "cup_slot_b",
+           "z_above": 0.77921
+          },
+          {
+           "pred": "z_below",
+           "obj": "cup_slot_b",
+           "z_below": 0.8792099999999999
+          }
+         ]
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "lift_above",
+           "obj": "cup_slot_c",
+           "z_above": 0.77921
+          },
+          {
+           "pred": "z_below",
+           "obj": "cup_slot_c",
+           "z_below": 0.8792099999999999
+          }
+         ]
+        },
+        {
+         "pred": "touching_part",
+         "a": "cup_slot_b",
+         "b": "play_table"
+        },
+        {
+         "pred": "touching_part",
+         "a": "cup_slot_c",
+         "b": "play_table"
+        },
+        {
+         "pred": "all",
+         "of": [
+          {
+           "pred": "lift_above",
+           "obj": "cup_slot_e",
+           "z_above": 0.8792099999999999
+          },
+          {
+           "pred": "z_below",
+           "obj": "cup_slot_e",
+           "z_below": 0.9992099999999999
+          }
+         ]
+        },
+        {
+         "pred": "within_dist",
+         "a": "cup_slot_e",
+         "b": "cup_slot_b",
+         "tol": 0.06,
+         "axes": "xy"
+        },
+        {
+         "pred": "within_dist",
+         "a": "cup_slot_e",
+         "b": "cup_slot_c",
+         "tol": 0.06,
+         "axes": "xy"
+        },
+        {
+         "pred": "touching_part",
+         "a": "cup_slot_e",
+         "b": "cup_slot_b"
+        },
+        {
+         "pred": "touching_part",
+         "a": "cup_slot_e",
+         "b": "cup_slot_c"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "pred": "robot_clear",
+     "bodies": [
+      "cup_slot_b",
+      "cup_slot_c",
+      "cup_slot_e"
+     ]
+    }
+   ]
+  }
+ },
+ "termination": {
+  "max_len": 5000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   0.25,
+   1.26
+  ],
+  "y": [
+   -0.72,
+   0.72
+  ],
+  "z": [
+   0.74,
+   1.25
+  ],
+  "z_min_crop_table": 0.78921,
+  "z_offset": 0.77921,
+  "crop_table": false
+ },
+ "category": "game"
+}

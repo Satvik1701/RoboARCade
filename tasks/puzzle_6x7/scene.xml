@@ -1,0 +1,747 @@
+<mujoco model="base">
+  <compiler angle="radian" />
+  <option impratio="20" density="1.2" viscosity="2e-05" cone="elliptic" />
+  <size njmax="5000" nconmax="5000" nuserdata="84" />
+  <visual>
+    <map znear="0.001" />
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.9 0.9 1" rgb2="0.2 0.3 0.4" width="256" height="1536" />
+    <texture type="cube" name="textable" builtin="flat" rgb1="0.5 0.5 0.5" width="512" height="3072" />
+    <material name="table_mat" texture="textable" />
+  </asset>
+
+  <worldbody>
+    <geom name="floor" size="3 3 0.125" type="plane" group="1" rgba="0.78 0.78 0.8 1" />
+    <geom name="wall_leftcorner_visual" size="1.06 1.5 0.01" pos="-1.25 2.25 1.5" quat="0.653281 0.653281 0.270598 0.270598" type="box" contype="0" conaffinity="0" group="1" rgba="0.87 0.87 0.87 1" />
+    <geom name="wall_rightcorner_visual" size="1.06 1.5 0.01" pos="-1.25 -2.25 1.5" quat="0.653281 0.653281 -0.270598 -0.270598" type="box" contype="0" conaffinity="0" group="1" rgba="0.87 0.87 0.87 1" />
+    <geom name="wall_left_visual" size="1.75 1.5 0.01" pos="1.25 3 1.5" quat="0.707107 0.707107 0 0" type="box" contype="0" conaffinity="0" group="1" rgba="0.87 0.87 0.87 1" />
+    <geom name="wall_right_visual" size="1.75 1.5 0.01" pos="1.25 -3 1.5" quat="0.707107 -0.707107 0 0" type="box" contype="0" conaffinity="0" group="1" rgba="0.87 0.87 0.87 1" />
+    <geom name="wall_rear_visual" size="1.5 1.5 0.01" pos="-2 0 1.5" quat="0.5 0.5 0.5 0.5" type="box" contype="0" conaffinity="0" group="1" rgba="0.87 0.87 0.87 1" />
+    <geom name="wall_front_visual" size="3 1.5 0.01" pos="3 0 1.5" quat="0.5 0.5 -0.5 -0.5" type="box" contype="0" conaffinity="0" group="1" rgba="0.87 0.87 0.87 1" />
+    <camera name="agentview" pos="0.5 0 1.35" quat="0.653098 0.271041 0.271041 0.653098" fovy="55" />
+    <camera name="leftview" pos="0.338472 -0.389964 1.35" quat="0.853314 0.354132 0.146686 0.353454" />
+    <camera name="rightview" pos="0.338472 0.389964 1.35" quat="0.353454 0.146686 0.354132 0.853314" />
+    <light pos="1 1 1.5" dir="-0.19245 -0.19245 -0.96225" directional="true" castshadow="false" />
+    <body name="table" pos="0 0 0.775">
+      <geom name="table_collision" size="0.4 0.4 0.025" type="box" rgba="0.5 0.5 0 1" />
+      <geom name="table_visual" size="0.4 0.4 0.025" type="box" contype="0" conaffinity="0" group="1" material="table_mat" />
+      <site name="table_top" pos="0 0 0.025" size="0.001" rgba="0 0 0 0" />
+    </body>
+    <body name="buttonbox_0" pos="-0.350 -0.300 0.848">
+      <geom name="bbox0_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox0_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox0_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox0_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox0_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_0" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_0">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_0" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod0_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck0_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap0_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod0_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_0" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_1" pos="-0.350 -0.200 0.848">
+      <geom name="bbox1_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox1_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox1_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox1_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox1_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_1" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_1">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_1" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod1_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck1_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap1_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod1_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_1" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_2" pos="-0.350 -0.100 0.848">
+      <geom name="bbox2_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox2_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox2_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox2_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox2_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_2" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_2">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_2" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod2_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck2_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap2_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod2_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_2" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_3" pos="-0.350 0.000 0.848">
+      <geom name="bbox3_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox3_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox3_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox3_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox3_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_3" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_3">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_3" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod3_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck3_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap3_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod3_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_3" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_4" pos="-0.350 0.100 0.848">
+      <geom name="bbox4_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox4_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox4_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox4_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox4_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_4" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_4">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_4" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod4_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck4_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap4_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod4_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_4" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_5" pos="-0.350 0.200 0.848">
+      <geom name="bbox5_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox5_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox5_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox5_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox5_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_5" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_5">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_5" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod5_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck5_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap5_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod5_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_5" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_6" pos="-0.350 0.300 0.848">
+      <geom name="bbox6_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox6_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox6_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox6_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox6_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_6" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_6">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_6" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod6_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck6_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap6_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod6_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_6" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_7" pos="-0.250 -0.300 0.848">
+      <geom name="bbox7_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox7_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox7_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox7_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox7_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_7" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_7">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_7" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod7_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck7_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap7_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod7_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_7" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_8" pos="-0.250 -0.200 0.848">
+      <geom name="bbox8_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox8_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox8_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox8_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox8_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_8" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_8">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_8" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod8_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck8_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap8_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod8_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_8" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_9" pos="-0.250 -0.100 0.848">
+      <geom name="bbox9_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox9_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox9_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox9_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox9_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_9" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_9">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_9" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod9_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck9_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap9_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod9_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_9" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_10" pos="-0.250 0.000 0.848">
+      <geom name="bbox10_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox10_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox10_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox10_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox10_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_10" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_10">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_10" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod10_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck10_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap10_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod10_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_10" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_11" pos="-0.250 0.100 0.848">
+      <geom name="bbox11_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox11_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox11_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox11_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox11_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_11" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_11">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_11" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod11_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck11_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap11_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod11_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_11" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_12" pos="-0.250 0.200 0.848">
+      <geom name="bbox12_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox12_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox12_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox12_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox12_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_12" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_12">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_12" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod12_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck12_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap12_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod12_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_12" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_13" pos="-0.250 0.300 0.848">
+      <geom name="bbox13_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox13_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox13_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox13_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox13_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_13" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_13">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_13" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod13_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck13_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap13_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod13_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_13" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_14" pos="-0.150 -0.300 0.848">
+      <geom name="bbox14_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox14_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox14_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox14_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox14_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_14" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_14">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_14" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod14_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck14_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap14_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod14_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_14" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_15" pos="-0.150 -0.200 0.848">
+      <geom name="bbox15_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox15_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox15_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox15_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox15_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_15" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_15">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_15" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod15_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck15_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap15_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod15_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_15" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_16" pos="-0.150 -0.100 0.848">
+      <geom name="bbox16_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox16_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox16_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox16_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox16_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_16" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_16">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_16" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod16_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck16_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap16_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod16_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_16" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_17" pos="-0.150 0.000 0.848">
+      <geom name="bbox17_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox17_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox17_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox17_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox17_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_17" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_17">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_17" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod17_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck17_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap17_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod17_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_17" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_18" pos="-0.150 0.100 0.848">
+      <geom name="bbox18_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox18_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox18_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox18_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox18_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_18" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_18">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_18" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod18_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck18_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap18_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod18_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_18" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_19" pos="-0.150 0.200 0.848">
+      <geom name="bbox19_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox19_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox19_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox19_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox19_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_19" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_19">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_19" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod19_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck19_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap19_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod19_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_19" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_20" pos="-0.150 0.300 0.848">
+      <geom name="bbox20_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox20_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox20_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox20_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox20_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_20" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_20">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_20" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod20_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck20_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap20_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod20_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_20" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_21" pos="-0.050 -0.300 0.848">
+      <geom name="bbox21_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox21_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox21_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox21_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox21_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_21" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_21">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_21" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod21_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck21_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap21_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod21_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_21" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_22" pos="-0.050 -0.200 0.848">
+      <geom name="bbox22_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox22_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox22_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox22_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox22_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_22" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_22">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_22" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod22_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck22_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap22_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod22_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_22" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_23" pos="-0.050 -0.100 0.848">
+      <geom name="bbox23_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox23_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox23_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox23_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox23_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_23" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_23">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_23" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod23_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck23_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap23_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod23_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_23" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_24" pos="-0.050 0.000 0.848">
+      <geom name="bbox24_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox24_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox24_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox24_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox24_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_24" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_24">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_24" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod24_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck24_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap24_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod24_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_24" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_25" pos="-0.050 0.100 0.848">
+      <geom name="bbox25_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox25_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox25_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox25_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox25_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_25" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_25">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_25" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod25_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck25_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap25_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod25_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_25" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_26" pos="-0.050 0.200 0.848">
+      <geom name="bbox26_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox26_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox26_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox26_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox26_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_26" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_26">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_26" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod26_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck26_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap26_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod26_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_26" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_27" pos="-0.050 0.300 0.848">
+      <geom name="bbox27_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox27_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox27_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox27_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox27_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_27" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_27">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_27" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod27_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck27_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap27_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod27_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_27" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_28" pos="0.050 -0.300 0.848">
+      <geom name="bbox28_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox28_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox28_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox28_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox28_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_28" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_28">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_28" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod28_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck28_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap28_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod28_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_28" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_29" pos="0.050 -0.200 0.848">
+      <geom name="bbox29_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox29_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox29_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox29_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox29_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_29" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_29">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_29" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod29_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck29_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap29_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod29_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_29" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_30" pos="0.050 -0.100 0.848">
+      <geom name="bbox30_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox30_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox30_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox30_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox30_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_30" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_30">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_30" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod30_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck30_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap30_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod30_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_30" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_31" pos="0.050 0.000 0.848">
+      <geom name="bbox31_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox31_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox31_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox31_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox31_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_31" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_31">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_31" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod31_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck31_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap31_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod31_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_31" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_32" pos="0.050 0.100 0.848">
+      <geom name="bbox32_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox32_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox32_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox32_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox32_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_32" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_32">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_32" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod32_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck32_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap32_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod32_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_32" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_33" pos="0.050 0.200 0.848">
+      <geom name="bbox33_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox33_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox33_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox33_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox33_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_33" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_33">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_33" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod33_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck33_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap33_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod33_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_33" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_34" pos="0.050 0.300 0.848">
+      <geom name="bbox34_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox34_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox34_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox34_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox34_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_34" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_34">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_34" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod34_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck34_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap34_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod34_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_34" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_35" pos="0.150 -0.300 0.848">
+      <geom name="bbox35_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox35_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox35_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox35_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox35_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_35" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_35">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_35" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod35_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck35_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap35_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod35_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_35" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_36" pos="0.150 -0.200 0.848">
+      <geom name="bbox36_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox36_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox36_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox36_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox36_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_36" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_36">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_36" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod36_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck36_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap36_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod36_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_36" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_37" pos="0.150 -0.100 0.848">
+      <geom name="bbox37_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox37_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox37_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox37_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox37_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_37" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_37">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_37" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod37_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck37_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap37_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod37_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_37" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_38" pos="0.150 0.000 0.848">
+      <geom name="bbox38_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox38_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox38_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox38_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox38_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_38" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_38">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_38" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod38_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck38_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap38_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod38_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_38" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_39" pos="0.150 0.100 0.848">
+      <geom name="bbox39_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox39_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox39_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox39_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox39_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_39" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_39">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_39" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod39_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck39_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap39_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod39_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_39" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_40" pos="0.150 0.200 0.848">
+      <geom name="bbox40_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox40_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox40_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox40_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox40_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_40" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_40">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_40" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod40_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck40_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap40_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod40_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_40" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+    <body name="buttonbox_41" pos="0.150 0.300 0.848">
+      <geom name="bbox41_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox41_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox41_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox41_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="bbox41_vis" type="box" pos="0 0 -0.0048" size="0.048 0.048 0.0408" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+      <site name="btntop_41" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_41">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_41" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod41_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bneck41_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="bcap41_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+        <geom name="brod41_vis" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" />
+        <geom name="btngeom_41" type="cylinder" pos="0 0 0.07" size="0.0172 0.0076" contype="0" conaffinity="0" group="1" mass="0" rgba="0.96 0.26 0.33 1" />
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

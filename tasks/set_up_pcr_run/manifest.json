@@ -1,0 +1,21 @@
+{
+ "source": {
+  "repo": "autobio-bench/AutoBio",
+  "paper": "arXiv:2505.14030",
+  "objects": [
+   "model/instrument/thermal_cycler_biorad_c1000.xml",
+   "model/object/pcr_plate_96well.gen.xml"
+  ]
+ },
+ "generated_by": "datagen/autobio/pcr.py",
+ "date": "2026-09-08",
+ "notes": "The 102.00 x 68.00 x 17.17 mm PCR plate starts on the bench and is loaded by the arm. Upstream's visual is 120.00 x 80.00 x 20.20 mm, with its short side exactly equal to the Panda jaw's 80.00 mm maximum opening, so it cannot be released reliably. PLATE_SHRINK=0.85 drives the visual mesh, collision stack, exact-mesh inertia and seat height together. The resulting watertight 11.623 cm^3 mesh compiles to 10.519 g at polypropylene density 905 kg/m^3; collision is a mesh-section-derived stepped silhouette rather than upstream's solid full-flange lattice. The resized 85.85 x 55.25 mm foot fits the reaction block's 110.74 x 73.96 mm top. A standard SBS plate is about 127.8 x 85.5 mm, so the physical seat follows the shipped plate rather than that incompatible nominal footprint. Four collision-backed trapezoidal rails surround the measured 85.85 x 55.25 mm lower skirt with 1.00 mm clearance per side. Their 12.25 mm height and 4.25 mm outward lead-in accept a centre offset of 5 mm, while an insertion 7 mm outside the centre parks at least 6.09 mm above the seated height. The rails use the reaction block's stiff 4 ms contact and sliding friction 0.6. Quasi-static lateral loads of 0.01 to 0.10 N left the plate at most 0.005 mm beyond the 1.00 mm bottom clearance, with at most 0.013 mm rail penetration. Thus only 0.005 mm of the graded +/-1.25 mm band is measured rail compliance; the remaining 0.245 mm is pose tolerance. Its +/-1 mm z box is the guide's physical interior, and touching_part requires support by the block. Four drops from 10 mm up and 5 mm off centre all self-seated at |x| <=0.760 mm and |y| <=0.553 mm. A massless collision-backed heated platen fills the missing underside of the upstream lid, clears a seated plate by at least 1.00 mm, and holds at lid q=+0.00129 when a plate is parked on a rail instead of letting the lid enter its [-1.95,-1.85] closed band.\nThe rejected delivery used a +8 mm grasp and one 170 mm lift: the plate crept from about 3 to 9 mm deep in the tool onto a finger-tooth ledge, and opening dragged it sideways. At a +12 mm release it seated 2/4; the failures were 21.69 and 27.46 mm outside the old seat-frame y band. The accepted delivery grasps at the plate mid-plane, uses <=50 mm carry legs and re-reads the live grasp transform before each leg. Across 12 drawn starts, lift-to-release creep was at most 1.24 mm/1.16 deg. From the remeasured +16 mm release, guide contact occurred in 52--54 ms after opening; its first 20 ms integrated to 7.52--9.14 mN s normal and 5.53--5.98 mN s tangential impulse (35.84 N peak normal). The at-most 2.30 mm post-open translation is the guide centring the plate, and all 12 plates seated with |dx| <=0.72 mm, |dy| <=0.46 mm and tilt <=0.02 deg. Twelve complete arm solves (pick, place, lid, lever, knob and retreat) remained true after 1,250 settled steps and used 1,192--1,431 of the 3,200-step budget; their final plate extrema were |dx| <=0.74 mm, |dy| <=0.43 mm and zero measurable tilt. The success tree makes loading its first stage, restates the seated clauses through every machine-control stage, and finally requires the robot clear of pcr_plate. The C1000 comes from instruments.py's mirror; its lid is over-centre, its lever uses the native replacement detent, and its force knob holds by frictionloss after one wrist roll. A deterministic UV-mapped decal labels the moving knob face FORCE with a pointer mark; it is a massless, non-colliding child of the knob and changes no joint or control geometry. The imported red lid-lever grading site is transparent, so metadata does not render as a floating ball on the instrument.",
+ "files": {
+  "force-knob-label-decal.obj": "5a422926a357a2c9",
+  "force-knob-label.png": "0a7078a2c90fd8c4",
+  "plate-seat-x-rail.obj": "ee52a378c6e4ddc2",
+  "plate-seat-y-rail.obj": "2737e4a7ad2138fa",
+  "scene.xml": "978e20474c21284d",
+  "task.json": "9c3491adc636c1b1"
+ }
+}

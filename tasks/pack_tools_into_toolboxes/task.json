@@ -1,0 +1,774 @@
+{
+ "spec_version": 1,
+ "family": "robodojo",
+ "name": "pack_tools_into_toolboxes",
+ "category": "real_world",
+ "language": "There are two conveyor belts, one carrying tools and the other carrying boxes with cutouts for them. Use both arms to seat every tool in its matching cutout so both boxes are fully packed, then open both grippers and bring both arms back where they started. The task is complete once two boxes are fully packed.",
+ "scene": "scene.xml",
+ "support": [],
+ "robots": [
+  {
+   "name": "move",
+   "model": "franka_panda",
+   "base_pos": [
+    -0.56,
+    -0.3,
+    0.8
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    -0.161037389,
+    0.0,
+    -2.44459747,
+    0.0,
+    2.2267522,
+    0.7853981633974483
+   ]
+  },
+  {
+   "name": "hold",
+   "model": "franka_panda",
+   "base_pos": [
+    -0.56,
+    0.3,
+    0.8
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    -0.161037389,
+    0.0,
+    -2.44459747,
+    0.0,
+    2.2267522,
+    0.7853981633974483
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "agentview",
+   "role": "third_person"
+  },
+  {
+   "name": "leftview",
+   "role": "pc"
+  },
+  {
+   "name": "rightview",
+   "role": "pc"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "move",
+   "src": {
+    "pos": "0.0931 0 0.0072",
+    "quat": "0.177222 0.684538 0.684538 0.177222",
+    "fovy": "65"
+   }
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "hold",
+   "src": {
+    "pos": "0.0931 0 0.0072",
+    "quat": "0.177222 0.684538 0.684538 0.177222",
+    "fovy": "65"
+   }
+  }
+ ],
+ "objects": [
+  "hammer0",
+  "wrench0",
+  "pliers0",
+  "tape_measure0",
+  "hammer1",
+  "wrench1",
+  "pliers1",
+  "tape_measure1",
+  "toolbox0",
+  "toolbox1"
+ ],
+ "conveyor": {
+  "body": "conveyor",
+  "axis": [
+   0,
+   -1,
+   0
+  ],
+  "speed": 0.015,
+  "slab_speeds": {
+   "belt_cases_collision": 0.008
+  },
+  "start": -0.7,
+  "end": 0.7,
+  "exit": "remove",
+  "spawn": {
+   "after": 1.3534,
+   "initial": {
+    "shuffle": [
+     "hammer0",
+     "wrench0",
+     "pliers0",
+     "tape_measure0"
+    ],
+    "spacing": 0.35,
+    "phase": {
+     "items": [
+      "toolbox0"
+     ],
+     "range": [
+      -0.4,
+      -0.4
+     ]
+    }
+   },
+   "items": {
+    "toolbox1": [
+     0.065,
+     0.0,
+     0.8401,
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   },
+   "queue": {
+    "after": 1.15,
+    "poses": {
+     "hammer1": [
+      -0.265,
+      0.0,
+      0.8257940646647332,
+      -0.5117543907481401,
+      -0.49184933485773874,
+      0.5006457432156994,
+      0.4955333611877207
+     ],
+     "wrench1": [
+      -0.265,
+      0.0,
+      0.827548821676831,
+      0.02528,
+      0.00478,
+      -0.70144,
+      0.71227
+     ],
+     "pliers1": [
+      -0.265,
+      0.0,
+      0.8284834351782371,
+      0.01338,
+      0.0109,
+      -0.70582,
+      0.70818
+     ],
+     "tape_measure1": [
+      -0.265,
+      0.0,
+      0.831849253585172,
+      -0.00179,
+      -0.02123,
+      0.72273,
+      -0.6908
+     ]
+    },
+    "spacing": 0.35,
+    "shuffle": true
+   },
+   "jitter": {
+    "lateral": 0.02,
+    "yaw_deg": 10
+   },
+   "box_yaw_deg": [
+    0,
+    90,
+    180,
+    270
+   ]
+  }
+ },
+ "randomization": {
+  "type": "init_states",
+  "states": [
+   {
+    "objects": {
+     "hammer0": [
+      1.4,
+      -0.6,
+      0.010794064664733205,
+      -0.5117543907481401,
+      -0.49184933485773874,
+      0.5006457432156994,
+      0.4955333611877207
+     ],
+     "wrench0": [
+      1.4,
+      -0.19999999999999996,
+      0.012548821676831023,
+      0.02528,
+      0.00478,
+      -0.70144,
+      0.71227
+     ],
+     "pliers0": [
+      1.4,
+      0.20000000000000007,
+      0.013483435178237135,
+      0.01338,
+      0.0109,
+      -0.70582,
+      0.70818
+     ],
+     "tape_measure0": [
+      1.4,
+      0.6000000000000002,
+      0.016849253585172086,
+      -0.00179,
+      -0.02123,
+      0.72273,
+      -0.6908
+     ],
+     "hammer1": [
+      1.8,
+      -0.6,
+      0.010794064664733205,
+      -0.5117543907481401,
+      -0.49184933485773874,
+      0.5006457432156994,
+      0.4955333611877207
+     ],
+     "wrench1": [
+      1.8,
+      -0.19999999999999996,
+      0.012548821676831023,
+      0.02528,
+      0.00478,
+      -0.70144,
+      0.71227
+     ],
+     "pliers1": [
+      1.8,
+      0.20000000000000007,
+      0.013483435178237135,
+      0.01338,
+      0.0109,
+      -0.70582,
+      0.70818
+     ],
+     "tape_measure1": [
+      1.8,
+      0.6000000000000002,
+      0.016849253585172086,
+      -0.00179,
+      -0.02123,
+      0.72273,
+      -0.6908
+     ],
+     "toolbox0": [
+      0.065,
+      0.2534,
+      0.8401,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "toolbox1": [
+      2.3,
+      0.0,
+      0.02510000000000001,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    },
+    "joints": {}
+   }
+  ],
+  "groups": [
+   [
+    "hammer0"
+   ],
+   [
+    "wrench0"
+   ],
+   [
+    "pliers0"
+   ],
+   [
+    "tape_measure0"
+   ],
+   [
+    "hammer1"
+   ],
+   [
+    "wrench1"
+   ],
+   [
+    "pliers1"
+   ],
+   [
+    "tape_measure1"
+   ],
+   [
+    "toolbox0"
+   ],
+   [
+    "toolbox1"
+   ]
+  ],
+  "full_rand": false,
+  "grasp_clearance": 0.002,
+  "region": {
+   "x": [
+    0.0,
+    0.0
+   ],
+   "y": [
+    0.0,
+    0.0
+   ],
+   "yaw": [
+    0.0,
+    0.0
+   ]
+  }
+ },
+ "success": {
+  "pred": "sequence",
+  "of": [
+   {
+    "pred": "all",
+    "hold": 20,
+    "of": [
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "pose_within",
+        "obj": "hammer0",
+        "rel_to": "toolbox0",
+        "pos": [
+         0.02105573495159139,
+         0.00967632812402739,
+         -0.012205935335266848
+        ],
+        "quat": [
+         0.2952809078552302,
+         0.30677086204324455,
+         0.6312317851639321,
+         0.6482708183746906
+        ],
+        "pos_tol": 0.012,
+        "rot_tol_deg": 15
+       },
+       {
+        "pred": "in_bbox",
+        "a": "hammer0",
+        "b": "toolbox0"
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "pose_within",
+        "obj": "pliers0",
+        "rel_to": "toolbox0",
+        "pos": [
+         -0.017805165923998712,
+         -0.05270414678889236,
+         -0.009516564821762866
+        ],
+        "quat": [
+         0.6339431786891917,
+         -0.6422288781782778,
+         0.29298933501728497,
+         -0.3159335103996464
+        ],
+        "pos_tol": 0.01,
+        "rot_tol_deg": 15
+       },
+       {
+        "pred": "in_bbox",
+        "a": "pliers0",
+        "b": "toolbox0"
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "pose_within",
+        "obj": "tape_measure0",
+        "rel_to": "toolbox0",
+        "pos": [
+         -0.08856416604326456,
+         -0.0652194101616544,
+         -0.006150746414827945
+        ],
+        "quat": [
+         -0.6772636874471636,
+         0.703957881822565,
+         0.16502322994017407,
+         -0.13609460593818792
+        ],
+        "pos_tol": 0.01,
+        "rot_tol_deg": 18
+       },
+       {
+        "pred": "in_bbox",
+        "a": "tape_measure0",
+        "b": "toolbox0"
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "pose_within",
+        "obj": "wrench0",
+        "rel_to": "toolbox0",
+        "pos": [
+         0.0743051507223057,
+         0.04840737771880153,
+         -0.010451178323168952
+        ],
+        "quat": [
+         0.35412027374936855,
+         -0.3224756861633467,
+         -0.6229368778885054,
+         0.6185195736754595
+        ],
+        "pos_tol": 0.01,
+        "rot_tol_deg": 15
+       },
+       {
+        "pred": "in_bbox",
+        "a": "wrench0",
+        "b": "toolbox0"
+       }
+      ]
+     },
+     {
+      "pred": "robot_clear",
+      "bodies": [
+       "hammer0",
+       "wrench0",
+       "pliers0",
+       "tape_measure0",
+       "toolbox0"
+      ]
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "hold": 20,
+    "of": [
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "pose_within",
+        "obj": "hammer0",
+        "rel_to": "toolbox0",
+        "pos": [
+         0.02105573495159139,
+         0.00967632812402739,
+         -0.012205935335266848
+        ],
+        "quat": [
+         0.2952809078552302,
+         0.30677086204324455,
+         0.6312317851639321,
+         0.6482708183746906
+        ],
+        "pos_tol": 0.012,
+        "rot_tol_deg": 15
+       },
+       {
+        "pred": "in_bbox",
+        "a": "hammer0",
+        "b": "toolbox0"
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "pose_within",
+        "obj": "pliers0",
+        "rel_to": "toolbox0",
+        "pos": [
+         -0.017805165923998712,
+         -0.05270414678889236,
+         -0.009516564821762866
+        ],
+        "quat": [
+         0.6339431786891917,
+         -0.6422288781782778,
+         0.29298933501728497,
+         -0.3159335103996464
+        ],
+        "pos_tol": 0.01,
+        "rot_tol_deg": 15
+       },
+       {
+        "pred": "in_bbox",
+        "a": "pliers0",
+        "b": "toolbox0"
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "pose_within",
+        "obj": "tape_measure0",
+        "rel_to": "toolbox0",
+        "pos": [
+         -0.08856416604326456,
+         -0.0652194101616544,
+         -0.006150746414827945
+        ],
+        "quat": [
+         -0.6772636874471636,
+         0.703957881822565,
+         0.16502322994017407,
+         -0.13609460593818792
+        ],
+        "pos_tol": 0.01,
+        "rot_tol_deg": 18
+       },
+       {
+        "pred": "in_bbox",
+        "a": "tape_measure0",
+        "b": "toolbox0"
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "pose_within",
+        "obj": "wrench0",
+        "rel_to": "toolbox0",
+        "pos": [
+         0.0743051507223057,
+         0.04840737771880153,
+         -0.010451178323168952
+        ],
+        "quat": [
+         0.35412027374936855,
+         -0.3224756861633467,
+         -0.6229368778885054,
+         0.6185195736754595
+        ],
+        "pos_tol": 0.01,
+        "rot_tol_deg": 15
+       },
+       {
+        "pred": "in_bbox",
+        "a": "wrench0",
+        "b": "toolbox0"
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "pose_within",
+        "obj": "hammer1",
+        "rel_to": "toolbox1",
+        "pos": [
+         0.02105573495159139,
+         0.00967632812402739,
+         -0.012205935335266848
+        ],
+        "quat": [
+         0.2952809078552302,
+         0.30677086204324455,
+         0.6312317851639321,
+         0.6482708183746906
+        ],
+        "pos_tol": 0.012,
+        "rot_tol_deg": 15
+       },
+       {
+        "pred": "in_bbox",
+        "a": "hammer1",
+        "b": "toolbox1"
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "pose_within",
+        "obj": "pliers1",
+        "rel_to": "toolbox1",
+        "pos": [
+         -0.017805165923998712,
+         -0.05270414678889236,
+         -0.009516564821762866
+        ],
+        "quat": [
+         0.6339431786891917,
+         -0.6422288781782778,
+         0.29298933501728497,
+         -0.3159335103996464
+        ],
+        "pos_tol": 0.01,
+        "rot_tol_deg": 15
+       },
+       {
+        "pred": "in_bbox",
+        "a": "pliers1",
+        "b": "toolbox1"
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "pose_within",
+        "obj": "tape_measure1",
+        "rel_to": "toolbox1",
+        "pos": [
+         -0.08856416604326456,
+         -0.0652194101616544,
+         -0.006150746414827945
+        ],
+        "quat": [
+         -0.6772636874471636,
+         0.703957881822565,
+         0.16502322994017407,
+         -0.13609460593818792
+        ],
+        "pos_tol": 0.01,
+        "rot_tol_deg": 18
+       },
+       {
+        "pred": "in_bbox",
+        "a": "tape_measure1",
+        "b": "toolbox1"
+       }
+      ]
+     },
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "pose_within",
+        "obj": "wrench1",
+        "rel_to": "toolbox1",
+        "pos": [
+         0.0743051507223057,
+         0.04840737771880153,
+         -0.010451178323168952
+        ],
+        "quat": [
+         0.35412027374936855,
+         -0.3224756861633467,
+         -0.6229368778885054,
+         0.6185195736754595
+        ],
+        "pos_tol": 0.01,
+        "rot_tol_deg": 15
+       },
+       {
+        "pred": "in_bbox",
+        "a": "wrench1",
+        "b": "toolbox1"
+       }
+      ]
+     },
+     {
+      "pred": "gripper_open",
+      "min": 0.5
+     },
+     {
+      "pred": "robot_clear",
+      "bodies": [
+       "hammer0",
+       "wrench0",
+       "pliers0",
+       "tape_measure0",
+       "hammer1",
+       "wrench1",
+       "pliers1",
+       "tape_measure1",
+       "toolbox0",
+       "toolbox1"
+      ]
+     },
+     {
+      "pred": "eef_near_start",
+      "pos_tol": 0.15,
+      "rot_tol_deg": 20.0
+     }
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 5000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   -0.4,
+   0.4
+  ],
+  "y": [
+   -0.5,
+   0.5
+  ],
+  "z": [
+   0.75,
+   1.1
+  ],
+  "z_min_crop_table": 0.81,
+  "z_offset": 0.8,
+  "crop_table": false
+ }
+}

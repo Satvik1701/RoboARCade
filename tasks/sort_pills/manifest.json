@@ -1,0 +1,27 @@
+{
+ "source": {
+  "reference": "https://abc.bot/",
+  "task": "Sort pills",
+  "geometry": "primitive pill bottles, bayonet lids, pills, and weekly organizer"
+ },
+ "generated_by": "datagen/robodojo/make_sort_pills.py",
+ "date": "2026-09-21",
+ "notes": "bimanual I2RT YAM task inspired by the ABC benchmark; two matching amber 45 mm pharmacy bottles have plain ribbed white cylinder caps and wrapped Bruce Wayne pharmacy labels whose drug and large dose lines distinguish the regimens; each uses a passive spring-loaded press-and-turn 180 degree bayonet closure with a 3 mm axial seat travel and contains six certified graspable pills; the rigid 234 x 72 x 25 mm weekly organizer is centred at x 0.58 and has seven cells with independent rear hinged lids, printed day names on top, and distinct muted color tabs on a light plastic body; Monday through Friday start with one tablet beside two capsules on each cell floor, while the task fills Saturday and Sunday and closes all organizer lids; collision backed knurl ribs on both bottle grip bands transfer wrist torque; bottle bases use 0.6 sliding friction while interior walls and cap tracks retain low sliding friction; internal cap-retention contacts use a 1 ms solver time constant to resist contact-transient escape; the cap guide outer radius is 16.5 mm, clearing the spring seat during a slightly tilted two-gripper lift while preserving the press-and-turn latch; the main contact solver handles grip friction without NoSlip post-processing, which otherwise preserves rib/pad penetration under load; the bottles draw independently over separate exact IK safe side lanes with full yaw, the organizer draws at x 0.58, y -0.10 or +0.10, with yaw 90 or 270 degrees respectively so its lid tabs face the center; weekday pills move with it",
+ "files": {
+  "assets/bottle_body.obj": "3e5cb92e5da852b0",
+  "assets/bottle_label.obj": "1b74557edd02b68e",
+  "assets/capsule_label.png": "b13aa70e99e57136",
+  "assets/organizer_day_tab.obj": "e7d0d71dbafa306c",
+  "assets/organizer_friday.png": "6d2779d0c32ce921",
+  "assets/organizer_monday.png": "deb856ba9925242c",
+  "assets/organizer_saturday.png": "11bbc2bcf77d22c8",
+  "assets/organizer_sunday.png": "7b0e14b0416e19dc",
+  "assets/organizer_thursday.png": "922f097cbb749451",
+  "assets/organizer_tuesday.png": "2ea49c481a30700a",
+  "assets/organizer_wednesday.png": "9a732d369da50328",
+  "assets/tablet_label.png": "bbe7466e0f439a1d",
+  "scene.xml": "d889002c95c4cee4",
+  "task.json": "3cf9ca7322f45d74",
+  "thumbnail.png": "38d5ccb66d66a51e"
+ }
+}

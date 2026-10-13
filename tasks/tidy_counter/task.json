@@ -1,0 +1,282 @@
+{
+ "spec_version": 1,
+ "family": "libero_goal",
+ "name": "tidy_counter",
+ "language": "Put the wine bottle on top of the cabinet and the bowl in the top drawer, then close the drawer.",
+ "scene": "scene.xml",
+ "support": [
+  "table"
+ ],
+ "robots": [
+  {
+   "name": "robot0",
+   "model": "franka_panda",
+   "base_pos": [
+    -0.66,
+    0.0,
+    0.912
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    -0.161037389,
+    0.0,
+    -2.44459747,
+    0.0,
+    2.2267522,
+    0.7853981633974483
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "agentview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "robot0",
+   "src": {
+    "pos": "0.05 0 0",
+    "quat": "0 0.707107 0.707107 0",
+    "fovy": "75"
+   }
+  },
+  {
+   "name": "leftview",
+   "role": "pc"
+  },
+  {
+   "name": "rightview",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "akita_black_bowl_1_main",
+  "cream_cheese_1_main",
+  "wine_bottle_1_main",
+  "plate_1_main",
+  "wooden_cabinet_1_main"
+ ],
+ "randomization": {
+  "type": "init_states",
+  "states": [
+   {
+    "objects": {
+     "akita_black_bowl_1_main": [
+      -0.10321809538683568,
+      -0.00991690718550336,
+      0.97,
+      0.7071067811865475,
+      0.0,
+      0.0,
+      0.7071067811865476
+     ],
+     "cream_cheese_1_main": [
+      -0.04887120483620126,
+      0.14097139263692096,
+      0.935,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "wine_bottle_1_main": [
+      -0.19619342290259706,
+      -0.03928525013944023,
+      0.97,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "plate_1_main": [
+      0.06301552235506439,
+      -0.025426687511385434,
+      0.97,
+      0.7071067811865475,
+      0.0,
+      0.0,
+      0.7071067811865476
+     ]
+    },
+    "joints": {
+     "wooden_cabinet_1_top_level": 0.0,
+     "wooden_cabinet_1_middle_level": 0.0,
+     "wooden_cabinet_1_bottom_level": 0.0
+    }
+   }
+  ],
+  "groups": [
+   [
+    "akita_black_bowl_1_main"
+   ],
+   [
+    "cream_cheese_1_main"
+   ],
+   [
+    "wine_bottle_1_main"
+   ],
+   [
+    "plate_1_main"
+   ],
+   [
+    "wooden_cabinet_1_main"
+   ]
+  ],
+  "region": {
+   "x": [
+    -0.06,
+    0.06
+   ],
+   "y": [
+    -0.06,
+    0.06
+   ],
+   "yaw": [
+    -0.349,
+    0.349
+   ]
+  },
+  "face_robot": [
+   "wooden_cabinet_1_main"
+  ],
+  "articulated_reach": [
+   "wooden_cabinet_1_main"
+  ],
+  "placement_regions": {
+   "wooden_cabinet_1_main": [
+    {
+     "y": [
+      -0.2,
+      -0.13
+     ],
+     "yaw_offset_deg": [
+      -90,
+      -85
+     ]
+    },
+    {
+     "y": [
+      0.13,
+      0.2
+     ],
+     "yaw_offset_deg": [
+      85,
+      90
+     ]
+    }
+   ]
+  }
+ },
+ "success": {
+  "pred": "all",
+  "of": [
+   {
+    "pred": "on_site",
+    "obj": "wine_bottle_1_main",
+    "site": "wooden_cabinet_1_top_side",
+    "size": [
+     0.12534,
+     0.09438,
+     0.00147
+    ],
+    "parent": "wooden_cabinet_1_main"
+   },
+   {
+    "pred": "axis_up",
+    "obj": "wine_bottle_1_main",
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "tol_deg": 20.0
+   },
+   {
+    "pred": "in_site_box",
+    "obj": "akita_black_bowl_1_main",
+    "site": "wooden_cabinet_1_top_region",
+    "size": [
+     0.02993,
+     0.07561,
+     0.10224
+    ]
+   },
+   {
+    "pred": "not",
+    "of": {
+     "pred": "grasped",
+     "obj": "akita_black_bowl_1_main"
+    }
+   },
+   {
+    "pred": "joint_in",
+    "joint": "wooden_cabinet_1_top_level",
+    "lo": -0.01,
+    "hi": 0.01
+   },
+   {
+    "pred": "joint_in",
+    "joint": "wooden_cabinet_1_middle_level",
+    "lo": -0.01,
+    "hi": 0.01
+   },
+   {
+    "pred": "joint_in",
+    "joint": "wooden_cabinet_1_bottom_level",
+    "lo": -0.01,
+    "hi": 0.01
+   },
+   {
+    "pred": "robot_clear",
+    "bodies": [
+     "wine_bottle_1_main",
+     "akita_black_bowl_1_main",
+     "wooden_cabinet_1_main"
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 4000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   -0.53,
+   0.4
+  ],
+  "y": [
+   -0.4,
+   0.4
+  ],
+  "z": [
+   0.85,
+   1.3
+  ],
+  "z_min_crop_table": 0.9,
+  "z_offset": 0.9,
+  "crop_table": false
+ },
+ "category": "real_world"
+}

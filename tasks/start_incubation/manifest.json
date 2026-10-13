@@ -1,0 +1,21 @@
+{
+ "source": {
+  "repo": "autobio-bench/AutoBio",
+  "paper": "arXiv:2505.14030",
+  "objects": [
+   "model/instrument/thermal_mixer_eppendorf_c.xml",
+   "model/object/centrifuge_plate_60well.gen.xml",
+   "model/object/centrifuge_1500ul_no_lid.gen.xml"
+  ]
+ },
+ "generated_by": "datagen/autobio/incubation.py",
+ "date": "2026-09-15",
+ "notes": "The ThermoMixer visual, all 24 machine wells, matching 60-well rack, randomization, controller and grading are unchanged in this revision. Only the two incubation tubes' collision tapers change: fifteen stacked cylinders per tube are replaced by one 64-sided convex taper tangent to the existing 1.67 mm-radius spherical tip and meeting the 5.35 mm-radius shoulder at 18 mm. The rounded tip, hollow upper wall collisions and all visible geometry are retained. Explicit inertials preserve the original mass, centre of mass and inertia, including the visual mesh's original inertial contribution. The smooth sides remove the cylinder ledges that caught on a machine-well lip in teleop. Torsional friction length is capped at 2 mm on hard surfaces and 10 mm on the fingertip pads, baked into scene.xml and the franka_panda_low_torsion robot; sliding/rolling friction and contact stiffness are unchanged. The task still requires inserting both tubes into distinct wells, pressing program 1 once, returning both to their original rack holes and moving the open gripper home within 4000 control steps.",
+ "files": {
+  "key-label-decal.obj": "5a422926a357a2c9",
+  "menu-enter-key.png": "cd436e9e315002e1",
+  "prog-1-key.png": "b344fd7af6b64af5",
+  "scene.xml": "62c8a5898eea2f9a",
+  "task.json": "177460575a6b354e"
+ }
+}

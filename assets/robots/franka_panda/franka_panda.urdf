@@ -1,0 +1,330 @@
+<?xml version="1.0"?>
+<robot name="franka_panda">
+  <link name="world"/>
+  <link name="link0">
+    <inertial>
+      <origin rpy="2.99318478 -1.44014606 0.149985264" xyz="-0.041018 -0.00014 0.049974"/>
+      <mass value="0.629769"/>
+      <inertia ixx="0.00430465012" ixy="0" ixz="0" iyy="0.00387983909" iyz="0" izz="0.00313051078"/>
+    </inertial>
+    <collision>
+      <origin rpy="0.0734104674 -1.19999542 3.08137688" xyz="-0.0291897649 -0.000879465743 0.0566031909"/>
+      <geometry><mesh filename="superdex_hulls/link0_11.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="link0_fixed" type="fixed">
+    <parent link="world"/>
+    <child link="link0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="link1">
+    <inertial>
+      <origin rpy="-0.00939842446 -0.0275765274 1.55810628" xyz="0.003875 0.002081 -0.04762"/>
+      <mass value="4.970684"/>
+      <inertia ixx="0.707137014" ixy="0" ixz="0" iyy="0.703435429" iyz="0" izz="0.00852455628"/>
+    </inertial>
+    <collision>
+      <origin rpy="0.350757551 -0.000321824408 0.000649127623" xyz="1.13988209e-05 -0.0312655279 -0.069373306"/>
+      <geometry><mesh filename="superdex_hulls/link1_1.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint1" type="revolute">
+    <parent link="link0"/>
+    <child link="link1"/>
+    <origin rpy="0 0 0" xyz="0 0 0.333"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="200" lower="-2.8973" upper="2.8973" velocity="3"/>
+  </joint>
+  <link name="link2">
+    <inertial>
+      <origin rpy="-2.35144539 -0.961788156 -0.722985515" xyz="-0.003141 -0.02872 0.003495"/>
+      <mass value="0.646926"/>
+      <inertia ixx="0.0310326426" ixy="0" ixz="0" iyy="0.0283001069" iyz="0" izz="0.0027342505"/>
+    </inertial>
+    <collision>
+      <origin rpy="1.91677662 3.85946166e-05 -0.000175216669" xyz="-1.3176599e-05 -0.0703215524 0.031178239"/>
+      <geometry><mesh filename="superdex_hulls/link2_1.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint2" type="revolute">
+    <parent link="link1"/>
+    <child link="link2"/>
+    <origin rpy="-1.57079633 0 0" xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="200" lower="-1.7628" upper="1.7628" velocity="3"/>
+  </joint>
+  <link name="link3">
+    <inertial>
+      <origin rpy="0.377850147 0.350823982 1.70041508" xyz="0.027518 0.039252 -0.066502"/>
+      <mass value="3.228604"/>
+      <inertia ixx="0.0415013883" ixy="0" ixz="0" iyy="0.0414792573" iyz="0" izz="0.00124635444"/>
+    </inertial>
+    <collision>
+      <origin rpy="0.626428259 -0.648912296 2.78881487" xyz="0.0443483065 0.024928326 -0.0381299848"/>
+      <geometry><mesh filename="superdex_hulls/link3_4.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint3" type="revolute">
+    <parent link="link2"/>
+    <child link="link3"/>
+    <origin rpy="1.57079633 0 0" xyz="0 -0.316 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="200" lower="-2.8973" upper="2.8973" velocity="3"/>
+  </joint>
+  <link name="link4">
+    <inertial>
+      <origin rpy="0.949137415 -0.765134109 0.969685566" xyz="-0.05317 0.104419 0.027454"/>
+      <mass value="3.587895"/>
+      <inertia ixx="0.0349596404" ixy="0" ixz="0" iyy="0.0281482762" iyz="0" izz="0.0106200833"/>
+    </inertial>
+    <collision>
+      <origin rpy="1.15752523 0.362337395 0.628646885" xyz="-0.0385502938 0.0395256097 0.0247162413"/>
+      <geometry><mesh filename="superdex_hulls/link4_4.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint4" type="revolute">
+    <parent link="link3"/>
+    <child link="link4"/>
+    <origin rpy="1.57079633 0 0" xyz="0.0825 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="200" lower="-3.0718" upper="-0.0698" velocity="3"/>
+  </joint>
+  <link name="link5">
+    <inertial>
+      <origin rpy="-0.0448149003 0.139019873 -0.286899822" xyz="-0.011953 0.041065 -0.038437"/>
+      <mass value="1.225946"/>
+      <inertia ixx="0.0367625383" ixy="0" ixz="0" iyy="0.0288530913" iyz="0" izz="0.00803437047"/>
+    </inertial>
+    <collision>
+      <origin rpy="-2.96674392 -0.906164952 -1.87249639" xyz="0.000973258595 0.0199222218 -0.209106957"/>
+      <geometry><mesh filename="superdex_hulls/link5_3.obj"/></geometry>
+    </collision>
+  </link>
+  <link name="link5_col1">
+    <collision>
+      <origin rpy="0.003785617 0.246835582 1.5664136" xyz="-0.000235069968 0.0800592499 -0.121153451"/>
+      <geometry><mesh filename="superdex_hulls/link5_4.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="link5_col1_joint" type="fixed">
+    <parent link="link5"/>
+    <child link="link5_col1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="link5_col2">
+    <collision>
+      <origin rpy="1.17809168 -0.00518270638 0.00520765679" xyz="0.000150253176 0.0691829725 -0.00453883117"/>
+      <geometry><mesh filename="superdex_hulls/link5_5.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="link5_col2_joint" type="fixed">
+    <parent link="link5"/>
+    <child link="link5_col2"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <joint name="joint5" type="revolute">
+    <parent link="link4"/>
+    <child link="link5"/>
+    <origin rpy="-1.57079633 0 0" xyz="-0.0825 0.384 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="200" lower="-2.8973" upper="2.8973" velocity="3"/>
+  </joint>
+  <link name="link6">
+    <inertial>
+      <origin rpy="0.513024825 -1.22624213 2.52466151" xyz="0.060149 -0.014117 -0.010517"/>
+      <mass value="1.666555"/>
+      <inertia ixx="0.00584276123" ixy="0" ixz="0" iyy="0.0043103737" iyz="0" izz="0.00159786507"/>
+    </inertial>
+    <collision>
+      <origin rpy="-3.06159997 -1.42776897 0.0485208331" xyz="0.0510022947 0.00693267293 0.00616899285"/>
+      <geometry><mesh filename="superdex_hulls/link6_17.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint6" type="revolute">
+    <parent link="link5"/>
+    <child link="link6"/>
+    <origin rpy="1.57079633 0 0" xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="200" lower="-0.0175" upper="3.7525" velocity="3"/>
+  </joint>
+  <link name="link7">
+    <inertial>
+      <origin rpy="-0.161438818 0.137934624 -0.119247747" xyz="0.010517 -0.004252 0.061597"/>
+      <mass value="0.735522"/>
+      <inertia ixx="0.0127344929" ixy="0" ixz="0" iyy="0.0101054771" iyz="0" izz="0.00451802998"/>
+    </inertial>
+    <collision>
+      <origin rpy="3.1380324 -1.51714054 -2.3520387" xyz="0.010361372 0.0103596041 0.0791077729"/>
+      <geometry><mesh filename="superdex_hulls/link7_8.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint7" type="revolute">
+    <parent link="link6"/>
+    <child link="link7"/>
+    <origin rpy="1.57079633 0 0" xyz="0.088 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="200" lower="-2.8973" upper="2.8973" velocity="3"/>
+  </joint>
+  <link name="hand">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.01 0 0.03"/>
+      <mass value="0.73"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.0025" iyz="0" izz="0.0017"/>
+    </inertial>
+    <collision>
+      <origin rpy="1.59654447 -0.000459865533 -0.000229000721" xyz="-2.76656575e-06 -0.000615469672 0.0239295217"/>
+      <geometry><mesh filename="superdex_hulls/hand_5.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="hand_fixed" type="fixed">
+    <parent link="link7"/>
+    <child link="hand"/>
+    <origin rpy="0 0 -0.785398128" xyz="0 0 0.107"/>
+  </joint>
+  <link name="left_finger">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.015"/>
+      <inertia ixx="2.375e-06" ixy="0" ixz="0" iyy="2.375e-06" iyz="0" izz="7.5e-07"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 -0.0766312925 1.57079633" xyz="4.8742339e-07 0.0156954116 0.0168744094"/>
+      <geometry><mesh filename="superdex_hulls/left_finger_2.obj"/></geometry>
+    </collision>
+  </link>
+  <link name="left_finger_col1">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0.0055 0.0445"/>
+      <geometry><mesh filename="superdex_hulls/left_finger_3.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="left_finger_col1_joint" type="fixed">
+    <parent link="left_finger"/>
+    <child link="left_finger_col1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="left_finger_col2">
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0055 0.002 0.05"/>
+      <geometry><mesh filename="superdex_hulls/left_finger_4.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="left_finger_col2_joint" type="fixed">
+    <parent link="left_finger"/>
+    <child link="left_finger_col2"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="left_finger_col3">
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.0055 0.002 0.05"/>
+      <geometry><mesh filename="superdex_hulls/left_finger_5.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="left_finger_col3_joint" type="fixed">
+    <parent link="left_finger"/>
+    <child link="left_finger_col3"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="left_finger_col4">
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0055 0.002 0.0395"/>
+      <geometry><mesh filename="superdex_hulls/left_finger_6.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="left_finger_col4_joint" type="fixed">
+    <parent link="left_finger"/>
+    <child link="left_finger_col4"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="left_finger_col5">
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.0055 0.002 0.0395"/>
+      <geometry><mesh filename="superdex_hulls/left_finger_7.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="left_finger_col5_joint" type="fixed">
+    <parent link="left_finger"/>
+    <child link="left_finger_col5"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <joint name="finger_joint1" type="prismatic">
+    <parent link="hand"/>
+    <child link="left_finger"/>
+    <origin rpy="0 0 0" xyz="0 0 0.0584"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="200" lower="0" upper="0.04" velocity="3"/>
+  </joint>
+  <link name="right_finger">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.015"/>
+      <inertia ixx="2.375e-06" ixy="0" ixz="0" iyy="2.375e-06" iyz="0" izz="7.5e-07"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 -0.0766312925 1.57079633" xyz="4.8742339e-07 0.0156954116 0.0168744094"/>
+      <geometry><mesh filename="superdex_hulls/right_finger_2.obj"/></geometry>
+    </collision>
+  </link>
+  <link name="right_finger_col1">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0.0055 0.0445"/>
+      <geometry><mesh filename="superdex_hulls/right_finger_3.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="right_finger_col1_joint" type="fixed">
+    <parent link="right_finger"/>
+    <child link="right_finger_col1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="right_finger_col2">
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0055 0.002 0.05"/>
+      <geometry><mesh filename="superdex_hulls/right_finger_4.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="right_finger_col2_joint" type="fixed">
+    <parent link="right_finger"/>
+    <child link="right_finger_col2"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="right_finger_col3">
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.0055 0.002 0.05"/>
+      <geometry><mesh filename="superdex_hulls/right_finger_5.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="right_finger_col3_joint" type="fixed">
+    <parent link="right_finger"/>
+    <child link="right_finger_col3"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="right_finger_col4">
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0055 0.002 0.0395"/>
+      <geometry><mesh filename="superdex_hulls/right_finger_6.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="right_finger_col4_joint" type="fixed">
+    <parent link="right_finger"/>
+    <child link="right_finger_col4"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="right_finger_col5">
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.0055 0.002 0.0395"/>
+      <geometry><mesh filename="superdex_hulls/right_finger_7.obj"/></geometry>
+    </collision>
+  </link>
+  <joint name="right_finger_col5_joint" type="fixed">
+    <parent link="right_finger"/>
+    <child link="right_finger_col5"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+  <joint name="finger_joint2" type="prismatic">
+    <parent link="hand"/>
+    <child link="right_finger"/>
+    <origin rpy="0 0 3.14159265" xyz="0 0 0.0584"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="200" lower="0" upper="0.04" velocity="3"/>
+  </joint>
+</robot>

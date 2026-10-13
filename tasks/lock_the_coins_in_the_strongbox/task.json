@@ -1,0 +1,649 @@
+{
+ "spec_version": 1,
+ "family": "robodojo",
+ "name": "lock_the_coins_in_the_strongbox",
+ "category": "real_world",
+ "language": "Unlock the chest with the key, put four coins inside, and lock it again.",
+ "scene": "scene.xml",
+ "support": [
+  "play_table"
+ ],
+ "robots": [
+  {
+   "name": "move",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    -0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  },
+  {
+   "name": "hold",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "tpview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "move"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "hold"
+  },
+  {
+   "name": "pcleft",
+   "role": "pc"
+  },
+  {
+   "name": "pcright",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "key",
+  "coin0",
+  "coin1",
+  "coin2",
+  "coin3",
+  "coin4",
+  "coin5"
+ ],
+ "randomization": {
+  "type": "init_states",
+  "full_rand": true,
+  "region": {
+   "x": [
+    0.0,
+    0.0
+   ],
+   "y": [
+    0.0,
+    0.0
+   ],
+   "yaw": [
+    0.0,
+    0.0
+   ]
+  },
+  "states": [
+   {
+    "objects": {},
+    "joints": {
+     "j_rotor": 0.0,
+     "j_bolt_slide": 0.0,
+     "j_lid": 0.0,
+     "j_plunger": 0.0
+    }
+   }
+  ],
+  "placement_regions": {
+   "case": [
+    {
+     "x": [
+      0.719,
+      0.759
+     ],
+     "y": [
+      0.019999999999999997,
+      0.09
+     ],
+     "yaw_offset_deg": [
+      -8.6,
+      8.6
+     ]
+    }
+   ],
+   "key": [
+    {
+     "x": [
+      0.52,
+      0.72
+     ],
+     "y": [
+      -0.34,
+      -0.1
+     ],
+     "yaw_offset_deg": [
+      -180.0,
+      180.0
+     ]
+    }
+   ],
+   "coin0": [
+    {
+     "x": [
+      0.62,
+      0.86
+     ],
+     "y": [
+      0.16,
+      0.4
+     ],
+     "yaw_offset_deg": [
+      -180.0,
+      180.0
+     ]
+    }
+   ],
+   "coin1": [
+    {
+     "x": [
+      0.62,
+      0.86
+     ],
+     "y": [
+      0.16,
+      0.4
+     ],
+     "yaw_offset_deg": [
+      -180.0,
+      180.0
+     ]
+    }
+   ],
+   "coin2": [
+    {
+     "x": [
+      0.62,
+      0.86
+     ],
+     "y": [
+      0.16,
+      0.4
+     ],
+     "yaw_offset_deg": [
+      -180.0,
+      180.0
+     ]
+    }
+   ],
+   "coin3": [
+    {
+     "x": [
+      0.62,
+      0.86
+     ],
+     "y": [
+      0.16,
+      0.4
+     ],
+     "yaw_offset_deg": [
+      -180.0,
+      180.0
+     ]
+    }
+   ],
+   "coin4": [
+    {
+     "x": [
+      0.62,
+      0.86
+     ],
+     "y": [
+      0.16,
+      0.4
+     ],
+     "yaw_offset_deg": [
+      -180.0,
+      180.0
+     ]
+    }
+   ],
+   "coin5": [
+    {
+     "x": [
+      0.62,
+      0.86
+     ],
+     "y": [
+      0.16,
+      0.4
+     ],
+     "yaw_offset_deg": [
+      -180.0,
+      180.0
+     ]
+    }
+   ]
+  },
+  "groups": [
+   [
+    "case"
+   ],
+   [
+    "key"
+   ],
+   [
+    "coin0"
+   ],
+   [
+    "coin1"
+   ],
+   [
+    "coin2"
+   ],
+   [
+    "coin3"
+   ],
+   [
+    "coin4"
+   ],
+   [
+    "coin5"
+   ]
+  ],
+  "lift_reach": {
+   "key": 0.12,
+   "coin0": 0.14,
+   "coin1": 0.14,
+   "coin2": 0.14,
+   "coin3": 0.14,
+   "coin4": 0.14,
+   "coin5": 0.14
+  },
+  "min_sep": [
+   [
+    "key",
+    "case",
+    0.18
+   ],
+   [
+    "coin0",
+    "coin1",
+    0.045
+   ],
+   [
+    "coin0",
+    "coin2",
+    0.045
+   ],
+   [
+    "coin0",
+    "coin3",
+    0.045
+   ],
+   [
+    "coin0",
+    "coin4",
+    0.045
+   ],
+   [
+    "coin0",
+    "coin5",
+    0.045
+   ],
+   [
+    "coin1",
+    "coin2",
+    0.045
+   ],
+   [
+    "coin1",
+    "coin3",
+    0.045
+   ],
+   [
+    "coin1",
+    "coin4",
+    0.045
+   ],
+   [
+    "coin1",
+    "coin5",
+    0.045
+   ],
+   [
+    "coin2",
+    "coin3",
+    0.045
+   ],
+   [
+    "coin2",
+    "coin4",
+    0.045
+   ],
+   [
+    "coin2",
+    "coin5",
+    0.045
+   ],
+   [
+    "coin3",
+    "coin4",
+    0.045
+   ],
+   [
+    "coin3",
+    "coin5",
+    0.045
+   ],
+   [
+    "coin4",
+    "coin5",
+    0.045
+   ]
+  ]
+ },
+ "success": {
+  "pred": "sequence",
+  "of": [
+   {
+    "pred": "pose_within",
+    "obj": "key",
+    "rel_to": "case",
+    "pos": [
+     0.07500000000000001,
+     0.0,
+     0.115
+    ],
+    "quat": [
+     0.707107,
+     0.0,
+     0.707107,
+     0.0
+    ],
+    "pos_tol": 0.006,
+    "rot_tol_deg": 8.0
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "joint_in",
+      "joint": "j_rotor",
+      "lo": 1.54,
+      "hi": 1.62
+     },
+     {
+      "pred": "over_site",
+      "obj": "key",
+      "site": "keyway",
+      "lo": [
+       -0.022,
+       -0.011,
+       -0.016
+      ],
+      "hi": [
+       0.022,
+       0.011,
+       0.016
+      ]
+     }
+    ]
+   },
+   {
+    "pred": "count",
+    "min": 4,
+    "of": [
+     {
+      "pred": "in_site_box",
+      "site": "cavity",
+      "size": [
+       0.064,
+       0.049,
+       0.018
+      ],
+      "obj": "coin0"
+     },
+     {
+      "pred": "in_site_box",
+      "site": "cavity",
+      "size": [
+       0.064,
+       0.049,
+       0.018
+      ],
+      "obj": "coin1"
+     },
+     {
+      "pred": "in_site_box",
+      "site": "cavity",
+      "size": [
+       0.064,
+       0.049,
+       0.018
+      ],
+      "obj": "coin2"
+     },
+     {
+      "pred": "in_site_box",
+      "site": "cavity",
+      "size": [
+       0.064,
+       0.049,
+       0.018
+      ],
+      "obj": "coin3"
+     },
+     {
+      "pred": "in_site_box",
+      "site": "cavity",
+      "size": [
+       0.064,
+       0.049,
+       0.018
+      ],
+      "obj": "coin4"
+     },
+     {
+      "pred": "in_site_box",
+      "site": "cavity",
+      "size": [
+       0.064,
+       0.049,
+       0.018
+      ],
+      "obj": "coin5"
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "joint_in",
+      "joint": "j_lid",
+      "lo": -0.01,
+      "hi": 0.08
+     },
+     {
+      "pred": "joint_in",
+      "joint": "j_rotor",
+      "lo": -0.01,
+      "hi": 0.6
+     },
+     {
+      "pred": "over_site",
+      "obj": "key",
+      "site": "keyway",
+      "lo": [
+       -0.022,
+       -0.011,
+       -0.016
+      ],
+      "hi": [
+       0.022,
+       0.011,
+       0.016
+      ]
+     },
+     {
+      "pred": "count",
+      "min": 4,
+      "of": [
+       {
+        "pred": "in_site_box",
+        "site": "cavity",
+        "size": [
+         0.064,
+         0.049,
+         0.018
+        ],
+        "obj": "coin0"
+       },
+       {
+        "pred": "in_site_box",
+        "site": "cavity",
+        "size": [
+         0.064,
+         0.049,
+         0.018
+        ],
+        "obj": "coin1"
+       },
+       {
+        "pred": "in_site_box",
+        "site": "cavity",
+        "size": [
+         0.064,
+         0.049,
+         0.018
+        ],
+        "obj": "coin2"
+       },
+       {
+        "pred": "in_site_box",
+        "site": "cavity",
+        "size": [
+         0.064,
+         0.049,
+         0.018
+        ],
+        "obj": "coin3"
+       },
+       {
+        "pred": "in_site_box",
+        "site": "cavity",
+        "size": [
+         0.064,
+         0.049,
+         0.018
+        ],
+        "obj": "coin4"
+       },
+       {
+        "pred": "in_site_box",
+        "site": "cavity",
+        "size": [
+         0.064,
+         0.049,
+         0.018
+        ],
+        "obj": "coin5"
+       }
+      ]
+     },
+     {
+      "pred": "gripper_open",
+      "min": 0.9
+     },
+     {
+      "pred": "eef_near_start",
+      "pos_tol": 0.15,
+      "rot_tol_deg": 20.0
+     },
+     {
+      "pred": "robot_clear",
+      "bodies": [
+       "coin0",
+       "coin1",
+       "coin2",
+       "coin3",
+       "coin4",
+       "coin5",
+       "key",
+       "lid"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 5000,
+  "episode_timeout": 21600.0
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   0.25,
+   1.26
+  ],
+  "y": [
+   -0.72,
+   0.72
+  ],
+  "z": [
+   0.74,
+   1.25
+  ],
+  "z_min_crop_table": 0.78921,
+  "z_offset": 0.77921,
+  "crop_table": false
+ },
+ "table_z": 0.77921
+}

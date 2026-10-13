@@ -1,0 +1,19 @@
+{
+ "source": {
+  "repo": "spd.bot",
+  "path": "mujoco-vr-teleop",
+  "scene": "jenga",
+  "teleop_task": "jenga/tower"
+ },
+ "generated_by": "SPD convert.py",
+ "date": "2026-08-20",
+ "notes": "scene composed by the SPD scene builder with end_effector='linear'; arms stripped (roboarcade attaches its own YAM pair); the success predicate is authored here, as the source task carries none; upstream sleep and no-slip iterations remain at their source values pending a release-contact study, because awake stack and fixture goals are not stable in the ported collision geometry; the authored 12-block negative-y pile and 6-block positive-y pile each draw as one rigid unit across x 0.62 to 0.74 m with full yaw, declared 140 mm lift reach, and 0.10 m separation on all 72 cross-pile block pairs; opposite side bands keep every pile member inside the two-YAM reach union and reserve the central table strip abs(y) <= 0.10 m for the four-layer build",
+ "files": {
+  "assets/base_visual_gate.stl": "5a6eeb70a86b1b0b",
+  "assets/blinn1.png": "ae12c38751280353",
+  "assets/camera_d405.stl": "8a9a84dd9c9a6768",
+  "assets/jenga_block.obj": "6b7f92e5699425a5",
+  "scene.xml": "f8863294d3ebbdcd",
+  "task.json": "fff2634714bbc324"
+ }
+}

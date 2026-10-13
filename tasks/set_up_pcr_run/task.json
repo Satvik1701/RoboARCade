@@ -1,0 +1,394 @@
+{
+ "spec_version": 1,
+ "family": "autobio",
+ "category": "real_world",
+ "name": "set_up_pcr_run",
+ "language": "Seat the PCR plate on the block of the thermal cycler, close the lid, pull the green lever down to latch it, then turn the beige force knob on the lid to tighten it. Finish with the arm clear of the machine.",
+ "scene": "scene.xml",
+ "support": [
+  "table"
+ ],
+ "robots": [
+  {
+   "name": "robot0",
+   "model": "franka_panda",
+   "base_pos": [
+    -0.56,
+    0.0,
+    0.8
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    -0.6,
+    -0.161037389,
+    0.0,
+    -2.44459747,
+    0.0,
+    2.2267522,
+    0.7853981633974483
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "agentview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "robot0",
+   "src": {
+    "pos": "0.0931 0 0.0072",
+    "quat": "0.177222 0.684538 0.684538 0.177222",
+    "fovy": "65"
+   }
+  },
+  {
+   "name": "leftview",
+   "role": "pc"
+  },
+  {
+   "name": "rightview",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "pcr_plate"
+ ],
+ "randomization": {
+  "type": "uniform",
+  "objects": {},
+  "reference": [
+   0.0,
+   0.0,
+   0.8
+  ],
+  "z_offset": 0.0,
+  "groups": [
+   [
+    "pcr_plate"
+   ]
+  ],
+  "full_rand": false,
+  "region": {
+   "x": [
+    -0.1,
+    0.1
+   ],
+   "y": [
+    -0.025,
+    0.025
+   ],
+   "yaw": [
+    -1.396,
+    1.396
+   ]
+  }
+ },
+ "success": {
+  "pred": "sequence",
+  "invariant": {
+   "pred": "axis_up",
+   "obj": "pcr_plate",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "tol_deg": 15.0
+  },
+  "of": [
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "over_site",
+      "obj": "pcr_plate",
+      "site": "plate_seat",
+      "lo": [
+       -0.00125,
+       -0.00125,
+       -0.001
+      ],
+      "hi": [
+       0.00125,
+       0.00125,
+       0.001
+      ]
+     },
+     {
+      "pred": "axis_up",
+      "obj": "pcr_plate",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "tol_deg": 10.0
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "pcr_plate",
+      "axis": [
+       1,
+       0,
+       0
+      ],
+      "world_axis": [
+       1,
+       0,
+       0
+      ],
+      "min_dot": 0.9848,
+      "abs": true
+     },
+     {
+      "pred": "touching_part",
+      "a": "pcr_plate",
+      "b": "reaction_block"
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "over_site",
+      "obj": "pcr_plate",
+      "site": "plate_seat",
+      "lo": [
+       -0.00125,
+       -0.00125,
+       -0.001
+      ],
+      "hi": [
+       0.00125,
+       0.00125,
+       0.001
+      ]
+     },
+     {
+      "pred": "axis_up",
+      "obj": "pcr_plate",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "tol_deg": 10.0
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "pcr_plate",
+      "axis": [
+       1,
+       0,
+       0
+      ],
+      "world_axis": [
+       1,
+       0,
+       0
+      ],
+      "min_dot": 0.9848,
+      "abs": true
+     },
+     {
+      "pred": "touching_part",
+      "a": "pcr_plate",
+      "b": "reaction_block"
+     },
+     {
+      "pred": "joint_in",
+      "joint": "lid",
+      "lo": -1.95,
+      "hi": -1.85
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "over_site",
+      "obj": "pcr_plate",
+      "site": "plate_seat",
+      "lo": [
+       -0.00125,
+       -0.00125,
+       -0.001
+      ],
+      "hi": [
+       0.00125,
+       0.00125,
+       0.001
+      ]
+     },
+     {
+      "pred": "axis_up",
+      "obj": "pcr_plate",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "tol_deg": 10.0
+     },
+     {
+      "pred": "axis_dot",
+      "obj": "pcr_plate",
+      "axis": [
+       1,
+       0,
+       0
+      ],
+      "world_axis": [
+       1,
+       0,
+       0
+      ],
+      "min_dot": 0.9848,
+      "abs": true
+     },
+     {
+      "pred": "touching_part",
+      "a": "pcr_plate",
+      "b": "reaction_block"
+     },
+     {
+      "pred": "joint_in",
+      "joint": "lid",
+      "lo": -1.95,
+      "hi": -1.85
+     },
+     {
+      "pred": "joint_in",
+      "joint": "lid_lever",
+      "lo": -0.95,
+      "hi": -0.85
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "all",
+      "of": [
+       {
+        "pred": "over_site",
+        "obj": "pcr_plate",
+        "site": "plate_seat",
+        "lo": [
+         -0.00125,
+         -0.00125,
+         -0.001
+        ],
+        "hi": [
+         0.00125,
+         0.00125,
+         0.001
+        ]
+       },
+       {
+        "pred": "axis_up",
+        "obj": "pcr_plate",
+        "axis": [
+         0,
+         0,
+         1
+        ],
+        "tol_deg": 10.0
+       },
+       {
+        "pred": "axis_dot",
+        "obj": "pcr_plate",
+        "axis": [
+         1,
+         0,
+         0
+        ],
+        "world_axis": [
+         1,
+         0,
+         0
+        ],
+        "min_dot": 0.9848,
+        "abs": true
+       },
+       {
+        "pred": "touching_part",
+        "a": "pcr_plate",
+        "b": "reaction_block"
+       },
+       {
+        "pred": "joint_in",
+        "joint": "lid",
+        "lo": -1.95,
+        "hi": -1.85
+       },
+       {
+        "pred": "joint_in",
+        "joint": "lid_lever",
+        "lo": -0.95,
+        "hi": -0.85
+       },
+       {
+        "pred": "joint_in",
+        "joint": "lid_force_knob",
+        "lo": 0.6,
+        "hi": 60.0
+       }
+      ]
+     },
+     {
+      "pred": "robot_clear",
+      "bodies": [
+       "pcr_plate"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 3200
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   -0.4,
+   0.4
+  ],
+  "y": [
+   -0.4,
+   0.4
+  ],
+  "z": [
+   0.75,
+   1.2
+  ],
+  "z_min_crop_table": 0.81,
+  "z_offset": 0.8,
+  "crop_table": false
+ }
+}

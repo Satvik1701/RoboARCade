@@ -1,0 +1,110 @@
+{
+ "spec_version": 1,
+ "family": "ogbench",
+ "category": "game",
+ "name": "puzzle_4x6",
+ "language": "Lights Out puzzle: pressing a button down toggles it and its orthogonal neighbors between red and blue. Make every button red.",
+ "scene": "scene.xml",
+ "support": [
+  "table"
+ ],
+ "robots": [
+  {
+   "name": "robot0",
+   "model": "franka_panda",
+   "base_pos": [
+    -0.56,
+    0.0,
+    0.912
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.19634954084936207,
+    0.0,
+    -2.617993877991494,
+    0.0,
+    2.941592653589793,
+    0.7853981633974483
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "agentview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "robot0",
+   "src": {
+    "pos": "0.0931 0 0.0072",
+    "quat": "0.177222 0.684538 0.684538 0.177222",
+    "fovy": "65"
+   }
+  },
+  {
+   "name": "leftview",
+   "role": "pc"
+  },
+  {
+   "name": "rightview",
+   "role": "pc"
+  }
+ ],
+ "objects": [],
+ "randomization": {},
+ "lights_out": {
+  "rows": 4,
+  "cols": 6,
+  "presses": [
+   10,
+   20
+  ]
+ },
+ "success": {
+  "pred": "lights_out",
+  "rows": 4,
+  "cols": 6
+ },
+ "termination": {
+  "max_len": 8000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   -0.4,
+   0.25
+  ],
+  "y": [
+   -0.35,
+   0.35
+  ],
+  "z": [
+   0.75,
+   1.1
+  ],
+  "z_min_crop_table": 0.81,
+  "z_offset": 0.8,
+  "crop_table": false
+ }
+}

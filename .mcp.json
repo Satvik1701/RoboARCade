@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "roboarcade": {
+      "command": ".venv/bin/python",
+      "args": ["core/mcp_server.py"]
+    }
+  }
+}

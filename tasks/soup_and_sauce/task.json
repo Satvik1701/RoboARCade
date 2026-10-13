@@ -1,0 +1,226 @@
+{
+ "spec_version": 1,
+ "family": "libero_10",
+ "name": "soup_and_sauce",
+ "language": "Put both the alphabet soup and the tomato sauce inside the basket.",
+ "scene": "scene.xml",
+ "support": [
+  "living_room_table"
+ ],
+ "robots": [
+  {
+   "name": "robot0",
+   "model": "franka_panda",
+   "base_pos": [
+    -0.51,
+    0.0,
+    0.912
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    -0.161037389,
+    0.0,
+    -2.44459747,
+    0.0,
+    2.2267522,
+    0.7853981633974483
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "agentview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "robot0",
+   "src": {
+    "pos": "0.05 0 0",
+    "quat": "0 0.707107 0.707107 0",
+    "fovy": "75"
+   }
+  },
+  {
+   "name": "leftview",
+   "role": "pc"
+  },
+  {
+   "name": "rightview",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "alphabet_soup_1_main",
+  "cream_cheese_1_main",
+  "tomato_sauce_1_main",
+  "ketchup_1_main",
+  "orange_juice_1_main",
+  "milk_1_main",
+  "butter_1_main",
+  "basket_1_main"
+ ],
+ "randomization": {
+  "type": "init_states",
+  "states": [
+   {
+    "objects": {
+     "alphabet_soup_1_main": [
+      -0.10200787573587462,
+      -0.15245675106573645,
+      0.952,
+      0.0,
+      0.0,
+      0.7071067811865475,
+      0.7071067811865476
+     ],
+     "cream_cheese_1_main": [
+      0.07851475615653067,
+      -0.19384593250156518,
+      0.937,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "tomato_sauce_1_main": [
+      -0.11754099846757801,
+      0.05570959126855292,
+      0.972,
+      0.0,
+      0.0,
+      0.7071067811865475,
+      0.7071067811865476
+     ],
+     "ketchup_1_main": [
+      -0.26846907903339406,
+      -0.14861372060670922,
+      0.972,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+     ],
+     "orange_juice_1_main": [
+      0.009968143460064742,
+      -0.2592226309284922,
+      0.972,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+     ],
+     "milk_1_main": [
+      0.04927029324642466,
+      -0.12142612683920982,
+      0.972,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+     ],
+     "butter_1_main": [
+      0.07044719834440541,
+      0.0526561777194373,
+      0.932,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "basket_1_main": [
+      -0.002115741484281673,
+      0.2690198914964389,
+      0.972,
+      0.7071067811865475,
+      0.0,
+      0.0,
+      0.7071067811865476
+     ]
+    },
+    "joints": {}
+   }
+  ],
+  "region": {
+   "x": [
+    -0.06,
+    0.06
+   ],
+   "y": [
+    -0.06,
+    0.06
+   ],
+   "yaw": [
+    -0.349,
+    0.349
+   ]
+  }
+ },
+ "success": {
+  "pred": "all",
+  "of": [
+   {
+    "pred": "in_site_box",
+    "obj": "alphabet_soup_1_main",
+    "site": "basket_1_contain_region",
+    "size": [
+     0.06108,
+     0.06108,
+     0.06949
+    ]
+   },
+   {
+    "pred": "in_site_box",
+    "obj": "tomato_sauce_1_main",
+    "site": "basket_1_contain_region",
+    "size": [
+     0.06108,
+     0.06108,
+     0.06949
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 2000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   -0.53,
+   0.4
+  ],
+  "y": [
+   -0.4,
+   0.4
+  ],
+  "z": [
+   0.85,
+   1.7
+  ],
+  "z_min_crop_table": 0.9,
+  "z_offset": 0.9,
+  "crop_table": false
+ },
+ "category": "real_world"
+}

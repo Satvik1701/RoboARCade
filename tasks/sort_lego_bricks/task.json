@@ -1,0 +1,530 @@
+{
+ "spec_version": 1,
+ "family": "robodojo",
+ "category": "game",
+ "name": "sort_lego_bricks",
+ "language": "Sort all of the Lego bricks then pull both arms clear.",
+ "scene": "scene.xml",
+ "support": [
+  "play_table"
+ ],
+ "robots": [
+  {
+   "name": "move",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    -0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  },
+  {
+   "name": "hold",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "tpview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "move"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "hold"
+  },
+  {
+   "name": "pcleft",
+   "role": "pc"
+  },
+  {
+   "name": "pcright",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "red_brick_1",
+  "red_brick_2",
+  "red_brick_3",
+  "green_brick_1",
+  "green_brick_2",
+  "green_brick_3",
+  "yellow_brick_1",
+  "yellow_brick_2",
+  "yellow_brick_3"
+ ],
+ "randomization": {
+  "full_rand": true,
+  "groups": [
+   [
+    "red_brick_1"
+   ],
+   [
+    "red_brick_2"
+   ],
+   [
+    "red_brick_3"
+   ],
+   [
+    "green_brick_1"
+   ],
+   [
+    "green_brick_2"
+   ],
+   [
+    "green_brick_3"
+   ],
+   [
+    "yellow_brick_1"
+   ],
+   [
+    "yellow_brick_2"
+   ],
+   [
+    "yellow_brick_3"
+   ]
+  ],
+  "lift_reach": {
+   "red_brick_1": 0.14,
+   "red_brick_2": 0.14,
+   "red_brick_3": 0.14,
+   "green_brick_1": 0.14,
+   "green_brick_2": 0.14,
+   "green_brick_3": 0.14,
+   "yellow_brick_1": 0.14,
+   "yellow_brick_2": 0.14,
+   "yellow_brick_3": 0.14
+  },
+  "min_sep": [
+   [
+    "red_brick_1",
+    "red_brick_2",
+    0.075
+   ],
+   [
+    "red_brick_1",
+    "red_brick_3",
+    0.075
+   ],
+   [
+    "red_brick_1",
+    "green_brick_1",
+    0.075
+   ],
+   [
+    "red_brick_1",
+    "green_brick_2",
+    0.075
+   ],
+   [
+    "red_brick_1",
+    "green_brick_3",
+    0.075
+   ],
+   [
+    "red_brick_1",
+    "yellow_brick_1",
+    0.075
+   ],
+   [
+    "red_brick_1",
+    "yellow_brick_2",
+    0.075
+   ],
+   [
+    "red_brick_1",
+    "yellow_brick_3",
+    0.075
+   ],
+   [
+    "red_brick_2",
+    "red_brick_3",
+    0.075
+   ],
+   [
+    "red_brick_2",
+    "green_brick_1",
+    0.075
+   ],
+   [
+    "red_brick_2",
+    "green_brick_2",
+    0.075
+   ],
+   [
+    "red_brick_2",
+    "green_brick_3",
+    0.075
+   ],
+   [
+    "red_brick_2",
+    "yellow_brick_1",
+    0.075
+   ],
+   [
+    "red_brick_2",
+    "yellow_brick_2",
+    0.075
+   ],
+   [
+    "red_brick_2",
+    "yellow_brick_3",
+    0.075
+   ],
+   [
+    "red_brick_3",
+    "green_brick_1",
+    0.075
+   ],
+   [
+    "red_brick_3",
+    "green_brick_2",
+    0.075
+   ],
+   [
+    "red_brick_3",
+    "green_brick_3",
+    0.075
+   ],
+   [
+    "red_brick_3",
+    "yellow_brick_1",
+    0.075
+   ],
+   [
+    "red_brick_3",
+    "yellow_brick_2",
+    0.075
+   ],
+   [
+    "red_brick_3",
+    "yellow_brick_3",
+    0.075
+   ],
+   [
+    "green_brick_1",
+    "green_brick_2",
+    0.075
+   ],
+   [
+    "green_brick_1",
+    "green_brick_3",
+    0.075
+   ],
+   [
+    "green_brick_1",
+    "yellow_brick_1",
+    0.075
+   ],
+   [
+    "green_brick_1",
+    "yellow_brick_2",
+    0.075
+   ],
+   [
+    "green_brick_1",
+    "yellow_brick_3",
+    0.075
+   ],
+   [
+    "green_brick_2",
+    "green_brick_3",
+    0.075
+   ],
+   [
+    "green_brick_2",
+    "yellow_brick_1",
+    0.075
+   ],
+   [
+    "green_brick_2",
+    "yellow_brick_2",
+    0.075
+   ],
+   [
+    "green_brick_2",
+    "yellow_brick_3",
+    0.075
+   ],
+   [
+    "green_brick_3",
+    "yellow_brick_1",
+    0.075
+   ],
+   [
+    "green_brick_3",
+    "yellow_brick_2",
+    0.075
+   ],
+   [
+    "green_brick_3",
+    "yellow_brick_3",
+    0.075
+   ],
+   [
+    "yellow_brick_1",
+    "yellow_brick_2",
+    0.075
+   ],
+   [
+    "yellow_brick_1",
+    "yellow_brick_3",
+    0.075
+   ],
+   [
+    "yellow_brick_2",
+    "yellow_brick_3",
+    0.075
+   ]
+  ],
+  "grasp_clearance": 0.02,
+  "region": {
+   "x": [
+    0,
+    0
+   ],
+   "y": [
+    0,
+    0
+   ],
+   "yaw": [
+    -3.141592653589793,
+    3.141592653589793
+   ]
+  }
+ },
+ "success": {
+  "pred": "all",
+  "of": [
+   {
+    "pred": "in_bbox",
+    "a": "red_brick_1",
+    "b": "red_bin"
+   },
+   {
+    "pred": "depth_in",
+    "a": "red_brick_1",
+    "b": "red_bin",
+    "z_threshold": 0.02
+   },
+   {
+    "pred": "in_bbox",
+    "a": "red_brick_2",
+    "b": "red_bin"
+   },
+   {
+    "pred": "depth_in",
+    "a": "red_brick_2",
+    "b": "red_bin",
+    "z_threshold": 0.02
+   },
+   {
+    "pred": "in_bbox",
+    "a": "red_brick_3",
+    "b": "red_bin"
+   },
+   {
+    "pred": "depth_in",
+    "a": "red_brick_3",
+    "b": "red_bin",
+    "z_threshold": 0.02
+   },
+   {
+    "pred": "in_bbox",
+    "a": "green_brick_1",
+    "b": "green_bin"
+   },
+   {
+    "pred": "depth_in",
+    "a": "green_brick_1",
+    "b": "green_bin",
+    "z_threshold": 0.02
+   },
+   {
+    "pred": "in_bbox",
+    "a": "green_brick_2",
+    "b": "green_bin"
+   },
+   {
+    "pred": "depth_in",
+    "a": "green_brick_2",
+    "b": "green_bin",
+    "z_threshold": 0.02
+   },
+   {
+    "pred": "in_bbox",
+    "a": "green_brick_3",
+    "b": "green_bin"
+   },
+   {
+    "pred": "depth_in",
+    "a": "green_brick_3",
+    "b": "green_bin",
+    "z_threshold": 0.02
+   },
+   {
+    "pred": "in_bbox",
+    "a": "yellow_brick_1",
+    "b": "yellow_bin"
+   },
+   {
+    "pred": "depth_in",
+    "a": "yellow_brick_1",
+    "b": "yellow_bin",
+    "z_threshold": 0.02
+   },
+   {
+    "pred": "in_bbox",
+    "a": "yellow_brick_2",
+    "b": "yellow_bin"
+   },
+   {
+    "pred": "depth_in",
+    "a": "yellow_brick_2",
+    "b": "yellow_bin",
+    "z_threshold": 0.02
+   },
+   {
+    "pred": "in_bbox",
+    "a": "yellow_brick_3",
+    "b": "yellow_bin"
+   },
+   {
+    "pred": "depth_in",
+    "a": "yellow_brick_3",
+    "b": "yellow_bin",
+    "z_threshold": 0.02
+   },
+   {
+    "pred": "axis_up",
+    "obj": "red_bin",
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "tol_deg": 5
+   },
+   {
+    "pred": "axis_up",
+    "obj": "green_bin",
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "tol_deg": 5
+   },
+   {
+    "pred": "axis_up",
+    "obj": "yellow_bin",
+    "axis": [
+     0,
+     0,
+     1
+    ],
+    "tol_deg": 5
+   },
+   {
+    "pred": "robot_clear",
+    "bodies": [
+     "red_brick_1",
+     "red_brick_2",
+     "red_brick_3",
+     "green_brick_1",
+     "green_brick_2",
+     "green_brick_3",
+     "yellow_brick_1",
+     "yellow_brick_2",
+     "yellow_brick_3",
+     "red_bin",
+     "green_bin",
+     "yellow_bin"
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 8000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   0.25,
+   1.26
+  ],
+  "y": [
+   -0.72,
+   0.72
+  ],
+  "z": [
+   0.74,
+   1.25
+  ],
+  "z_min_crop_table": 0.78921,
+  "z_offset": 0.77921,
+  "crop_table": false
+ },
+ "table_z": 0.77921
+}

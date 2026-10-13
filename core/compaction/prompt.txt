@@ -1,0 +1,27 @@
+This conversation drives a simulated robot arm through a 3D UI. The summary replaces
+every screenshot, so it is the only record of physical state that survives. Alongside
+the sections above, carry these forward concretely, with numbers, not prose:
+
+1. Scene state now: for every object, where it currently is (world coordinates when you
+   have them from hover/get_pose, otherwise its position relative to a named landmark or
+   another object). Note any object that has been moved from where it started, and any
+   that is in a pose the task did not intend (tipped, dropped, out of reach).
+2. Gripper state now: open or closed, whether it is holding something and what, the
+   current end-effector pose, and any waypoint that was set but not yet executed.
+3. Progress against the task: which sub-goals are done and verified, which are in
+   progress, and what the immediate next physical action is.
+4. What has already failed, and the diagnosis. Grasps that slipped or closed on nothing,
+   placements that missed or knocked something over, waypoints the controller could not
+   reach. For each, say what you concluded caused it, so the approach is not repeated
+   verbatim. This is the most valuable thing to preserve and the easiest to lose.
+5. Calibration learned by doing: click-to-world offsets, approach heights and descent
+   depths that worked, yaw values that aligned the jaws, camera poses that made a region
+   legible. State them as usable numbers.
+
+Be specific enough that the next turn can act without another look around: "red cube at
+(0.12, -0.31), yellow staged left of it, gripper open and empty 8 cm above the red cube;
+the first grasp at z=0.83 closed on air, 0.79 held", not "made progress on the blocks".
+
+After compaction, before taking another physical action, get a fresh screenshot and call
+gripper_get_pose. Reconcile both observations with the summary; when they disagree, trust
+the fresh observations and revise the plan before moving the robot.

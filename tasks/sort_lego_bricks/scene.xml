@@ -1,0 +1,299 @@
+<mujoco model="sort_lego_bricks">
+  <compiler angle="radian"/>
+  <option integrator="implicitfast" cone="elliptic" noslip_iterations="2">
+    <flag sleep="enable"/>
+  </option>
+  <size memory="256M"/>
+  <visual>
+    <global azimuth="120" elevation="-20" offwidth="1920" offheight="1080"/>
+    <quality shadowsize="4096" offsamples="8"/>
+    <headlight ambient="0.5 0.5 0.5" diffuse="0.15 0.15 0.15" specular="0.03 0.03 0.03"/>
+  </visual>
+  <default>
+    <default class="brick_collision">
+      <geom group="3" condim="4" priority="1" friction="1 0.05 0.001"
+            solref="0.004 1" solimp="0.998 0.998" rgba="0 0 0 0" density="0"/>
+    </default>
+    <default class="bin_collision">
+      <geom group="3" condim="4" priority="1" friction="1 0.05 0.001"
+            solref="0.006 1" solimp="0.998 0.998" rgba="0 0 0 0"/>
+    </default>
+  </default>
+  <worldbody>
+    <geom name="floor" size="0 0 0.05" type="plane" group="1" rgba="0.75 0.75 0.75 1"/>
+    <geom name="base_gate_collision" size="0.305 0.61 0.375" pos="0 0 0.375"
+          type="box" group="3" rgba="0 0 0 0"/>
+    <geom name="base_gate_visual" size="0.305 0.61 0.375" pos="0 0 0.375"
+          type="box" group="1" contype="0" conaffinity="0" rgba="0.60 0.62 0.68 1"/>
+    <geom name="back_wall" size="0.005 0.61 1" pos="1.2144 0 1"
+          type="box" group="3" rgba="0.88 0.88 0.88 0.2"/>
+    <geom name="left_wall" size="0.4572 0.005 1" pos="0.7522 0.61 1"
+          type="box" group="3" rgba="0.88 0.88 0.88 0.2"/>
+    <geom name="right_wall" size="0.4572 0.005 1" pos="0.7522 -0.61 1"
+          type="box" group="3" rgba="0.88 0.88 0.88 0.2"/>
+    <light name="overhead_key" pos="0.55 0 1.8" dir="0 0 -1" type="directional"
+           diffuse="0.65 0.65 0.65" specular="0.12 0.12 0.12"/>
+    <body name="play_table">
+      <geom name="table_visual" size="0.4572 0.61 0.05" pos="0.7522 0 0.72921"
+            type="box" group="1" contype="0" conaffinity="0" rgba="0.24 0.25 0.27 1"/>
+      <geom name="table_plane" size="0.4572 0.61 0.05" pos="0.7522 0 0.72921"
+            type="box" group="3" condim="4" priority="1" friction="1 0.05 0.001"
+            solref="0.008 1" solimp="0.998 0.998" rgba="0 0 0 0"/>
+    </body>
+    <body name="red_bin" pos="0.8800 -0.3600 0.77921">
+      <geom name="red_bin_floor_vis" type="box" size="0.070 0.080 0.002" pos="0 0 0.002" group="1" contype="0" conaffinity="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="red_bin_floor_col" type="box" size="0.070 0.080 0.002" pos="0 0 0.002" class="bin_collision"/>
+      <geom name="red_bin_patch" type="box" size="0.030 0.030 0.0002" pos="0 0 0.0042" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_bin_front_lower" type="box" size="0.070 0.003 0.020" pos="0 -0.077 0.020" group="1" contype="0" conaffinity="0" density="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="red_bin_front_rim" type="box" size="0.070 0.003 0.005" pos="0 -0.077 0.045" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_bin_front_col" type="box" size="0.070 0.003 0.025" pos="0 -0.077 0.025" class="bin_collision"/>
+      <geom name="red_bin_back_lower" type="box" size="0.070 0.003 0.020" pos="0 0.077 0.020" group="1" contype="0" conaffinity="0" density="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="red_bin_back_rim" type="box" size="0.070 0.003 0.005" pos="0 0.077 0.045" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_bin_back_col" type="box" size="0.070 0.003 0.025" pos="0 0.077 0.025" class="bin_collision"/>
+      <geom name="red_bin_left_lower" type="box" size="0.003 0.074 0.020" pos="-0.067 0 0.020" group="1" contype="0" conaffinity="0" density="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="red_bin_left_rim" type="box" size="0.003 0.074 0.005" pos="-0.067 0 0.045" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_bin_left_col" type="box" size="0.003 0.074 0.025" pos="-0.067 0 0.025" class="bin_collision"/>
+      <geom name="red_bin_right_lower" type="box" size="0.003 0.074 0.020" pos="0.067 0 0.020" group="1" contype="0" conaffinity="0" density="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="red_bin_right_rim" type="box" size="0.003 0.074 0.005" pos="0.067 0 0.045" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_bin_right_col" type="box" size="0.003 0.074 0.025" pos="0.067 0 0.025" class="bin_collision"/>
+    </body>
+    <body name="green_bin" pos="0.8800 0.0000 0.77921">
+      <geom name="green_bin_floor_vis" type="box" size="0.070 0.080 0.002" pos="0 0 0.002" group="1" contype="0" conaffinity="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="green_bin_floor_col" type="box" size="0.070 0.080 0.002" pos="0 0 0.002" class="bin_collision"/>
+      <geom name="green_bin_patch" type="box" size="0.030 0.030 0.0002" pos="0 0 0.0042" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_bin_front_lower" type="box" size="0.070 0.003 0.020" pos="0 -0.077 0.020" group="1" contype="0" conaffinity="0" density="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="green_bin_front_rim" type="box" size="0.070 0.003 0.005" pos="0 -0.077 0.045" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_bin_front_col" type="box" size="0.070 0.003 0.025" pos="0 -0.077 0.025" class="bin_collision"/>
+      <geom name="green_bin_back_lower" type="box" size="0.070 0.003 0.020" pos="0 0.077 0.020" group="1" contype="0" conaffinity="0" density="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="green_bin_back_rim" type="box" size="0.070 0.003 0.005" pos="0 0.077 0.045" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_bin_back_col" type="box" size="0.070 0.003 0.025" pos="0 0.077 0.025" class="bin_collision"/>
+      <geom name="green_bin_left_lower" type="box" size="0.003 0.074 0.020" pos="-0.067 0 0.020" group="1" contype="0" conaffinity="0" density="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="green_bin_left_rim" type="box" size="0.003 0.074 0.005" pos="-0.067 0 0.045" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_bin_left_col" type="box" size="0.003 0.074 0.025" pos="-0.067 0 0.025" class="bin_collision"/>
+      <geom name="green_bin_right_lower" type="box" size="0.003 0.074 0.020" pos="0.067 0 0.020" group="1" contype="0" conaffinity="0" density="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="green_bin_right_rim" type="box" size="0.003 0.074 0.005" pos="0.067 0 0.045" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_bin_right_col" type="box" size="0.003 0.074 0.025" pos="0.067 0 0.025" class="bin_collision"/>
+    </body>
+    <body name="yellow_bin" pos="0.8800 0.3600 0.77921">
+      <geom name="yellow_bin_floor_vis" type="box" size="0.070 0.080 0.002" pos="0 0 0.002" group="1" contype="0" conaffinity="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="yellow_bin_floor_col" type="box" size="0.070 0.080 0.002" pos="0 0 0.002" class="bin_collision"/>
+      <geom name="yellow_bin_patch" type="box" size="0.030 0.030 0.0002" pos="0 0 0.0042" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_bin_front_lower" type="box" size="0.070 0.003 0.020" pos="0 -0.077 0.020" group="1" contype="0" conaffinity="0" density="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="yellow_bin_front_rim" type="box" size="0.070 0.003 0.005" pos="0 -0.077 0.045" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_bin_front_col" type="box" size="0.070 0.003 0.025" pos="0 -0.077 0.025" class="bin_collision"/>
+      <geom name="yellow_bin_back_lower" type="box" size="0.070 0.003 0.020" pos="0 0.077 0.020" group="1" contype="0" conaffinity="0" density="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="yellow_bin_back_rim" type="box" size="0.070 0.003 0.005" pos="0 0.077 0.045" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_bin_back_col" type="box" size="0.070 0.003 0.025" pos="0 0.077 0.025" class="bin_collision"/>
+      <geom name="yellow_bin_left_lower" type="box" size="0.003 0.074 0.020" pos="-0.067 0 0.020" group="1" contype="0" conaffinity="0" density="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="yellow_bin_left_rim" type="box" size="0.003 0.074 0.005" pos="-0.067 0 0.045" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_bin_left_col" type="box" size="0.003 0.074 0.025" pos="-0.067 0 0.025" class="bin_collision"/>
+      <geom name="yellow_bin_right_lower" type="box" size="0.003 0.074 0.020" pos="0.067 0 0.020" group="1" contype="0" conaffinity="0" density="0" rgba="0.40 0.42 0.46 1"/>
+      <geom name="yellow_bin_right_rim" type="box" size="0.003 0.074 0.005" pos="0.067 0 0.045" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_bin_right_col" type="box" size="0.003 0.074 0.025" pos="0.067 0 0.025" class="bin_collision"/>
+    </body>
+    <body name="red_brick_1" pos="0.4900 -0.1200 0.78401">
+      <freejoint name="red_brick_1_joint"/>
+      <inertial pos="0 0 0" mass="0.0023" diaginertia="6.7e-8 2.14e-7 2.45e-7"/>
+      <geom name="red_brick_1_body_vis" type="box" size="0.016 0.008 0.0048" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_1_body_col" type="box" size="0.016 0.008 0.0048" class="brick_collision"/>
+      <geom name="red_brick_1_stud_0_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_1_stud_0_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_1_stud_0_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_1_stud_0_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_1_stud_0_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_1_stud_0_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_1_stud_0_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_1_stud_0_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_1_stud_1_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_1_stud_1_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_1_stud_1_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_1_stud_1_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_1_stud_1_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_1_stud_1_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_1_stud_1_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_1_stud_1_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 0.0057" class="brick_collision"/>
+    </body>
+    <body name="red_brick_2" pos="0.4800 0.0000 0.78401">
+      <freejoint name="red_brick_2_joint"/>
+      <inertial pos="0 0 0" mass="0.0023" diaginertia="6.7e-8 2.14e-7 2.45e-7"/>
+      <geom name="red_brick_2_body_vis" type="box" size="0.016 0.008 0.0048" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_2_body_col" type="box" size="0.016 0.008 0.0048" class="brick_collision"/>
+      <geom name="red_brick_2_stud_0_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_2_stud_0_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_2_stud_0_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_2_stud_0_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_2_stud_0_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_2_stud_0_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_2_stud_0_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_2_stud_0_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_2_stud_1_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_2_stud_1_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_2_stud_1_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_2_stud_1_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_2_stud_1_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_2_stud_1_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 0.0057" class="brick_collision"/>
+      <geom name="red_brick_2_stud_1_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_2_stud_1_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 0.0057" class="brick_collision"/>
+    </body>
+    <body name="red_brick_3" pos="0.4900 0.1200 0.78581">
+      <freejoint name="red_brick_3_joint"/>
+      <inertial pos="0 0 0" mass="0.0023" diaginertia="6.7e-8 2.14e-7 2.45e-7"/>
+      <geom name="red_brick_3_body_vis" type="box" size="0.016 0.008 0.0048" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_3_body_col" type="box" size="0.016 0.008 0.0048" class="brick_collision"/>
+      <geom name="red_brick_3_stud_0_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_3_stud_0_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 -0.0057" class="brick_collision"/>
+      <geom name="red_brick_3_stud_0_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_3_stud_0_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 -0.0057" class="brick_collision"/>
+      <geom name="red_brick_3_stud_0_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_3_stud_0_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 -0.0057" class="brick_collision"/>
+      <geom name="red_brick_3_stud_0_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_3_stud_0_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 -0.0057" class="brick_collision"/>
+      <geom name="red_brick_3_stud_1_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_3_stud_1_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 -0.0057" class="brick_collision"/>
+      <geom name="red_brick_3_stud_1_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_3_stud_1_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 -0.0057" class="brick_collision"/>
+      <geom name="red_brick_3_stud_1_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_3_stud_1_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 -0.0057" class="brick_collision"/>
+      <geom name="red_brick_3_stud_1_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.8 0.035 0.025 1"/>
+      <geom name="red_brick_3_stud_1_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 -0.0057" class="brick_collision"/>
+    </body>
+    <body name="green_brick_1" pos="0.6100 -0.2400 0.78401">
+      <freejoint name="green_brick_1_joint"/>
+      <inertial pos="0 0 0" mass="0.0023" diaginertia="6.7e-8 2.14e-7 2.45e-7"/>
+      <geom name="green_brick_1_body_vis" type="box" size="0.016 0.008 0.0048" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_1_body_col" type="box" size="0.016 0.008 0.0048" class="brick_collision"/>
+      <geom name="green_brick_1_stud_0_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_1_stud_0_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_1_stud_0_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_1_stud_0_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_1_stud_0_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_1_stud_0_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_1_stud_0_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_1_stud_0_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_1_stud_1_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_1_stud_1_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_1_stud_1_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_1_stud_1_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_1_stud_1_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_1_stud_1_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_1_stud_1_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_1_stud_1_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 0.0057" class="brick_collision"/>
+    </body>
+    <body name="green_brick_2" pos="0.6100 0.0000 0.78401">
+      <freejoint name="green_brick_2_joint"/>
+      <inertial pos="0 0 0" mass="0.0023" diaginertia="6.7e-8 2.14e-7 2.45e-7"/>
+      <geom name="green_brick_2_body_vis" type="box" size="0.016 0.008 0.0048" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_2_body_col" type="box" size="0.016 0.008 0.0048" class="brick_collision"/>
+      <geom name="green_brick_2_stud_0_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_2_stud_0_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_2_stud_0_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_2_stud_0_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_2_stud_0_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_2_stud_0_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_2_stud_0_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_2_stud_0_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_2_stud_1_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_2_stud_1_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_2_stud_1_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_2_stud_1_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_2_stud_1_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_2_stud_1_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 0.0057" class="brick_collision"/>
+      <geom name="green_brick_2_stud_1_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_2_stud_1_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 0.0057" class="brick_collision"/>
+    </body>
+    <body name="green_brick_3" pos="0.6100 0.2400 0.78581">
+      <freejoint name="green_brick_3_joint"/>
+      <inertial pos="0 0 0" mass="0.0023" diaginertia="6.7e-8 2.14e-7 2.45e-7"/>
+      <geom name="green_brick_3_body_vis" type="box" size="0.016 0.008 0.0048" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_3_body_col" type="box" size="0.016 0.008 0.0048" class="brick_collision"/>
+      <geom name="green_brick_3_stud_0_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_3_stud_0_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 -0.0057" class="brick_collision"/>
+      <geom name="green_brick_3_stud_0_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_3_stud_0_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 -0.0057" class="brick_collision"/>
+      <geom name="green_brick_3_stud_0_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_3_stud_0_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 -0.0057" class="brick_collision"/>
+      <geom name="green_brick_3_stud_0_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_3_stud_0_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 -0.0057" class="brick_collision"/>
+      <geom name="green_brick_3_stud_1_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_3_stud_1_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 -0.0057" class="brick_collision"/>
+      <geom name="green_brick_3_stud_1_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_3_stud_1_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 -0.0057" class="brick_collision"/>
+      <geom name="green_brick_3_stud_1_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_3_stud_1_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 -0.0057" class="brick_collision"/>
+      <geom name="green_brick_3_stud_1_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.025 0.52 0.1 1"/>
+      <geom name="green_brick_3_stud_1_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 -0.0057" class="brick_collision"/>
+    </body>
+    <body name="yellow_brick_1" pos="0.7400 -0.2400 0.78401">
+      <freejoint name="yellow_brick_1_joint"/>
+      <inertial pos="0 0 0" mass="0.0023" diaginertia="6.7e-8 2.14e-7 2.45e-7"/>
+      <geom name="yellow_brick_1_body_vis" type="box" size="0.016 0.008 0.0048" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_1_body_col" type="box" size="0.016 0.008 0.0048" class="brick_collision"/>
+      <geom name="yellow_brick_1_stud_0_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_1_stud_0_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_1_stud_0_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_1_stud_0_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_1_stud_0_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_1_stud_0_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_1_stud_0_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_1_stud_0_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_1_stud_1_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_1_stud_1_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_1_stud_1_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_1_stud_1_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_1_stud_1_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_1_stud_1_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_1_stud_1_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_1_stud_1_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 0.0057" class="brick_collision"/>
+    </body>
+    <body name="yellow_brick_2" pos="0.7400 0.0000 0.78401">
+      <freejoint name="yellow_brick_2_joint"/>
+      <inertial pos="0 0 0" mass="0.0023" diaginertia="6.7e-8 2.14e-7 2.45e-7"/>
+      <geom name="yellow_brick_2_body_vis" type="box" size="0.016 0.008 0.0048" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_2_body_col" type="box" size="0.016 0.008 0.0048" class="brick_collision"/>
+      <geom name="yellow_brick_2_stud_0_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_2_stud_0_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_2_stud_0_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_2_stud_0_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_2_stud_0_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_2_stud_0_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_2_stud_0_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_2_stud_0_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_2_stud_1_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_2_stud_1_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_2_stud_1_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_2_stud_1_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_2_stud_1_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_2_stud_1_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_2_stud_1_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_2_stud_1_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 0.0057" class="brick_collision"/>
+    </body>
+    <body name="yellow_brick_3" pos="0.7400 0.2400 0.78581">
+      <freejoint name="yellow_brick_3_joint"/>
+      <inertial pos="0 0 0" mass="0.0023" diaginertia="6.7e-8 2.14e-7 2.45e-7"/>
+      <geom name="yellow_brick_3_body_vis" type="box" size="0.016 0.008 0.0048" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_3_body_col" type="box" size="0.016 0.008 0.0048" class="brick_collision"/>
+      <geom name="yellow_brick_3_stud_0_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_3_stud_0_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 -0.0040 -0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_3_stud_0_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_3_stud_0_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 -0.0040 -0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_3_stud_0_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_3_stud_0_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 -0.0040 -0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_3_stud_0_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_3_stud_0_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 -0.0040 -0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_3_stud_1_0_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_3_stud_1_0_col" type="cylinder" size="0.0024 0.0009" pos="-0.0120 0.0040 -0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_3_stud_1_1_vis" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_3_stud_1_1_col" type="cylinder" size="0.0024 0.0009" pos="-0.0040 0.0040 -0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_3_stud_1_2_vis" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_3_stud_1_2_col" type="cylinder" size="0.0024 0.0009" pos="0.0040 0.0040 -0.0057" class="brick_collision"/>
+      <geom name="yellow_brick_3_stud_1_3_vis" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 -0.0057" group="1" contype="0" conaffinity="0" density="0" rgba="0.96 0.72 0.025 1"/>
+      <geom name="yellow_brick_3_stud_1_3_col" type="cylinder" size="0.0024 0.0009" pos="0.0120 0.0040 -0.0057" class="brick_collision"/>
+    </body>
+    <camera name="pcleft" pos="0.755 0.95 1.6"
+            quat="0 0 0.48106 0.87669" fovy="58"/>
+    <camera name="pcright" pos="0.755 -0.95 1.6"
+            quat="0.87669 0.48106 0 0" fovy="58"/>
+    <camera name="tpview" pos="1.95 0 1.55"
+            quat="0.61017 0.35733 0.35733 0.61017" fovy="52"/>
+  </worldbody>
+</mujoco>

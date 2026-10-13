@@ -1,0 +1,297 @@
+{
+ "spec_version": 1,
+ "family": "pix2dex",
+ "name": "bottles_in_bin/toss_in_bin",
+ "language": "Toss every bottle into the bin.",
+ "scene": "scene.xml",
+ "support": [
+  "play_table"
+ ],
+ "robots": [
+  {
+   "name": "move",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    -0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  },
+  {
+   "name": "hold",
+   "model": "i2rt_yam",
+   "base_pos": [
+    0.2525,
+    0.31,
+    0.76
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    0.7349,
+    0.1426,
+    0.5922,
+    0.0,
+    0.0
+   ],
+   "home_euler": [
+    0.0,
+    1.5708,
+    0.0
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "tpview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "move"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "hold"
+  },
+  {
+   "name": "pcleft",
+   "role": "pc"
+  },
+  {
+   "name": "pcright",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "bin_slot",
+  "bottle_slot_a",
+  "bottle_slot_b",
+  "bottle_slot_c",
+  "bottle_slot_d"
+ ],
+ "randomization": {
+  "full_rand": true,
+  "groups": [
+   [
+    "bin_slot"
+   ],
+   [
+    "bottle_slot_a"
+   ],
+   [
+    "bottle_slot_b"
+   ],
+   [
+    "bottle_slot_c"
+   ],
+   [
+    "bottle_slot_d"
+   ]
+  ],
+  "placement_regions": {
+   "bin_slot": [
+    {
+     "x": [
+      0.725,
+      0.925
+     ],
+     "y": [
+      -0.1,
+      0.1
+     ],
+     "yaw_offset_deg": [
+      -180,
+      180
+     ]
+    }
+   ]
+  },
+  "lift_reach": {
+   "bottle_slot_a": 0.12,
+   "bottle_slot_b": 0.12,
+   "bottle_slot_c": 0.12,
+   "bottle_slot_d": 0.12
+  },
+  "min_sep": [
+   [
+    "bottle_slot_a",
+    "bottle_slot_b",
+    0.11
+   ],
+   [
+    "bottle_slot_a",
+    "bottle_slot_c",
+    0.11
+   ],
+   [
+    "bottle_slot_a",
+    "bottle_slot_d",
+    0.11
+   ],
+   [
+    "bottle_slot_b",
+    "bottle_slot_c",
+    0.11
+   ],
+   [
+    "bottle_slot_b",
+    "bottle_slot_d",
+    0.11
+   ],
+   [
+    "bottle_slot_c",
+    "bottle_slot_d",
+    0.11
+   ],
+   [
+    "bin_slot",
+    "bottle_slot_a",
+    0.236
+   ],
+   [
+    "bin_slot",
+    "bottle_slot_b",
+    0.236
+   ],
+   [
+    "bin_slot",
+    "bottle_slot_c",
+    0.236
+   ],
+   [
+    "bin_slot",
+    "bottle_slot_d",
+    0.236
+   ]
+  ],
+  "grasp_clearance": 0.02,
+  "region": {
+   "x": [
+    0,
+    0
+   ],
+   "y": [
+    0,
+    0
+   ],
+   "yaw": [
+    0,
+    0
+   ]
+  }
+ },
+ "success": {
+  "pred": "all",
+  "of": [
+   {
+    "pred": "in_site_box",
+    "obj": "bottle_slot_a",
+    "site": "bin_inside",
+    "size": [
+     0.12,
+     0.12,
+     0.105
+    ]
+   },
+   {
+    "pred": "in_site_box",
+    "obj": "bottle_slot_b",
+    "site": "bin_inside",
+    "size": [
+     0.12,
+     0.12,
+     0.105
+    ]
+   },
+   {
+    "pred": "in_site_box",
+    "obj": "bottle_slot_c",
+    "site": "bin_inside",
+    "size": [
+     0.12,
+     0.12,
+     0.105
+    ]
+   },
+   {
+    "pred": "in_site_box",
+    "obj": "bottle_slot_d",
+    "site": "bin_inside",
+    "size": [
+     0.12,
+     0.12,
+     0.105
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 4000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   0.25,
+   1.26
+  ],
+  "y": [
+   -0.72,
+   0.72
+  ],
+  "z": [
+   0.74,
+   1.25
+  ],
+  "z_min_crop_table": 0.78921,
+  "z_offset": 0.77921,
+  "crop_table": false
+ },
+ "category": "real_world",
+ "metadata": {
+  "bottles": {
+   "container": "500 ml PET bottle",
+   "fill_state": "about one-quarter full",
+   "mass_kg": 0.124
+  }
+ }
+}

@@ -1,0 +1,672 @@
+<mujoco model="workcell_base">
+  <compiler angle="radian" />
+  <option integrator="implicitfast" cone="elliptic" noslip_iterations="1">
+    <flag sleep="enable" />
+  </option>
+  <size memory="256M" />
+  <visual>
+    <global azimuth="120" elevation="-20" offwidth="1920" offheight="1080" />
+    <quality shadowsize="8192" offsamples="16" />
+    <headlight ambient="0.5 0.5 0.5" diffuse="0.15 0.15 0.15" specular="0.03 0.03 0.03" />
+  </visual>
+  <default>
+    <default class="bottles_in_bin_task" />
+    <default class="bin_slot__main">
+      <default class="bin_slot__visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2" />
+      </default>
+      <default class="bin_slot__collision">
+        <geom type="mesh" group="3" />
+      </default>
+    </default>
+    <default class="bottle_slot_a__main">
+      <default class="bottle_slot_a__region">
+        <geom contype="0" conaffinity="0" group="1" rgba="0 1 0 0" />
+      </default>
+      <default class="bottle_slot_a__collision">
+        <geom group="3" rgba="0.5 0 0 0.5" priority="2" condim="6" friction="0.5 0.005 0" />
+      </default>
+    </default>
+    <default class="bottle_slot_b__main">
+      <default class="bottle_slot_b__region">
+        <geom contype="0" conaffinity="0" group="1" rgba="0 1 0 0" />
+      </default>
+      <default class="bottle_slot_b__collision">
+        <geom group="3" rgba="0.5 0 0 0.5" priority="2" condim="6" friction="0.5 0.005 0" />
+      </default>
+    </default>
+    <default class="bottle_slot_c__main">
+      <default class="bottle_slot_c__region">
+        <geom contype="0" conaffinity="0" group="1" rgba="0 1 0 0" />
+      </default>
+      <default class="bottle_slot_c__collision">
+        <geom group="3" rgba="0.5 0 0 0.5" priority="2" condim="6" friction="0.5 0.005 0" />
+      </default>
+    </default>
+    <default class="bottle_slot_d__main">
+      <default class="bottle_slot_d__region">
+        <geom contype="0" conaffinity="0" group="1" rgba="0 1 0 0" />
+      </default>
+      <default class="bottle_slot_d__collision">
+        <geom group="3" rgba="0.5 0 0 0.5" priority="2" condim="6" friction="0.5 0.005 0" />
+      </default>
+    </default>
+    <default class="left-arm-main">
+      <default class="left-arm-yam">
+        <joint frictionloss="0.1" />
+        <general biastype="affine" biasprm="0 -1" />
+        <default class="left-arm-dm4340">
+          <joint armature="0.032" />
+          <general forcerange="-28 28" gainprm="40" biasprm="0 -40 -2.5" />
+        </default>
+        <default class="left-arm-dm4310">
+          <joint armature="0.0018" />
+          <general forcerange="-10 10" gainprm="10" biasprm="0 -10 -1" />
+        </default>
+        <default class="left-arm-visual">
+          <geom type="mesh" contype="0" conaffinity="0" group="2" density="0" material="black" />
+        </default>
+        <default class="left-arm-collision">
+          <geom type="capsule" condim="6" group="3" friction="2 0.1 0.01" />
+          <default class="left-arm-sphere_collision">
+            <geom size="0.0006 0 0" type="sphere" priority="2" friction="4" solref="0.004" solimp="0.998 0.998" rgba="1 0 0 1" />
+          </default>
+        </default>
+        <default class="left-arm-finger">
+          <joint type="slide" armature="0.1" />
+          <general ctrlrange="0 0.0495" gainprm="400" biasprm="0 -400 -14" />
+        </default>
+      </default>
+      <default class="left-arm-jenga_block">
+        <geom type="mesh" contype="0" conaffinity="0" condim="6" group="1" priority="1" density="0" />
+      </default>
+      <default class="left-arm-jenga_col">
+        <geom type="box" group="3" priority="1" friction="0.4 0.005 0.001" solref="0.002" solimp="0.999 0.999" rgba="0 0 0 0" />
+      </default>
+    </default>
+    <default class="right-arm-main">
+      <default class="right-arm-yam">
+        <joint frictionloss="0.1" />
+        <general biastype="affine" biasprm="0 -1" />
+        <default class="right-arm-dm4340">
+          <joint armature="0.032" />
+          <general forcerange="-28 28" gainprm="40" biasprm="0 -40 -2.5" />
+        </default>
+        <default class="right-arm-dm4310">
+          <joint armature="0.0018" />
+          <general forcerange="-10 10" gainprm="10" biasprm="0 -10 -1" />
+        </default>
+        <default class="right-arm-visual">
+          <geom type="mesh" contype="0" conaffinity="0" group="2" density="0" material="black" />
+        </default>
+        <default class="right-arm-collision">
+          <geom type="capsule" condim="6" group="3" friction="2 0.1 0.01" />
+          <default class="right-arm-sphere_collision">
+            <geom size="0.0006 0 0" type="sphere" priority="2" friction="4" solref="0.004" solimp="0.998 0.998" rgba="1 0 0 1" />
+          </default>
+        </default>
+        <default class="right-arm-finger">
+          <joint type="slide" armature="0.1" />
+          <general ctrlrange="0 0.0495" gainprm="400" biasprm="0 -400 -14" />
+        </default>
+      </default>
+      <default class="right-arm-jenga_block">
+        <geom type="mesh" contype="0" conaffinity="0" condim="6" group="1" priority="1" density="0" />
+      </default>
+      <default class="right-arm-jenga_col">
+        <geom type="box" group="3" priority="1" friction="0.4 0.005 0.001" solref="0.002" solimp="0.999 0.999" rgba="0 0 0 0" />
+      </default>
+    </default>
+  </default>
+  <asset>
+    <texture type="2d" colorspace="linear" name="bin_slot__material_0" file="assets/material_0.png" />
+    <texture type="2d" colorspace="linear" name="bottle_slot_c__image3" file="assets/image3.png" />
+    <texture type="2d" colorspace="linear" name="bottle_slot_d__image1" file="assets/image1.png" />
+    <texture type="2d" colorspace="linear" name="bottle_slot_d__image0" file="assets/image0.png" />
+    <material name="bin_slot__material_0" texture="bin_slot__material_0" specular="0.4" shininess="0.001" />
+    <material name="bottle_slot_a__Sphere" shininess="0.0309965" rgba="0 0.020556 0.8 1" />
+    <material name="bottle_slot_a__material.009" shininess="0.0309965" />
+    <material name="bottle_slot_b__Material.033" shininess="0.0663325" rgba="0.8 0.8 0.8 1" />
+    <material name="bottle_slot_b__Material.034" shininess="0.0395285" rgba="0.187849 0.754654 0.8 1" />
+    <material name="bottle_slot_b__plastic_007" shininess="0.0473682" rgba="0.8 0.8 0.8 1" />
+    <material name="bottle_slot_c__Plastic_-_regular" shininess="0.81" rgba="0.8 0.8 0.8 1" />
+    <material name="bottle_slot_c__label_1" texture="bottle_slot_c__image3" shininess="0.25" />
+    <material name="bottle_slot_c__orange_plastic" shininess="0.36" rgba="1 0.105974 0.003746 1" />
+    <material name="bottle_slot_d__Bottle.003" shininess="0.811814" />
+    <material name="bottle_slot_d__Label.001" shininess="0.25" rgba="0.267 0.426 0.736 1" />
+    <material name="bottle_slot_d__material.008" texture="bottle_slot_d__image0" shininess="0.25" />
+    <material name="bottle_slot_a__opaque_dusty_blue_plastic" rgba="0.12 0.30 0.50 1" specular="0.12" shininess="0.08" />
+    <material name="bottle_slot_b__opaque_amber_brown_plastic" rgba="0.55 0.28 0.10 1" specular="0.12" shininess="0.08" />
+    <material name="bottle_slot_c__opaque_forest_green_plastic" rgba="0.12 0.42 0.32 1" specular="0.12" shininess="0.08" />
+    <material name="bottle_slot_d__opaque_burgundy_plastic" rgba="0.50 0.14 0.20 1" specular="0.12" shininess="0.08" />
+    <mesh name="base_visual_gate" file="assets/base_visual_gate.stl" />
+    <mesh name="camera_d405" file="assets/camera_d405.stl" />
+    <mesh name="bin_slot__garbage_can" file="assets/bin_slot__garbage_can.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bin_slot__garbage_can_collision_0" file="assets/bin_slot__garbage_can_collision_0.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bin_slot__garbage_can_collision_1" file="assets/bin_slot__garbage_can_collision_1.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bin_slot__garbage_can_collision_2" file="assets/bin_slot__garbage_can_collision_2.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bin_slot__garbage_can_collision_3" file="assets/bin_slot__garbage_can_collision_3.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bin_slot__garbage_can_collision_4" file="assets/bin_slot__garbage_can_collision_4.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bin_slot__garbage_can_collision_5" file="assets/bin_slot__garbage_can_collision_5.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bin_slot__garbage_can_collision_6" file="assets/bin_slot__garbage_can_collision_6.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bin_slot__garbage_can_collision_7" file="assets/bin_slot__garbage_can_collision_7.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bin_slot__garbage_can_collision_8" file="assets/bin_slot__garbage_can_collision_8.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bin_slot__garbage_can_collision_9" file="assets/bin_slot__garbage_can_collision_9.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bin_slot__garbage_can_collision_10" file="assets/bin_slot__garbage_can_collision_10.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bin_slot__garbage_can_collision_11" file="assets/bin_slot__garbage_can_collision_11.obj" refquat="0.707107 -0.707107 0 0" scale="0.6 0.6 0.6" />
+    <mesh name="bottle_slot_a__model_normalized_0_vis" file="assets/bottle_slot_a__model_normalized_0_vis.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_a__model_normalized_1_vis" file="assets/bottle_slot_a__model_normalized_1_vis.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_a__bottled_collision_mesh_0" file="assets/bottle_slot_a__bottled_collision_mesh_0.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_a__bottled_collision_mesh_1" file="assets/bottle_slot_a__bottled_collision_mesh_1.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_a__bottled_collision_mesh_2" file="assets/bottle_slot_a__bottled_collision_mesh_2.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__model_normalized_0_vis" file="assets/bottle_slot_b__model_normalized_0_vis.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__model_normalized_1_vis" file="assets/bottle_slot_b__model_normalized_1_vis.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__model_normalized_2_vis" file="assets/bottle_slot_b__model_normalized_2_vis.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__bottled_collision_mesh_0" file="assets/bottle_slot_b__bottled_collision_mesh_0.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__bottled_collision_mesh_1" file="assets/bottle_slot_b__bottled_collision_mesh_1.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__bottled_collision_mesh_2" file="assets/bottle_slot_b__bottled_collision_mesh_2.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__bottled_collision_mesh_3" file="assets/bottle_slot_b__bottled_collision_mesh_3.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__bottled_collision_mesh_4" file="assets/bottle_slot_b__bottled_collision_mesh_4.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__bottled_collision_mesh_5" file="assets/bottle_slot_b__bottled_collision_mesh_5.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__bottled_collision_mesh_6" file="assets/bottle_slot_b__bottled_collision_mesh_6.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__bottled_collision_mesh_7" file="assets/bottle_slot_b__bottled_collision_mesh_7.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__bottled_collision_mesh_8" file="assets/bottle_slot_b__bottled_collision_mesh_8.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__bottled_collision_mesh_9" file="assets/bottle_slot_b__bottled_collision_mesh_9.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__bottled_collision_mesh_10" file="assets/bottle_slot_b__bottled_collision_mesh_10.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_b__bottled_collision_mesh_11" file="assets/bottle_slot_b__bottled_collision_mesh_11.obj" scale="0.181818 0.181818 0.181818" />
+    <mesh name="bottle_slot_c__model_normalized_0_vis" file="assets/bottle_slot_c__model_normalized_0_vis.obj" scale="0.206061 0.206061 0.206061" />
+    <mesh name="bottle_slot_c__model_normalized_1_vis" file="assets/bottle_slot_c__model_normalized_1_vis.obj" scale="0.206061 0.206061 0.206061" />
+    <mesh name="bottle_slot_c__model_normalized_2_vis" file="assets/bottle_slot_c__model_normalized_2_vis.obj" scale="0.206061 0.206061 0.206061" />
+    <mesh name="bottle_slot_c__bottled_collision_mesh_0" file="assets/bottle_slot_c__bottled_collision_mesh_0.obj" scale="0.206061 0.206061 0.206061" />
+    <mesh name="bottle_slot_c__bottled_collision_mesh_1" file="assets/bottle_slot_c__bottled_collision_mesh_1.obj" scale="0.206061 0.206061 0.206061" />
+    <mesh name="bottle_slot_c__bottled_collision_mesh_2" file="assets/bottle_slot_c__bottled_collision_mesh_2.obj" scale="0.206061 0.206061 0.206061" />
+    <mesh name="bottle_slot_c__bottled_collision_mesh_3" file="assets/bottle_slot_c__bottled_collision_mesh_3.obj" scale="0.206061 0.206061 0.206061" />
+    <mesh name="bottle_slot_c__bottled_collision_mesh_4" file="assets/bottle_slot_c__bottled_collision_mesh_4.obj" scale="0.206061 0.206061 0.206061" />
+    <mesh name="bottle_slot_c__bottled_collision_mesh_5" file="assets/bottle_slot_c__bottled_collision_mesh_5.obj" scale="0.206061 0.206061 0.206061" />
+    <mesh name="bottle_slot_c__bottled_collision_mesh_6" file="assets/bottle_slot_c__bottled_collision_mesh_6.obj" scale="0.206061 0.206061 0.206061" />
+    <mesh name="bottle_slot_c__bottled_collision_mesh_7" file="assets/bottle_slot_c__bottled_collision_mesh_7.obj" scale="0.206061 0.206061 0.206061" />
+    <mesh name="bottle_slot_d__model_normalized_0_vis" file="assets/bottle_slot_d__model_normalized_0_vis.stl" scale="0.193939 0.193939 0.193939" />
+    <mesh name="bottle_slot_d__model_normalized_1_vis" file="assets/bottle_slot_d__model_normalized_1_vis.stl" scale="0.193939 0.193939 0.193939" />
+    <mesh name="bottle_slot_d__model_normalized_2_vis" file="assets/bottle_slot_d__model_normalized_2_vis.obj" scale="0.193939 0.193939 0.193939" />
+    <mesh name="bottle_slot_d__bottled_collision_mesh_0" file="assets/bottle_slot_d__bottled_collision_mesh_0.obj" scale="0.193939 0.193939 0.193939" />
+    <mesh name="bottle_slot_d__bottled_collision_mesh_1" file="assets/bottle_slot_d__bottled_collision_mesh_1.obj" scale="0.193939 0.193939 0.193939" />
+    <mesh name="bottle_slot_d__bottled_collision_mesh_2" file="assets/bottle_slot_d__bottled_collision_mesh_2.obj" scale="0.193939 0.193939 0.193939" />
+  </asset>
+  <worldbody>
+    <geom name="floor" size="0 0 0.05" type="plane" rgba="0.75 0.75 0.75 1" />
+    <geom name="base_visual_gate" type="mesh" contype="0" conaffinity="0" group="3" density="0" rgba="0.6 0.62 0.68 1" mesh="base_visual_gate" />
+    <geom name="base_gate_collision" size="0.305 0.61 0.375" pos="0 0 0.375" type="box" group="3" rgba="1 0 0 0" />
+    <geom name="back_wall" size="0.005 0.61 1" pos="1.2144 0 1" type="box" group="3" rgba="0.88 0.88 0.88 0.2" />
+    <geom name="left_wall" size="0.4572 0.005 1" pos="0.7522 0.61 1" type="box" group="3" rgba="0.88 0.88 0.88 0.2" />
+    <geom name="right_wall" size="0.4572 0.005 1" pos="0.7522 -0.61 1" type="box" group="3" rgba="0.88 0.88 0.88 0.2" />
+    <light name="overhead_key" pos="0.55 0 1.8" dir="0 0 -1" type="directional" diffuse="0.65 0.65 0.65" specular="0.12 0.12 0.12" />
+    <body name="top_camera_d405" pos="0.3125 -0.009 1.5" quat="-0.183004 -0.683015 -0.683015 -0.183004">
+      <geom type="mesh" contype="0" conaffinity="0" group="2" mass="0.001" rgba="0 0 0 0" mesh="camera_d405" />
+      <body name="top_camera_frame" pos="0.009 0 0" quat="0 0 0 1">
+        <camera name="top" pos="0 0 0" quat="0 1 0 0" fovy="63" />
+      </body>
+    </body>
+    <body name="overhead_camera" pos="0.55 0 1.6">
+      <camera name="overhead" pos="0 0 0" quat="0.707107 0 0 -0.707107" fovy="60" />
+    </body>
+    <body name="mid_camera" pos="0.4 0 1.05">
+      <camera name="mid" pos="0 0 0" quat="0.666058 0.237417 -0.237417 -0.666058" fovy="90" />
+    </body>
+    <body name="left_side_camera" pos="0.5 0.55 1.05" quat="1.05624e-06 -8.02958e-07 0.605186 0.796084">
+      <camera name="left_side" pos="0 0 0" fovy="70" />
+    </body>
+    <body name="right_side_camera" pos="0.5 -0.55 1.05" quat="0.796084 0.605186 0 0">
+      <camera name="right_side" pos="0 0 0" fovy="70" />
+    </body>
+    <body name="play_table">
+      <geom name="table_visual" size="0.4572 0.61 0.05" pos="0.7522 0 0.72921" type="box" contype="0" conaffinity="0" group="2" rgba="0.24 0.25 0.27 1" />
+      <geom name="table_plane" size="0.4572 0.61 0.05" pos="0.7522 0 0.72921" type="box" condim="4" group="3" priority="1" friction="1 0.05 0.001" solref="0.008" solimp="0.998 0.998" rgba="0 0 0 0" />
+    </body>
+    <body name="bin_slot" pos="0.825 0.000 0.8850125" quat="1.00000 0.00001 -0.00001 -0.00000">
+      <joint name="bin_slot_joint" type="free" />
+      <frame name="bin_slot_frame">
+        <body name="bin_slot__garbage_can">
+          <geom class="bin_slot__visual" material="bin_slot__material_0" mesh="bin_slot__garbage_can" />
+          <geom class="bin_slot__collision" rgba="0.801281 0.831791 0.0471001 1" mesh="bin_slot__garbage_can_collision_0" name="bin_col0" />
+          <geom class="bin_slot__collision" rgba="0.182803 0.640775 0.796569 1" mesh="bin_slot__garbage_can_collision_1" name="bin_col1" />
+          <geom class="bin_slot__collision" rgba="0.969756 0.33378 0.67561 1" mesh="bin_slot__garbage_can_collision_2" name="bin_col2" />
+          <geom class="bin_slot__collision" rgba="0.639636 0.160667 0.103029 1" mesh="bin_slot__garbage_can_collision_3" name="bin_col3" />
+          <geom class="bin_slot__collision" rgba="0.449567 0.713584 0.129934 1" mesh="bin_slot__garbage_can_collision_4" name="bin_col4" />
+          <geom class="bin_slot__collision" rgba="0.034945 0.354516 0.899759 1" mesh="bin_slot__garbage_can_collision_5" name="bin_col5" />
+          <geom class="bin_slot__collision" rgba="0.466993 0.303569 0.649595 1" mesh="bin_slot__garbage_can_collision_6" name="bin_col6" />
+          <geom class="bin_slot__collision" rgba="0.743137 0.440185 0.367021 1" mesh="bin_slot__garbage_can_collision_7" name="bin_col7" />
+          <geom class="bin_slot__collision" rgba="0.810167 0.0347678 0.207249 1" mesh="bin_slot__garbage_can_collision_8" name="bin_col8" />
+          <geom class="bin_slot__collision" rgba="0.0489701 0.437115 0.895636 1" mesh="bin_slot__garbage_can_collision_9" name="bin_col9" />
+          <geom class="bin_slot__collision" rgba="0.682943 0.192864 0.163012 1" mesh="bin_slot__garbage_can_collision_10" name="bin_col10" />
+          <geom class="bin_slot__collision" rgba="0.61597 0.838346 0.209509 1" mesh="bin_slot__garbage_can_collision_11" name="bin_col11" />
+        </body>
+      </frame>
+      <site name="bin_inside" pos="0.0000 0.0000 0.0375" size="0.1200 0.1200 0.1050" type="box" rgba="0 0 0 0" />
+    </body>
+    <body name="bottle_slot_a" pos="0.685 0.340 0.875302" quat="0.98887 -0.00292 0.06641 0.13311">
+      <joint name="bottle_slot_a_joint" type="free" />
+      <frame name="bottle_slot_a_frame">
+        <body>
+          <body name="bottle_slot_a__object">
+            <inertial pos="0.000173946088 0.000001324370 -0.007712915216" quat="0.987015648052 -0.000072512271 0.000412126914 -0.160623582931" mass="0.124" diaginertia="0.000267927169 0.000267926533 0.000053666294" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" density="0" material="bottle_slot_a__opaque_dusty_blue_plastic" mesh="bottle_slot_a__model_normalized_0_vis" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" density="0" material="bottle_slot_a__opaque_dusty_blue_plastic" mesh="bottle_slot_a__model_normalized_1_vis" />
+            <geom name="bottle_slot_a__reg_bbox" class="bottle_slot_a__region" size="0.0254011 0.025408 0.0744192" pos="0.00042412 3.48e-06 0.000580782" type="box" />
+            <geom class="bottle_slot_a__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_a__bottled_collision_mesh_0" name="bottle_slot_a__object_col0" />
+            <geom class="bottle_slot_a__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_a__bottled_collision_mesh_1" name="bottle_slot_a__object_col1" />
+            <geom class="bottle_slot_a__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_a__bottled_collision_mesh_2" name="bottle_slot_a__object_col2" />
+          </body>
+        </body>
+      </frame>
+    </body>
+    <body name="bottle_slot_b" pos="0.620 0.170 0.871964" quat="0.00860 -0.00098 0.00068 -0.99996">
+      <joint name="bottle_slot_b_joint" type="free" />
+      <frame name="bottle_slot_b_frame">
+        <body>
+          <body name="bottle_slot_b__object">
+            <inertial pos="-0.000020795673 -0.000131705706 -0.005215281113" quat="0.722259446205 -0.000041722289 -0.000385144120 0.691622109458" mass="0.124" diaginertia="0.000279033177 0.000278441977 0.000048179531" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" density="0" material="bottle_slot_b__opaque_amber_brown_plastic" mesh="bottle_slot_b__model_normalized_0_vis" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" density="0" material="bottle_slot_b__opaque_amber_brown_plastic" mesh="bottle_slot_b__model_normalized_1_vis" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" density="0" material="bottle_slot_b__opaque_amber_brown_plastic" mesh="bottle_slot_b__model_normalized_2_vis" />
+            <geom name="bottle_slot_b__reg_bbox" class="bottle_slot_b__region" size="0.0238559 0.0231191 0.074259" pos="-8.24752e-05 -0.000336003 -8.02462e-05" type="box" />
+            <geom class="bottle_slot_b__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_b__bottled_collision_mesh_0" name="bottle_slot_b__object_col0" />
+            <geom class="bottle_slot_b__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_b__bottled_collision_mesh_1" name="bottle_slot_b__object_col1" />
+            <geom class="bottle_slot_b__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_b__bottled_collision_mesh_2" name="bottle_slot_b__object_col2" />
+            <geom class="bottle_slot_b__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_b__bottled_collision_mesh_3" name="bottle_slot_b__object_col3" />
+            <geom class="bottle_slot_b__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_b__bottled_collision_mesh_4" name="bottle_slot_b__object_col4" />
+            <geom class="bottle_slot_b__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_b__bottled_collision_mesh_5" name="bottle_slot_b__object_col5" />
+            <geom class="bottle_slot_b__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_b__bottled_collision_mesh_6" name="bottle_slot_b__object_col6" />
+            <geom class="bottle_slot_b__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_b__bottled_collision_mesh_7" name="bottle_slot_b__object_col7" />
+            <geom class="bottle_slot_b__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_b__bottled_collision_mesh_8" name="bottle_slot_b__object_col8" />
+            <geom class="bottle_slot_b__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_b__bottled_collision_mesh_9" name="bottle_slot_b__object_col9" />
+            <geom class="bottle_slot_b__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_b__bottled_collision_mesh_10" name="bottle_slot_b__object_col10" />
+            <geom class="bottle_slot_b__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_b__bottled_collision_mesh_11" name="bottle_slot_b__object_col11" />
+          </body>
+        </body>
+      </frame>
+    </body>
+    <body name="bottle_slot_c" pos="0.620 -0.170 0.816359" quat="0.71519 0.15506 -0.66805 -0.13480">
+      <joint name="bottle_slot_c_joint" type="free" />
+      <frame name="bottle_slot_c_frame">
+        <body>
+          <body name="bottle_slot_c__object">
+            <inertial pos="0.000004680488 0.000025127374 -0.006802119493" quat="0.999999935130 -0.000204820467 0.000004965290 -0.000296249683" mass="0.124" diaginertia="0.000345884765 0.000345174041 0.000040494484" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" density="0" material="bottle_slot_c__opaque_forest_green_plastic" mesh="bottle_slot_c__model_normalized_0_vis" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" density="0" material="bottle_slot_c__opaque_forest_green_plastic" mesh="bottle_slot_c__model_normalized_1_vis" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" density="0" material="bottle_slot_c__opaque_forest_green_plastic" mesh="bottle_slot_c__model_normalized_2_vis" />
+            <geom name="bottle_slot_c__reg_bbox" class="bottle_slot_c__region" size="0.0211366 0.0220941 0.0845303" pos="1.0823e-05 0.000100334 0.000155644" type="box" />
+            <geom class="bottle_slot_c__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_c__bottled_collision_mesh_0" name="bottle_slot_c__object_col0" />
+            <geom class="bottle_slot_c__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_c__bottled_collision_mesh_1" name="bottle_slot_c__object_col1" />
+            <geom class="bottle_slot_c__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_c__bottled_collision_mesh_2" name="bottle_slot_c__object_col2" />
+            <geom class="bottle_slot_c__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_c__bottled_collision_mesh_3" name="bottle_slot_c__object_col3" />
+            <geom class="bottle_slot_c__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_c__bottled_collision_mesh_4" name="bottle_slot_c__object_col4" />
+            <geom class="bottle_slot_c__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_c__bottled_collision_mesh_5" name="bottle_slot_c__object_col5" />
+            <geom class="bottle_slot_c__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_c__bottled_collision_mesh_6" name="bottle_slot_c__object_col6" />
+            <geom class="bottle_slot_c__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_c__bottled_collision_mesh_7" name="bottle_slot_c__object_col7" />
+          </body>
+        </body>
+      </frame>
+    </body>
+    <body name="bottle_slot_d" pos="0.685 -0.340 0.811012" quat="0.63302 0.27162 -0.65448 0.31172">
+      <joint name="bottle_slot_d_joint" type="free" />
+      <frame name="bottle_slot_d_frame">
+        <body>
+          <body name="bottle_slot_d__object">
+            <inertial pos="0.000005690020 0.000089222165 -0.006860770587" quat="0.729957640121 -0.000165306086 0.000301037156 0.683492301112" mass="0.124" diaginertia="0.000303391733 0.000303220319 0.000046798448" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" density="0" material="bottle_slot_d__opaque_burgundy_plastic" mesh="bottle_slot_d__model_normalized_0_vis" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" density="0" material="bottle_slot_d__opaque_burgundy_plastic" mesh="bottle_slot_d__model_normalized_1_vis" />
+            <geom type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" density="0" material="bottle_slot_d__opaque_burgundy_plastic" mesh="bottle_slot_d__model_normalized_2_vis" />
+            <geom name="bottle_slot_d__reg_bbox" class="bottle_slot_d__region" size="0.0233449 0.0232692 0.0797172" pos="3.81816e-05 0.000253624 -6.76304e-05" type="box" />
+            <geom class="bottle_slot_d__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_d__bottled_collision_mesh_0" name="bottle_slot_d__object_col0" />
+            <geom class="bottle_slot_d__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_d__bottled_collision_mesh_1" name="bottle_slot_d__object_col1" />
+            <geom class="bottle_slot_d__collision" type="mesh" solref="0.004" solimp="0.998 0.998" mesh="bottle_slot_d__bottled_collision_mesh_2" name="bottle_slot_d__object_col2" />
+          </body>
+        </body>
+      </frame>
+    </body>
+    <frame name="bottles_in_bin_task_frame" />
+    <camera name="pcleft" pos="0.7550 0.9500 1.6000" quat="0.00000 0.00000 0.48106 0.87669" fovy="58" />
+    <camera name="pcright" pos="0.7550 -0.9500 1.6000" quat="0.87669 0.48106 0.00000 0.00000" fovy="58" />
+    <camera name="tpview" pos="1.9500 0.0000 1.5500" quat="0.61017 0.35733 0.35733 0.61017" fovy="52" />
+  </worldbody>
+  <contact>
+    <pair geom1="bottle_slot_a__object_col0" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col0" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col0" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col0" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col0" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col0" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col0" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col0" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col0" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col0" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col0" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col0" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col0" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col1" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_a__object_col2" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col0" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col1" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col2" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col3" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col4" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col5" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col6" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col7" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col8" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col9" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col10" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_b__object_col11" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col0" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col1" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col2" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col3" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col4" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col5" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col6" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_c__object_col7" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col0" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col1" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="table_plane" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="bin_col0" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="bin_col1" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="bin_col2" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="bin_col3" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="bin_col4" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="bin_col5" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="bin_col6" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="bin_col7" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="bin_col8" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="bin_col9" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="bin_col10" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+    <pair geom1="bottle_slot_d__object_col2" geom2="bin_col11" condim="6" solref="0.004 0.5" solimp="0.998 0.998" friction="0.5 0.5 0.005 0.001 0.001" />
+  </contact>
+</mujoco>

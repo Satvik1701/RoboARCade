@@ -1,0 +1,8 @@
+{
+  "name": "via-cam",
+  "version": 1,
+  "description": "via-cam: the 21 VIA tools + gripper_home (joint-space return to the start pose), camera_views (gallery of every selectable camera), camera_feed_select (sticky 3rd-person feed switch), and camera_raw (any single camera's frame at native render fidelity).",
+  "arms": 1,
+  "tools": 25,
+  "source": "VIA (https://github.com/hengyuan-hu/via) ported onto the kernel, plus the camera tools; serves core/UI/index.html"
+}

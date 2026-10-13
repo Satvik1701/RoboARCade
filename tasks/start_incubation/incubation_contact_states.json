@@ -1,0 +1,26 @@
+{
+  "launch": {
+    "recording": "data/run_eval/incubation_fill_1x_sol_s0/20260914_224550/seed1000000",
+    "frame": 1264,
+    "pack": {
+      "task.json": "5903bd8f13c8a99a04391f1013904dbb0e32b96383fd70f529d66ff1948f5522",
+      "scene.xml": "4489accdf831e1f8ab6128d4ee0b09492a285f917996985df76315426b2bfbe9",
+      "manifest.json": "bbb2491fec902966d0e7c96c583e4af7fba5f1e4282cd5b792ea583a48a107d1"
+    }
+  },
+  "one_pad": {
+    "recording": "data/run_eval/incubation_fill_1x_sol_s3/20260914_224550/seed1000003",
+    "frame": 387,
+    "pack": {
+      "task.json": "5903bd8f13c8a99a04391f1013904dbb0e32b96383fd70f529d66ff1948f5522",
+      "scene.xml": "4489accdf831e1f8ab6128d4ee0b09492a285f917996985df76315426b2bfbe9",
+      "manifest.json": "bbb2491fec902966d0e7c96c583e4af7fba5f1e4282cd5b792ea583a48a107d1"
+    }
+  },
+  "insertion_jam": {
+    "recording": "data/dev1/autobio_start_incubation/demo00007",
+    "frame": 394,
+    "description": "Released tube catches on a taper-cylinder ledge against the well lip, 6.126 mm above floor. Recording made before friction or geometry revision.",
+    "scene_sha256": "4489accdf831e1f8ab6128d4ee0b09492a285f917996985df76315426b2bfbe9"
+  }
+}

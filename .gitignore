@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+
+# Env / editor
+.env
+.DS_Store
+
+# upload_large_folder bookkeeping (scripts/sync_assets.py)
+/assets/.cache/
+
+# Large data & generated assets (mounted as volumes, fetched on demand).
+# D10: robomimic packs, the Panda, and manifests are committed.
+/assets/tasks/**
+/assets/replay_packs/**/assets/
+/assets/robodojo/*
+!/assets/robodojo/.gitkeep
+/assets/robodojo_mjcf/*
+!/assets/robodojo_mjcf/.gitkeep
+/assets/fabrica/*
+!/assets/fabrica/.gitkeep
+/assets/fabrica_mjcf/*
+!/assets/fabrica_mjcf/.gitkeep
+/assets/pix2dex_mjcf/*
+!/assets/pix2dex_mjcf/.gitkeep
+/assets/autobio/*
+!/assets/autobio/.gitkeep
+/assets/autobio_src/
+
+# Eval outputs, videos, logs
+/data/*
+!/data/.gitkeep
+
+# Runtime advisory lock for publishing rubric snapshots.
+/docs/architecture/task-rubrics/scores.lock
+# Atomic-write staging files from tempfile.NamedTemporaryFile in the publisher.
+/docs/architecture/task-rubrics/tmp????????
+
+# uv
+uv.lock.tmp
+
+# mujoco crash logs
+MUJOCO_LOG.TXT
+
+# Local AutoBio PCR experiments and measurements; never commit these.
+/scratch_pcr/
+
+# API keys — never committed
+secrets/
+
+# Offline renderer toolchain (Blender tarball + blender-py with mujoco), fetched not committed.
+/tools/
+
+
+# built by docs/build.py from the markdown sources
+docs/site/

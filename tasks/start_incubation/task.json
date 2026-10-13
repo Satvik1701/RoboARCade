@@ -1,0 +1,2108 @@
+{
+ "spec_version": 1,
+ "family": "autobio",
+ "category": "real_world",
+ "name": "start_incubation",
+ "language": "Move both tubes from the rack into two wells in the machine. Press program 1 while both tubes are inside, then return both tubes to the same rack holes as the start and move the arm home.",
+ "scene": "scene.xml",
+ "support": [
+  "table"
+ ],
+ "robots": [
+  {
+   "name": "robot0",
+   "model": "franka_panda_low_torsion",
+   "base_pos": [
+    -0.56,
+    0.0,
+    0.8
+   ],
+   "base_quat": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "home_qpos": [
+    0.0,
+    -0.161037389,
+    0.0,
+    -2.44459747,
+    0.0,
+    2.2267522,
+    0.7853981633974483
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "name": "agentview",
+   "role": "third_person"
+  },
+  {
+   "name": "wrist",
+   "role": "wrist",
+   "robot": "robot0",
+   "src": {
+    "pos": "0.0931 0 0.0072",
+    "quat": "0.177222 0.684538 0.684538 0.177222",
+    "fovy": "65"
+   }
+  },
+  {
+   "name": "leftview",
+   "role": "pc"
+  },
+  {
+   "name": "rightview",
+   "role": "pc"
+  }
+ ],
+ "objects": [
+  "tube_rack",
+  "tube_1",
+  "tube_2"
+ ],
+ "randomization": {
+  "type": "uniform",
+  "objects": {},
+  "reference": [
+   0.0,
+   0.0,
+   0.8
+  ],
+  "z_offset": 0.0,
+  "groups": [
+   [
+    "tube_rack",
+    "tube_1",
+    "tube_2"
+   ]
+  ],
+  "slots": {
+   "parent": "tube_rack",
+   "members": [
+    "tube_1",
+    "tube_2"
+   ],
+   "poses": [
+    [
+     -0.0873,
+     0.0244,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.0873,
+     0.011200000000000002,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.0873,
+     -0.0019999999999999983,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.0873,
+     -0.015199999999999995,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.0873,
+     -0.028399999999999998,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.0711,
+     0.0244,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.0711,
+     0.011200000000000002,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.0711,
+     -0.0019999999999999983,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.0711,
+     -0.015199999999999995,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.0711,
+     -0.028399999999999998,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.054900000000000004,
+     0.0244,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.054900000000000004,
+     0.011200000000000002,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.054900000000000004,
+     -0.0019999999999999983,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.054900000000000004,
+     -0.015199999999999995,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.054900000000000004,
+     -0.028399999999999998,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.038700000000000005,
+     0.0244,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.038700000000000005,
+     0.011200000000000002,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.038700000000000005,
+     -0.0019999999999999983,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.038700000000000005,
+     -0.015199999999999995,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.038700000000000005,
+     -0.028399999999999998,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.022500000000000006,
+     0.0244,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.022500000000000006,
+     0.011200000000000002,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.022500000000000006,
+     -0.0019999999999999983,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.022500000000000006,
+     -0.015199999999999995,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.022500000000000006,
+     -0.028399999999999998,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.006300000000000014,
+     0.0244,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.006300000000000014,
+     0.011200000000000002,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.006300000000000014,
+     -0.0019999999999999983,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.006300000000000014,
+     -0.015199999999999995,
+     -0.0085,
+     0.0
+    ],
+    [
+     -0.006300000000000014,
+     -0.028399999999999998,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.009899999999999992,
+     0.0244,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.009899999999999992,
+     0.011200000000000002,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.009899999999999992,
+     -0.0019999999999999983,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.009899999999999992,
+     -0.015199999999999995,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.009899999999999992,
+     -0.028399999999999998,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.026099999999999998,
+     0.0244,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.026099999999999998,
+     0.011200000000000002,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.026099999999999998,
+     -0.0019999999999999983,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.026099999999999998,
+     -0.015199999999999995,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.026099999999999998,
+     -0.028399999999999998,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.04229999999999999,
+     0.0244,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.04229999999999999,
+     0.011200000000000002,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.04229999999999999,
+     -0.0019999999999999983,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.04229999999999999,
+     -0.015199999999999995,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.04229999999999999,
+     -0.028399999999999998,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.05849999999999998,
+     0.0244,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.05849999999999998,
+     0.011200000000000002,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.05849999999999998,
+     -0.0019999999999999983,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.05849999999999998,
+     -0.015199999999999995,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.05849999999999998,
+     -0.028399999999999998,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.07469999999999997,
+     0.0244,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.07469999999999997,
+     0.011200000000000002,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.07469999999999997,
+     -0.0019999999999999983,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.07469999999999997,
+     -0.015199999999999995,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.07469999999999997,
+     -0.028399999999999998,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.0909,
+     0.0244,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.0909,
+     0.011200000000000002,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.0909,
+     -0.0019999999999999983,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.0909,
+     -0.015199999999999995,
+     -0.0085,
+     0.0
+    ],
+    [
+     0.0909,
+     -0.028399999999999998,
+     -0.0085,
+     0.0
+    ]
+   ]
+  },
+  "full_rand": true,
+  "region": {
+   "x": [
+    -0.06,
+    0.06
+   ],
+   "y": [
+    -0.05,
+    0.05
+   ],
+   "yaw": [
+    -0.261799,
+    0.261799
+   ]
+  },
+  "placement_regions": {
+   "tube_rack": [
+    {
+     "x": [
+      -0.15,
+      -0.03
+     ],
+     "y": [
+      -0.26,
+      -0.16
+     ],
+     "yaw_offset_deg": [
+      -15.0,
+      15.0
+     ]
+    }
+   ]
+  },
+  "grasp_clearance": 0.022,
+  "reach_sites": [
+   "machine_well_r0_c0",
+   "machine_well_r0_c1",
+   "machine_well_r0_c2",
+   "machine_well_r0_c3",
+   "machine_well_r0_c4",
+   "machine_well_r0_c5",
+   "machine_well_r1_c0",
+   "machine_well_r1_c1",
+   "machine_well_r1_c2",
+   "machine_well_r1_c3",
+   "machine_well_r1_c4",
+   "machine_well_r1_c5",
+   "machine_well_r2_c0",
+   "machine_well_r2_c1",
+   "machine_well_r2_c2",
+   "machine_well_r2_c3",
+   "machine_well_r2_c4",
+   "machine_well_r2_c5",
+   "machine_well_r3_c0",
+   "machine_well_r3_c1",
+   "machine_well_r3_c2",
+   "machine_well_r3_c3",
+   "machine_well_r3_c4",
+   "machine_well_r3_c5",
+   "rack_hole_r0_c0",
+   "rack_hole_r1_c0",
+   "rack_hole_r2_c0",
+   "rack_hole_r3_c0",
+   "rack_hole_r4_c0",
+   "rack_hole_r0_c1",
+   "rack_hole_r1_c1",
+   "rack_hole_r2_c1",
+   "rack_hole_r3_c1",
+   "rack_hole_r4_c1",
+   "rack_hole_r0_c2",
+   "rack_hole_r1_c2",
+   "rack_hole_r2_c2",
+   "rack_hole_r3_c2",
+   "rack_hole_r4_c2",
+   "rack_hole_r0_c3",
+   "rack_hole_r1_c3",
+   "rack_hole_r2_c3",
+   "rack_hole_r3_c3",
+   "rack_hole_r4_c3",
+   "rack_hole_r0_c4",
+   "rack_hole_r1_c4",
+   "rack_hole_r2_c4",
+   "rack_hole_r3_c4",
+   "rack_hole_r4_c4",
+   "rack_hole_r0_c5",
+   "rack_hole_r1_c5",
+   "rack_hole_r2_c5",
+   "rack_hole_r3_c5",
+   "rack_hole_r4_c5",
+   "rack_hole_r0_c6",
+   "rack_hole_r1_c6",
+   "rack_hole_r2_c6",
+   "rack_hole_r3_c6",
+   "rack_hole_r4_c6",
+   "rack_hole_r0_c7",
+   "rack_hole_r1_c7",
+   "rack_hole_r2_c7",
+   "rack_hole_r3_c7",
+   "rack_hole_r4_c7",
+   "rack_hole_r0_c8",
+   "rack_hole_r1_c8",
+   "rack_hole_r2_c8",
+   "rack_hole_r3_c8",
+   "rack_hole_r4_c8",
+   "rack_hole_r0_c9",
+   "rack_hole_r1_c9",
+   "rack_hole_r2_c9",
+   "rack_hole_r3_c9",
+   "rack_hole_r4_c9",
+   "rack_hole_r0_c10",
+   "rack_hole_r1_c10",
+   "rack_hole_r2_c10",
+   "rack_hole_r3_c10",
+   "rack_hole_r4_c10",
+   "rack_hole_r0_c11",
+   "rack_hole_r1_c11",
+   "rack_hole_r2_c11",
+   "rack_hole_r3_c11",
+   "rack_hole_r4_c11"
+  ]
+ },
+ "success": {
+  "pred": "sequence",
+  "invariant": {
+   "pred": "all",
+   "of": [
+    {
+     "pred": "all",
+     "of": [
+      {
+       "pred": "axis_up",
+       "obj": "tube_rack",
+       "axis": [
+        0,
+        0,
+        1
+       ],
+       "tol_deg": 15.0
+      },
+      {
+       "pred": "over_site",
+       "obj": "tube_rack",
+       "site": "table_top",
+       "lo": [
+        -0.297,
+        -0.297,
+        0.0005
+       ],
+       "hi": [
+        0.297,
+        0.297,
+        0.0185
+       ]
+      }
+     ]
+    },
+    {
+     "pred": "axis_up",
+     "obj": "tube_1",
+     "axis": [
+      0,
+      0,
+      1
+     ],
+     "tol_deg": 15.0
+    },
+    {
+     "pred": "axis_up",
+     "obj": "tube_2",
+     "axis": [
+      0,
+      0,
+      1
+     ],
+     "tol_deg": 15.0
+    }
+   ]
+  },
+  "of": [
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "any",
+      "of": [
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r0_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r0_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r0_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r0_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r0_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r0_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r1_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r1_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r1_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r1_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r1_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r1_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r2_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r2_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r2_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r2_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r2_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r2_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r3_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r3_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r3_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r3_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r3_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r3_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       }
+      ]
+     },
+     {
+      "pred": "axis_up",
+      "obj": "tube_1",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "tol_deg": 12.0
+     },
+     {
+      "pred": "touching_part",
+      "a": "tube_1",
+      "b": "thermoblock"
+     },
+     {
+      "pred": "any",
+      "of": [
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r0_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r0_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r0_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r0_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r0_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r0_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r1_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r1_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r1_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r1_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r1_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r1_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r2_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r2_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r2_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r2_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r2_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r2_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r3_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r3_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r3_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r3_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r3_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r3_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       }
+      ]
+     },
+     {
+      "pred": "axis_up",
+      "obj": "tube_2",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "tol_deg": 12.0
+     },
+     {
+      "pred": "touching_part",
+      "a": "tube_2",
+      "b": "thermoblock"
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "within_dist",
+       "a": "tube_1",
+       "b": "tube_2",
+       "tol": 0.015,
+       "axes": "xy"
+      }
+     },
+     {
+      "pred": "press_count",
+      "count": 0,
+      "joint": "button_prog_1_key"
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "any",
+      "of": [
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r0_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r0_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r0_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r0_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r0_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r0_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r1_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r1_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r1_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r1_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r1_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r1_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r2_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r2_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r2_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r2_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r2_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r2_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r3_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r3_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r3_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r3_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r3_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_1",
+        "site": "machine_well_r3_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       }
+      ]
+     },
+     {
+      "pred": "axis_up",
+      "obj": "tube_1",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "tol_deg": 12.0
+     },
+     {
+      "pred": "touching_part",
+      "a": "tube_1",
+      "b": "thermoblock"
+     },
+     {
+      "pred": "any",
+      "of": [
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r0_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r0_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r0_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r0_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r0_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r0_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r1_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r1_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r1_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r1_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r1_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r1_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r2_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r2_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r2_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r2_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r2_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r2_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r3_c0",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r3_c1",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r3_c2",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r3_c3",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r3_c4",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       },
+       {
+        "pred": "in_site_box",
+        "obj": "tube_2",
+        "site": "machine_well_r3_c5",
+        "size": [
+         0.0045,
+         0.0045,
+         0.006
+        ]
+       }
+      ]
+     },
+     {
+      "pred": "axis_up",
+      "obj": "tube_2",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "tol_deg": 12.0
+     },
+     {
+      "pred": "touching_part",
+      "a": "tube_2",
+      "b": "thermoblock"
+     },
+     {
+      "pred": "not",
+      "of": {
+       "pred": "within_dist",
+       "a": "tube_1",
+       "b": "tube_2",
+       "tol": 0.015,
+       "axes": "xy"
+      }
+     },
+     {
+      "pred": "press_count",
+      "count": 1,
+      "joint": "button_prog_1_key"
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_start_site",
+      "obj": "tube_1",
+      "sites": [
+       "rack_hole_r0_c0",
+       "rack_hole_r1_c0",
+       "rack_hole_r2_c0",
+       "rack_hole_r3_c0",
+       "rack_hole_r4_c0",
+       "rack_hole_r0_c1",
+       "rack_hole_r1_c1",
+       "rack_hole_r2_c1",
+       "rack_hole_r3_c1",
+       "rack_hole_r4_c1",
+       "rack_hole_r0_c2",
+       "rack_hole_r1_c2",
+       "rack_hole_r2_c2",
+       "rack_hole_r3_c2",
+       "rack_hole_r4_c2",
+       "rack_hole_r0_c3",
+       "rack_hole_r1_c3",
+       "rack_hole_r2_c3",
+       "rack_hole_r3_c3",
+       "rack_hole_r4_c3",
+       "rack_hole_r0_c4",
+       "rack_hole_r1_c4",
+       "rack_hole_r2_c4",
+       "rack_hole_r3_c4",
+       "rack_hole_r4_c4",
+       "rack_hole_r0_c5",
+       "rack_hole_r1_c5",
+       "rack_hole_r2_c5",
+       "rack_hole_r3_c5",
+       "rack_hole_r4_c5",
+       "rack_hole_r0_c6",
+       "rack_hole_r1_c6",
+       "rack_hole_r2_c6",
+       "rack_hole_r3_c6",
+       "rack_hole_r4_c6",
+       "rack_hole_r0_c7",
+       "rack_hole_r1_c7",
+       "rack_hole_r2_c7",
+       "rack_hole_r3_c7",
+       "rack_hole_r4_c7",
+       "rack_hole_r0_c8",
+       "rack_hole_r1_c8",
+       "rack_hole_r2_c8",
+       "rack_hole_r3_c8",
+       "rack_hole_r4_c8",
+       "rack_hole_r0_c9",
+       "rack_hole_r1_c9",
+       "rack_hole_r2_c9",
+       "rack_hole_r3_c9",
+       "rack_hole_r4_c9",
+       "rack_hole_r0_c10",
+       "rack_hole_r1_c10",
+       "rack_hole_r2_c10",
+       "rack_hole_r3_c10",
+       "rack_hole_r4_c10",
+       "rack_hole_r0_c11",
+       "rack_hole_r1_c11",
+       "rack_hole_r2_c11",
+       "rack_hole_r3_c11",
+       "rack_hole_r4_c11"
+      ],
+      "size": [
+       0.0055,
+       0.0055,
+       0.008
+      ]
+     },
+     {
+      "pred": "axis_up",
+      "obj": "tube_1",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "tol_deg": 20.0
+     },
+     {
+      "pred": "in_start_site",
+      "obj": "tube_2",
+      "sites": [
+       "rack_hole_r0_c0",
+       "rack_hole_r1_c0",
+       "rack_hole_r2_c0",
+       "rack_hole_r3_c0",
+       "rack_hole_r4_c0",
+       "rack_hole_r0_c1",
+       "rack_hole_r1_c1",
+       "rack_hole_r2_c1",
+       "rack_hole_r3_c1",
+       "rack_hole_r4_c1",
+       "rack_hole_r0_c2",
+       "rack_hole_r1_c2",
+       "rack_hole_r2_c2",
+       "rack_hole_r3_c2",
+       "rack_hole_r4_c2",
+       "rack_hole_r0_c3",
+       "rack_hole_r1_c3",
+       "rack_hole_r2_c3",
+       "rack_hole_r3_c3",
+       "rack_hole_r4_c3",
+       "rack_hole_r0_c4",
+       "rack_hole_r1_c4",
+       "rack_hole_r2_c4",
+       "rack_hole_r3_c4",
+       "rack_hole_r4_c4",
+       "rack_hole_r0_c5",
+       "rack_hole_r1_c5",
+       "rack_hole_r2_c5",
+       "rack_hole_r3_c5",
+       "rack_hole_r4_c5",
+       "rack_hole_r0_c6",
+       "rack_hole_r1_c6",
+       "rack_hole_r2_c6",
+       "rack_hole_r3_c6",
+       "rack_hole_r4_c6",
+       "rack_hole_r0_c7",
+       "rack_hole_r1_c7",
+       "rack_hole_r2_c7",
+       "rack_hole_r3_c7",
+       "rack_hole_r4_c7",
+       "rack_hole_r0_c8",
+       "rack_hole_r1_c8",
+       "rack_hole_r2_c8",
+       "rack_hole_r3_c8",
+       "rack_hole_r4_c8",
+       "rack_hole_r0_c9",
+       "rack_hole_r1_c9",
+       "rack_hole_r2_c9",
+       "rack_hole_r3_c9",
+       "rack_hole_r4_c9",
+       "rack_hole_r0_c10",
+       "rack_hole_r1_c10",
+       "rack_hole_r2_c10",
+       "rack_hole_r3_c10",
+       "rack_hole_r4_c10",
+       "rack_hole_r0_c11",
+       "rack_hole_r1_c11",
+       "rack_hole_r2_c11",
+       "rack_hole_r3_c11",
+       "rack_hole_r4_c11"
+      ],
+      "size": [
+       0.0055,
+       0.0055,
+       0.008
+      ]
+     },
+     {
+      "pred": "axis_up",
+      "obj": "tube_2",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "tol_deg": 20.0
+     },
+     {
+      "pred": "press_count",
+      "count": 1,
+      "joint": "button_prog_1_key"
+     }
+    ]
+   },
+   {
+    "pred": "all",
+    "of": [
+     {
+      "pred": "in_start_site",
+      "obj": "tube_1",
+      "sites": [
+       "rack_hole_r0_c0",
+       "rack_hole_r1_c0",
+       "rack_hole_r2_c0",
+       "rack_hole_r3_c0",
+       "rack_hole_r4_c0",
+       "rack_hole_r0_c1",
+       "rack_hole_r1_c1",
+       "rack_hole_r2_c1",
+       "rack_hole_r3_c1",
+       "rack_hole_r4_c1",
+       "rack_hole_r0_c2",
+       "rack_hole_r1_c2",
+       "rack_hole_r2_c2",
+       "rack_hole_r3_c2",
+       "rack_hole_r4_c2",
+       "rack_hole_r0_c3",
+       "rack_hole_r1_c3",
+       "rack_hole_r2_c3",
+       "rack_hole_r3_c3",
+       "rack_hole_r4_c3",
+       "rack_hole_r0_c4",
+       "rack_hole_r1_c4",
+       "rack_hole_r2_c4",
+       "rack_hole_r3_c4",
+       "rack_hole_r4_c4",
+       "rack_hole_r0_c5",
+       "rack_hole_r1_c5",
+       "rack_hole_r2_c5",
+       "rack_hole_r3_c5",
+       "rack_hole_r4_c5",
+       "rack_hole_r0_c6",
+       "rack_hole_r1_c6",
+       "rack_hole_r2_c6",
+       "rack_hole_r3_c6",
+       "rack_hole_r4_c6",
+       "rack_hole_r0_c7",
+       "rack_hole_r1_c7",
+       "rack_hole_r2_c7",
+       "rack_hole_r3_c7",
+       "rack_hole_r4_c7",
+       "rack_hole_r0_c8",
+       "rack_hole_r1_c8",
+       "rack_hole_r2_c8",
+       "rack_hole_r3_c8",
+       "rack_hole_r4_c8",
+       "rack_hole_r0_c9",
+       "rack_hole_r1_c9",
+       "rack_hole_r2_c9",
+       "rack_hole_r3_c9",
+       "rack_hole_r4_c9",
+       "rack_hole_r0_c10",
+       "rack_hole_r1_c10",
+       "rack_hole_r2_c10",
+       "rack_hole_r3_c10",
+       "rack_hole_r4_c10",
+       "rack_hole_r0_c11",
+       "rack_hole_r1_c11",
+       "rack_hole_r2_c11",
+       "rack_hole_r3_c11",
+       "rack_hole_r4_c11"
+      ],
+      "size": [
+       0.0055,
+       0.0055,
+       0.008
+      ]
+     },
+     {
+      "pred": "axis_up",
+      "obj": "tube_1",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "tol_deg": 20.0
+     },
+     {
+      "pred": "in_start_site",
+      "obj": "tube_2",
+      "sites": [
+       "rack_hole_r0_c0",
+       "rack_hole_r1_c0",
+       "rack_hole_r2_c0",
+       "rack_hole_r3_c0",
+       "rack_hole_r4_c0",
+       "rack_hole_r0_c1",
+       "rack_hole_r1_c1",
+       "rack_hole_r2_c1",
+       "rack_hole_r3_c1",
+       "rack_hole_r4_c1",
+       "rack_hole_r0_c2",
+       "rack_hole_r1_c2",
+       "rack_hole_r2_c2",
+       "rack_hole_r3_c2",
+       "rack_hole_r4_c2",
+       "rack_hole_r0_c3",
+       "rack_hole_r1_c3",
+       "rack_hole_r2_c3",
+       "rack_hole_r3_c3",
+       "rack_hole_r4_c3",
+       "rack_hole_r0_c4",
+       "rack_hole_r1_c4",
+       "rack_hole_r2_c4",
+       "rack_hole_r3_c4",
+       "rack_hole_r4_c4",
+       "rack_hole_r0_c5",
+       "rack_hole_r1_c5",
+       "rack_hole_r2_c5",
+       "rack_hole_r3_c5",
+       "rack_hole_r4_c5",
+       "rack_hole_r0_c6",
+       "rack_hole_r1_c6",
+       "rack_hole_r2_c6",
+       "rack_hole_r3_c6",
+       "rack_hole_r4_c6",
+       "rack_hole_r0_c7",
+       "rack_hole_r1_c7",
+       "rack_hole_r2_c7",
+       "rack_hole_r3_c7",
+       "rack_hole_r4_c7",
+       "rack_hole_r0_c8",
+       "rack_hole_r1_c8",
+       "rack_hole_r2_c8",
+       "rack_hole_r3_c8",
+       "rack_hole_r4_c8",
+       "rack_hole_r0_c9",
+       "rack_hole_r1_c9",
+       "rack_hole_r2_c9",
+       "rack_hole_r3_c9",
+       "rack_hole_r4_c9",
+       "rack_hole_r0_c10",
+       "rack_hole_r1_c10",
+       "rack_hole_r2_c10",
+       "rack_hole_r3_c10",
+       "rack_hole_r4_c10",
+       "rack_hole_r0_c11",
+       "rack_hole_r1_c11",
+       "rack_hole_r2_c11",
+       "rack_hole_r3_c11",
+       "rack_hole_r4_c11"
+      ],
+      "size": [
+       0.0055,
+       0.0055,
+       0.008
+      ]
+     },
+     {
+      "pred": "axis_up",
+      "obj": "tube_2",
+      "axis": [
+       0,
+       0,
+       1
+      ],
+      "tol_deg": 20.0
+     },
+     {
+      "pred": "press_count",
+      "count": 1,
+      "joint": "button_prog_1_key"
+     },
+     {
+      "pred": "gripper_open",
+      "min": 0.9
+     },
+     {
+      "pred": "eef_near_start",
+      "pos_tol": 0.15,
+      "rot_tol_deg": 20.0
+     },
+     {
+      "pred": "robot_clear",
+      "bodies": [
+       "tube_1",
+       "tube_2",
+       "tube_rack",
+       "mixer"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "termination": {
+  "max_len": 4000
+ },
+ "control": {
+  "control_freq": 20.0,
+  "output_max": [
+   0.05,
+   0.05,
+   0.05,
+   0.5,
+   0.5,
+   0.5
+  ],
+  "waypoint_max_step": 150,
+  "idle_step": 10,
+  "image_size": 448
+ },
+ "pc_crop": {
+  "x": [
+   -0.4,
+   0.4
+  ],
+  "y": [
+   -0.4,
+   0.4
+  ],
+  "z": [
+   0.75,
+   1.2
+  ],
+  "z_min_crop_table": 0.81,
+  "z_offset": 0.8,
+  "crop_table": false
+ }
+}

@@ -1,0 +1,55 @@
+[project]
+name = "roboarcade"
+version = "0.1.0"
+description = "Robot computer-use agent benchmark: an LLM develops and uses an interface to drive a simulated arm (pure MuJoCo) across ported task packs."
+requires-python = ">=3.12,<3.13"
+# Runtime deps are MuJoCo and infrastructure only; the packs were generated
+# offline and are synced as assets.
+dependencies = [
+    "mujoco>=3.10,<4",
+    "numpy>=2,<3",
+    "opencv-python>=4.10",
+    "imageio>=2.34",
+    "scipy>=1.14",
+    "msgpack>=1.0",
+    "websockets>=14",
+    # MCP server (core/mcp_server.py)
+    "mcp>=1.27",
+    "httpx>=0.28",
+    # headless browser UI (sim_env_server)
+    "playwright>=1.60",
+    # waypoint controller: IK (mink) + jerk-limited joint trajectories (control.py)
+    "mink>=1.2.0",
+    "ruckig>=0.19",
+    "imageio-ffmpeg>=0.6.0",
+    # asset sync with the HF dataset (scripts/sync_assets.py)
+    "huggingface_hub>=0.34",
+    "anthropic>=1.2.0",
+    # the docs site (docs/build.py)
+    "markdown>=3.5",
+]
+
+[dependency-groups]
+dev = [
+    "black>=24",
+    "pytest>=8",
+    "viser>=1.0.30",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["core", "interfaces", "dashboard", "tasks"]
+
+[tool.pytest.ini_options]
+testpaths = ["tasks"]
+pythonpath = [".", "tasks"]
+python_files = ["test_*.py", "test.py"]          # tasks/<task>/test.py, one per pack
+# default run = fast unit tier; e2e/sweep opt in via -m. importlib mode: every task test is named test.py
+addopts = "-q -m 'not e2e and not sweep' --import-mode=importlib"
+markers = [
+    "e2e: scripted end-to-end solves (slow; run with -m e2e)",
+    "sweep: every-pack sweeps (slow; run with -m sweep)",
+]

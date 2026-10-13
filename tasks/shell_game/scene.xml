@@ -1,0 +1,255 @@
+<mujoco model="base">
+  <compiler angle="radian" />
+  <option impratio="20" density="1.2" viscosity="2e-05" cone="elliptic" />
+  <size njmax="5000" nconmax="5000" />
+  <visual>
+    <!-- shadowclip pulls the shadow frustum onto the table: at the default the room
+         spreads the map so thin that the walls speckle and the cup rims band. -->
+    <map znear="0.001" shadowclip="0.03" />
+    <quality shadowsize="4096" />
+    <!-- MuJoCo's camera-mounted lamp is the single biggest flattener; turned down so
+         the key light does the modelling, but kept specular so props stay glossy from
+         every camera, not just the one the key happens to favour. -->
+    <headlight ambient="0.26 0.26 0.28" diffuse="0.16 0.16 0.17" specular="0.35 0.35 0.35" />
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.78 0.80 0.84" rgb2="0.28 0.31 0.36" width="256" height="1536" />
+    <!-- baked by bake_textures(); 2d, not cube: a cube texture is sampled by
+         direction, which smears a surface into a sunburst from the geom centre. -->
+    <texture type="2d" name="textable" file="assets/table.png" />
+    <texture type="2d" name="texfloor" file="assets/floor.png" />
+    <texture type="2d" name="texwall" file="assets/wall.png" />
+    <texture type="2d" name="texhousing" file="assets/housing.png" />
+    <mesh name="cupmesh" file="assets/cup.obj" />
+    <mesh name="bzlmesh" file="assets/bezel.obj" />
+    <!-- named for the renderer, not just for us: pbr.py reads "tabletop" as timber.
+         Left unnamed it fell through to glossy plastic and the table mirrored the arm. -->
+    <material name="tabletop_wood" texture="textable" texrepeat="1 1" specular="0.10" shininess="0.12" />
+    <material name="floor_mat" texture="texfloor" texuniform="true" texrepeat="6 6" specular="0.04" shininess="0.05" />
+    <material name="wall_mat" texture="texwall" texrepeat="2 2" specular="0.02" shininess="0.02" />
+    <!-- ONE shell material shared by all seven cups, so they stay identical by
+         construction rather than by everyone remembering to keep them so. -->
+    <material name="shell_mat" specular="0.8" shininess="0.45" />
+    <material name="satin_mat" specular="0.3" shininess="0.35" />
+    <material name="housing_mat" texture="texhousing" texrepeat="3 3" specular="0.35" shininess="0.3" />
+    <material name="collar_mat" specular="0.6" shininess="0.65" />
+    <material name="cap_mat" specular="1" shininess="0.4" />
+  </asset>
+
+  <worldbody>
+    <geom name="floor" size="3 3 0.125" type="plane" group="1" material="floor_mat" />
+    <geom name="wall_leftcorner_visual" size="1.06 1.5 0.01" pos="-1.25 2.25 1.5" quat="0.653281 0.653281 0.270598 0.270598" type="box" contype="0" conaffinity="0" group="1" material="wall_mat" />
+    <geom name="wall_rightcorner_visual" size="1.06 1.5 0.01" pos="-1.25 -2.25 1.5" quat="0.653281 0.653281 -0.270598 -0.270598" type="box" contype="0" conaffinity="0" group="1" material="wall_mat" />
+    <geom name="wall_left_visual" size="1.75 1.5 0.01" pos="1.25 3 1.5" quat="0.707107 0.707107 0 0" type="box" contype="0" conaffinity="0" group="1" material="wall_mat" />
+    <geom name="wall_right_visual" size="1.75 1.5 0.01" pos="1.25 -3 1.5" quat="0.707107 -0.707107 0 0" type="box" contype="0" conaffinity="0" group="1" material="wall_mat" />
+    <geom name="wall_rear_visual" size="1.5 1.5 0.01" pos="-2 0 1.5" quat="0.5 0.5 0.5 0.5" type="box" contype="0" conaffinity="0" group="1" material="wall_mat" />
+    <geom name="wall_front_visual" size="3 1.5 0.01" pos="3 0 1.5" quat="0.5 0.5 -0.5 -0.5" type="box" contype="0" conaffinity="0" group="1" material="wall_mat" />
+    <camera name="agentview" pos="0.5 0 1.35" quat="0.653098 0.271041 0.271041 0.653098" fovy="55" />
+    <camera name="leftview" pos="0.338472 -0.389964 1.35" quat="0.853314 0.354132 0.146686 0.353454" />
+    <camera name="rightview" pos="0.338472 0.389964 1.35" quat="0.353454 0.146686 0.354132 0.853314" />
+    <light name="key" pos="0.9 -0.7 1.6" dir="-0.46 0.41 -0.72" directional="true" castshadow="true" diffuse="0.46 0.44 0.42" specular="0.45 0.45 0.42" />
+    <light name="fill" pos="-0.4 1.2 1.5" dir="0.22 -0.62 -0.75" directional="true" castshadow="false" diffuse="0.22 0.23 0.27" specular="0.05 0.05 0.05" />
+    <light name="rim" pos="-1.6 0 1.6" dir="0.72 0 -0.69" directional="true" castshadow="false" diffuse="0.12 0.12 0.14" specular="0.12 0.12 0.12" />
+    <body name="table" pos="0 0 0.775">
+      <geom name="table_collision" size="0.4 0.4 0.025" type="box" group="3" rgba="0.5 0.5 0 1" />
+      <geom name="tabletop_visual" size="0.4 0.4 0.025" type="box" contype="0" conaffinity="0" group="1" material="tabletop_wood" />
+      <site name="table_top" pos="0 0 0.025" size="0.001" rgba="0 0 0 0" />
+    </body>
+    <body name="shell_0" pos="-0.220 -0.270 0.8000">
+      <freejoint />
+      <geom name="shell_0_w0" type="box" pos="0.0290 0.0000 0.025" euler="0 0 0.0000" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_w1" type="box" pos="0.0251 0.0145 0.025" euler="0 0 0.5236" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_w2" type="box" pos="0.0145 0.0251 0.025" euler="0 0 1.0472" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_w3" type="box" pos="0.0000 0.0290 0.025" euler="0 0 1.5708" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_w4" type="box" pos="-0.0145 0.0251 0.025" euler="0 0 2.0944" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_w5" type="box" pos="-0.0251 0.0145 0.025" euler="0 0 2.6180" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_w6" type="box" pos="-0.0290 0.0000 0.025" euler="0 0 3.1416" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_w7" type="box" pos="-0.0251 -0.0145 0.025" euler="0 0 3.6652" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_w8" type="box" pos="-0.0145 -0.0251 0.025" euler="0 0 4.1888" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_w9" type="box" pos="-0.0000 -0.0290 0.025" euler="0 0 4.7124" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_w10" type="box" pos="0.0145 -0.0251 0.025" euler="0 0 5.2360" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_w11" type="box" pos="0.0251 -0.0145 0.025" euler="0 0 5.7596" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_lid" type="cylinder" pos="0 0 0.052" size="0.0310 0.002" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_0_skin" type="mesh" mesh="cupmesh" pos="0 0 0.03954" rgba="0.92 0.92 0.90 1" material="shell_mat" contype="0" conaffinity="0" group="1" mass="0" />
+    </body>
+    <body name="shell_1" pos="-0.220 -0.180 0.8000">
+      <freejoint />
+      <geom name="shell_1_w0" type="box" pos="0.0290 0.0000 0.025" euler="0 0 0.0000" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_w1" type="box" pos="0.0251 0.0145 0.025" euler="0 0 0.5236" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_w2" type="box" pos="0.0145 0.0251 0.025" euler="0 0 1.0472" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_w3" type="box" pos="0.0000 0.0290 0.025" euler="0 0 1.5708" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_w4" type="box" pos="-0.0145 0.0251 0.025" euler="0 0 2.0944" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_w5" type="box" pos="-0.0251 0.0145 0.025" euler="0 0 2.6180" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_w6" type="box" pos="-0.0290 0.0000 0.025" euler="0 0 3.1416" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_w7" type="box" pos="-0.0251 -0.0145 0.025" euler="0 0 3.6652" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_w8" type="box" pos="-0.0145 -0.0251 0.025" euler="0 0 4.1888" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_w9" type="box" pos="-0.0000 -0.0290 0.025" euler="0 0 4.7124" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_w10" type="box" pos="0.0145 -0.0251 0.025" euler="0 0 5.2360" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_w11" type="box" pos="0.0251 -0.0145 0.025" euler="0 0 5.7596" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_lid" type="cylinder" pos="0 0 0.052" size="0.0310 0.002" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_1_skin" type="mesh" mesh="cupmesh" pos="0 0 0.03954" rgba="0.92 0.92 0.90 1" material="shell_mat" contype="0" conaffinity="0" group="1" mass="0" />
+    </body>
+    <body name="shell_2" pos="-0.220 -0.090 0.8000">
+      <freejoint />
+      <geom name="shell_2_w0" type="box" pos="0.0290 0.0000 0.025" euler="0 0 0.0000" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_w1" type="box" pos="0.0251 0.0145 0.025" euler="0 0 0.5236" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_w2" type="box" pos="0.0145 0.0251 0.025" euler="0 0 1.0472" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_w3" type="box" pos="0.0000 0.0290 0.025" euler="0 0 1.5708" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_w4" type="box" pos="-0.0145 0.0251 0.025" euler="0 0 2.0944" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_w5" type="box" pos="-0.0251 0.0145 0.025" euler="0 0 2.6180" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_w6" type="box" pos="-0.0290 0.0000 0.025" euler="0 0 3.1416" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_w7" type="box" pos="-0.0251 -0.0145 0.025" euler="0 0 3.6652" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_w8" type="box" pos="-0.0145 -0.0251 0.025" euler="0 0 4.1888" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_w9" type="box" pos="-0.0000 -0.0290 0.025" euler="0 0 4.7124" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_w10" type="box" pos="0.0145 -0.0251 0.025" euler="0 0 5.2360" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_w11" type="box" pos="0.0251 -0.0145 0.025" euler="0 0 5.7596" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_lid" type="cylinder" pos="0 0 0.052" size="0.0310 0.002" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_2_skin" type="mesh" mesh="cupmesh" pos="0 0 0.03954" rgba="0.92 0.92 0.90 1" material="shell_mat" contype="0" conaffinity="0" group="1" mass="0" />
+    </body>
+    <body name="shell_3" pos="-0.220 0.000 0.8000">
+      <freejoint />
+      <geom name="shell_3_w0" type="box" pos="0.0290 0.0000 0.025" euler="0 0 0.0000" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_w1" type="box" pos="0.0251 0.0145 0.025" euler="0 0 0.5236" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_w2" type="box" pos="0.0145 0.0251 0.025" euler="0 0 1.0472" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_w3" type="box" pos="0.0000 0.0290 0.025" euler="0 0 1.5708" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_w4" type="box" pos="-0.0145 0.0251 0.025" euler="0 0 2.0944" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_w5" type="box" pos="-0.0251 0.0145 0.025" euler="0 0 2.6180" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_w6" type="box" pos="-0.0290 0.0000 0.025" euler="0 0 3.1416" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_w7" type="box" pos="-0.0251 -0.0145 0.025" euler="0 0 3.6652" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_w8" type="box" pos="-0.0145 -0.0251 0.025" euler="0 0 4.1888" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_w9" type="box" pos="-0.0000 -0.0290 0.025" euler="0 0 4.7124" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_w10" type="box" pos="0.0145 -0.0251 0.025" euler="0 0 5.2360" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_w11" type="box" pos="0.0251 -0.0145 0.025" euler="0 0 5.7596" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_lid" type="cylinder" pos="0 0 0.052" size="0.0310 0.002" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_3_skin" type="mesh" mesh="cupmesh" pos="0 0 0.03954" rgba="0.92 0.92 0.90 1" material="shell_mat" contype="0" conaffinity="0" group="1" mass="0" />
+    </body>
+    <body name="shell_4" pos="-0.220 0.090 0.8000">
+      <freejoint />
+      <geom name="shell_4_w0" type="box" pos="0.0290 0.0000 0.025" euler="0 0 0.0000" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_w1" type="box" pos="0.0251 0.0145 0.025" euler="0 0 0.5236" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_w2" type="box" pos="0.0145 0.0251 0.025" euler="0 0 1.0472" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_w3" type="box" pos="0.0000 0.0290 0.025" euler="0 0 1.5708" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_w4" type="box" pos="-0.0145 0.0251 0.025" euler="0 0 2.0944" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_w5" type="box" pos="-0.0251 0.0145 0.025" euler="0 0 2.6180" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_w6" type="box" pos="-0.0290 0.0000 0.025" euler="0 0 3.1416" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_w7" type="box" pos="-0.0251 -0.0145 0.025" euler="0 0 3.6652" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_w8" type="box" pos="-0.0145 -0.0251 0.025" euler="0 0 4.1888" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_w9" type="box" pos="-0.0000 -0.0290 0.025" euler="0 0 4.7124" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_w10" type="box" pos="0.0145 -0.0251 0.025" euler="0 0 5.2360" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_w11" type="box" pos="0.0251 -0.0145 0.025" euler="0 0 5.7596" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_lid" type="cylinder" pos="0 0 0.052" size="0.0310 0.002" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_4_skin" type="mesh" mesh="cupmesh" pos="0 0 0.03954" rgba="0.92 0.92 0.90 1" material="shell_mat" contype="0" conaffinity="0" group="1" mass="0" />
+    </body>
+    <body name="shell_5" pos="-0.220 0.180 0.8000">
+      <freejoint />
+      <geom name="shell_5_w0" type="box" pos="0.0290 0.0000 0.025" euler="0 0 0.0000" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_w1" type="box" pos="0.0251 0.0145 0.025" euler="0 0 0.5236" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_w2" type="box" pos="0.0145 0.0251 0.025" euler="0 0 1.0472" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_w3" type="box" pos="0.0000 0.0290 0.025" euler="0 0 1.5708" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_w4" type="box" pos="-0.0145 0.0251 0.025" euler="0 0 2.0944" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_w5" type="box" pos="-0.0251 0.0145 0.025" euler="0 0 2.6180" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_w6" type="box" pos="-0.0290 0.0000 0.025" euler="0 0 3.1416" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_w7" type="box" pos="-0.0251 -0.0145 0.025" euler="0 0 3.6652" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_w8" type="box" pos="-0.0145 -0.0251 0.025" euler="0 0 4.1888" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_w9" type="box" pos="-0.0000 -0.0290 0.025" euler="0 0 4.7124" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_w10" type="box" pos="0.0145 -0.0251 0.025" euler="0 0 5.2360" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_w11" type="box" pos="0.0251 -0.0145 0.025" euler="0 0 5.7596" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_lid" type="cylinder" pos="0 0 0.052" size="0.0310 0.002" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_5_skin" type="mesh" mesh="cupmesh" pos="0 0 0.03954" rgba="0.92 0.92 0.90 1" material="shell_mat" contype="0" conaffinity="0" group="1" mass="0" />
+    </body>
+    <body name="shell_6" pos="-0.220 0.270 0.8000">
+      <freejoint />
+      <geom name="shell_6_w0" type="box" pos="0.0290 0.0000 0.025" euler="0 0 0.0000" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_w1" type="box" pos="0.0251 0.0145 0.025" euler="0 0 0.5236" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_w2" type="box" pos="0.0145 0.0251 0.025" euler="0 0 1.0472" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_w3" type="box" pos="0.0000 0.0290 0.025" euler="0 0 1.5708" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_w4" type="box" pos="-0.0145 0.0251 0.025" euler="0 0 2.0944" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_w5" type="box" pos="-0.0251 0.0145 0.025" euler="0 0 2.6180" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_w6" type="box" pos="-0.0290 0.0000 0.025" euler="0 0 3.1416" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_w7" type="box" pos="-0.0251 -0.0145 0.025" euler="0 0 3.6652" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_w8" type="box" pos="-0.0145 -0.0251 0.025" euler="0 0 4.1888" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_w9" type="box" pos="-0.0000 -0.0290 0.025" euler="0 0 4.7124" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_w10" type="box" pos="0.0145 -0.0251 0.025" euler="0 0 5.2360" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_w11" type="box" pos="0.0251 -0.0145 0.025" euler="0 0 5.7596" size="0.002 0.0083 0.025" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_lid" type="cylinder" pos="0 0 0.052" size="0.0310 0.002" rgba="0.92 0.92 0.90 1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+      <geom name="shell_6_skin" type="mesh" mesh="cupmesh" pos="0 0 0.03954" rgba="0.92 0.92 0.90 1" material="shell_mat" contype="0" conaffinity="0" group="1" mass="0" />
+    </body>
+    <body name="cube_red" pos="-0.040 -0.270 0.81665">
+      <freejoint />
+      <geom name="cube_red" type="box" size="0.01665 0.01665 0.01665" mass="0.04" rgba="0.7106 0.0331 0.0272 1" material="satin_mat" group="1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+    </body>
+    <body name="cube_orange" pos="-0.040 -0.180 0.81665">
+      <freejoint />
+      <geom name="cube_orange" type="box" size="0.01665 0.01665 0.01665" mass="0.04" rgba="0.8900 0.2633 0.0100 1" material="satin_mat" group="1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+    </body>
+    <body name="cube_yellow" pos="-0.040 -0.090 0.81665">
+      <freejoint />
+      <geom name="cube_yellow" type="box" size="0.01665 0.01665 0.01665" mass="0.04" rgba="0.8481 0.6921 0.0331 1" material="satin_mat" group="1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+    </body>
+    <body name="cube_green" pos="-0.040 0.000 0.81665">
+      <freejoint />
+      <geom name="cube_green" type="box" size="0.01665 0.01665 0.01665" mass="0.04" rgba="0.0331 0.3801 0.0637 1" material="satin_mat" group="1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+    </body>
+    <body name="cube_blue" pos="-0.040 0.090 0.81665">
+      <freejoint />
+      <geom name="cube_blue" type="box" size="0.01665 0.01665 0.01665" mass="0.04" rgba="0.0331 0.1329 0.6921 1" material="satin_mat" group="1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+    </body>
+    <body name="cube_indigo" pos="-0.040 0.180 0.81665">
+      <freejoint />
+      <geom name="cube_indigo" type="box" size="0.01665 0.01665 0.01665" mass="0.04" rgba="0.0684 0.0272 0.2633 1" material="satin_mat" group="1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+    </body>
+    <body name="cube_violet" pos="-0.040 0.270 0.81665">
+      <freejoint />
+      <geom name="cube_violet" type="box" size="0.01665 0.01665 0.01665" mass="0.04" rgba="0.3424 0.1005 0.5705 1" material="satin_mat" group="1" condim="4" friction="1 0.3 0.0001" solimp="0.998 0.998" solref="0.004 1" />
+    </body>
+    <body name="buttonbox_0" pos="-0.300 -0.300 0.848">
+      <geom name="bbox0_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+      <geom name="bbox0_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+      <geom name="bbox0_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+      <geom name="bbox0_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+      <geom name="bbox0_base" type="box" pos="0 0 -0.0448" size="0.0520 0.0520 0.0032" contype="0" conaffinity="0" group="1" mass="0" rgba="0.10 0.10 0.11 1" material="housing_mat" />
+      <geom name="bbox0_vis" type="box" pos="0 0 -0.0074" size="0.0480 0.0480 0.0374" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" material="housing_mat" />
+      <geom name="bbox0_ch" type="box" pos="0 0 0.0315" size="0.0462 0.0462 0.0015" contype="0" conaffinity="0" group="1" mass="0" rgba="0.12 0.12 0.13 1" material="housing_mat" />
+      <geom name="bbox0_plate" type="box" pos="0 0 0.0345" size="0.0470 0.0470 0.0015" contype="0" conaffinity="0" group="1" mass="0" rgba="0.22 0.22 0.23 1" material="housing_mat" />
+      <geom name="bscr0_0" type="cylinder" pos="0.0385 0.0385 0.0366" size="0.0032 0.0006" contype="0" conaffinity="0" group="1" mass="0" rgba="0.45 0.46 0.48 1" />
+      <geom name="bscr0_1" type="cylinder" pos="0.0385 -0.0385 0.0366" size="0.0032 0.0006" contype="0" conaffinity="0" group="1" mass="0" rgba="0.45 0.46 0.48 1" />
+      <geom name="bscr0_2" type="cylinder" pos="-0.0385 0.0385 0.0366" size="0.0032 0.0006" contype="0" conaffinity="0" group="1" mass="0" rgba="0.45 0.46 0.48 1" />
+      <geom name="bscr0_3" type="cylinder" pos="-0.0385 -0.0385 0.0366" size="0.0032 0.0006" contype="0" conaffinity="0" group="1" mass="0" rgba="0.45 0.46 0.48 1" />
+      <geom name="bzl0" type="mesh" mesh="bzlmesh" pos="0 0 0.04079" rgba="0.58 0.60 0.64 1" material="collar_mat" contype="0" conaffinity="0" group="1" mass="0" />
+      <site name="btntop_0" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_0">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_0" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod0_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+        <geom name="bneck0_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+        <geom name="bcap0_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+        <geom name="btngeom_0" type="capsule" pos="0 0 0.0449" size="0.0172 0.0155" contype="0" conaffinity="0" group="1" mass="0" rgba="0.30 0.75 0.35 1" material="cap_mat" />
+      </body>
+    </body>
+    <body name="buttonbox_1" pos="-0.300 0.300 0.848">
+      <geom name="bbox1_col0" type="box" pos="0 0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+      <geom name="bbox1_col1" type="box" pos="0 -0.0288 -0.0048" size="0.048 0.0192 0.0408" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+      <geom name="bbox1_col2" type="box" pos="-0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+      <geom name="bbox1_col3" type="box" pos="0.0292 0 -0.0048" size="0.0188 0.0096 0.0408" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+      <geom name="bbox1_base" type="box" pos="0 0 -0.0448" size="0.0520 0.0520 0.0032" contype="0" conaffinity="0" group="1" mass="0" rgba="0.10 0.10 0.11 1" material="housing_mat" />
+      <geom name="bbox1_vis" type="box" pos="0 0 -0.0074" size="0.0480 0.0480 0.0374" contype="0" conaffinity="0" group="1" mass="0" rgba="0.15 0.15 0.15 1" material="housing_mat" />
+      <geom name="bbox1_ch" type="box" pos="0 0 0.0315" size="0.0462 0.0462 0.0015" contype="0" conaffinity="0" group="1" mass="0" rgba="0.12 0.12 0.13 1" material="housing_mat" />
+      <geom name="bbox1_plate" type="box" pos="0 0 0.0345" size="0.0470 0.0470 0.0015" contype="0" conaffinity="0" group="1" mass="0" rgba="0.22 0.22 0.23 1" material="housing_mat" />
+      <geom name="bscr1_0" type="cylinder" pos="0.0385 0.0385 0.0366" size="0.0032 0.0006" contype="0" conaffinity="0" group="1" mass="0" rgba="0.45 0.46 0.48 1" />
+      <geom name="bscr1_1" type="cylinder" pos="0.0385 -0.0385 0.0366" size="0.0032 0.0006" contype="0" conaffinity="0" group="1" mass="0" rgba="0.45 0.46 0.48 1" />
+      <geom name="bscr1_2" type="cylinder" pos="-0.0385 0.0385 0.0366" size="0.0032 0.0006" contype="0" conaffinity="0" group="1" mass="0" rgba="0.45 0.46 0.48 1" />
+      <geom name="bscr1_3" type="cylinder" pos="-0.0385 -0.0385 0.0366" size="0.0032 0.0006" contype="0" conaffinity="0" group="1" mass="0" rgba="0.45 0.46 0.48 1" />
+      <geom name="bzl1" type="mesh" mesh="bzlmesh" pos="0 0 0.04079" rgba="0.58 0.60 0.64 1" material="collar_mat" contype="0" conaffinity="0" group="1" mass="0" />
+      <site name="btntop_1" pos="0 0 0.0774" size="0.001" rgba="0 0 0 0" />
+      <body name="button_1">
+        <inertial pos="0 0 0.0774" mass="0.01" diaginertia="0.001 0.001 0.001" />
+        <joint name="buttonbox_joint_1" type="slide" axis="0 0 1" limited="true" range="-0.024 0" stiffness="0.5" springref="0.5" damping="1" armature="0.001" />
+        <geom name="brod1_col" type="cylinder" pos="0 0 0.0512" size="0.0084 0.0156" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+        <geom name="bneck1_col" type="cylinder" pos="0 0 0.0664" size="0.0172 0.0032" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+        <geom name="bcap1_col" type="cylinder" pos="0 0 0.0732" size="0.0172 0.0044" group="3" condim="3" solimp="0.99 0.99 0.01" solref="0.01 1" />
+        <geom name="btngeom_1" type="capsule" pos="0 0 0.0449" size="0.0172 0.0155" contype="0" conaffinity="0" group="1" mass="0" rgba="0.30 0.45 0.90 1" material="cap_mat" />
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

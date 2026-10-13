@@ -1,0 +1,418 @@
+<mujoco model="workcell_base">
+  <compiler angle="radian" />
+
+  <option integrator="implicitfast" cone="elliptic" noslip_iterations="1">
+    <flag sleep="enable" />
+  </option>
+
+  <size memory="256M" />
+
+  <visual>
+    <global azimuth="120" elevation="-20" offwidth="1920" offheight="1080" />
+    <quality shadowsize="8192" offsamples="16" />
+    <headlight ambient="0.5 0.5 0.5" diffuse="0.15 0.15 0.15" specular="0.03 0.03 0.03" />
+  </visual>
+
+  <default>
+    <default class="cup_stack_task" />
+    <default class="cup_slot_a__main">
+      <default class="cup_slot_a__visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="1" />
+      </default>
+      <default class="cup_slot_a__collision">
+        <geom group="3" rgba="0.5 0 0 0.5" />
+      </default>
+      <default class="cup_slot_a__spawn">
+        <geom contype="0" conaffinity="0" rgba="1 1 1 0.5" />
+        <site rgba="1 1 1 0.5" />
+      </default>
+      <default class="cup_slot_a__region">
+        <geom contype="0" conaffinity="0" group="1" rgba="0 1 0 0" />
+      </default>
+    </default>
+    <default class="cup_slot_b__main">
+      <default class="cup_slot_b__visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="1" />
+      </default>
+      <default class="cup_slot_b__collision">
+        <geom group="3" rgba="0.5 0 0 0.5" solref="0.004 1" priority="1" solimp="0.998 0.998" />
+      </default>
+      <default class="cup_slot_b__spawn">
+        <geom contype="0" conaffinity="0" rgba="1 1 1 0.5" />
+        <site rgba="1 1 1 0.5" />
+      </default>
+      <default class="cup_slot_b__region">
+        <geom contype="0" conaffinity="0" group="1" rgba="0 1 0 0" />
+      </default>
+    </default>
+    <default class="cup_slot_c__main">
+      <default class="cup_slot_c__visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="1" />
+      </default>
+      <default class="cup_slot_c__collision">
+        <geom group="3" rgba="0.5 0 0 0.5" solref="0.004 1" priority="1" solimp="0.998 0.998" />
+      </default>
+      <default class="cup_slot_c__spawn">
+        <geom contype="0" conaffinity="0" rgba="1 1 1 0.5" />
+        <site rgba="1 1 1 0.5" />
+      </default>
+      <default class="cup_slot_c__region">
+        <geom contype="0" conaffinity="0" group="1" rgba="0 1 0 0" />
+      </default>
+    </default>
+    <default class="cup_slot_d__main">
+      <default class="cup_slot_d__visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="1" />
+      </default>
+      <default class="cup_slot_d__collision">
+        <geom group="3" rgba="0.5 0 0 0.5" />
+      </default>
+      <default class="cup_slot_d__spawn">
+        <geom contype="0" conaffinity="0" rgba="1 1 1 0.5" />
+        <site rgba="1 1 1 0.5" />
+      </default>
+      <default class="cup_slot_d__region">
+        <geom contype="0" conaffinity="0" group="1" rgba="0 1 0 0" />
+      </default>
+    </default>
+    <default class="cup_slot_e__main">
+      <default class="cup_slot_e__visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="1" />
+      </default>
+      <default class="cup_slot_e__collision">
+        <geom group="3" rgba="0.5 0 0 0.5" solref="0.004 1" priority="1" solimp="0.998 0.998" />
+      </default>
+      <default class="cup_slot_e__spawn">
+        <geom contype="0" conaffinity="0" rgba="1 1 1 0.5" />
+        <site rgba="1 1 1 0.5" />
+      </default>
+      <default class="cup_slot_e__region">
+        <geom contype="0" conaffinity="0" group="1" rgba="0 1 0 0" />
+      </default>
+    </default>
+    <default class="cup_slot_f__main">
+      <default class="cup_slot_f__visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="1" />
+      </default>
+      <default class="cup_slot_f__collision">
+        <geom group="3" rgba="0.5 0 0 0.5" />
+      </default>
+      <default class="cup_slot_f__spawn">
+        <geom contype="0" conaffinity="0" rgba="1 1 1 0.5" />
+        <site rgba="1 1 1 0.5" />
+      </default>
+      <default class="cup_slot_f__region">
+        <geom contype="0" conaffinity="0" group="1" rgba="0 1 0 0" />
+      </default>
+    </default>
+    <default class="left-arm-main">
+      <default class="left-arm-yam">
+        <joint frictionloss="0.1" />
+        <general biastype="affine" biasprm="0 -1" />
+        <default class="left-arm-dm4340">
+          <joint armature="0.032" />
+          <general forcerange="-28 28" gainprm="40" biasprm="0 -40 -2.5" />
+        </default>
+        <default class="left-arm-dm4310">
+          <joint armature="0.0018" />
+          <general forcerange="-10 10" gainprm="10" biasprm="0 -10 -1" />
+        </default>
+        <default class="left-arm-visual">
+          <geom type="mesh" contype="0" conaffinity="0" group="2" density="0" material="black" />
+        </default>
+        <default class="left-arm-collision">
+          <geom type="capsule" condim="6" group="3" friction="2 0.1 0.01" />
+          <default class="left-arm-sphere_collision">
+            <geom size="0.0006 0 0" type="sphere" priority="2" friction="4" solref="0.004" solimp="0.998 0.998" rgba="1 0 0 1" />
+          </default>
+        </default>
+        <default class="left-arm-finger">
+          <joint type="slide" armature="0.1" />
+          <general ctrlrange="0 0.0495" gainprm="400" biasprm="0 -400 -14" />
+        </default>
+      </default>
+      <default class="left-arm-jenga_block">
+        <geom type="mesh" contype="0" conaffinity="0" condim="6" group="1" priority="1" density="0" />
+      </default>
+      <default class="left-arm-jenga_col">
+        <geom type="box" group="3" priority="1" friction="0.4 0.005 0.001" solref="0.002" solimp="0.999 0.999" rgba="0 0 0 0" />
+      </default>
+    </default>
+    <default class="right-arm-main">
+      <default class="right-arm-yam">
+        <joint frictionloss="0.1" />
+        <general biastype="affine" biasprm="0 -1" />
+        <default class="right-arm-dm4340">
+          <joint armature="0.032" />
+          <general forcerange="-28 28" gainprm="40" biasprm="0 -40 -2.5" />
+        </default>
+        <default class="right-arm-dm4310">
+          <joint armature="0.0018" />
+          <general forcerange="-10 10" gainprm="10" biasprm="0 -10 -1" />
+        </default>
+        <default class="right-arm-visual">
+          <geom type="mesh" contype="0" conaffinity="0" group="2" density="0" material="black" />
+        </default>
+        <default class="right-arm-collision">
+          <geom type="capsule" condim="6" group="3" friction="2 0.1 0.01" />
+          <default class="right-arm-sphere_collision">
+            <geom size="0.0006 0 0" type="sphere" priority="2" friction="4" solref="0.004" solimp="0.998 0.998" rgba="1 0 0 1" />
+          </default>
+        </default>
+        <default class="right-arm-finger">
+          <joint type="slide" armature="0.1" />
+          <general ctrlrange="0 0.0495" gainprm="400" biasprm="0 -400 -14" />
+        </default>
+      </default>
+      <default class="right-arm-jenga_block">
+        <geom type="mesh" contype="0" conaffinity="0" condim="6" group="1" priority="1" density="0" />
+      </default>
+      <default class="right-arm-jenga_col">
+        <geom type="box" group="3" priority="1" friction="0.4 0.005 0.001" solref="0.002" solimp="0.999 0.999" rgba="0 0 0 0" />
+      </default>
+    </default>
+  </default>
+
+  <asset>
+    <texture type="2d" colorspace="linear" name="cup_slot_a__GlassCup011_Clear_material" file="assets/T_BC001.png" />
+    <texture type="2d" colorspace="linear" name="cup_slot_b__GlassCup011_Clear_material" file="assets/T_BC001.png" />
+    <texture type="2d" colorspace="linear" name="cup_slot_c__GlassCup011_Clear_material" file="assets/T_BC001.png" />
+    <texture type="2d" colorspace="linear" name="cup_slot_d__GlassCup011_Clear_material" file="assets/T_BC001.png" />
+    <texture type="2d" colorspace="linear" name="cup_slot_e__GlassCup011_Clear_material" file="assets/T_BC001.png" />
+    <texture type="2d" colorspace="linear" name="cup_slot_f__GlassCup011_Clear_material" file="assets/T_BC001.png" />
+    <material name="cup_slot_a__GlassCup011_Clear_material" texture="cup_slot_a__GlassCup011_Clear_material" specular="0.310345" rgba="1 1 1 0.2" />
+    <material name="cup_slot_b__GlassCup011_Clear_material" specular="0.05" rgba="0.80 0.08 0.08 1" />
+    <material name="cup_slot_c__GlassCup011_Clear_material" specular="0.05" rgba="0.80 0.08 0.08 1" />
+    <material name="cup_slot_d__GlassCup011_Clear_material" texture="cup_slot_d__GlassCup011_Clear_material" specular="0.310345" rgba="1 1 1 0.2" />
+    <material name="cup_slot_e__GlassCup011_Clear_material" specular="0.05" rgba="0.80 0.08 0.08 1" />
+    <material name="cup_slot_f__GlassCup011_Clear_material" texture="cup_slot_f__GlassCup011_Clear_material" specular="0.310345" rgba="1 1 1 0.2" />
+    <mesh name="base_visual_gate" file="assets/base_visual_gate.stl" />
+    <mesh name="camera_d405" file="assets/camera_d405.stl" />
+    <mesh name="cup_slot_a__GlassCup011_Clear_vis" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_Clear_vis.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_0" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_0.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_1" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_1.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_2" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_2.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_3" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_3.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_4" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_4.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_5" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_5.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_6" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_6.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_7" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_7.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_8" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_8.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_9" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_9.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_10" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_10.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_11" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_11.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_12" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_12.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_13" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_13.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_14" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_14.obj" />
+    <mesh name="cup_slot_a__GlassCup011_collision_mesh_15" content_type="model/obj" file="assets/cup_slot_a__GlassCup011_collision_mesh_15.obj" />
+    <mesh name="cup_slot_b__GlassCup011_Clear_vis" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_Clear_vis.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_0" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_0.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_1" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_1.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_2" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_2.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_3" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_3.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_4" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_4.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_5" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_5.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_6" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_6.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_7" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_7.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_8" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_8.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_9" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_9.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_10" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_10.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_11" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_11.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_12" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_12.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_13" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_13.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_14" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_14.obj" />
+    <mesh name="cup_slot_b__GlassCup011_collision_mesh_15" content_type="model/obj" file="assets/cup_slot_b__GlassCup011_collision_mesh_15.obj" />
+    <mesh name="cup_slot_c__GlassCup011_Clear_vis" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_Clear_vis.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_0" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_0.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_1" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_1.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_2" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_2.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_3" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_3.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_4" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_4.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_5" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_5.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_6" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_6.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_7" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_7.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_8" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_8.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_9" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_9.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_10" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_10.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_11" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_11.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_12" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_12.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_13" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_13.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_14" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_14.obj" />
+    <mesh name="cup_slot_c__GlassCup011_collision_mesh_15" content_type="model/obj" file="assets/cup_slot_c__GlassCup011_collision_mesh_15.obj" />
+    <mesh name="cup_slot_d__GlassCup011_Clear_vis" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_Clear_vis.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_0" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_0.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_1" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_1.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_2" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_2.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_3" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_3.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_4" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_4.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_5" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_5.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_6" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_6.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_7" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_7.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_8" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_8.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_9" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_9.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_10" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_10.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_11" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_11.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_12" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_12.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_13" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_13.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_14" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_14.obj" />
+    <mesh name="cup_slot_d__GlassCup011_collision_mesh_15" content_type="model/obj" file="assets/cup_slot_d__GlassCup011_collision_mesh_15.obj" />
+    <mesh name="cup_slot_e__GlassCup011_Clear_vis" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_Clear_vis.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_0" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_0.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_1" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_1.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_2" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_2.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_3" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_3.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_4" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_4.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_5" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_5.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_6" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_6.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_7" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_7.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_8" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_8.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_9" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_9.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_10" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_10.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_11" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_11.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_12" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_12.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_13" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_13.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_14" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_14.obj" />
+    <mesh name="cup_slot_e__GlassCup011_collision_mesh_15" content_type="model/obj" file="assets/cup_slot_e__GlassCup011_collision_mesh_15.obj" />
+    <mesh name="cup_slot_f__GlassCup011_Clear_vis" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_Clear_vis.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_0" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_0.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_1" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_1.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_2" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_2.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_3" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_3.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_4" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_4.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_5" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_5.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_6" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_6.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_7" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_7.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_8" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_8.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_9" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_9.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_10" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_10.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_11" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_11.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_12" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_12.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_13" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_13.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_14" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_14.obj" />
+    <mesh name="cup_slot_f__GlassCup011_collision_mesh_15" content_type="model/obj" file="assets/cup_slot_f__GlassCup011_collision_mesh_15.obj" />
+    </asset>
+
+  <worldbody>
+    <geom name="floor" size="0 0 0.05" type="plane" rgba="0.75 0.75 0.75 1" />
+    <geom name="base_visual_gate" type="mesh" contype="0" conaffinity="0" group="3" density="0" rgba="0.6 0.62 0.68 1" mesh="base_visual_gate" />
+    <geom name="base_gate_collision" size="0.305 0.61 0.375" pos="0 0 0.375" type="box" group="3" rgba="1 0 0 0" />
+    <geom name="back_wall" size="0.005 0.61 1" pos="1.2144 0 1" type="box" group="3" rgba="0.88 0.88 0.88 0.2" />
+    <geom name="left_wall" size="0.4572 0.005 1" pos="0.7522 0.61 1" type="box" group="3" rgba="0.88 0.88 0.88 0.2" />
+    <geom name="right_wall" size="0.4572 0.005 1" pos="0.7522 -0.61 1" type="box" group="3" rgba="0.88 0.88 0.88 0.2" />
+    <light name="overhead_key" pos="0.55 0 1.8" dir="0 0 -1" type="directional" diffuse="0.65 0.65 0.65" specular="0.12 0.12 0.12" />
+    <body name="top_camera_d405" pos="0.3125 -0.009 1.5" quat="-0.183004 -0.683015 -0.683015 -0.183004">
+      <geom type="mesh" contype="0" conaffinity="0" group="2" mass="0.001" rgba="0 0 0 0" mesh="camera_d405" />
+      <body name="top_camera_frame" pos="0.009 0 0" quat="0 0 0 1">
+        <camera name="top" pos="0 0 0" quat="0 1 0 0" fovy="63" />
+      </body>
+    </body>
+    <body name="overhead_camera" pos="0.55 0 1.6">
+      <camera name="overhead" pos="0 0 0" quat="0.707107 0 0 -0.707107" fovy="60" />
+    </body>
+    <body name="mid_camera" pos="0.4 0 1.05">
+      <camera name="mid" pos="0 0 0" quat="0.666058 0.237417 -0.237417 -0.666058" fovy="90" />
+    </body>
+    <body name="left_side_camera" pos="0.5 0.55 1.05" quat="1.05624e-06 -8.02958e-07 0.605186 0.796084">
+      <camera name="left_side" pos="0 0 0" fovy="70" />
+    </body>
+    <body name="right_side_camera" pos="0.5 -0.55 1.05" quat="0.796084 0.605186 0 0">
+      <camera name="right_side" pos="0 0 0" fovy="70" />
+    </body>
+    <body name="play_table">
+      <geom name="table_visual" size="0.4572 0.61 0.05" pos="0.7522 0 0.72921" type="box" contype="0" conaffinity="0" group="2" rgba="0.24 0.25 0.27 1" />
+      <geom name="table_plane" size="0.4572 0.61 0.05" pos="0.7522 0 0.72921" type="box" condim="4" group="3" priority="1" friction="1 0.05 0.001" solref="0.008" solimp="0.998 0.998" rgba="0 0 0 0" />
+    </body>
+    <body name="cup_slot_b" pos="0.71783 -0.50314 0.83861" quat="0.38060 0.00003 -0.00004 -0.92474">
+      <joint name="cup_slot_b_joint" type="free" />
+      <frame name="cup_slot_b_frame">
+        <body>
+          <body name="cup_slot_b__object">
+            <inertial pos="4.70623344412e-05 -8.93341624292e-06 -0.00440003494015" quat="0.987736275829 -0.000656776896096 -0.000177324876488 0.156130031101" mass="0.05" diaginertia="6.96686261394e-05 6.96305797335e-05 4.23699569735e-05" />
+            <geom class="cup_slot_b__visual" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" material="cup_slot_b__GlassCup011_Clear_material" mesh="cup_slot_b__GlassCup011_Clear_vis" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_0" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_1" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_2" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_3" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_4" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_5" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_6" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_7" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_8" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_9" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_10" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_11" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_12" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_13" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_14" />
+            <geom class="cup_slot_b__collision" type="mesh" mesh="cup_slot_b__GlassCup011_collision_mesh_15" />
+            <geom name="cup_slot_b__reg_bbox" class="cup_slot_b__region" size="0.0431538 0.0431525 0.05987" pos="2.1e-07 1e-08 0" type="box" mass="0" />
+            <geom name="cup_slot_b__liquid" class="cup_slot_b__region" size="0.033 0.03" pos="2e-06 0 -0.017" type="cylinder" mass="0" rgba="0 0 0 0" />
+            <geom name="cup_slot_b__reg_int" class="cup_slot_b__region" size="0.03 0.05" pos="2e-06 0 0.003" type="cylinder" mass="0" rgba="0 0 0 0" />
+          </body>
+        </body>
+      </frame>
+    </body>
+    <body name="cup_slot_c" pos="0.74727 -0.20242 0.83861" quat="0.99901 0.00005 0.00001 -0.04448">
+      <joint name="cup_slot_c_joint" type="free" />
+      <frame name="cup_slot_c_frame">
+        <body>
+          <body name="cup_slot_c__object">
+            <inertial pos="4.70623344412e-05 -8.93341624292e-06 -0.00440003494015" quat="0.987736275829 -0.000656776896096 -0.000177324876488 0.156130031101" mass="0.05" diaginertia="6.96686261394e-05 6.96305797335e-05 4.23699569735e-05" />
+            <geom class="cup_slot_c__visual" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" material="cup_slot_c__GlassCup011_Clear_material" mesh="cup_slot_c__GlassCup011_Clear_vis" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_0" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_1" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_2" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_3" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_4" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_5" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_6" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_7" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_8" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_9" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_10" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_11" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_12" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_13" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_14" />
+            <geom class="cup_slot_c__collision" type="mesh" mesh="cup_slot_c__GlassCup011_collision_mesh_15" />
+            <geom name="cup_slot_c__reg_bbox" class="cup_slot_c__region" size="0.0431538 0.0431525 0.05987" pos="2.1e-07 1e-08 0" type="box" mass="0" />
+            <geom name="cup_slot_c__liquid" class="cup_slot_c__region" size="0.033 0.03" pos="2e-06 0 -0.017" type="cylinder" mass="0" rgba="0 0 0 0" />
+            <geom name="cup_slot_c__reg_int" class="cup_slot_c__region" size="0.03 0.05" pos="2e-06 0 0.003" type="cylinder" mass="0" rgba="0 0 0 0" />
+          </body>
+        </body>
+      </frame>
+    </body>
+    <body name="cup_slot_e" pos="0.63930 0.50417 0.83861" quat="0.33893 0.00001 0.00005 0.94081">
+      <joint name="cup_slot_e_joint" type="free" />
+      <frame name="cup_slot_e_frame">
+        <body>
+          <body name="cup_slot_e__object">
+            <inertial pos="4.70623344412e-05 -8.93341624292e-06 -0.00440003494015" quat="0.987736275829 -0.000656776896096 -0.000177324876488 0.156130031101" mass="0.05" diaginertia="6.96686261394e-05 6.96305797335e-05 4.23699569735e-05" />
+            <geom class="cup_slot_e__visual" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" material="cup_slot_e__GlassCup011_Clear_material" mesh="cup_slot_e__GlassCup011_Clear_vis" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_0" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_1" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_2" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_3" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_4" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_5" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_6" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_7" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_8" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_9" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_10" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_11" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_12" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_13" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_14" />
+            <geom class="cup_slot_e__collision" type="mesh" mesh="cup_slot_e__GlassCup011_collision_mesh_15" />
+            <geom name="cup_slot_e__reg_bbox" class="cup_slot_e__region" size="0.0431538 0.0431525 0.05987" pos="2.1e-07 1e-08 0" type="box" mass="0" />
+            <geom name="cup_slot_e__liquid" class="cup_slot_e__region" size="0.033 0.03" pos="2e-06 0 -0.017" type="cylinder" mass="0" rgba="0 0 0 0" />
+            <geom name="cup_slot_e__reg_int" class="cup_slot_e__region" size="0.03 0.05" pos="2e-06 0 0.003" type="cylinder" mass="0" rgba="0 0 0 0" />
+          </body>
+        </body>
+      </frame>
+    </body>
+    <frame name="cup_stack_task_frame" />
+    <camera name="pcleft" pos="0.7550 0.9500 1.6000" quat="0.00000 0.00000 0.48106 0.87669" fovy="58" /><camera name="pcright" pos="0.7550 -0.9500 1.6000" quat="0.87669 0.48106 0.00000 0.00000" fovy="58" /><camera name="tpview" pos="1.9500 0.0000 1.5500" quat="0.61017 0.35733 0.35733 0.61017" fovy="52" /></worldbody>
+
+  </mujoco>

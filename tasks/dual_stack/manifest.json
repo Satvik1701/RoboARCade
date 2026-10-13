@@ -1,0 +1,16 @@
+{
+ "source": {
+  "robosuite": "1.4.1",
+  "sphinx_env": "sphinx/dual_stack_env.py"
+ },
+ "generated_by": "hand-maintained",
+ "date": "2026-07-17",
+ "files": {
+  "assets/ceramic.png": "beef464a2aa9143b",
+  "assets/light-gray-floor-tile.png": "a2aae4ba3b38c3ab",
+  "assets/light-gray-plaster.png": "d0bdaf13b44ab6ef",
+  "assets/steel-brushed.png": "43f30e7a2d0e8085",
+  "scene.xml": "41496a04d7c307f5",
+  "task.json": "be139c07d1adc42b"
+ }
+}

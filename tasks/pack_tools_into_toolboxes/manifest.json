@@ -1,0 +1,12 @@
+{
+ "source": {
+  "repo": "authored from primitives + robodojo store_tools meshes"
+ },
+ "generated_by": "datagen/robodojo/conveyor_toolbox.py",
+ "notes": "tool belt at 0.015 m/s and case belt at 0.008 m/s in one conveyor body; tools enter at 0.35 m pitch; two keyed four-tool mould trays rotated 180 degrees; 17-hull tape measure; SET1 order is seeded and its leader begins just outside the infeed hood; each set's leading tool aligns with its box leading edge; seeded second tool queue; belts run along world -y through opaque end hoods and are one way: a missed tool parks after the outfeed at +0.700 travel, a case that reaches the outfeed leaves with whatever is seated in it and is graded as it left, and the episode ends when the last case has left; the hammer is uniformly scaled to 280 mm and assigned 0.390 kg, with the other tool sizes and box footprint unchanged; all four cutouts use collision backed visible insert cells with at least 3 mm silhouette clearance; the hammer pocket follows a concave head and handle outline; the original outer visual rim is retained and all four outer walls contact rails",
+ "files": {
+  "scene.xml": "19405859b0e05179",
+  "task.json": "91704fa101096cd6",
+  "thumbnail.png": "cca708b2ed6e25ac"
+ }
+}
