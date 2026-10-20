@@ -71,7 +71,7 @@ The remaining differences matter when interpreting results:
 | Interface guide | Codex `AGENTS.md`; Claude appended system instructions | Same guide inside custom agent instructions, plus image/schema access instructions |
 | Reasoning | Explicit `xhigh` by default, overridable | Model default; custom-model effort override is unsupported by the tested CLI |
 | Compaction instructions | Shared `core/compaction/prompt.txt` | Not installed into native compaction |
-| Compaction threshold | Codex 245,000 tokens; Claude `autoCompactWindow` 278,000 (245,000 + 33,000), unless overridden | Native behavior; no matching threshold configured |
+| Compaction target | Both target 245,000 tokens, unless overridden. Codex receives 245,000 directly; Claude receives `autoCompactWindow` 278,000 to compensate for its 33,000-token reserve | Native behavior; no matching target configured |
 | Observation delivery | Robot MCP responses | Robot MCP responses plus native `view_file` for offloaded images and schemas |
 | Episode wall clock | Default 21,600 seconds, unless overridden | Same evaluator default; current smoke command explicitly uses 3,600 seconds |
 | Failure recovery | Existing provider/auth retry and API-stall handling | Separate Antigravity driver; runtime errors are left ungraded |
