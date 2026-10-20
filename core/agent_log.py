@@ -22,7 +22,7 @@ SHOT_CACHE = REPO / "data" / ".dashboard_cache"
 
 
 def transcript_file(folder):
-    for pattern in ("codex_session*.jsonl", "*claude*.log"):
+    for pattern in ("antigravity.jsonl", "codex_session*.jsonl", "*claude*.log"):
         for c in sorted(Path(folder).glob(pattern)):
             if c.is_file():
                 return c
@@ -38,11 +38,12 @@ def transcript(jsonl_path):
     side = SHOT_CACHE / f"{hashlib.sha256(str(p.resolve()).encode()).hexdigest()[:20]}.json"
     try:
         c = json.loads(side.read_text())
-        if c.get("format_version") == 4 and c.get("size") == st.st_size and c.get("mtime") == st.st_mtime and "events" in c:
+        if c.get("format_version") == 6 and c.get("size") == st.st_size and c.get("mtime") == st.st_mtime and "events" in c:
             return c
     except Exception:
         pass
     events, shots, names, wp, off = [], [], {}, 0, 0
+    agy_messages, agy_calls = {}, set()
 
     def add_result(tool_id, blocks, is_error):
         if isinstance(blocks, list):
@@ -72,7 +73,40 @@ def transcript(jsonl_path):
         except ValueError:
             ts_epoch = None
         n0 = len(events)
-        if obj.get("type") == "assistant":
+        if obj.get("event") == "step_update":
+            step = obj["step_update"]
+            tid = f"{step.get('conversation_id')}:{step.get('step_index')}"
+            if step.get("step_type") == "agent_response" and step.get("text_delta"):
+                if tid not in agy_messages:
+                    agy_messages[tid] = {"kind": "says", "text": "", "wp": wp}
+                    events.append(agy_messages[tid])
+                agy_messages[tid]["text"] += step["text_delta"]
+            info = step.get("tool_info") or {}
+            if info:
+                name = info.get("name") or step.get("tool_name", "")
+                args = info.get("parameters") or {}
+                if name == "call_mcp_tool":
+                    name, args = args.get("ToolName", name), args.get("Arguments") or {}
+                if tid not in agy_calls:
+                    agy_calls.add(tid)
+                    names[tid] = name
+                    events.append({"kind": "does", "tool": name, "args": args, "wp": wp, "id": tid})
+                    if "execute" in name:
+                        wp += 1
+                if step.get("state") in ("DONE", "ERROR"):
+                    output = info.get("output")
+                    if isinstance(output, dict):
+                        output = output.get("content", json.dumps(output))
+                    add_result(tid, output, bool(info.get("error")))
+                    if isinstance(output, str):
+                        for media in re.findall(
+                                r"\[Resource offloaded to file:///tmp/home/\.gemini/antigravity-cli/"
+                                r"(brain/[^\]\s]+\.(?:jpg|png))\]", output):
+                            shots.append([name, start, len(raw), media])
+                            events.append({"kind": "shot", "img": len(shots) - 1, "wp": wp, "tid": tid})
+                    if info.get("error"):
+                        add_result(tid, info["error"].get("message", str(info["error"])), True)
+        elif obj.get("type") == "assistant":
             for c in obj.get("message", {}).get("content", []):
                 t = c.get("type")
                 if t == "thinking" and c.get("thinking", "").strip():
@@ -120,7 +154,7 @@ def transcript(jsonl_path):
             events.append({"kind": "compact", "wp": wp, "trigger": "auto", "pre": None, "post": None})
         for e in events[n0:]:
             e["t"] = ts_epoch
-    out = {"size": st.st_size, "mtime": st.st_mtime, "format_version": 4, "events": events, "shots": shots, "n_wp": wp}
+    out = {"size": st.st_size, "mtime": st.st_mtime, "format_version": 6, "events": events, "shots": shots, "n_wp": wp}
     SHOT_CACHE.mkdir(parents=True, exist_ok=True)
     side.write_text(json.dumps(out))
     return out
@@ -143,6 +177,12 @@ def shot_bytes(jsonl_path, k):
     if not 0 <= k < len(shots):
         return None
     _tool, off, length, j = shots[k]
+    if isinstance(j, str):
+        root = Path(jsonl_path).parent / "antigravity" / "state"
+        media = (root / j).resolve()
+        if not media.is_relative_to((root / "brain").resolve()) or not media.is_file():
+            return None
+        return ("image/png" if media.suffix == ".png" else "image/jpeg", media.read_bytes())
     try:
         with open(jsonl_path, "rb") as fh:
             fh.seek(off)
@@ -154,6 +194,12 @@ def shot_bytes(jsonl_path, k):
     codex = ((obj.get("payload") or {}).get("item") or {}).get("result") or {}
     if isinstance(codex.get("content"), list):
         blocks.append(codex["content"])
+    agy = (obj.get("step_update") or {}).get("tool_info") or {}
+    output = agy.get("output")
+    if isinstance(output, dict) and isinstance(output.get("content"), list):
+        blocks.append(output["content"])
+    elif isinstance(output, list):
+        blocks.append(output)
     for content in blocks:
         b = content[j] if j < len(content) else None
         if isinstance(b, dict) and b.get("type") == "image":
