@@ -110,6 +110,9 @@ async def run(args):
             nonlocal initialized
             if not agent.conversation_id:
                 return
+            # A resumed history can arrive after __aenter__, during send().
+            responses.update(s.id for s in agent.conversation.history
+                             if s.source.value == 'MODEL' and s.status.value == 'DONE')
             if not initialized:
                 emit('init', conversation_id=agent.conversation_id, runtime='antigravity_sdk',
                      sdk_version='0.1.22', compact_threshold=config['compact_threshold'])
