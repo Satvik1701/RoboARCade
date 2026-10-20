@@ -1,5 +1,11 @@
 # Gemini through Antigravity
 
+For an explicit, verified 245k compaction setting, use the
+[SDK setup](#sdk-backend-with-a-verified-245k-threshold) below. The SDK is opt-in
+through `ROBOARCADE_ANTIGRAVITY_BACKEND=sdk`; episode metadata records the backend.
+
+## Native CLI backend
+
 Use the native `agy` CLI (tested with 1.4.2) and Gemini API-key billing. This is
 separate from Google's `gemini` CLI. Install `agy` using Google's
 [official instructions](https://www.antigravity.google/docs/install?tab=cli).

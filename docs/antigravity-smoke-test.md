@@ -1,5 +1,55 @@
 # Gemini Argon smoke test — 2026-10-20
 
+## SDK verification and fresh smoke test
+
+The opt-in SDK backend uses `google-antigravity==0.1.22`, the exact
+`gemini-4-argon` model, API-key billing, model-default reasoning, a 65,536-token
+response limit, and explicit native compaction at 245,000 estimated trajectory
+tokens. The native CLI remains a separately labeled backend.
+
+Verification completed:
+
+- A real checkpoint occurred at the 245k setting. An identical 350k control did
+  not compact. A marker present only in the first user message survived both
+  compaction and a process restart. This measures Antigravity's native token
+  estimate, not an exact Gemini API prompt-token boundary.
+- All 25 sandbox probes passed. A robot preflight viewed screenshots and resumed
+  the same conversation in another process, with correct cumulative token usage.
+- All 28 task environments constructed, and all 56 task/seed initializations
+  succeeded for seeds 1000000 and 1000001. This checks setup, not agent performance.
+- Fifteen regression tests passed, including path traversal rejection, timeout
+  usage accounting, and delayed network-bridge startup.
+
+The fresh smoke uses Blender, unchanged task/interface definitions, sandboxing,
+and a one-hour deadline per episode. Both bowl seeds scored 1.0 and passed
+integrity checks: seed 1000000 took 601.0 seconds and seed 1000001 took 744.5
+seconds (including shutdown). Both bottle seeds reached the one-hour deadline:
+seed 1000000 scored 0.50 (two of four bottles, 3635.6 seconds including shutdown)
+and seed 1000001 scored 0.75 (three of four bottles, 3638.7 seconds).
+All four scored episodes passed integrity checks. The first and last archived
+observation images from each episode decoded successfully. This is 2/4 full
+task completions; the SDK integration is verified, but the smoke does not show
+perfect task performance. No full-task suite or main-branch merge has occurred.
+
+The first bottles seed 1000000 attempt failed its API-connection preflight
+before making an API request and was left ungraded. The sandbox now waits for
+host bridge sockets and retries transient connection-check failures. The same
+seed was restarted in a separate retry directory; the original failure remains
+preserved. No manipulation failure was retried or discarded.
+
+Artifacts:
+
+- `data/run_eval/antigravity_sdk_verification_20261020/`
+- `data/run_eval/gemini_argon_sdk_smoke_bowl_20261020/20261020_134322/`
+- `data/run_eval/gemini_argon_sdk_smoke_bottles_20261020/20261020_134322/`
+- `data/run_eval/gemini_argon_sdk_smoke_bottles_retry_20261020/20261020_134534/`
+
+The initial SDK smoke launched at `f7b0b58`; the network-startup retry launched
+at `6200566`. A later accounting-only fix (`90cb035`) includes restored SDK
+history in completed-step counts. Exact API request count remains unknown and
+is not inferred from tool-step counts. See [setup](antigravity.md) for the opt-in
+SDK command and the remaining differences from Claude/Codex.
+
 ## One-hour rerun
 
 The one-hour rerun completed with **1/4 task completions**. Bowl-on-plate seed
