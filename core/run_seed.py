@@ -652,7 +652,7 @@ def run_seed(
         if not exp.isolated:
             raise ValueError("Antigravity evaluation requires sandboxing")
         env["GEMINI_API_KEY"] = antigravity.api_key()
-        auth = {"auth": "api_key", "reason": "Gemini API via Antigravity CLI"}
+        auth = {"auth": "api_key", "reason": "Gemini API via Antigravity " + antigravity.backend()}
     elif runtime == "codex":
         env.pop("OPENAI_API_KEY", None)
         plan_dir = exp.plan_dir
@@ -794,6 +794,7 @@ def run_seed(
                    "prompt": prompt, "instruct_files": instruct_files,
                    "isolated": exp.isolated,
                    "agent_runtime": runtime,
+                   **(antigravity.runtime_metadata() if runtime == "antigravity" else {}),
                    "auto_compact_window": AUTO_COMPACT_WINDOW if runtime == "claude" else None,
                    "codex_auto_compact_window": (CODEX_AUTO_COMPACT_WINDOW
                                                   if runtime == "codex" else None),

@@ -106,6 +106,8 @@ def transcript(jsonl_path):
                             events.append({"kind": "shot", "img": len(shots) - 1, "wp": wp, "tid": tid})
                     if info.get("error"):
                         add_result(tid, info["error"].get("message", str(info["error"])), True)
+        elif obj.get("event") == "compaction":
+            events.append({"kind": "says", "text": "[context compacted]", "wp": wp})
         elif obj.get("type") == "assistant":
             for c in obj.get("message", {}).get("content", []):
                 t = c.get("type")

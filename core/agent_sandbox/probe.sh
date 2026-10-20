@@ -66,7 +66,12 @@ fi
 
 if [ -n "${ROBOARCADE_AGY_STATE:-}" ]; then
     CFG=$HOME/.gemini
-    report antigravity.binary present "$(exists /opt/roboarcade/bin/agy)" "native CLI"
+    if [ "${ROBOARCADE_AGY_SDK:-}" = 1 ]; then
+        report antigravity.binary present "$(exists "$ROBOARCADE_AGY_PYTHON")" "SDK Python"
+        report antigravity.sdk_config_readonly readonly "$(can_write "$CFG/config/roboarcade-sdk.json")" "fixed SDK configuration"
+    else
+        report antigravity.binary present "$(exists /opt/roboarcade/bin/agy)" "native CLI"
+    fi
     report antigravity.state_writable writable "$(can_write "$CFG/antigravity-cli/.sbxprobe")" "seed-local history"
     report antigravity.settings_readonly readonly "$(can_write "$CFG/antigravity-cli/settings.json")" "fixed model and permissions"
     report antigravity.mcp_readonly readonly "$(can_write "$CFG/config/mcp_config.json")" "only robot MCP"

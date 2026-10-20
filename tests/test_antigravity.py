@@ -191,3 +191,73 @@ def test_thinking_usage_survives_timeout_without_double_counting(tmp_path):
     with transcript.open('a') as stream:
         stream.write(json.dumps({'type': 'PLANNER_RESPONSE', 'output_tokens': 10})+'\n')
     assert agy.metrics(path, 10, tmp_path)['tokens']['thinking'] is None
+
+
+def test_sdk_command_and_metadata_are_explicit(monkeypatch):
+    monkeypatch.setenv('ROBOARCADE_ANTIGRAVITY_BACKEND', 'sdk')
+    cmd = agy.command(prompt='task', model='gemini-4-argon', session_id='same',
+                      base_port=8100, pkg='/iface', resume=True)
+    assert 'agy-sdk' in cmd and 'agy' not in cmd
+    assert cmd[cmd.index('--conversation')+1] == 'same'
+    meta = agy.runtime_metadata()
+    assert meta['antigravity_compact_threshold'] == 245000
+    assert meta['compaction_token_accounting'] == 'native_estimate'
+    monkeypatch.setenv('ROBOARCADE_ANTIGRAVITY_BACKEND', 'cli')
+    assert agy.runtime_metadata()['antigravity_compact_threshold'] is None
+    monkeypatch.setenv('ROBOARCADE_ANTIGRAVITY_BACKEND', 'typo')
+    with pytest.raises(ValueError):
+        agy.backend()
+
+
+def test_sdk_tool_guard_rejects_private_paths_and_other_capabilities(tmp_path, monkeypatch):
+    from enum import Enum
+    from core import antigravity_sdk as sdk
+    monkeypatch.setattr(sdk, 'STATE', tmp_path)
+    class Builtin(str, Enum):
+        VIEW_FILE = 'view_file'
+    assert sdk.tool_name(Builtin.VIEW_FILE) == 'view_file'
+    assert sdk.allowed_tool('screenshot', 'roboarcade')
+    assert not sdk.allowed_tool('screenshot', 'other')
+    assert not sdk.allowed_tool('run_command', None)
+    assert sdk.allowed_tool('view_file', None, tmp_path/'brain/session/image.jpg')
+    call = SimpleNamespace(canonical_path=None, args={'AbsolutePath': (tmp_path/'brain/image.jpg').as_uri()})
+    assert sdk.allowed_tool('view_file', None, sdk.tool_path(call))
+    assert not sdk.allowed_tool('view_file', None, 'file://foreign/tmp/image.jpg')
+    assert not sdk.allowed_tool('view_file', None, tmp_path/'brain/../sessions/history.db')
+    assert not sdk.allowed_tool('view_file', None, '/proc/self/environ')
+    (tmp_path/'brain').mkdir()
+    (tmp_path/'brain/escape').symlink_to(tmp_path/'sessions')
+    assert not sdk.allowed_tool('view_file', None, tmp_path/'brain/escape/private')
+
+
+def test_sdk_snapshot_resume_and_timeout_accounting(tmp_path):
+    from core.antigravity_sdk import usage_record
+    usage = usage_record({'prompt_token_count': 100, 'cached_content_token_count': 70,
+                          'thoughts_token_count': 20, 'candidates_token_count': 5})
+    assert usage == {'input_tokens': 30, 'cache_read_tokens': 70,
+                     'thinking_tokens': 20, 'output_tokens': 25}
+    path = tmp_path/'agent.jsonl'
+    def snapshot(usage, turns):
+        return {'event': 'sdk_usage', 'conversation_id': 'same',
+                'usage': usage, 'completed_model_steps': turns}
+    checkpoint = {'event': 'compaction', 'conversation_id': 'same', 'step_index': 9,
+                  'threshold': 245000}
+    rows = [snapshot(usage, 1), snapshot(usage, 1),
+            {'event':'init', 'conversation_id':'same'}, snapshot(usage, 1),
+            checkpoint, checkpoint,
+            snapshot({k:v*2 for k,v in usage.items()}, 2)]
+    path.write_text('\n'.join(map(json.dumps, rows))+'\n')
+    result = agy.metrics(path, 3600)
+    assert result['tokens_in'] == 60 and result['tokens_out'] == 50
+    assert result['cache_read'] == 140 and result['tokens']['thinking'] == 40
+    assert result['num_turns'] is None and result['tokens_budget'] == 110
+    assert result['completed_model_steps'] == 2
+    assert len(result['compactions']) == 1
+    assert agy.outcome(path)[1] == 'Antigravity exited without a result'
+
+
+def test_sdk_missing_installation_fails_before_simulator(monkeypatch):
+    monkeypatch.setenv('ROBOARCADE_ANTIGRAVITY_BACKEND', 'sdk')
+    monkeypatch.delenv('ROBOARCADE_AGY_PYTHON', raising=False)
+    with pytest.raises(RuntimeError, match='ROBOARCADE_AGY_PYTHON'):
+        agy.validate_runtime()

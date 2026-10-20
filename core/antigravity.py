@@ -1,9 +1,41 @@
-"""Antigravity CLI with Gemini API-key billing and a robot-only tool surface."""
+"""Antigravity runtimes with Gemini API billing and a robot-only tool surface."""
 import json
 import os
+import subprocess
+import sys
 from pathlib import Path
 
-from core.agent_sandbox import ISOLATED_SCRIPT, REPO_ROOT
+from core.agent_sandbox import ISOLATED_SCRIPT, REPO_ROOT, COMPACT_AT
+
+
+def backend():
+    value = os.environ.get("ROBOARCADE_ANTIGRAVITY_BACKEND", "cli")
+    if value not in ("cli", "sdk"):
+        raise ValueError("ROBOARCADE_ANTIGRAVITY_BACKEND must be cli or sdk")
+    return value
+
+
+def runtime_metadata():
+    return {"antigravity_backend": backend(),
+            "antigravity_compact_threshold": COMPACT_AT if backend() == "sdk" else None,
+            "compaction_token_accounting": "native_estimate" if backend() == "sdk" else None,
+            "antigravity_sdk_version": "0.1.22" if backend() == "sdk" else None}
+
+
+def validate_runtime():
+    """Check the SDK installation before starting an expensive simulator."""
+    if backend() != "sdk":
+        return
+    python = os.environ.get("ROBOARCADE_AGY_PYTHON", "")
+    if not python or not Path(python).is_file():
+        raise RuntimeError("Set ROBOARCADE_AGY_PYTHON to the isolated Antigravity SDK Python")
+    if Path(python).resolve() != Path(sys.executable).resolve():
+        raise RuntimeError("SDK and evaluator must use the same base Python interpreter")
+    if COMPACT_AT <= 0:
+        raise ValueError("Antigravity SDK compaction threshold must be positive")
+    subprocess.run([python, "-c", "import importlib.metadata; "
+                    "assert importlib.metadata.version('google-antigravity') == '0.1.22'"],
+                   check=True, timeout=30)
 
 
 def api_key():
@@ -46,6 +78,12 @@ def prepare(folder, model, mcp_config, base_port, env, instruct_files):
             "ROBOARCADE_BASE_PORT": str(base_port), "PYTHONPATH": REPO_ROOT}
     (config / "mcp_config.json").write_text(json.dumps(mcp, indent=2))
     guide = "\n\n".join(Path(p).read_text() for p in instruct_files)
+    (config / "sdk.json").write_text(json.dumps({
+        "model": model, "compact_threshold": COMPACT_AT,
+        "instructions": "Use the robot MCP tools to complete the task. Use view_file to inspect "
+                        "images if a tool offloads its observation to a file.\n\n" + guide,
+        "mcp": mcp["mcpServers"],
+    }, indent=2))
     (config / "robot.md").write_text(
         "---\nname: robot\ndescription: Control the simulated robot using its MCP interface.\n"
         "mainAgent: true\nsubagent: false\ntools: [view_file]\nexcludeDefaultComponents: true\ninheritMcp: true\ninheritCustomizations: false\n---\n"
@@ -57,6 +95,11 @@ def prepare(folder, model, mcp_config, base_port, env, instruct_files):
 
 
 def command(*, prompt, model, session_id, base_port, pkg, resume=False):
+    if backend() == "sdk":
+        cmd = ["agy-sdk", "--model", model]
+        if resume:
+            cmd += ["--conversation", session_id]
+        return [ISOLATED_SCRIPT, str(base_port), "--pkg", pkg, "--", *cmd, "-p", prompt]
     # The custom model selects the API model exactly; agy's --effort catalog is not
     # defined for custom API models. Record model-default reasoning in episode.json.
     cmd = ["agy", "--agent", "robot", "--model", model, "--output-format", "stream-json",
@@ -116,7 +159,15 @@ def metrics(path, wall_seconds, state=None):
     usage = {}
     completed_responses = {}
     turns = calls = 0
+    sdk_usage = {}
+    compactions = {}
     for event in records(path):
+        if event.get("event") == "compaction":
+            compactions[(event.get("conversation_id"), event.get("step_index"))] = {
+                "trigger": "auto", "threshold": event.get("threshold"),
+                "token_accounting": "native_estimate"}
+        if event.get("event") == "sdk_usage" and event.get("conversation_id"):
+            sdk_usage[event["conversation_id"]] = event
         if event.get("event") == "result":
             result = event["result"]
             for key, value in (result.get("usage") or {}).items():
@@ -147,6 +198,14 @@ def metrics(path, wall_seconds, state=None):
                 for step in completed_responses.values()]
     if thinking and len(thinking) == turns and all(value is not None for value in thinking):
         usage["thinking_tokens"] = sum(thinking)
+    if sdk_usage:
+        # SDK snapshots are cumulative within a conversation, including resumes.
+        # Cached prompt tokens are a subset of prompt tokens; thinking is output.
+        usage = {key: sum((s.get("usage") or {}).get(key, 0) for s in sdk_usage.values())
+                 for key in ("input_tokens", "output_tokens", "cache_read_tokens", "thinking_tokens")}
+        # SDK model steps can include several tools from one request. It does
+        # not expose an exact request count; do not mislabel those as API turns.
+        turns = None
     return dict(wall_seconds=wall_seconds, agent_wall_seconds=wall_seconds,
                 cost_usd=None, billed_to="api_key", num_turns=turns, tool_calls=calls,
                 tokens_in=usage.get("input_tokens", 0), tokens_out=usage.get("output_tokens", 0),
@@ -154,6 +213,9 @@ def metrics(path, wall_seconds, state=None):
                 tokens_budget=usage.get("input_tokens", 0) + usage.get("output_tokens", 0),
                 tokens={"input": usage.get("input_tokens", 0), "output": usage.get("output_tokens", 0),
                         "thinking": usage.get("thinking_tokens"), "cache_read": usage.get("cache_read_tokens", 0)},
+                compactions=list(compactions.values()),
+                completed_model_steps=sum(s.get("completed_model_steps", 0) for s in sdk_usage.values())
+                                      if sdk_usage else None,
                 usage=usage)
 
 

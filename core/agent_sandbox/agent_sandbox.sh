@@ -21,7 +21,9 @@ done
 [ "${1:-}" = "--" ] && shift
 REPO=$(cd "$(dirname "$0")/../.." && pwd)
 IS_AGY=0
-[ "${1:-}" = agy ] && IS_AGY=1
+IS_AGY_SDK=0
+[ "${1:-}" = agy-sdk ] && IS_AGY_SDK=1
+[[ "${1:-}" = agy || "$IS_AGY_SDK" = 1 ]] && IS_AGY=1
 IS_CODEX=0
 [ "${1:-}" = codex ] && IS_CODEX=1
 BWRAP_BIN=${ROBOARCADE_BWRAP:-bwrap}
@@ -33,6 +35,7 @@ if [ "$IS_AGY" = 1 ]; then
                   --ro-bind "$AGY_ROOT/config/settings.json" /tmp/home/.gemini/antigravity-cli/settings.json
                   --ro-bind "$AGY_ROOT/config/mcp_config.json" /tmp/home/.gemini/config/mcp_config.json
                   --ro-bind "$AGY_ROOT/config/robot.md" /tmp/home/.gemini/config/agents/robot.md
+                  --ro-bind "$AGY_ROOT/config/sdk.json" /tmp/home/.gemini/config/roboarcade-sdk.json
                   --dir /tmp/home/workspace)
 elif [ "$IS_CODEX" = 1 ]; then
     roboarcade_codex_config_mounts
@@ -47,7 +50,16 @@ for f in "${SANDBOX_IMPORT_FILES[@]}"; do
     IMPORT_BIND+=(--ro-bind "$REPO/core/$f" "$REPO/core/$f")
 done
 PYEXE=$(readlink -f "$PY"); PYHOME=$(dirname "$PYEXE"); PYLIB=$(dirname "$PYHOME")/lib
-if [ "$IS_AGY" = 1 ]; then
+if [ "$IS_AGY_SDK" = 1 ]; then
+    SDK_PY=${ROBOARCADE_AGY_PYTHON:?Set ROBOARCADE_AGY_PYTHON to the isolated Antigravity SDK Python}
+    SDK_ENV=$(cd "$(dirname "$SDK_PY")/.." && pwd)
+    [ "$(readlink -f "$SDK_PY")" = "$PYEXE" ] || { echo "SDK and evaluator must use the same base Python interpreter" >&2; exit 2; }
+    "$SDK_PY" -c 'import importlib.metadata; assert importlib.metadata.version("google-antigravity") == "0.1.22"'
+    AGENT_BIND=(--ro-bind "$SDK_ENV" "$SDK_ENV"
+                --ro-bind "$REPO/core/antigravity_sdk.py" "$REPO/core/antigravity_sdk.py")
+    set -- "$SDK_PY" "$REPO/core/antigravity_sdk.py" "${@:2}"
+    export ROBOARCADE_AGY_SDK=1
+elif [ "$IS_AGY" = 1 ]; then
     AGY_BIN=$(command -v agy)
     AGENT_BIND=(--ro-bind "$(readlink -f "$AGY_BIN")" /opt/roboarcade/bin/agy)
 elif [ "$IS_CODEX" = 1 ]; then

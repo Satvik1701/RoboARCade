@@ -178,6 +178,9 @@ def summarize_and_write(
                      "auto_compact_window": None if model_runtime(exp.model) == "antigravity" else AUTO_COMPACT_WINDOW,
                      "status": "interrupted" if interrupted else "done",
                      "totals": totals, "plan_est": plan_est})
+        if model_runtime(exp.model) == "antigravity":
+            from core.antigravity import runtime_metadata
+            meta.update(runtime_metadata())
         with open(meta_path, "w") as f:
             json.dump(meta, f, indent=1)
 
@@ -345,8 +348,9 @@ def main() -> None:
             parser.error("Antigravity requires sandboxing")
         if args.plan or args.effort:
             parser.error("Antigravity API mode uses API-key billing and model-default reasoning; omit --plan/--effort")
-        from core.antigravity import api_key
+        from core.antigravity import api_key, validate_runtime
         api_key()
+        validate_runtime()
     if args.plan:
         plan, plan_dir = pick_plan(model_runtime(exp.model), args.plan)
         exp = dataclasses.replace(exp, plan=plan, plan_dir=plan_dir, plan_auto=args.plan == "auto")
@@ -377,6 +381,9 @@ def main() -> None:
                      "seed_list": seeds, "commit": git_commit(),
                      "created": meta.get("created")
                                 or datetime.now().isoformat(timespec="seconds")})
+        if model_runtime(exp.model) == "antigravity":
+            from core.antigravity import runtime_metadata
+            meta.update(runtime_metadata())
         json.dump(meta, open(mp, "w"), indent=1)
 
     if args.print_results:

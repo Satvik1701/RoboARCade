@@ -90,3 +90,58 @@ Run integration tests with:
 ```sh
 .venv/bin/python -m pytest tests/test_antigravity.py -q
 ```
+
+## SDK backend with a verified 245k threshold
+
+The opt-in SDK backend pins `google-antigravity==0.1.22` and explicitly supplies
+`CompactionConfig(token_threshold=245000)`. It uses the native Antigravity local
+harness, API-key billing, the exact requested model, model-default reasoning,
+and a 65,536-token maximum response. The CLI remains the default backend.
+The SDK requires its own virtual environment so its dependencies do not change
+the simulator environment. Use the same base Python as the evaluator:
+
+```sh
+uv venv --python "$(readlink -f .venv/bin/python)" data/antigravity-sdk
+uv pip install --python data/antigravity-sdk/bin/python google-antigravity==0.1.22
+export ROBOARCADE_AGY_PYTHON="$PWD/data/antigravity-sdk/bin/python"
+export ROBOARCADE_ANTIGRAVITY_BACKEND=sdk
+export ROBOARCADE_AUTO_COMPACT_WINDOW=245000
+
+.venv/bin/python -m core.run_eval \
+  --model gemini-4-argon --task bowl_on_plate --interface via_cam \
+  --seeds 2 --max-parallel 2 --wall-clock 3600 --no-video
+```
+
+The SDK uses the same outer sandbox, robot MCP interface, interface guide,
+task prompt, simulator, and grader. It exposes robot tools eagerly and permits
+only the image viewer for saved observations, with a path guard that resolves
+symlinks. Shell, web, subagents, and file-writing tools are disabled. Sessions
+are isolated per seed; a restart resumes the saved conversation. Model usage,
+thinking tokens, checkpoints, and raw SDK steps are archived with the episode.
+The SDK does not expose an exact API-request count, so `num_turns` is unknown;
+`completed_model_steps` is reported separately. Cached tokens are counted once,
+and thinking tokens are a subset of total output tokens.
+
+**245k is the native harness's trajectory-token estimate, not the Gemini API's
+prompt-token count.** A live test on 2026-10-20 produced a completed checkpoint
+at the 245k setting; the identical workload at 350k did not compact. The model
+recalled a marker present only in an earlier user message both after compaction
+and after a process restart. API prompt usage dropped from roughly 72k before
+the checkpoint to 26k on the recall turn; the control reached roughly 96k.
+This verifies the configured native threshold and retention, not a 245k API
+prompt boundary. Reproduce the live test (billable API requests) with:
+
+```sh
+"$ROBOARCADE_AGY_PYTHON" scripts/verify_antigravity_compaction.py \
+  --output /tmp/antigravity-compaction-verification
+```
+
+Each output directory must be new. Reports include the checkpoint IDs, token
+usage, marker answers, and resumed conversation ID. State should live on a local
+filesystem because native session locking can stall on network filesystems.
+
+The tested native CLI 1.4.3 did not honor `AGY_CLI_AUTO_COMPACT_OVERRIDE` in a
+live low-threshold probe. Do not use that variable to claim matched compaction.
+The SDK is a separately recorded backend; it still uses native compaction
+instructions instead of RoboARCade's shared compaction prompt. The earlier CLI
+smoke scores remain CLI results and do not validate SDK task performance.
