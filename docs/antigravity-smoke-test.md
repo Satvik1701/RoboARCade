@@ -23,6 +23,16 @@ and 528.3 seconds, totaling about 35 minutes. All completed model-response
 durations sum to about 54 minutes. These are response durations, not
 time-to-first-token measurements or a matched comparison with Astra.
 
+The four long responses each reached 65,536 output tokens, including 65,533
+reported thinking tokens, and each was followed by an output-limit error and
+continuation. Together they generated 262,144 output tokens in 2,097.8 seconds
+(122–129 tokens/second per response, including waiting time). The other 36
+completed responses had a median duration of 21.3 seconds. Native stream usage
+records 324,508 thinking tokens across all 40 completed responses; thinking is
+already included in output tokens and must not be added again. Earlier episode
+summaries omitted this thinking breakdown on timeout. These logs do not separate
+first-token waiting from generation time.
+
 Artifacts:
 
 - `data/run_eval/gemini_argon_smoke_bowl_v6_20261020/20261020_082123/`

@@ -171,3 +171,23 @@ def test_run_summary_does_not_report_unknown_api_cost_as_free(tmp_path):
     assert meta['totals']['on_api_key'] == 1
     assert meta['effort'] is None
     assert meta['auto_compact_window'] is None
+
+
+def test_thinking_usage_survives_timeout_without_double_counting(tmp_path):
+    path = tmp_path/'agent.jsonl'
+    transcript = tmp_path/'brain/session/.system_generated/logs/transcript_full.jsonl'
+    transcript.parent.mkdir(parents=True)
+    transcript.write_text(json.dumps({'type': 'PLANNER_RESPONSE', 'input_tokens': 100,
+                                      'output_tokens': 20, 'cache_read_tokens': 50})+'\n')
+    step = {'event': 'step_update', 'step_update': {
+        'conversation_id': 'session', 'step_index': 1, 'step_type': 'agent_response',
+        'state': 'DONE', 'usage': {'thinking_tokens': 18}}}
+    path.write_text((json.dumps(step)+'\n')*2)
+    result = agy.metrics(path, 10, tmp_path)
+    assert result['tokens']['thinking'] == 18
+    assert result['usage']['thinking_tokens'] == 18
+    assert result['tokens_out'] == 20
+    assert result['tokens_budget'] == 120
+    with transcript.open('a') as stream:
+        stream.write(json.dumps({'type': 'PLANNER_RESPONSE', 'output_tokens': 10})+'\n')
+    assert agy.metrics(path, 10, tmp_path)['tokens']['thinking'] is None

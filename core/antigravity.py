@@ -114,6 +114,7 @@ def startup_error(path):
 
 def metrics(path, wall_seconds, state=None):
     usage = {}
+    completed_responses = {}
     turns = calls = 0
     for event in records(path):
         if event.get("event") == "result":
@@ -122,6 +123,8 @@ def metrics(path, wall_seconds, state=None):
                 usage[key] = usage.get(key, 0) + value
             turns += result.get("num_turns", 0)
         step = event.get("step_update") or {}
+        if step.get("step_type") == "agent_response" and step.get("state") == "DONE":
+            completed_responses[(step.get("conversation_id"), step.get("step_index"))] = step
         if step.get("step_type") == "tool" and step.get("state") in ("DONE", "ERROR"):
             calls += 1
     # Result events are absent on a host timeout. Native transcripts retain the
@@ -137,6 +140,13 @@ def metrics(path, wall_seconds, state=None):
                 turns += 1
                 for key in ("input_tokens", "output_tokens", "cache_read_tokens"):
                     usage[key] = usage.get(key, 0) + row.get(key, 0)
+    # Native transcript rows omit thinking usage. Recover this subset of output
+    # tokens from terminal stream updates, deduplicated by conversation and step.
+    # Do not label a partial count as the episode total.
+    thinking = [(step.get("usage") or {}).get("thinking_tokens")
+                for step in completed_responses.values()]
+    if thinking and len(thinking) == turns and all(value is not None for value in thinking):
+        usage["thinking_tokens"] = sum(thinking)
     return dict(wall_seconds=wall_seconds, agent_wall_seconds=wall_seconds,
                 cost_usd=None, billed_to="api_key", num_turns=turns, tool_calls=calls,
                 tokens_in=usage.get("input_tokens", 0), tokens_out=usage.get("output_tokens", 0),
