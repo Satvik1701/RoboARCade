@@ -797,7 +797,8 @@ def run_seed(
                    "auto_compact_window": AUTO_COMPACT_WINDOW if runtime == "claude" else None,
                    "codex_auto_compact_window": (CODEX_AUTO_COMPACT_WINDOW
                                                   if runtime == "codex" else None),
-                   "compact_prompt_source": PRECOMPACT_PROMPT,
+                   "compact_prompt_source": (None if runtime == "antigravity"
+                                             else PRECOMPACT_PROMPT),
                    "resumes": result.get("resumes"),
                    "api_stalled_seconds": result.get("api_stalled_seconds"),
                    "recorded_at": datetime.now().isoformat(timespec="seconds")},

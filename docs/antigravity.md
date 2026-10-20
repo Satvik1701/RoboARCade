@@ -54,6 +54,37 @@ Three rejected MCP calls before any successful MCP call stop the run as an
 ungraded infrastructure error. Provider-reported usage is recorded, including
 completed requests before a timeout; dollar cost is left unknown.
 
+## Comparison with the existing runners
+
+This integration is not yet a matched-configuration benchmark against Codex or
+Claude. The shared evaluator supplies the same task prompt, selected interface
+guide and robot tools, task seed, simulator settings, simulation-step budget,
+and grader. The interface and task files are unchanged from public main.
+All three runtimes use RoboARCade's outer filesystem and network sandbox, with
+provider-specific configuration and API access.
+
+The remaining differences matter when interpreting results:
+
+| Setting | Codex / Claude runners | Antigravity runner |
+| --- | --- | --- |
+| Task prompt | Shared `build_prompt` | Same function |
+| Interface guide | Codex `AGENTS.md`; Claude appended system instructions | Same guide inside custom agent instructions, plus image/schema access instructions |
+| Reasoning | Explicit `xhigh` by default, overridable | Model default; custom-model effort override is unsupported by the tested CLI |
+| Compaction instructions | Shared `core/compaction/prompt.txt` | Not installed into native compaction |
+| Compaction threshold | Codex 245,000 tokens; Claude `autoCompactWindow` 278,000 (245,000 + 33,000), unless overridden | Native behavior; no matching threshold configured |
+| Observation delivery | Robot MCP responses | Robot MCP responses plus native `view_file` for offloaded images and schemas |
+| Episode wall clock | Default 21,600 seconds, unless overridden | Same evaluator default; current smoke command explicitly uses 3,600 seconds |
+| Failure recovery | Existing provider/auth retry and API-stall handling | Separate Antigravity driver; runtime errors are left ungraded |
+
+The full prompts also include each CLI's native instructions; sharing task and
+interface text does not make those native prompts identical. Antigravity's
+automatic context checkpoints are described in its
+[context documentation](https://antigravity.google/docs/cli/commands/context).
+No equivalent custom compaction prompt/threshold control has been verified for
+the tested CLI integration. SDK compaction controls are not evidence that the
+native CLI accepts the same settings. Do not label these smoke runs as having
+matched compaction or reasoning settings.
+
 Run integration tests with:
 
 ```sh
