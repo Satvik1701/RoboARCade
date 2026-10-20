@@ -11,14 +11,14 @@ commands, MCP configuration, or committed files.
 ```sh
 .venv/bin/python -m core.run_eval \
   --model gemini-4-argon --task bowl_on_plate --interface via_cam \
-  --seeds 2 --max-parallel 1 --wall-clock 1200 --no-video
+  --seeds 2 --max-parallel 1 --wall-clock 3600 --no-video
 
 .venv/bin/python -m core.run_eval \
   --model gemini-4-argon --task bottles_in_bin --interface via_bimanual_cam \
-  --seeds 2 --max-parallel 1 --wall-clock 1200 --no-video
+  --seeds 2 --max-parallel 1 --wall-clock 3600 --no-video
 ```
 
-These are smoke tests with a 20-minute cap per episode. Benchmark runs use the
+These are smoke tests with a one-hour cap per episode. Benchmark runs use the
 usual budget instead. The renderer defaults to Blender. State recording and
 host-side grading follow the existing evaluator; an API or runtime failure is
 left ungraded. A timeout remains a timeout, not a successful declaration.
