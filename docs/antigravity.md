@@ -23,6 +23,9 @@ usual budget instead. The renderer defaults to Blender. State recording and
 host-side grading follow the existing evaluator; an API or runtime failure is
 left ungraded. A timeout remains a timeout, not a successful declaration.
 
+See the [2026-10-20 smoke results](antigravity-smoke-test.md) for the completed
+two-task, two-seed trial and its limitations.
+
 Antigravity runs inside the same bubblewrap filesystem and network boundary as
 Claude and Codex. It sees the selected read-only interface and MCP imports, its
 own screenshots, and fresh per-seed CLI state. Task definitions, grading code,

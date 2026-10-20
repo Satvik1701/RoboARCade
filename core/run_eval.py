@@ -175,7 +175,7 @@ def summarize_and_write(
                      "effort": None if model_runtime(exp.model) == "antigravity" else exp.effort,
                      "interface": interface,
                      "render": exp.render, "plan": exp.plan,
-                     "auto_compact_window": AUTO_COMPACT_WINDOW,
+                     "auto_compact_window": None if model_runtime(exp.model) == "antigravity" else AUTO_COMPACT_WINDOW,
                      "status": "interrupted" if interrupted else "done",
                      "totals": totals, "plan_est": plan_est})
         with open(meta_path, "w") as f:
@@ -367,8 +367,10 @@ def main() -> None:
         os.makedirs(os.path.dirname(mp), exist_ok=True)
         meta = get_json_file(mp) or {}
         meta.update({"task": exp.task, "model": exp.model,
-                     "effort": exp.effort, "interface": args.interface, "render": exp.render,
+                     "effort": None if model_runtime(exp.model) == "antigravity" else exp.effort,
+                     "interface": args.interface, "render": exp.render,
                      "seeds_per_blender": exp.seeds_per_blender,
+                     "episode_timeout": exp.episode_timeout,
                      "language": exp.language,
                      "plan": exp.plan,
                      "status": "running", "isolated": exp.isolated,

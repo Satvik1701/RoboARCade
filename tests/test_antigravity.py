@@ -158,3 +158,16 @@ def test_native_usage_survives_missing_final_result(tmp_path):
     assert result['cache_read'] == 50
     assert result['num_turns'] == 1
     assert result['cost_usd'] is None
+
+
+def test_run_summary_does_not_report_unknown_api_cost_as_free(tmp_path):
+    from core.run_eval import summarize_and_write
+    result = {'success': None, 'metrics': {'tokens_budget': 100, 'cost_usd': None,
+                                         'billed_to': 'api_key'}}
+    exp = seed.Experiment(task='bowl_on_plate', language='', model='gemini-4-argon')
+    summarize_and_write([result], exp, 'smoke', str(tmp_path), False, '/iface')
+    meta = json.loads((tmp_path/'meta.json').read_text())
+    assert meta['totals']['cost_usd'] is None
+    assert meta['totals']['on_api_key'] == 1
+    assert meta['effort'] is None
+    assert meta['auto_compact_window'] is None
