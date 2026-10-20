@@ -29,7 +29,8 @@ def prepare(folder, model, mcp_config, base_port, env, instruct_files):
         "customModelsConfig": {"customModels": {model: {
             "modelName": model, "modelFeatures": {"supportsImages": True}}}},
         "permissions": {"allow": ["mcp(roboarcade/*)",
-                                  "read_file(/tmp/home/.gemini/antigravity-cli/brain)"], "ask": [],
+                                  "read_file(/tmp/home/.gemini/antigravity-cli/brain)",
+                                  "read_file(/tmp/home/.gemini/antigravity-cli/mcp/roboarcade)"], "ask": [],
                         "deny": [f"{action}(*)" for action in (
                             "write_file", "command", "unsandboxed", "read_url", "execute_url")]
                         + [f"read_file({p})" for p in (REPO_ROOT, "/proc", "/sys", "/dev")]},
@@ -49,7 +50,9 @@ def prepare(folder, model, mcp_config, base_port, env, instruct_files):
         "---\nname: robot\ndescription: Control the simulated robot using its MCP interface.\n"
         "mainAgent: true\nsubagent: false\ntools: [view_file]\nexcludeDefaultComponents: true\ninheritMcp: true\ninheritCustomizations: false\n---\n"
         "The robot MCP server is named roboarcade. When its image response is offloaded "
-        "to a file, use view_file to see that image before deciding your next action.\n\n" + guide + "\n")
+        "to a file, use view_file to see that image before deciding your next action. "
+        "Before first using a tool, read its schema with view_file at "
+        "/tmp/home/.gemini/antigravity-cli/mcp/roboarcade/<tool_name>.json.\n\n" + guide + "\n")
     return str(root.resolve())
 
 

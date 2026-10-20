@@ -40,7 +40,8 @@ runtime rather than mislabeling the run. Episode metadata records the runtime
 and reasoning policy, and native JSONL events preserve the conversation.
 
 The custom main agent excludes default components and receives the interface
-guide. Robot MCP calls and `view_file` for its own saved observations are allowed;
+guide. Robot MCP calls and `view_file` for its own saved observations and cached
+robot tool schemas are allowed;
 shell, file writes, and web actions are denied. The image viewer is necessary
 because agy offloads MCP images to files. No task or grader files are exposed.
 Resumes keep the same Antigravity conversation and per-seed state. Live CLI

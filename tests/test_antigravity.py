@@ -29,7 +29,8 @@ def test_api_key_is_read_without_entering_config(tmp_path, monkeypatch):
     assert 'test-key' not in text and 'environment-key' not in text
     settings = json.loads((root/'config/settings.json').read_text())
     assert settings['permissions']['allow'] == [
-        'mcp(roboarcade/*)', 'read_file(/tmp/home/.gemini/antigravity-cli/brain)']
+        'mcp(roboarcade/*)', 'read_file(/tmp/home/.gemini/antigravity-cli/brain)',
+        'read_file(/tmp/home/.gemini/antigravity-cli/mcp/roboarcade)']
     assert 'command(*)' in settings['permissions']['deny']
     assert 'read_file(/proc)' in settings['permissions']['deny']
     mcp = json.loads((root/'config/mcp_config.json').read_text())
