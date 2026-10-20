@@ -261,3 +261,27 @@ def test_sdk_missing_installation_fails_before_simulator(monkeypatch):
     monkeypatch.delenv('ROBOARCADE_AGY_PYTHON', raising=False)
     with pytest.raises(RuntimeError, match='ROBOARCADE_AGY_PYTHON'):
         agy.validate_runtime()
+
+
+def test_sandbox_waits_for_delayed_host_bridges(tmp_path, monkeypatch):
+    import importlib
+    import socket
+    import threading
+    monkeypatch.setenv('ROBOARCADE_EGRESS_HOSTS', 'generativelanguage.googleapis.com')
+    bridge = importlib.import_module('core.agent_sandbox.connect_sandbox_to_sim_and_network')
+    path = str(tmp_path/'proxy.sock')
+    listener = socket.socket(socket.AF_UNIX)
+    def bind():
+        listener.bind(path)
+        listener.listen(1)
+    timer = threading.Timer(0.05, bind)
+    timer.start()
+    try:
+        bridge.wait_for_host_sockets([(1, path)], timeout=1)
+        timer.join()
+        assert Path(path).is_socket()
+        with pytest.raises(TimeoutError, match='did not become ready'):
+            bridge.wait_for_host_sockets([(1, str(tmp_path/'missing.sock'))], timeout=0.02)
+    finally:
+        timer.join()
+        listener.close()
