@@ -1,5 +1,35 @@
 # Gemini Argon smoke test — 2026-10-20
 
+## One-hour rerun
+
+The one-hour rerun completed with **1/4 task completions**. Bowl-on-plate seed
+1000000 declared success and received score 1.0; the other three seeds reached
+the wall-clock limit. Sandbox integrity remained intact in all four episodes.
+
+| Task | Seed | Result | Simulation steps | Elapsed seconds, including shutdown |
+| --- | ---: | --- | ---: | ---: |
+| bowl_on_plate | 1000000 | Success, score 1.0 | 181 | 1324.7 |
+| bowl_on_plate | 1000001 | Timeout | 88 | 3655.4 |
+| bottles_in_bin | 1000000 | Timeout | 384 | 3635.1 |
+| bottles_in_bin | 1000001 | Timeout | 104 | 3634.7 |
+
+These runs launched with runtime commit `43105b6`, sandboxing and Blender enabled,
+the same interfaces and parallelism as below, and a 3600-second agent deadline.
+They do not test a new 245k Antigravity compaction configuration.
+
+The unsuccessful bowl seed did not declare completion before its deadline.
+Its native event log records four model responses lasting 509.9, 535.6, 524.0,
+and 528.3 seconds, totaling about 35 minutes. All completed model-response
+durations sum to about 54 minutes. These are response durations, not
+time-to-first-token measurements or a matched comparison with Astra.
+
+Artifacts:
+
+- `data/run_eval/gemini_argon_smoke_bowl_v6_20261020/20261020_082123/`
+- `data/run_eval/gemini_argon_smoke_bottles_v6_20261020/20261020_082119/`
+
+## Initial 20-minute smoke test
+
 The fresh two-task, two-seed smoke test completed with **0/4 task completions**.
 All four episodes reached the 20-minute wall-clock cap. Robot tool access,
 image viewing, and sandbox integrity worked; three episodes executed robot
