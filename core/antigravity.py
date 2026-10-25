@@ -120,6 +120,20 @@ def records(path):
                 continue  # A writer may still be completing the last line.
 
 
+def retryable_error(error):
+    """Transport/provider faults only; never retry auth or policy rejections."""
+    message = (error or "").lower()
+    if any(token in message for token in (
+            "content safety", "safety filter", "permission_denied", "error 403",
+            "error 401", "quota exhausted")):
+        return False
+    return any(token in message for token in (
+        "error 429", "error 500", "error 502", "error 503", "error 504",
+        "http2: server sent goaway", "connection reset", "connection refused",
+        "error sending request", "service is currently unavailable",
+        "model output must contain either output text or tool calls"))
+
+
 def outcome(path):
     session, result = None, None
     for event in records(path):

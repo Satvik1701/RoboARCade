@@ -400,6 +400,7 @@ def drive_antigravity(exp, tag, prompt, log, env, instruct_files, tools, sim, fo
     deadline = time.time() + exp.episode_timeout
     session = None
     resumes = 0
+    provider_retries = 0
     # agy's state-file locking stalls on NFS. Keep live state on local disk and
     # archive it after the process exits; all resumes share this same directory.
     with tempfile.TemporaryDirectory(prefix="roboarcade-agy-", dir="/tmp") as work:
@@ -419,6 +420,21 @@ def drive_antigravity(exp, tag, prompt, log, env, instruct_files, tools, sim, fo
                 if status == "timeout":
                     return status, None
                 if error or status != "ok" or not session:
+                    if (session and antigravity.retryable_error(error) and provider_retries < 3
+                            and sim is not None and sim.poll() is None
+                            and not episode_over(int(env["ROBOARCADE_BASE_PORT"]))):
+                        remaining = deadline - time.time()
+                        delay = min(15 * 2 ** provider_retries, max(0, remaining))
+                        if remaining > delay:
+                            provider_retries += 1
+                            result.setdefault("provider_retries", []).append({
+                                "error": error, "delay_seconds": delay,
+                                "session_id": session})
+                            logger.warning(f"[{tag}] transient Antigravity error; resuming the same "
+                                           f"conversation after {delay}s (retry {provider_retries}/3)")
+                            SHUTDOWN.wait(delay)
+                            resumes += 1
+                            continue
                     result["agent_error"] = error or "Antigravity exited without a successful session"
                     return "agent_error", result["agent_error"]
                 if sim.poll() is not None or episode_over(int(env["ROBOARCADE_BASE_PORT"])):

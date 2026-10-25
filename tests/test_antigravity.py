@@ -285,3 +285,58 @@ def test_sandbox_waits_for_delayed_host_bridges(tmp_path, monkeypatch):
     finally:
         timer.join()
         listener.close()
+
+
+@pytest.mark.parametrize('error,expected', [
+    ('Error 503: service is currently unavailable', True),
+    ('Error 500: Internal error encountered', True),
+    ('error sending request: http2: server sent GOAWAY', True),
+    ('model output must contain either output text or tool calls', True),
+    ('Error 403: PERMISSION_DENIED', False),
+    ('response blocked by content safety filters: OTHER', False),
+    ('quota exhausted', False),
+    ('unknown driver failure', False),
+])
+def test_provider_retry_classification(error, expected):
+    assert agy.retryable_error(error) is expected
+
+
+def test_provider_retry_preserves_state_and_episode_deadline(tmp_path, monkeypatch):
+    clock = [0.0]
+    monkeypatch.setattr(seed.time, 'time', lambda: clock[0])
+    monkeypatch.setattr(seed.SHUTDOWN, 'wait', lambda delay: clock.__setitem__(0, clock[0]+delay))
+    monkeypatch.setattr(seed, 'episode_over', lambda *a: False)
+    log = tmp_path/'agent.jsonl'
+    calls = []
+    def run(*args):
+        calls.append(args)
+        log.write_text(json.dumps({'event':'result','result': {
+            'status':'ERROR','conversation_id':'same', 'error':'Error 503: unavailable'}})+'\n')
+        return 'agent_error' if len(calls) == 1 else 'timeout'
+    monkeypatch.setattr(seed, 'run_agent', run)
+    result = {}
+    status, error = seed.drive_antigravity(seed.Experiment(task='bowl_on_plate', language='', episode_timeout=60),
+        'test', 'prompt',str(log),{'ROBOARCADE_BASE_PORT':'8100'},[],[],
+        SimpleNamespace(poll=lambda: None),str(tmp_path),0,result,{})
+    assert status == 'timeout' and error is None
+    assert len(calls) == 2
+    assert calls[1][7] == 'same' and calls[1][10] is True
+    assert calls[1][6]['ROBOARCADE_AGY_STATE'] == calls[0][6]['ROBOARCADE_AGY_STATE']
+    assert calls[0][4] == 60 and calls[1][4] == 45
+    assert len(result['provider_retries']) == 1
+
+
+def test_provider_retry_stops_after_three_attempts(tmp_path, monkeypatch):
+    monkeypatch.setattr(seed.SHUTDOWN, 'wait', lambda delay: False)
+    monkeypatch.setattr(seed, 'episode_over', lambda *a: False)
+    log = tmp_path/'agent.jsonl'
+    log.write_text(json.dumps({'event':'result','result': {
+        'status':'ERROR','conversation_id':'same','error':'Error 500: Internal'}})+'\n')
+    calls = []
+    monkeypatch.setattr(seed, 'run_agent', lambda *a: calls.append(a) or 'agent_error')
+    result = {}
+    status, error = seed.drive_antigravity(seed.Experiment(task='bowl_on_plate', language=''),
+        'test','prompt',str(log),{'ROBOARCADE_BASE_PORT':'8100'},[],[],
+        SimpleNamespace(poll=lambda: None),str(tmp_path),0,result,{})
+    assert status == 'agent_error' and error == 'Error 500: Internal'
+    assert len(calls) == 4 and len(result['provider_retries']) == 3
