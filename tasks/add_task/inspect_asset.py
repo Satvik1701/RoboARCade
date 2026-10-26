@@ -149,6 +149,8 @@ class Inspector:
                         side='double', flat_shading=False, **self.pose(gid))
                     colored = True
                 self.handles.append((h, gid, 'visual', colored, self.m.geom_rgba[gid].copy()))
+                h.on_click(lambda event, g=gid: self.enqueue('poke',
+                    (g, np.array(event.ray_origin)+self.origin, np.array(event.ray_direction))))
             if self.m.geom_contype[gid] or self.m.geom_conaffinity[gid]:
                 vf = collision_mesh(self.m, gid)
                 if vf is not None:
@@ -170,60 +172,75 @@ class Inspector:
 
     def build_gui(self):
         gui = self.server.gui
-        gui.add_markdown(f'## {self.args.task}\nBody: **{self.args.body or "whole scene"}**\n\nOrbit and zoom to inspect. Physics starts paused.')
-        with gui.add_folder('Appearance and collisions'):
+        gui.add_markdown(f'## {self.args.task}\nClick the asset to poke it or press a button. Drag to orbit; scroll to zoom.')
+        self.play = gui.add_checkbox('Run physics', True)
+        self.show_collision = gui.add_checkbox('Show collisions', False)
+        gui.add_button('Reset').on_click(lambda _: self.enqueue('reset'))
+        gui.add_button('Front view').on_click(lambda _: [self.front(c) for c in self.server.get_clients().values()])
+        gui.add_button('Render in Blender').on_click(lambda event: self.enqueue('render',
+            (np.array(event.client.camera.position)+self.origin,
+             np.array(event.client.camera.look_at)+self.origin, float(event.client.camera.fov))))
+        self.status = gui.add_markdown('Ready — click a button on the machine.')
+        self.readout = gui.add_markdown('')
+        self.render_image = gui.add_image(np.zeros((16, 16, 3), dtype=np.uint8), label='Blender render')
+        with gui.add_folder('More tools', expand_by_default=False):
             self.show_visual = gui.add_checkbox('Visual meshes', True)
-            self.show_collision = gui.add_checkbox('Collision hulls', False)
             self.show_sites = gui.add_checkbox('Sites and axes', False)
-            self.show_contacts = gui.add_checkbox('Contact forces', True)
-            gui.add_button('Front view').on_click(lambda _: [self.front(c) for c in self.server.get_clients().values()])
-            gui.add_markdown('Orange shows collision hulls. Red lines show contact normals scaled by force (capped at 10 cm). Infinite planes use a finite preview square.')
-        with gui.add_folder('Physics and state'):
-            self.play = gui.add_checkbox('Run physics', False)
+            self.show_contacts = gui.add_checkbox('Contact forces', False)
             self.speed = gui.add_slider('Simulation speed', min=.1, max=5., step=.1, initial_value=1.)
             gui.add_button('Step 0.1 s').on_click(lambda _: self.enqueue('step', .1))
             gui.add_button('Advance 10 s').on_click(lambda _: self.enqueue('step', 10.))
-            gui.add_button('Reset asset').on_click(lambda _: self.enqueue('reset'))
             gui.add_button('Save state').on_click(lambda _: self.enqueue('save'))
             gui.add_button('Restore state').on_click(lambda _: self.enqueue('restore'))
-            self.readout = gui.add_markdown('')
-        joints = [self.m.joint(j).name for j in range(self.m.njnt)
-                  if int(self.m.jnt_bodyid[j]) in self.selected and self.m.jnt_type[j] in
-                  (mujoco.mjtJoint.mjJNT_HINGE, mujoco.mjtJoint.mjJNT_SLIDE)]
-        self.joint = None
-        if joints:
-            with gui.add_folder('Joint and button inspection'):
-                self.joint = gui.add_dropdown('Joint', joints)
-                self.force = gui.add_number('Force / torque (N / Nm)', initial_value=-.4, step=.1)
-                self.duration = gui.add_number('Pulse duration (s)', initial_value=.3, min=.01, max=10., step=.1)
-                gui.add_button('Apply force pulse').on_click(lambda _: self.enqueue('pulse',
-                    (self.joint.value, float(self.force.value), float(self.duration.value))))
-                self.position = gui.add_number('Inspection position (m / rad)', initial_value=0., step=.001)
-                gui.add_button('Set inspection pose').on_click(lambda _: self.enqueue('pose',
-                    (self.joint.value, float(self.position.value))))
-                self.joint_info = gui.add_markdown('')
-                gui.add_markdown('Force pulses advance real physics and exercise spring return. Set inspection pose directly changes the joint; it is not a contact test. Angles are radians.')
-        with gui.add_folder('Blender and export'):
             self.camera = gui.add_dropdown('Render camera', ['Inspector view', *self.env.cameras])
             self.isolate = gui.add_checkbox('Isolate selected body in Blender', bool(self.args.body))
-            gui.add_button('Render current state').on_click(lambda event: self.enqueue('render',
-                (np.array(event.client.camera.position)+self.origin,
-                 np.array(event.client.camera.look_at)+self.origin, float(event.client.camera.fov))))
-            self.render_image = gui.add_image(np.zeros((16, 16, 3), dtype=np.uint8), label='Current Blender render')
             gui.add_button('Export state and report').on_click(lambda _: self.enqueue('export'))
-            gui.add_markdown(f'Renders are {self.args.resolution} × {self.args.resolution}. Output: `{self.args.output}`. Rendering pauses physics; press Run physics to resume.')
-        self.status = gui.add_markdown('Ready')
-        self.contact_info = gui.add_markdown('')
+            self.contact_info = gui.add_markdown('')
+
+    def poke(self, value):
+        gid, origin, direction = value
+        direction = direction / np.linalg.norm(direction)
+        bid = int(self.m.geom_bodyid[gid])
+        if self.m.geom_type[gid] == mujoco.mjtGeom.mjGEOM_MESH:
+            distance = mujoco.mj_rayMesh(self.m, self.d, gid, origin, direction)
+        else:
+            distance = mujoco.mju_rayGeom(self.d.geom_xpos[gid], self.d.geom_xmat[gid],
+                self.m.geom_size[gid], origin, direction, int(self.m.geom_type[gid]))
+        point = origin + distance*direction if distance >= 0 else self.d.geom_xpos[gid].copy()
+        # Small spring-loaded slide joints are pushbuttons. Press along their
+        # travel axis so the same mouse gesture works from oblique views.
+        button = None
+        ancestor = bid
+        while ancestor:
+            for j in range(self.m.body_jntadr[ancestor], self.m.body_jntadr[ancestor]+self.m.body_jntnum[ancestor]):
+                if (self.m.jnt_type[j] == mujoco.mjtJoint.mjJNT_SLIDE
+                        and self.m.jnt_limited[j] and np.ptp(self.m.jnt_range[j]) <= .02):
+                    button = j
+                    break
+            if button is not None: break
+            ancestor = int(self.m.body_parentid[ancestor])
+        self.pulse = dict(body=bid, point=point, force=direction*.7,
+                          button=button, until=self.d.time+.3)
+        label = self.m.body(ancestor if button is not None else bid).name
+        label = label.removeprefix('button_').removesuffix('_key').replace('prog_', 'Program ').replace('_', ' ')
+        self.status.content = f'Pressing {label}' if button is not None else f'Poking {label}'
 
     def advance(self, seconds):
         for _ in range(max(1, round(seconds/self.m.opt.timestep))):
             self.d.qfrc_applied[:] = 0
             if self.pulse:
-                joint, force, until = self.pulse
-                if self.d.time < until:
-                    self.d.qfrc_applied[self.m.joint(joint).dofadr[0]] = force
-                else:
+                pulse = self.pulse
+                if self.d.time < pulse['until']:
+                    if pulse['button'] is not None:
+                        j = pulse['button']
+                        sign = -1 if abs(self.m.jnt_range[j, 0]) > abs(self.m.jnt_range[j, 1]) else 1
+                        self.d.qfrc_applied[self.m.jnt_dofadr[j]] = sign*.4
+                    else:
+                        mujoco.mj_applyFT(self.m, self.d, pulse['force'], np.zeros(3),
+                                         pulse['point'], pulse['body'], self.d.qfrc_applied)
+                elif self.d.time >= pulse['until']+.25:
                     self.pulse = None
+                    self.status.content = 'Released — click the asset to interact again.'
             self.env._step_physics()
         self.d.qfrc_applied[:] = 0
         self.env._dynamics('physics_step')
@@ -293,23 +310,14 @@ class Inspector:
 
     def command(self, name, value):
         if name in ('reset', 'restore'):
-            self.play.value = False; self.pulse = None
+            self.pulse = None
             restore_state(self.env, self.initial if name == 'reset' else self.saved)
         elif name == 'save':
             self.saved = state_array(self.env)
         elif name == 'step':
             self.play.value = False; self.advance(value)
-        elif name == 'pulse':
-            joint, force, duration = value
-            self.pulse = (joint, force, self.d.time+duration)
-            self.advance(duration+.25)
-        elif name == 'pose':
-            self.play.value = False
-            joint, value = value; j = self.m.joint(joint)
-            if self.m.jnt_limited[j.id]:
-                value = np.clip(value, *self.m.jnt_range[j.id])
-            self.d.qpos[j.qposadr[0]] = value; self.d.qvel[j.dofadr[0]] = 0
-            self.env._dynamics('physics_step'); mujoco.mj_forward(self.m, self.d)
+        elif name == 'poke':
+            self.poke(value); return
         elif name == 'render':
             self.render(value); return
         elif name == 'export':
@@ -350,12 +358,15 @@ class Inspector:
         self.contact_info.content = f'**Contacts: {len(lines)}**\n\n'+'  \n'.join(contact_rows[:12])
         readout = getattr(self.env.dynamics, 'readout', None)
         values = readout(self.env) if readout else {'userdata': self.d.userdata.tolist()}
-        self.readout.content = f'**Simulation time: {self.d.time:.2f} s**\n```json\n{json.dumps(values, indent=2)}\n```'
-        if self.joint:
-            j = self.m.joint(self.joint.value)
-            self.joint_info.content = (f'Position: **{self.d.qpos[j.qposadr[0]]:.5f}**  \n'
-                f'Velocity: {self.d.qvel[j.dofadr[0]]:.5f}  \nRange: {self.m.jnt_range[j.id].tolist()}  \n'
-                f'Stiffness: {self.m.jnt_stiffness[j.id]:g}; damping: {self.m.dof_damping[j.dofadr[0]]:g}')
+        if readout and {'program', 'running', 'remaining_seconds', 'actual_celsius', 'target_celsius', 'actual_rpm'} <= values.keys():
+            seconds = max(0, round(values['remaining_seconds']))
+            state = 'Running' if values['running'] else 'Done' if values.get('done') else 'Ready'
+            self.readout.content = (f"**Program {values['program']} · {state}**  \n"
+                f"Time: {seconds//60}:{seconds%60:02d}  \n"
+                f"Temperature: {values['actual_celsius']:.0f} / {values['target_celsius']:.0f} °C  \n"
+                f"Speed: {values['actual_rpm']:.0f} RPM")
+        else:
+            self.readout.content = f'Simulation time: {self.d.time:.1f} s'
 
     def run(self):
         try:
@@ -365,7 +376,7 @@ class Inspector:
                     name, value = self.commands.get_nowait()
                     self.command(name, value)
                 except queue.Empty:
-                    if self.play.value: self.advance(self.speed.value/30)
+                    if self.play.value or self.pulse: self.advance(self.speed.value/30)
                 except Exception as exc:
                     self.play.value = False
                     self.status.content = f'Error: {type(exc).__name__}: {exc}'
