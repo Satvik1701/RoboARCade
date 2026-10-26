@@ -52,7 +52,9 @@ uv run python -m tasks.add_task.inspect_asset \
   --task start_incubation --body mixer --port 8410
 ```
 
-Open `http://localhost:8410`. Omit `--body` to inspect the whole task, or use another
+Open `http://localhost:8410` and click the asset to interact. Drag to orbit and
+scroll to zoom. Reset, collision visibility, and Blender rendering are on the main
+panel; diagnostics and exports are tucked under **More tools**. Omit `--body` to inspect the whole task, or use another
 body name to include its descendants. Add `--host 0.0.0.0` for access from another
 machine. `--seed` selects the initial state; authored layout is used without
 additional randomization.
@@ -61,13 +63,14 @@ additional randomization.
 - **Collisions:** orange collision geometry (convex hulls for meshes), live contact
   pairs, penetration distance, and normal forces. Infinite planes appear as finite
   squares in the preview. The Blender image shows appearance; use the overlay for collisions.
-- **Physics:** paused startup, run/pause, single steps, simulation speed, reset,
+- **Physics:** live startup, run/pause, single steps, simulation speed, reset,
   and save/restore including task userdata. The live task readout uses the optional
   `Dynamics.readout(env)` method, falling back to raw userdata.
-- **Joints:** positions, velocities, limits, stiffness, damping, force/torque pulses,
-  and direct pose inspection. A force pulse moves a joint through physics but does
-  not establish that a robot can contact it. Use the task's contact tests or the
-  teleoperation dashboard to verify physical reach and pressing.
+- **Mouse interaction:** click a visible surface to apply a brief force at the
+  clicked point. Small spring-loaded slide buttons are pressed along their travel
+  axis and released automatically. No joint panel or numeric input is needed.
+  This exercises dynamics with applied forces; use the task's contact tests or
+  teleoperation dashboard to verify robot contact and reach.
 - **Blender:** render the current state from the inspector camera or any task camera,
   optionally isolating the selected body. Requires the normal RoboARCade Blender
   installation (`ROBOARCADE_BLENDER` and `ROBOARCADE_BLENDER_PY` can override paths).
