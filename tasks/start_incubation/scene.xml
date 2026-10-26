@@ -1,6 +1,7 @@
 <mujoco model="autobio_start_incubation">
   <!-- assetdir, not meshdir: the mixer carries textures as well as meshes -->
   <compiler angle="radian" assetdir="../../../autobio" />
+  <size nuserdata="44" />
   <option integrator="implicitfast" impratio="20" density="1.2" viscosity="2e-05"
           cone="elliptic" />
   <visual>
@@ -45,6 +46,7 @@
     <material name="incubation_ink" rgba="0.015 0.035 0.065 1" specular="0" shininess="0" metallic="0" roughness="1" />
     <material name="incubation_blue" rgba="0.015 0.16 0.38 1" specular="0" shininess="0" metallic="0" roughness="1" />
     <material name="incubation_white" rgba="1 1 1 1" specular="0" shininess="0" metallic="0" roughness="1" />
+    <mesh name="panel-bezel" inertia="shell" file="../tasks/autobio/start_incubation/panel/panel-bezel.obj" />
     <mesh name="incubation_text_0" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-00.obj" />
     <mesh name="incubation_text_1" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-01.obj" />
     <mesh name="incubation_text_2" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-02.obj" />
@@ -65,6 +67,9 @@
     <mesh name="incubation_text_17" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-17.obj" />
     <mesh name="incubation_text_18" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-18.obj" />
     <mesh name="incubation_text_19" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-19.obj" />
+    <mesh name="incubation_text_20" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-20.obj" />
+    <mesh name="incubation_text_21" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-21.obj" />
+    <mesh name="incubation_text_22" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-22.obj" />
     <!-- END GENERATED PANEL ASSETS -->
     <mesh name="centrifuge_plate_60well-visual_visual" file="rack/centrifuge_plate_60well_vis/visual.obj" scale="0.001 0.001 0.001" />
     <material name="centrifuge_plate_60well-plastic" rgba="0 0 0.8 1" />
@@ -126,123 +131,249 @@
       <site name="button_time_up" group="3" pos="-0.12379485 -0.01120483 -0.025083" quat="0.23025696 -0.23025694 0.66856695 -0.6685669" size="0.004 0.004 0.004" />
       <site name="thermoblock_function" group="3" pos="-0.0061 0.0665 0.03830001" quat="0.70710681 -0.70710675 0 0" size="0.01 0.01 0.01" user="2 4 0.018144128 6 0.0176925056 0.009904" />
       <!-- BEGIN GENERATED PANEL CONTROLS -->
-      <geom name="incubation_panel" type="box" size=".096 .042 .00025" pos="-0.109553218 0.00118328713 -0.00654502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" material="incubation_panel" contype="0" conaffinity="0" mass="0" group="2" />
-      <geom name="incubation_display" type="box" size=".049 .0115 .0003" pos="-0.105675734 0.00434162853 0.00645498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
-      <geom name="label_2" type="mesh" mesh="incubation_text_0" material="incubation_ink" pos="-0.100770506 0.00862079164 -0.02454502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
-      <geom name="label_3" type="mesh" mesh="incubation_text_1" material="incubation_ink" pos="-0.107860841 0.00307758382 -0.02454502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
-      <geom name="label_4" type="mesh" mesh="incubation_text_2" material="incubation_ink" pos="-0.100770506 0.00862079164 0.00645498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
-      <geom name="label_5" type="mesh" mesh="incubation_text_3" material="incubation_ink" pos="-0.107860841 0.00307758382 0.00645498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
-      <geom name="label_6" type="mesh" mesh="incubation_text_4" material="incubation_ink" pos="-0.100770506 0.00862079164 0.03745498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
-      <geom name="label_7" type="mesh" mesh="incubation_text_5" material="incubation_ink" pos="-0.107860841 0.00307758382 0.03745498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="incubation_panel" type="mesh" mesh="panel-bezel" pos="-0.109553218 0.00118328713 -0.00904502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" material="incubation_panel" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="incubation_display" type="box" size=".049 .014 .0003" pos="-0.105675734 0.00434162853 0.00645498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="label_2" type="mesh" mesh="incubation_text_0" material="incubation_ink" pos="-0.0988009683 0.0101605716 -0.02454502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="label_3" type="mesh" mesh="incubation_text_1" material="incubation_ink" pos="-0.0988009683 0.0101605716 0.00645498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="label_4" type="mesh" mesh="incubation_text_2" material="incubation_ink" pos="-0.0988009683 0.0101605716 0.03745498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="lcd_time_0_0" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.102824984 0.00702729864 -0.03504502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_0_1" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 -0.03324502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_0_2" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 -0.03324502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_0_3" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.107394311 0.00345500916 -0.03504502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_0_4" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 -0.03684502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_0_5" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 -0.03684502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_0_6" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.105109647 0.0052411539 -0.03504502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_1_0" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.102824984 0.00702729864 -0.02904502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_1_1" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 -0.02724502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_1_2" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 -0.02724502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_1_3" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.107394311 0.00345500916 -0.02904502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_1_4" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 -0.03084502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_1_5" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 -0.03084502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_1_6" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.105109647 0.0052411539 -0.02904502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_2_0" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.102824984 0.00702729864 -0.02004502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_2_1" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 -0.01824502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_2_2" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 -0.01824502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_2_3" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.107394311 0.00345500916 -0.02004502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_2_4" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 -0.02184502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_2_5" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 -0.02184502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_2_6" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.105109647 0.0052411539 -0.02004502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_3_0" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.102824984 0.00702729864 -0.01404502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_3_1" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 -0.01224502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_3_2" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 -0.01224502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_3_3" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.107394311 0.00345500916 -0.01404502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_3_4" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 -0.01584502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_3_5" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 -0.01584502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_time_3_6" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.105109647 0.0052411539 -0.01404502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="label_33" type="mesh" mesh="incubation_text_3" material="incubation_ink" pos="-0.105134284 0.0052726665 -0.02454502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="lcd_temp_0_0" type="box" size="0.00165 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.102824984 0.00702729864 -0.00404502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_0_1" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 -0.00239502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_0_2" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 -0.00239502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_0_3" type="box" size="0.00165 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.107394311 0.00345500916 -0.00404502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_0_4" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 -0.00569502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_0_5" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 -0.00569502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_0_6" type="box" size="0.00165 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.105109647 0.0052411539 -0.00404502" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_1_0" type="box" size="0.00165 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.102824984 0.00702729864 0.00165498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_1_1" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.00330498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_1_2" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.00330498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_1_3" type="box" size="0.00165 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.107394311 0.00345500916 0.00165498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_1_4" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 4.98e-06" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_1_5" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 4.98e-06" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_1_6" type="box" size="0.00165 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.105109647 0.0052411539 0.00165498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_2_0" type="box" size="0.00165 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.102824984 0.00702729864 0.01125498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_2_1" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.01290498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_2_2" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.01290498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_2_3" type="box" size="0.00165 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.107394311 0.00345500916 0.01125498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_2_4" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.00960498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_2_5" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.00960498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_2_6" type="box" size="0.00165 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.105109647 0.0052411539 0.01125498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_3_0" type="box" size="0.00165 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.102824984 0.00702729864 0.01695498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_3_1" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.01860498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_3_2" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.01860498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_3_3" type="box" size="0.00165 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.107394311 0.00345500916 0.01695498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_3_4" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.01530498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_3_5" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.01530498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_temp_3_6" type="box" size="0.00165 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.105109647 0.0052411539 0.01695498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="label_62" type="mesh" mesh="incubation_text_4" material="incubation_ink" pos="-0.105134284 0.0052726665 0.00645498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="lcd_rpm_0_0" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.102824984 0.00702729864 0.02845498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_0_1" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.03025498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_0_2" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.03025498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_0_3" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.107394311 0.00345500916 0.02845498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_0_4" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.02665498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_0_5" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.02665498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_0_6" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.105109647 0.0052411539 0.02845498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_0_0" type="box" size="0.001 0.000126 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.111884856 -5.56891272e-05 0.03545498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_0_1" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.112436326 -0.000486827513 0.03645498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_0_2" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.113539267 -0.00134910428 0.03645498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_0_3" type="box" size="0.001 0.000126 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.114090738 -0.00178024267 0.03545498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_0_4" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.113539267 -0.00134910428 0.03445498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_0_5" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.112436326 -0.000486827513 0.03445498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_0_6" type="box" size="0.001 0.000126 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.112987797 -0.000917965899 0.03545498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_1_0" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.102824984 0.00702729864 0.03445498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_1_1" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.03625498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_1_2" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.03625498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_1_3" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.107394311 0.00345500916 0.03445498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_1_4" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.03265498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_1_5" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.03265498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_1_6" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.105109647 0.0052411539 0.03445498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_1_0" type="box" size="0.001 0.000126 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.111884856 -5.56891272e-05 0.03895498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_1_1" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.112436326 -0.000486827513 0.03995498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_1_2" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.113539267 -0.00134910428 0.03995498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_1_3" type="box" size="0.001 0.000126 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.114090738 -0.00178024267 0.03895498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_1_4" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.113539267 -0.00134910428 0.03795498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_1_5" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.112436326 -0.000486827513 0.03795498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_1_6" type="box" size="0.001 0.000126 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.112987797 -0.000917965899 0.03895498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_2_0" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.102824984 0.00702729864 0.04045498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_2_1" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.04225498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_2_2" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.04225498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_2_3" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.107394311 0.00345500916 0.04045498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_2_4" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.03865498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_2_5" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.03865498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_2_6" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.105109647 0.0052411539 0.04045498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_2_0" type="box" size="0.001 0.000126 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.111884856 -5.56891272e-05 0.04245498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_2_1" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.112436326 -0.000486827513 0.04345498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_2_2" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.113539267 -0.00134910428 0.04345498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_2_3" type="box" size="0.001 0.000126 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.114090738 -0.00178024267 0.04245498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_2_4" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.113539267 -0.00134910428 0.04145498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_2_5" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.112436326 -0.000486827513 0.04145498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_2_6" type="box" size="0.001 0.000126 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.112987797 -0.000917965899 0.04245498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_3_0" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.102824984 0.00702729864 0.04645498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_3_1" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.04825498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_3_2" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.04825498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_3_3" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.107394311 0.00345500916 0.04645498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_3_4" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.106251979 0.00434808153 0.04465498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_3_5" type="box" size="0.000261 0.001189 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.103967316 0.00613422627 0.04465498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_rpm_3_6" type="box" size="0.0018 0.000261 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.105109647 0.0052411539 0.04645498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_3_0" type="box" size="0.001 0.000126 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.111884856 -5.56891272e-05 0.04595498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_3_1" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.112436326 -0.000486827513 0.04695498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_3_2" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.113539267 -0.00134910428 0.04695498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_3_3" type="box" size="0.001 0.000126 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.114090738 -0.00178024267 0.04595498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_3_4" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.113539267 -0.00134910428 0.04495498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_3_5" type="box" size="0.000126 0.000574 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.112436326 -0.000486827513 0.04495498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_setrpm_3_6" type="box" size="0.001 0.000126 2e-05" quat="-0.635592633 0.309874176 0.635592633 0.309874176" pos="-0.112987797 -0.000917965899 0.04595498" material="incubation_white" rgba=".04 .06 .08 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="label_119" type="mesh" mesh="incubation_text_5" material="incubation_ink" pos="-0.113012433 -0.0008864533 0.02545498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="label_120" type="mesh" mesh="incubation_text_6" material="incubation_ink" pos="-0.113012433 -0.0008864533 -0.03454502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="lcd_status_ready" type="box" size=".004 .0004 .00002" pos="-0.115351242 -0.00276570184 -0.03454502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" material="incubation_white" rgba="1 1 1 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="label_122" type="mesh" mesh="incubation_text_7" material="incubation_ink" pos="-0.113012433 -0.0008864533 -0.02154502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="lcd_status_run" type="box" size=".004 .0004 .00002" pos="-0.115351242 -0.00276570184 -0.02154502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" material="incubation_white" rgba="1 1 1 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="label_124" type="mesh" mesh="incubation_text_8" material="incubation_ink" pos="-0.113012433 -0.0008864533 -0.00854502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="lcd_status_done" type="box" size=".004 .0004 .00002" pos="-0.115351242 -0.00276570184 -0.00854502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" material="incubation_white" rgba="1 1 1 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_field_0" type="box" size=".010 .0003 .00002" pos="-0.100934228 0.00850548739 -0.02454502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" material="incubation_white" rgba="1 1 1 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_field_1" type="box" size=".010 .0003 .00002" pos="-0.100934228 0.00850548739 0.00645498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" material="incubation_white" rgba="1 1 1 1" mass="0" contype="0" conaffinity="0" group="2" />
+      <geom name="lcd_field_2" type="box" size=".010 .0003 .00002" pos="-0.100934228 0.00850548739 0.03745498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" material="incubation_white" rgba="1 1 1 1" mass="0" contype="0" conaffinity="0" group="2" />
       <body name="button_prog_1_key" pos="-0.0857597359 0.0227044449 -0.03852143" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_prog_1_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_prog_1_cap" type="box" size=".010 .005 .003" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_prog_1_contact" type="box" size=".010 .005 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_10" type="mesh" mesh="incubation_text_6" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_131" type="mesh" mesh="incubation_text_9" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="lcd_program_1" type="box" size=".008 .00035 .00002" pos="0 -.004 .00306" material="incubation_white" rgba="1 1 1 1" mass="0" contype="0" conaffinity="0" group="2" />
       </body>
       <body name="button_menu_enter_key" pos="-0.103758736 0.00863145492 -0.071" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_menu_enter_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_menu_enter_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_menu_enter_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_13" type="mesh" mesh="incubation_text_7" material="incubation_white" pos="0 0.002 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
-        <geom name="label_14" type="mesh" mesh="incubation_text_8" material="incubation_white" pos="0 -0.0015 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_135" type="mesh" mesh="incubation_text_10" material="incubation_white" pos="0 0.002 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_136" type="mesh" mesh="incubation_text_11" material="incubation_white" pos="0 -0.0015 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <body name="button_menu_down_key" pos="-0.115452856 -0.000661625078 -0.071" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_menu_down_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_menu_down_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_menu_down_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_17" type="mesh" mesh="incubation_text_9" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_139" type="mesh" mesh="incubation_text_12" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <body name="button_menu_left_key" pos="-0.103758736 0.00863145492 -0.08624256" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_menu_left_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_menu_left_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_menu_left_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_20" type="mesh" mesh="incubation_text_10" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_142" type="mesh" mesh="incubation_text_13" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <body name="button_menu_right_key" pos="-0.103758736 0.00863144492 -0.05631481" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_menu_right_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_menu_right_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_menu_right_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_23" type="mesh" mesh="incubation_text_11" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_145" type="mesh" mesh="incubation_text_14" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <body name="button_menu_up_key" pos="-0.0915217959 0.0178979049 -0.071" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_menu_up_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_menu_up_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_menu_up_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_26" type="mesh" mesh="incubation_text_12" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_148" type="mesh" mesh="incubation_text_15" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <body name="button_prog_2_key" pos="-0.0857597359 0.0227044449 -0.01569296" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_prog_2_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_prog_2_cap" type="box" size=".010 .005 .003" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_prog_2_contact" type="box" size=".010 .005 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_29" type="mesh" mesh="incubation_text_13" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_151" type="mesh" mesh="incubation_text_16" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="lcd_program_2" type="box" size=".008 .00035 .00002" pos="0 -.004 .00306" material="incubation_white" rgba="1 1 1 1" mass="0" contype="0" conaffinity="0" group="2" />
       </body>
       <body name="button_prog_3_key" pos="-0.0857597359 0.0227044449 0.00645498" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_prog_3_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_prog_3_cap" type="box" size=".010 .005 .003" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_prog_3_contact" type="box" size=".010 .005 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_32" type="mesh" mesh="incubation_text_14" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_155" type="mesh" mesh="incubation_text_17" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="lcd_program_3" type="box" size=".008 .00035 .00002" pos="0 -.004 .00306" material="incubation_white" rgba="1 1 1 1" mass="0" contype="0" conaffinity="0" group="2" />
       </body>
       <body name="button_prog_4_key" pos="-0.0857597359 0.0227044449 0.02790428" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_prog_4_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_prog_4_cap" type="box" size=".010 .005 .003" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_prog_4_contact" type="box" size=".010 .005 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_35" type="mesh" mesh="incubation_text_15" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_159" type="mesh" mesh="incubation_text_18" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="lcd_program_4" type="box" size=".008 .00035 .00002" pos="0 -.004 .00306" material="incubation_white" rgba="1 1 1 1" mass="0" contype="0" conaffinity="0" group="2" />
       </body>
       <body name="button_prog_5_key" pos="-0.0861233059 0.0227044449 0.05022066" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_prog_5_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_prog_5_cap" type="box" size=".010 .005 .003" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_prog_5_contact" type="box" size=".010 .005 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_38" type="mesh" mesh="incubation_text_16" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_163" type="mesh" mesh="incubation_text_19" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="lcd_program_5" type="box" size=".008 .00035 .00002" pos="0 -.004 .00306" material="incubation_white" rgba="1 1 1 1" mass="0" contype="0" conaffinity="0" group="2" />
       </body>
       <body name="button_short_key" pos="-0.104161956 0.00805697492 0.06800514" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_short_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_short_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_short_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_41" type="mesh" mesh="incubation_text_17" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_167" type="mesh" mesh="incubation_text_20" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <body name="button_speed_down_key" pos="-0.137093726 -0.0175045551 0.03635469" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_speed_down_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_speed_down_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_speed_down_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_44" type="mesh" mesh="incubation_text_9" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_170" type="mesh" mesh="incubation_text_12" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <body name="button_speed_up_key" pos="-0.125642586 -0.00884138508 0.03635469" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_speed_up_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_speed_up_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_speed_up_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_47" type="mesh" mesh="incubation_text_12" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_173" type="mesh" mesh="incubation_text_15" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <body name="button_start_stop_key" pos="-0.131338226 -0.0133999851 0.06758012" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_start_stop_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_start_stop_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_start_stop_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_50" type="mesh" mesh="incubation_text_18" material="incubation_white" pos="0 0.002 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
-        <geom name="label_51" type="mesh" mesh="incubation_text_19" material="incubation_white" pos="0 -0.0015 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_176" type="mesh" mesh="incubation_text_21" material="incubation_white" pos="0 0.002 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_177" type="mesh" mesh="incubation_text_22" material="incubation_white" pos="0 -0.0015 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <body name="button_temp_down_key" pos="-0.137093726 -0.0175045551 0.00569977" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_temp_down_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_temp_down_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_temp_down_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_54" type="mesh" mesh="incubation_text_9" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_180" type="mesh" mesh="incubation_text_12" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <body name="button_temp_up_key" pos="-0.125642586 -0.00884138508 0.00569977" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_temp_up_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_temp_up_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_temp_up_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_57" type="mesh" mesh="incubation_text_12" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_183" type="mesh" mesh="incubation_text_15" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <body name="button_time_down_key" pos="-0.137093726 -0.0175045551 -0.025083" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_time_down_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_time_down_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_time_down_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_60" type="mesh" mesh="incubation_text_9" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_186" type="mesh" mesh="incubation_text_12" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <body name="button_time_up_key" pos="-0.125642586 -0.00884138508 -0.025083" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
         <joint name="button_time_up_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
         <geom name="button_time_up_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
         <geom name="button_time_up_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
-        <geom name="label_63" type="mesh" mesh="incubation_text_12" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_189" type="mesh" mesh="incubation_text_15" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
       <!-- END GENERATED PANEL CONTROLS -->
       <body name="thermoblock">

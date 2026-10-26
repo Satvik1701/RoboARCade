@@ -2104,5 +2104,58 @@
   "z_min_crop_table": 0.81,
   "z_offset": 0.8,
   "crop_table": false
+ },
+ "incubation_panel": {
+  "programs": [
+   [
+    150,
+    45,
+    0
+   ],
+   [
+    150,
+    45,
+    0
+   ],
+   [
+    150,
+    45,
+    0
+   ],
+   [
+    150,
+    45,
+    0
+   ],
+   [
+    150,
+    45,
+    0
+   ]
+  ],
+  "ambient_celsius": 24,
+  "heat_celsius_per_second": 1,
+  "cool_celsius_per_second": 0.2,
+  "rpm_per_second": 1000,
+  "short_rpm": 1000,
+  "increments": [
+   15,
+   1,
+   50
+  ],
+  "limits": [
+   [
+    15,
+    5999
+   ],
+   [
+    24,
+    99
+   ],
+   [
+    0,
+    2000
+   ]
+  ]
  }
 }
