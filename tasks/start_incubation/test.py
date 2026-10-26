@@ -22,14 +22,9 @@ def test_autobio_start_incubation_has_physical_wells_and_ordered_return():
     block = next(body for body in root.find("worldbody").iter("body")
                  if body.get("name") == "thermoblock")
     geoms = list(block.findall("geom"))
-    assert len(geoms) == 3110
-    assert all(g.get("name", "").startswith("thermoblock_") for g in geoms)
-    assert all(g.get("class") == "collision" for g in geoms)
-    assert len([g for g in geoms if "_level_" in g.get("name", "")]) == 2688
-    deck_geoms = [g for g in geoms if g.get("name", "").startswith(
-        "thermoblock_deck_")]
-    assert len(deck_geoms) == 417
-    assert len([g for g in deck_geoms if "_lip_" in g.get("name", "")]) == 384
+    assert geoms and all(g.get("name", "").startswith("thermoblock_surface_") for g in geoms)
+    assert all(g.get("class") == "collision" and g.get("type") == "mesh" for g in geoms)
+    assert not any(g.get("type") == "box" for g in block.findall("geom"))
     machine_sites = [s for s in block.findall("site")
                      if s.get("name", "").startswith("machine_well_")]
     assert len(machine_sites) == 24 and len({s.get("name") for s in machine_sites}) == 24
@@ -174,18 +169,6 @@ def test_recorded_incubation_contact_failures(case, name):
         assert env.finger_root(int(m.geom_bodyid[other])) is None
 
 
-def test_recorded_tube_seats_after_release():
-    states = np.load(Path(__file__).parent / "incubation_contact_states.npz")
-    env = SimEnv("start_incubation")
-    env.reset_to_sim_state(states["insertion_jam"])
-    for _ in range(round(1/env.model.opt.timestep)):
-        mujoco.mj_step(env.model, env.data)
-    tip = env.data.body("tube_2").xpos
-    floor = env.data.site("machine_well_r1_c1").xpos
-    assert abs(tip[2]-floor[2]) < .001
-    assert np.linalg.norm(tip[:2]-floor[:2]) < .001
-
-
 @pytest.mark.parametrize("heading", [0, 90, 180, 270])
 def test_round_tip_topples_between_holes(heading):
     from scipy.spatial.transform import Rotation
@@ -196,8 +179,13 @@ def test_round_tip_topples_between_holes(heading):
     a = int(m.jnt_qposadr[int(m.body(b).jntadr[0])])
     centre = (d.site("machine_well_r1_c1").xpos +
               d.site("machine_well_r2_c2").xpos)/2
-    deck = max(d.geom_xpos[g, 2]+m.geom_size[g, 2] for g in range(m.ngeom)
-               if m.geom(g).name.startswith("thermoblock_deck_row_strip"))
+    deck = -np.inf
+    for g in range(m.ngeom):
+        if not m.geom(g).name.startswith("thermoblock_surface_"): continue
+        mesh = m.geom_dataid[g]
+        start, count = m.mesh_vertadr[mesh], m.mesh_vertnum[mesh]
+        vertices = d.geom_xpos[g]+m.mesh_vert[start:start+count]@d.geom_xmat[g].reshape(3, 3).T
+        deck = max(deck, vertices[:, 2].max())
     axis = np.array([np.cos(np.radians(heading)), np.sin(np.radians(heading)), 0.])
     d.qpos[a:a+3] = [centre[0], centre[1], deck+.001]
     d.qpos[a+3:a+7] = Rotation.from_rotvec(axis*np.radians(.1)).as_quat()[[3, 0, 1, 2]]

@@ -10,9 +10,9 @@
  },
  "generated_by": "datagen/autobio/incubation.py",
  "date": "2026-10-26",
- "notes": "The centered, inset control-panel bezel has rounded corners. All 18 labeled keys have collision caps and spring-return joints. The readout follows persisted simulated machine state: program selection, countdown, pause/resume, editable duration/temperature/speed, modeled heating/cooling and RPM ramps, momentary short mixing, and menu field selection. Five independent presets initialize to the original 150-second, 45 C, 0 RPM values; all values, bounds and ramp rates are configurable in task.json. Display and press latches survive saved-state restore. The original Program 1 grading joint and ordered task rubric, physical wells, rack, tubes and friction caps are retained. Glyph meshes and the rounded bezel ship in the HF assets archive; runtime needs no font/build dependencies.",
+ "notes": "The centered, inset control-panel bezel has rounded corners. All 18 labeled keys have collision caps and spring-return joints. The readout follows persisted simulated machine state: program selection, countdown, pause/resume, editable duration/temperature/speed, modeled heating/cooling and RPM ramps, momentary short mixing, and menu field selection. Five independent presets initialize to the original 150-second, 45 C, 0 RPM values; all values, bounds and ramp rates are configurable in task.json. Display and press latches survive saved-state restore. The original Program 1 grading joint and ordered task rubric, rack, tubes and friction caps are retained; machine-well reference sites follow the corrected surfaces. Glyph meshes and the rounded bezel ship in the HF assets archive; runtime needs no font/build dependencies. Housing and thermoblock collision surfaces follow the source visual triangles, thickened by 0.15 mm; well sites follow the visual floor centers.",
  "files": {
-  "scene.xml": "fd8252e6547b2f3a",
+  "scene.xml": "ab6a00258e8732fa",
   "task.json": "7f1e81b087963026",
   "build_panel.py": "ef48d397b195c4ea",
   "dynamics.py": "f29c536d14055594",
@@ -40,7 +40,17 @@
   "panel/label-20.obj": "601c17ec00e6af37",
   "panel/label-21.obj": "38df39736fcfa8e2",
   "panel/label-22.obj": "7348a00500ebc5a1",
-  "panel/panel-bezel.obj": "678fc588ab4ed43c"
+  "panel/panel-bezel.obj": "678fc588ab4ed43c",
+  "build_collisions.py": "71fb20ecf62c29b0"
  },
- "panel_generated_by": "tasks/start_incubation/build_panel.py"
+ "panel_generated_by": "tasks/start_incubation/build_panel.py",
+ "collision_generated_by": "tasks/start_incubation/build_collisions.py",
+ "collision_surface_tolerance_mm": 0.15,
+ "collision_source_sha256": {
+  "body-visual-0.obj": "39539ac59dde2f0f26cd8e3531614ac20b41d64e8161cb5d6b96c1547e020440",
+  "body-visual-1.obj": "d3dacb1807b3f5c3e4b7fb3e9489ec1ac1b9e39febfb749278901d554c14e747",
+  "body-visual-2.obj": "44e7549fa034bad6e112bf830651fe90c9d3449bedcd7a890f959800baeb4384",
+  "body-visual-3.obj": "505e4795d52851e65bba112382ea29b42abb2bc427bdb188ba135444d1d4d8f4",
+  "body-visual-4.obj": "8e1559884c2e32f754598b475dc4ca0957db1731d9fbd58d9933981975b5854b"
+ }
 }
