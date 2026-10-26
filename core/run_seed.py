@@ -747,7 +747,7 @@ def run_seed(
 
             result["claude_status"] = claude_status
             result["metrics"] = (antigravity.metrics(claude_log, time.time() - t0,
-                                                    os.path.join(demo_folder, "antigravity", "state")) if runtime == "antigravity" else
+                                                    os.path.join(demo_folder, "antigravity", "state"), model=exp.model) if runtime == "antigravity" else
                                  agent_metrics(claude_log) if runtime == "claude" else
                                  codex_metrics(claude_log, env["CODEX_HOME"],
                                                result.get("session_id"), exp.model,

@@ -169,7 +169,7 @@ def startup_error(path):
     return None
 
 
-def metrics(path, wall_seconds, state=None):
+def metrics(path, wall_seconds, state=None, model=None):
     usage = {}
     completed_responses = {}
     turns = calls = 0
@@ -200,9 +200,9 @@ def metrics(path, wall_seconds, state=None):
         turns = 0
         for transcript in transcripts:
             for row in records(transcript):
-                if row.get("type") != "PLANNER_RESPONSE":
+                if row.get("type") not in ("PLANNER_RESPONSE", "CHECKPOINT"):
                     continue
-                turns += 1
+                turns += row.get("type") == "PLANNER_RESPONSE"
                 for key in ("input_tokens", "output_tokens", "cache_read_tokens"):
                     usage[key] = usage.get(key, 0) + row.get(key, 0)
     # Native transcript rows omit thinking usage. Recover this subset of output
@@ -220,8 +220,13 @@ def metrics(path, wall_seconds, state=None):
         # SDK model steps can include several tools from one request. It does
         # not expose an exact request count; do not mislabel those as API turns.
         turns = None
+    from core.antigravity_pricing import cost_usd, cost_basis
+    cost = cost_usd(usage.get("input_tokens"), usage.get("cache_read_tokens"),
+                    usage.get("output_tokens"), model=model)
     return dict(wall_seconds=wall_seconds, agent_wall_seconds=wall_seconds,
-                cost_usd=None, billed_to="api_key", num_turns=turns, tool_calls=calls,
+                cost_usd=round(cost, 4) if cost is not None else None,
+                cost_estimated=cost is not None, cost_basis=cost_basis() if cost is not None else None,
+                billed_to="api_key", num_turns=turns, tool_calls=calls,
                 tokens_in=usage.get("input_tokens", 0), tokens_out=usage.get("output_tokens", 0),
                 cache_read=usage.get("cache_read_tokens", 0), cache_creation=0,
                 tokens_budget=usage.get("input_tokens", 0) + usage.get("output_tokens", 0),
