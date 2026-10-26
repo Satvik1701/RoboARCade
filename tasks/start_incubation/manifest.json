@@ -9,13 +9,33 @@
   ]
  },
  "generated_by": "datagen/autobio/incubation.py",
- "date": "2026-09-15",
- "notes": "The ThermoMixer visual, all 24 machine wells, matching 60-well rack, randomization, controller and grading are unchanged in this revision. Only the two incubation tubes' collision tapers change: fifteen stacked cylinders per tube are replaced by one 64-sided convex taper tangent to the existing 1.67 mm-radius spherical tip and meeting the 5.35 mm-radius shoulder at 18 mm. The rounded tip, hollow upper wall collisions and all visible geometry are retained. Explicit inertials preserve the original mass, centre of mass and inertia, including the visual mesh's original inertial contribution. The smooth sides remove the cylinder ledges that caught on a machine-well lip in teleop. Torsional friction length is capped at 2 mm on hard surfaces and 10 mm on the fingertip pads, baked into scene.xml and the franka_panda_low_torsion robot; sliding/rolling friction and contact stiffness are unchanged. The task still requires inserting both tubes into distinct wells, pressing program 1 once, returning both to their original rack holes and moving the open gripper home within 4000 control steps.",
+ "date": "2026-10-26",
+ "notes": "The control panel uses high-contrast vector lettering with correctly oriented Program 1\u20135, Menu/Enter, Start/Stop, Short, arrows, and readable time/temperature/speed fields. All 18 marked controls have independent collision caps and spring-return slide joints (6 mm travel); labels move with their keys. This adds physical pressability, not new machine operating modes or dynamic display values. Program 1 retains its grading joint name and ordered single-press requirement. The 24 physical wells, 60-well rack, tubes, friction caps, randomization and task rubric are retained. Recorded contact-test fixtures were migrated by joint/body identity to include the 16 new button joints; historical episodes require their original scene snapshots.",
  "files": {
-  "key-label-decal.obj": "5a422926a357a2c9",
-  "menu-enter-key.png": "cd436e9e315002e1",
-  "prog-1-key.png": "b344fd7af6b64af5",
-  "scene.xml": "62c8a5898eea2f9a",
-  "task.json": "177460575a6b354e"
- }
+  "scene.xml": "6788fdb5878ddb1c",
+  "task.json": "177460575a6b354e",
+  "build_panel.py": "1fbc53bc55d37344",
+  "panel/label-00.obj": "bd9482a4f93b7cb0",
+  "panel/label-01.obj": "58a34e61c818f1f9",
+  "panel/label-02.obj": "3415cc56369a2c13",
+  "panel/label-03.obj": "24c1a515f47b5ab2",
+  "panel/label-04.obj": "4ee02a412aa53efa",
+  "panel/label-05.obj": "8452006a55446c59",
+  "panel/label-06.obj": "9a1c5ee161708a35",
+  "panel/label-07.obj": "e845f6b8c8869260",
+  "panel/label-08.obj": "263b698dc675ecd0",
+  "panel/label-09.obj": "a109bb36c3693248",
+  "panel/label-10.obj": "792ce42ec46a410b",
+  "panel/label-11.obj": "e660cc509bb032ca",
+  "panel/label-12.obj": "7e830117ce06cff2",
+  "panel/label-13.obj": "bf6d2d4fade8e3f5",
+  "panel/label-14.obj": "1ce5b9c5d55e43af",
+  "panel/label-15.obj": "08da51f7f939039f",
+  "panel/label-16.obj": "272d0c70456081b5",
+  "panel/label-17.obj": "601c17ec00e6af37",
+  "panel/label-18.obj": "38df39736fcfa8e2",
+  "panel/label-19.obj": "7348a00500ebc5a1",
+  "panel/LICENSE_DEJAVU.txt": "d75938dec098f06f"
+ },
+ "panel_generated_by": "tasks/start_incubation/build_panel.py"
 }
