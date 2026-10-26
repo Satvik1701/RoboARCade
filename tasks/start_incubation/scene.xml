@@ -40,14 +40,32 @@
     <mesh class="visual" name="body_visual_4" file="instrument/thermal_mixer_eppendorf_c/body-visual-4.obj" />
     <material name="body_4" rgba="0.85098 0.85098 0.85098 1" metallic="0.0" roughness="1.0" />
     <mesh class="inertia" name="body_inertia" file="instrument/thermal_mixer_eppendorf_c/body-inertia.obj" />
-    <texture name="body_display" type="2d" file="instrument/thermal_mixer_eppendorf_c/body-display-placeholder.png" />
-    <material name="body_display" rgba="1 1 1 1" metallic="0.0" roughness="1.0" texture="body_display" emission="0.5" />
-    <texture name="prog_1_key_label_texture" type="2d" file="../tasks/autobio/start_incubation/prog-1-key.png" />
-    <material name="prog_1_key_label" texture="prog_1_key_label_texture" metallic="0" roughness="1" />
-    <mesh class="visual" name="prog_1_key_decal" file="../tasks/autobio/start_incubation/key-label-decal.obj" scale="0.0034 0.0093 1" />
-    <texture name="menu_enter_key_label_texture" type="2d" file="../tasks/autobio/start_incubation/menu-enter-key.png" />
-    <material name="menu_enter_key_label" texture="menu_enter_key_label_texture" metallic="0" roughness="1" />
-    <mesh class="visual" name="menu_enter_key_decal" file="../tasks/autobio/start_incubation/key-label-decal.obj" scale="0.0038 0.0038 1" />
+    <!-- BEGIN GENERATED PANEL ASSETS -->
+    <material name="incubation_panel" rgba="0.88 0.90 0.92 1" specular="0" shininess="0" metallic="0" roughness="1" />
+    <material name="incubation_ink" rgba="0.015 0.035 0.065 1" specular="0" shininess="0" metallic="0" roughness="1" />
+    <material name="incubation_blue" rgba="0.015 0.16 0.38 1" specular="0" shininess="0" metallic="0" roughness="1" />
+    <material name="incubation_white" rgba="1 1 1 1" specular="0" shininess="0" metallic="0" roughness="1" />
+    <mesh name="incubation_text_0" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-00.obj" />
+    <mesh name="incubation_text_1" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-01.obj" />
+    <mesh name="incubation_text_2" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-02.obj" />
+    <mesh name="incubation_text_3" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-03.obj" />
+    <mesh name="incubation_text_4" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-04.obj" />
+    <mesh name="incubation_text_5" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-05.obj" />
+    <mesh name="incubation_text_6" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-06.obj" />
+    <mesh name="incubation_text_7" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-07.obj" />
+    <mesh name="incubation_text_8" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-08.obj" />
+    <mesh name="incubation_text_9" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-09.obj" />
+    <mesh name="incubation_text_10" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-10.obj" />
+    <mesh name="incubation_text_11" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-11.obj" />
+    <mesh name="incubation_text_12" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-12.obj" />
+    <mesh name="incubation_text_13" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-13.obj" />
+    <mesh name="incubation_text_14" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-14.obj" />
+    <mesh name="incubation_text_15" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-15.obj" />
+    <mesh name="incubation_text_16" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-16.obj" />
+    <mesh name="incubation_text_17" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-17.obj" />
+    <mesh name="incubation_text_18" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-18.obj" />
+    <mesh name="incubation_text_19" inertia="shell" file="../tasks/autobio/start_incubation/panel/label-19.obj" />
+    <!-- END GENERATED PANEL ASSETS -->
     <mesh name="centrifuge_plate_60well-visual_visual" file="rack/centrifuge_plate_60well_vis/visual.obj" scale="0.001 0.001 0.001" />
     <material name="centrifuge_plate_60well-plastic" rgba="0 0 0.8 1" />
     <mesh name="centrifuge_1500ul_no_lid-visual_visual" file="container/centrifuge_1500ul_no_lid_vis/visual.obj" scale="0.001 0.001 0.001" />
@@ -107,19 +125,126 @@
       <site name="button_time_down" group="3" pos="-0.13524599 -0.019868 -0.025083" quat="0.23025696 -0.23025694 0.66856695 -0.6685669" size="0.004 0.004 0.004" />
       <site name="button_time_up" group="3" pos="-0.12379485 -0.01120483 -0.025083" quat="0.23025696 -0.23025694 0.66856695 -0.6685669" size="0.004 0.004 0.004" />
       <site name="thermoblock_function" group="3" pos="-0.0061 0.0665 0.03830001" quat="0.70710681 -0.70710675 0 0" size="0.01 0.01 0.01" user="2 4 0.018144128 6 0.0176925056 0.009904" />
-      <geom class="visual" type="plane" pos="-0.102221 0.006093 0.005843" size="0.049369 0.012886 1" quat="0.635543 -0.309975 -0.635543 -0.309975" material="body_display" />
-      <body name="button_prog_1_key" pos="-0.085760 0.022704 -0.038521">
-        <joint name="button_prog_1_key" type="slide" range="-0.0060 0" axis="-0.615912 0.787815 0.000000" stiffness="50" springref="0" damping="1" armature="0.001" />
-        <geom class="visual" material="body_4" quat="0.668546 -0.668546 -0.230318 0.230318" type="box" size="0.003815 0.010057 0.003000" />
-        <geom class="collision" density="1000" quat="0.668546 -0.668546 -0.230318 0.230318" type="box" size="0.003815 0.010057 0.003000" condim="4" friction="1 0.002 0.0001" solimp="0.998 0.998" solref="0.004 1" />
-        <geom class="visual" mesh="prog_1_key_decal" material="prog_1_key_label" pos="-0.0018785 0.0024028 0.0000000" quat="0.668546 -0.668546 -0.230318 0.230318" />
+      <!-- BEGIN GENERATED PANEL CONTROLS -->
+      <geom name="incubation_panel" type="box" size=".096 .042 .00025" pos="-0.109553218 0.00118328713 -0.00654502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" material="incubation_panel" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="incubation_display" type="box" size=".049 .0115 .0003" pos="-0.105675734 0.00434162853 0.00645498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="label_2" type="mesh" mesh="incubation_text_0" material="incubation_ink" pos="-0.100770506 0.00862079164 -0.02454502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="label_3" type="mesh" mesh="incubation_text_1" material="incubation_ink" pos="-0.107860841 0.00307758382 -0.02454502" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="label_4" type="mesh" mesh="incubation_text_2" material="incubation_ink" pos="-0.100770506 0.00862079164 0.00645498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="label_5" type="mesh" mesh="incubation_text_3" material="incubation_ink" pos="-0.107860841 0.00307758382 0.00645498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="label_6" type="mesh" mesh="incubation_text_4" material="incubation_ink" pos="-0.100770506 0.00862079164 0.03745498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <geom name="label_7" type="mesh" mesh="incubation_text_5" material="incubation_ink" pos="-0.107860841 0.00307758382 0.03745498" quat="-0.635592633 0.309874176 0.635592633 0.309874176" contype="0" conaffinity="0" mass="0" group="2" />
+      <body name="button_prog_1_key" pos="-0.0857597359 0.0227044449 -0.03852143" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_prog_1_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_prog_1_cap" type="box" size=".010 .005 .003" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_prog_1_contact" type="box" size=".010 .005 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_10" type="mesh" mesh="incubation_text_6" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
-      <body name="button_menu_enter_key" pos="-0.103759 0.008631 -0.071000">
-        <joint name="button_menu_enter_key" type="slide" range="-0.0060 0" axis="-0.615912 0.787815 0.000000" stiffness="50" springref="0" damping="1" armature="0.001" />
-        <geom class="visual" material="body_0" quat="0.668546 -0.668546 -0.230318 0.230318" type="cylinder" size="0.005582 0.003000" />
-        <geom class="collision" density="1000" quat="0.668546 -0.668546 -0.230318 0.230318" type="cylinder" size="0.005582 0.003000" condim="4" friction="1 0.002 0.0001" solimp="0.998 0.998" solref="0.004 1" />
-        <geom class="visual" mesh="menu_enter_key_decal" material="menu_enter_key_label" pos="-0.0018785 0.0024028 0.0000000" quat="0.668546 -0.668546 -0.230318 0.230318" />
+      <body name="button_menu_enter_key" pos="-0.103758736 0.00863145492 -0.071" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_menu_enter_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_menu_enter_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_menu_enter_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_13" type="mesh" mesh="incubation_text_7" material="incubation_white" pos="0 0.002 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_14" type="mesh" mesh="incubation_text_8" material="incubation_white" pos="0 -0.0015 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
       </body>
+      <body name="button_menu_down_key" pos="-0.115452856 -0.000661625078 -0.071" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_menu_down_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_menu_down_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_menu_down_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_17" type="mesh" mesh="incubation_text_9" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_menu_left_key" pos="-0.103758736 0.00863145492 -0.08624256" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_menu_left_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_menu_left_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_menu_left_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_20" type="mesh" mesh="incubation_text_10" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_menu_right_key" pos="-0.103758736 0.00863144492 -0.05631481" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_menu_right_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_menu_right_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_menu_right_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_23" type="mesh" mesh="incubation_text_11" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_menu_up_key" pos="-0.0915217959 0.0178979049 -0.071" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_menu_up_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_menu_up_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_menu_up_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_26" type="mesh" mesh="incubation_text_12" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_prog_2_key" pos="-0.0857597359 0.0227044449 -0.01569296" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_prog_2_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_prog_2_cap" type="box" size=".010 .005 .003" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_prog_2_contact" type="box" size=".010 .005 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_29" type="mesh" mesh="incubation_text_13" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_prog_3_key" pos="-0.0857597359 0.0227044449 0.00645498" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_prog_3_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_prog_3_cap" type="box" size=".010 .005 .003" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_prog_3_contact" type="box" size=".010 .005 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_32" type="mesh" mesh="incubation_text_14" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_prog_4_key" pos="-0.0857597359 0.0227044449 0.02790428" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_prog_4_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_prog_4_cap" type="box" size=".010 .005 .003" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_prog_4_contact" type="box" size=".010 .005 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_35" type="mesh" mesh="incubation_text_15" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_prog_5_key" pos="-0.0861233059 0.0227044449 0.05022066" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_prog_5_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_prog_5_cap" type="box" size=".010 .005 .003" material="incubation_white" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_prog_5_contact" type="box" size=".010 .005 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_38" type="mesh" mesh="incubation_text_16" material="incubation_ink" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_short_key" pos="-0.104161956 0.00805697492 0.06800514" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_short_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_short_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_short_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_41" type="mesh" mesh="incubation_text_17" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_speed_down_key" pos="-0.137093726 -0.0175045551 0.03635469" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_speed_down_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_speed_down_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_speed_down_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_44" type="mesh" mesh="incubation_text_9" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_speed_up_key" pos="-0.125642586 -0.00884138508 0.03635469" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_speed_up_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_speed_up_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_speed_up_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_47" type="mesh" mesh="incubation_text_12" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_start_stop_key" pos="-0.131338226 -0.0133999851 0.06758012" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_start_stop_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_start_stop_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_start_stop_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_50" type="mesh" mesh="incubation_text_18" material="incubation_white" pos="0 0.002 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="label_51" type="mesh" mesh="incubation_text_19" material="incubation_white" pos="0 -0.0015 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_temp_down_key" pos="-0.137093726 -0.0175045551 0.00569977" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_temp_down_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_temp_down_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_temp_down_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_54" type="mesh" mesh="incubation_text_9" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_temp_up_key" pos="-0.125642586 -0.00884138508 0.00569977" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_temp_up_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_temp_up_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_temp_up_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_57" type="mesh" mesh="incubation_text_12" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_time_down_key" pos="-0.137093726 -0.0175045551 -0.025083" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_time_down_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_time_down_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_time_down_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_60" type="mesh" mesh="incubation_text_9" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <body name="button_time_up_key" pos="-0.125642586 -0.00884138508 -0.025083" quat="-0.635592633 0.309874176 0.635592633 0.309874176">
+        <joint name="button_time_up_key" type="slide" axis="0 0 1" range="-.006 0" stiffness="50" springref="0" damping="1" armature=".001" />
+        <geom name="button_time_up_cap" type="cylinder" size=".0058 .003" material="incubation_blue" contype="0" conaffinity="0" mass="0" group="2" />
+        <geom name="button_time_up_contact" type="cylinder" size=".0058 .003" density="1000" group="3" contype="0" conaffinity="1" condim="4" friction="1 .002 .0001" solimp=".998 .998" solref=".004 1" />
+        <geom name="label_63" type="mesh" mesh="incubation_text_12" material="incubation_white" pos="0 0 0.00305" quat="1 0 0 0" contype="0" conaffinity="0" mass="0" group="2" />
+      </body>
+      <!-- END GENERATED PANEL CONTROLS -->
       <body name="thermoblock">
         <geom class="collision" type="box" condim="4" friction="1 0.002 0.0001" solimp="0.998 0.998" solref="0.001 1" name="thermoblock_floor" size="0.067914770 0.050534540 0.021519438" pos="0.017952960 0.032980562 -0.006939050" quat="-0.500000000 0.500000000 0.500000000 0.500000000" />
         <geom class="collision" type="box" condim="4" friction="1 0.002 0.0001" solimp="0.998 0.998" solref="0.001 1" name="thermoblock_rim_left" size="0.007922525 0.050534540 0.010993460" pos="0.017952960 0.065493460 -0.066931295" quat="-0.500000000 0.500000000 0.500000000 0.500000000" />
