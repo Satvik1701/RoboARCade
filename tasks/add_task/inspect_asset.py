@@ -18,7 +18,7 @@ import viser
 
 from core.sim_env import SimEnv
 from core.tasks import _look_at_wxyz
-from tasks.add_task.geom_viewer import _geom_mesh
+from tasks.add_task.geom_viewer import _geom_mesh, _merge
 
 
 def descendants(model, body):
@@ -136,6 +136,7 @@ class Inspector:
         return dict(wxyz=quat, position=self.d.geom_xpos[gid]-self.origin)
 
     def build_scene(self):
+        collision_groups = {}
         for gid in self.geoms:
             data = visual_mesh(self.m, gid)
             if data is not None and self.m.geom_group[gid] in (1, 2):
@@ -154,9 +155,20 @@ class Inspector:
             if self.m.geom_contype[gid] or self.m.geom_conaffinity[gid]:
                 vf = collision_mesh(self.m, gid)
                 if vf is not None:
-                    h = self.server.scene.add_mesh_simple(f'/collision/{gid}', *vf,
-                        color=(255, 140, 35), opacity=.4, wireframe=True, side='double', **self.pose(gid))
-                    self.handles.append((h, gid, 'collision', False, None))
+                    collision_groups.setdefault(int(self.m.geom_bodyid[gid]), []).append((gid, vf))
+        # A body moves rigidly: batch its surface patches into one wireframe
+        # instead of thousands of browser objects and per-frame messages.
+        for bid, chunks in collision_groups.items():
+            anchor = chunks[0][0]
+            rotation = self.d.geom_xmat[anchor].reshape(3, 3)
+            origin = self.d.geom_xpos[anchor]
+            local = []
+            for gid, (vertices, faces) in chunks:
+                world = self.d.geom_xpos[gid]+vertices@self.d.geom_xmat[gid].reshape(3, 3).T
+                local.append(((world-origin)@rotation, faces))
+            h = self.server.scene.add_mesh_simple(f'/collision/body{bid}', *_merge(local),
+                color=(255, 140, 35), opacity=.4, wireframe=True, side='double', **self.pose(anchor))
+            self.handles.append((h, anchor, 'collision', False, None))
         for sid in range(self.m.nsite):
             if int(self.m.site_bodyid[sid]) in self.selected:
                 h = self.server.scene.add_frame(f'/sites/{sid}', axes_length=.015, axes_radius=.0006,
