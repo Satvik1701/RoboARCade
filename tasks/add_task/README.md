@@ -40,3 +40,45 @@ randomized objects (regions, separation, the reach gate), `core/grade_episode.py
 - Sequence stages latch in order and an invariant that stays broken for 5 control steps kills the episode.
 - Randomization tiers name what moves; objects authored out of reach skip the reach gate.
 - No dashes in the task language.
+
+## Asset inspector
+
+Inspect a body before evaluating agents. This uses the actual task model and its
+`dynamics.py`; changes stay in memory and never rewrite the task or asset files.
+
+```bash
+uv sync --group dev
+uv run python -m tasks.add_task.inspect_asset \
+  --task start_incubation --body mixer --port 8410
+```
+
+Open `http://localhost:8410`. Omit `--body` to inspect the whole task, or use another
+body name to include its descendants. Add `--host 0.0.0.0` for access from another
+machine. `--seed` selects the initial state; authored layout is used without
+additional randomization.
+
+- **Appearance:** textured visual meshes, orbit/zoom, named sites and axes.
+- **Collisions:** orange collision geometry (convex hulls for meshes), live contact
+  pairs, penetration distance, and normal forces. Infinite planes appear as finite
+  squares in the preview. The Blender image shows appearance; use the overlay for collisions.
+- **Physics:** paused startup, run/pause, single steps, simulation speed, reset,
+  and save/restore including task userdata. The live task readout uses the optional
+  `Dynamics.readout(env)` method, falling back to raw userdata.
+- **Joints:** positions, velocities, limits, stiffness, damping, force/torque pulses,
+  and direct pose inspection. A force pulse moves a joint through physics but does
+  not establish that a robot can contact it. Use the task's contact tests or the
+  teleoperation dashboard to verify physical reach and pressing.
+- **Blender:** render the current state from the inspector camera or any task camera,
+  optionally isolating the selected body. Requires the normal RoboARCade Blender
+  installation (`ROBOARCADE_BLENDER` and `ROBOARCADE_BLENDER_PY` can override paths).
+  Rendering pauses simulation. The image is shown in the page and saved as a PNG.
+- **Export:** a timestamped folder under `data/asset_inspector` contains the compiled
+  model (`scene.mjb`), full MuJoCo integration state (`state.npz`), and a JSON report
+  with mass/inertia, joint state/limits, collision masks, friction, and dynamics.
+  Blender exports include `blender.png`. Use `--output` and `--resolution` to change
+  the destination and image size (default 1024).
+
+This is an inspection tool, not a graded rollout. It advances physics and task
+physics hooks; it does not execute robot waypoints or the evaluation protocol.
+The interactive geometry preview covers rigid geoms; use Blender/the task dashboard
+for deformable bodies and the task's tests for behavior assertions.
