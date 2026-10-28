@@ -202,11 +202,33 @@ def test_sdk_command_and_metadata_are_explicit(monkeypatch):
     meta = agy.runtime_metadata()
     assert meta['antigravity_compact_threshold'] == 245000
     assert meta['compaction_token_accounting'] == 'native_estimate'
+    assert meta['thinking_level'] == meta['effort'] == meta['reasoning_policy'] == 'high'
+    assert meta['requested_effort'] == 'xhigh'
     monkeypatch.setenv('ROBOARCADE_ANTIGRAVITY_BACKEND', 'cli')
     assert agy.runtime_metadata()['antigravity_compact_threshold'] is None
     monkeypatch.setenv('ROBOARCADE_ANTIGRAVITY_BACKEND', 'typo')
     with pytest.raises(ValueError):
         agy.backend()
+
+
+@pytest.mark.parametrize('requested,actual', [('low','low'), ('medium','medium'),
+                                             ('high','high'), ('xhigh','high'), ('max','high')])
+def test_sdk_thinking_setting_reaches_model_options(tmp_path, monkeypatch, requested, actual):
+    from core.antigravity_sdk import model_options
+    monkeypatch.setenv('ROBOARCADE_ANTIGRAVITY_BACKEND', 'sdk')
+    mcp = tmp_path/'mcp.json'
+    mcp.write_text('{"mcpServers": {}}')
+    root = Path(agy.prepare(tmp_path, 'gemini-4-argon', mcp, 8100, {}, [], requested))
+    config = json.loads((root/'config/sdk.json').read_text())
+    assert model_options(config) == {'max_output_tokens': 65536, 'thinking_level': actual}
+    assert agy.runtime_metadata(requested)['thinking_level'] == actual
+
+
+@pytest.mark.parametrize('value', [None, 'xhigh', 'extra_high', 'invalid'])
+def test_sdk_rejects_missing_or_unsupported_thinking_level(value):
+    from core.antigravity_sdk import model_options
+    with pytest.raises(ValueError, match='explicit'):
+        model_options({'thinking_level': value})
 
 
 def test_sdk_tool_guard_rejects_private_paths_and_other_capabilities(tmp_path, monkeypatch):

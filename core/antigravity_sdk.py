@@ -47,6 +47,13 @@ def emit(event, **data):
                       **data}), flush=True)
 
 
+def model_options(config):
+    level = config.get('thinking_level')
+    if level not in ('low', 'medium', 'high'):
+        raise ValueError('SDK runs require an explicit low, medium, or high thinking level')
+    return dict(max_output_tokens=65536, thinking_level=level)
+
+
 async def run(args):
     from google.antigravity import Agent, LocalAgentConfig
     from google.antigravity import hooks
@@ -93,7 +100,7 @@ async def run(args):
                for name, spec in config['mcp'].items()]
     cfg = LocalAgentConfig(
         model=ModelTarget(name=args.model, endpoint=GeminiAPIEndpoint(
-            options=GeminiModelOptions(max_output_tokens=65536))),
+            options=GeminiModelOptions(**model_options(config)))),
         system_instructions=CustomSystemInstructions(text=config['instructions']),
         capabilities=CapabilitiesConfig(enabled_tools=[BuiltinTools.VIEW_FILE], enable_subagents=False),
         compaction_config=CompactionConfig(token_threshold=config['compact_threshold']),
@@ -115,7 +122,8 @@ async def run(args):
                              if s.source.value == 'MODEL' and s.status.value == 'DONE')
             if not initialized:
                 emit('init', conversation_id=agent.conversation_id, runtime='antigravity_sdk',
-                     sdk_version='0.1.22', compact_threshold=config['compact_threshold'])
+                     sdk_version='0.1.22', compact_threshold=config['compact_threshold'],
+                     thinking_level=config['thinking_level'])
                 initialized = True
             usage = usage_record(agent.conversation.total_usage.model_dump())
             emit('sdk_usage', conversation_id=agent.conversation_id, usage=usage,

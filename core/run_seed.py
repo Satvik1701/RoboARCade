@@ -405,7 +405,7 @@ def drive_antigravity(exp, tag, prompt, log, env, instruct_files, tools, sim, fo
     # archive it after the process exits; all resumes share this same directory.
     with tempfile.TemporaryDirectory(prefix="roboarcade-agy-", dir="/tmp") as work:
         state = antigravity.prepare(work, exp.model, MCP_CONFIG_PATH,
-                                    int(env["ROBOARCADE_BASE_PORT"]), env, instruct_files)
+                                    int(env["ROBOARCADE_BASE_PORT"]), env, instruct_files, exp.effort)
         env = {**env, "ROBOARCADE_AGY_STATE": state}
         try:
             while not SHUTDOWN.is_set():
@@ -810,7 +810,7 @@ def run_seed(
                    "prompt": prompt, "instruct_files": instruct_files,
                    "isolated": exp.isolated,
                    "agent_runtime": runtime,
-                   **(antigravity.runtime_metadata() if runtime == "antigravity" else {}),
+                   **(antigravity.runtime_metadata(exp.effort) if runtime == "antigravity" else {}),
                    "auto_compact_window": AUTO_COMPACT_WINDOW if runtime == "claude" else None,
                    "codex_auto_compact_window": (CODEX_AUTO_COMPACT_WINDOW
                                                   if runtime == "codex" else None),

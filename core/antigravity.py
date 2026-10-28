@@ -15,8 +15,20 @@ def backend():
     return value
 
 
-def runtime_metadata():
+def thinking_level(effort="xhigh"):
+    if backend() != "sdk":
+        return None
+    if effort not in ("low", "medium", "high", "xhigh", "max"):
+        raise ValueError(f"Unsupported Gemini reasoning effort: {effort}")
+    return "high" if effort in ("xhigh", "max") else effort
+
+
+def runtime_metadata(effort="xhigh"):
     return {"antigravity_backend": backend(),
+            "effort": thinking_level(effort),
+            "requested_effort": effort if backend() == "sdk" else None,
+            "reasoning_policy": thinking_level(effort) or "model_default",
+            "thinking_level": thinking_level(effort),
             "antigravity_compact_threshold": COMPACT_AT if backend() == "sdk" else None,
             "compaction_token_accounting": "native_estimate" if backend() == "sdk" else None,
             "antigravity_sdk_version": "0.1.22" if backend() == "sdk" else None}
@@ -49,7 +61,7 @@ def api_key():
     return key
 
 
-def prepare(folder, model, mcp_config, base_port, env, instruct_files):
+def prepare(folder, model, mcp_config, base_port, env, instruct_files, effort="xhigh"):
     """Fresh per-seed CLI state; no personal login, settings, plugins or history."""
     root = Path(folder) / "antigravity"
     config = root / "config"
@@ -80,6 +92,7 @@ def prepare(folder, model, mcp_config, base_port, env, instruct_files):
     guide = "\n\n".join(Path(p).read_text() for p in instruct_files)
     (config / "sdk.json").write_text(json.dumps({
         "model": model, "compact_threshold": COMPACT_AT,
+        "thinking_level": thinking_level(effort),
         "instructions": "Use the robot MCP tools to complete the task. Use view_file to inspect "
                         "images if a tool offloads its observation to a file.\n\n" + guide,
         "mcp": mcp["mcpServers"],

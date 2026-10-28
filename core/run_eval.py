@@ -180,7 +180,7 @@ def summarize_and_write(
                      "totals": totals, "plan_est": plan_est})
         if model_runtime(exp.model) == "antigravity":
             from core.antigravity import runtime_metadata
-            meta.update(runtime_metadata())
+            meta.update(runtime_metadata(exp.effort))
         with open(meta_path, "w") as f:
             json.dump(meta, f, indent=1)
 
@@ -295,7 +295,7 @@ def main() -> None:
                              "(default 21600; the sim budget is separate: "
                              "termination.max_len in the pack).")
     parser.add_argument("--effort", default=None, choices=["low", "medium", "high", "xhigh", "max"],
-                        help="thinking level pinned via claude --effort (default xhigh).")
+                        help="reasoning effort (default xhigh; Gemini SDK maps xhigh/max to high).")
     parser.add_argument("--render", default=None, choices=["blender", "mujoco"],
                         help="renderer for the agent's camera feeds "
                              "(default blender; mujoco is the fast rasteriser).")
@@ -346,9 +346,11 @@ def main() -> None:
     if model_runtime(exp.model) == "antigravity":
         if not exp.isolated:
             parser.error("Antigravity requires sandboxing")
-        if args.plan or args.effort:
-            parser.error("Antigravity API mode uses API-key billing and model-default reasoning; omit --plan/--effort")
-        from core.antigravity import api_key, validate_runtime
+        from core.antigravity import api_key, validate_runtime, backend
+        if args.plan:
+            parser.error("Antigravity API mode requires API-key billing; omit --plan")
+        if args.effort and backend() != "sdk":
+            parser.error("Explicit Gemini thinking levels require ROBOARCADE_ANTIGRAVITY_BACKEND=sdk")
         api_key()
         validate_runtime()
     if args.plan:
@@ -370,6 +372,11 @@ def main() -> None:
         mp = os.path.join(run_dir_for(exp), "meta.json")
         os.makedirs(os.path.dirname(mp), exist_ok=True)
         meta = get_json_file(mp) or {}
+        if meta and model_runtime(exp.model) == "antigravity":
+            from core.antigravity import runtime_metadata
+            expected = runtime_metadata(exp.effort)
+            if any(meta.get(k) != expected[k] for k in ('antigravity_backend', 'thinking_level')):
+                parser.error('Existing run uses a different Gemini thinking configuration; use a new --run-dir')
         meta.update({"task": exp.task, "model": exp.model,
                      "effort": None if model_runtime(exp.model) == "antigravity" else exp.effort,
                      "interface": args.interface, "render": exp.render,
@@ -383,7 +390,7 @@ def main() -> None:
                                 or datetime.now().isoformat(timespec="seconds")})
         if model_runtime(exp.model) == "antigravity":
             from core.antigravity import runtime_metadata
-            meta.update(runtime_metadata())
+            meta.update(runtime_metadata(exp.effort))
         json.dump(meta, open(mp, "w"), indent=1)
 
     if args.print_results:

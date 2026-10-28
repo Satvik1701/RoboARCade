@@ -1,5 +1,22 @@
 # Gemini through Antigravity
 
+New SDK evaluations explicitly set Gemini's thinking level. The evaluator's
+default `--effort xhigh` maps to Argon's highest supported level, `high`;
+`--effort low`, `medium`, and `high` select those levels directly, and `max`
+also maps to `high`. This selects each provider's highest supported setting;
+it does not imply identical reasoning compute across providers. The requested
+effort and actual thinking level are saved in run and episode metadata and the
+SDK startup event. A missing SDK thinking setting fails instead of silently
+using a provider default.
+
+**Historical cohort:** the 110 website runs launched before this correction
+omitted the thinking level. They used Argon's documented API default, **medium**,
+and must remain labeled medium. Run high evaluations in a new output directory;
+never reuse the old scores as high results. The SDK request-capture check confirmed
+that the old configuration omitted `thinkingConfig`, while the corrected one sends
+`thinkingConfig.thinkingLevel: "high"`. See Google's
+[thinking documentation](https://ai.google.dev/gemini-api/docs/thinking/).
+
 For an explicit, verified 245k compaction setting, use the
 [SDK setup](#sdk-backend-with-a-verified-245k-threshold) below. The SDK is opt-in
 through `ROBOARCADE_ANTIGRAVITY_BACKEND=sdk`; episode metadata records the backend.
@@ -101,8 +118,10 @@ Run integration tests with:
 
 The opt-in SDK backend pins `google-antigravity==0.1.22` and explicitly supplies
 `CompactionConfig(token_threshold=245000)`. It uses the native Antigravity local
-harness, API-key billing, the exact requested model, model-default reasoning,
-and a 65,536-token maximum response. The CLI remains the default backend.
+harness, API-key billing, the exact requested model, explicit thinking configuration,
+and a 65,536-token maximum response. SDK reasoning is explicitly `high` by default;
+the historical model-default behavior described in earlier smoke results was medium
+for Argon. The CLI remains the default backend.
 The SDK requires its own virtual environment so its dependencies do not change
 the simulator environment. Use the same base Python as the evaluator:
 
@@ -115,7 +134,7 @@ export ROBOARCADE_AUTO_COMPACT_WINDOW=245000
 
 .venv/bin/python -m core.run_eval \
   --model gemini-4-argon --task bowl_on_plate --interface via_cam \
-  --seeds 2 --max-parallel 2 --wall-clock 3600 --no-video
+  --seeds 2 --max-parallel 2 --effort high --wall-clock 3600 --no-video
 ```
 
 The SDK uses the same outer sandbox, robot MCP interface, interface guide,
