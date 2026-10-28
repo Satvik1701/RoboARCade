@@ -56,7 +56,7 @@ def score(roll):
 def attach_logs(out, run_dir, label):
     num = label.removeprefix("seed")
     wanted = [(f"logs/*seed{num}_*sim.log", "sim.log")]
-    if not (out / "codex_session.jsonl").exists():
+    if not (out / "codex_session.jsonl").exists() and not (out / "antigravity.jsonl").exists():
         wanted.append((f"logs/*seed{num}_port*claude*.log", "claude.log"))
     for pattern, name in wanted:
         src = next(iter(sorted(run_dir.glob(pattern))), None)
@@ -107,7 +107,7 @@ def summarize(roll, model):
     verdict, episode = _read(roll, "verdict.json") or {}, _read(roll, "episode.json") or {}
     tf = transcript_file(roll)
     calls = transcript_tools(tf) if tf else None
-    codex = episode.get("agent_runtime") == "codex"
+    codex = episode.get("agent_runtime") in ("codex", "antigravity")
     metrics = episode.get("metrics") or {}
     turns = metrics.get("num_turns") if codex else (transcript_replies(tf) if tf else None)
     if (roll / "waypoints.jsonl").is_file():

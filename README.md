@@ -30,7 +30,7 @@ tools/blender-4.5.12-linux-x64/4.5/python/bin/python3.11 -m pip install --target
 
 Blender renders the agent's camera feeds and the episode video, as in the paper.
 
-**3. Credentials: an Anthropic or OpenAI API key, or your plan**
+**3. Credentials: an Anthropic, OpenAI, or Gemini API key, or your plan**
 
 Claude models run through Claude Code and GPT models through Codex. Install the one you will use, unless `claude`
 or `codex` is already on your PATH:
@@ -52,6 +52,10 @@ mkdir -p secrets/codex_auth/openai/store
 printenv OPENAI_API_KEY | CODEX_HOME=secrets/codex_auth/openai/store codex login --with-api-key
 python -m core.accounts login codex openai
 ```
+
+Gemini models run through the native Antigravity `agy` CLI. For `gemini-4-argon`,
+put your API key in `secrets/gemini_key.txt` and add `--model gemini-4-argon`.
+See [Antigravity setup and smoke tests](docs/antigravity.md) for installation and sandbox details.
 
 Everything goes under `secrets/`, which is gitignored. More in [`docs/ACCOUNTS.md`](docs/ACCOUNTS.md).
 

@@ -14,6 +14,7 @@ import pathlib
 import shutil
 import signal
 import subprocess
+import tempfile
 import threading
 import time
 import uuid
@@ -21,6 +22,7 @@ from contextlib import nullcontext
 from dataclasses import dataclass
 from datetime import datetime
 
+from core import antigravity
 from core.agent_log import (agent_metrics, api_stalled, auth_failed, codex_metrics, codex_session_file, codex_session_id, condense,
                                condense_codex, mcp_toolless, mcp_ui_unattached, plan_limited, session_started)
 from core.accounts import PLAN_FULL, apply_auth, choose_auth, codex_plan_with_room, repoint_codex_login, seed_auth
@@ -250,9 +252,12 @@ def _run_agent_process(cmd, log_path, timeout_s, env, tag, sim, demo_folder, sin
             while True:
                 try:
                     proc.wait(timeout=poll_s)
-                    return "ok"
+                    return "agent_error" if env.get("ROBOARCADE_AGY_STATE") and proc.returncode else "ok"
                 except subprocess.TimeoutExpired:
                     pass
+                if env.get("ROBOARCADE_AGY_STATE") and antigravity.startup_error(log_path):
+                    terminate_group(proc)
+                    return "agent_error"
                 if sim.poll() is not None:
                     if sim_faulted(sim, demo_folder, since):
                         logger.warning(f"[{tag}] the sim exited ({sim.returncode}) with no verdict; "
@@ -299,7 +304,15 @@ def run_agent(runtime, prompt, model, log_path, timeout_s, tools, env, session_i
     iface = env["ROBOARCADE_INTERFACE"]
     base_port = int(env["ROBOARCADE_BASE_PORT"])
     stdin = None
-    if runtime == "codex":
+    if runtime == "antigravity":
+        if not isolated:
+            raise ValueError("Antigravity evaluation requires the agent sandbox")
+        if "ROBOARCADE_AGY_STATE" not in env:
+            raise ValueError("Antigravity requires local per-seed session state")
+        cmd = antigravity.command(prompt=prompt, model=model, session_id=session_id,
+                                  base_port=base_port, pkg=iface, resume=resume)
+        stdin = subprocess.DEVNULL
+    elif runtime == "codex":
         cwd = codex_agents_md(demo_folder, instruct_files)
         env = {**env, "ROBOARCADE_AGENT_CWD": cwd}
         env.pop("ROBOARCADE_BASE_PORT")
@@ -383,8 +396,64 @@ def episode_over(base_port: int) -> bool:
                 .get("episode_over"))
 
 
+def drive_antigravity(exp, tag, prompt, log, env, instruct_files, tools, sim, folder, since, result, stall):
+    deadline = time.time() + exp.episode_timeout
+    session = None
+    resumes = 0
+    provider_retries = 0
+    # agy's state-file locking stalls on NFS. Keep live state on local disk and
+    # archive it after the process exits; all resumes share this same directory.
+    with tempfile.TemporaryDirectory(prefix="roboarcade-agy-", dir="/tmp") as work:
+        state = antigravity.prepare(work, exp.model, MCP_CONFIG_PATH,
+                                    int(env["ROBOARCADE_BASE_PORT"]), env, instruct_files)
+        env = {**env, "ROBOARCADE_AGY_STATE": state}
+        try:
+            while not SHUTDOWN.is_set():
+                remaining = deadline - time.time()
+                if remaining <= 0:
+                    return "timeout", None
+                status = run_agent("antigravity", prompt if not session else RESUME_PROMPT, exp.model,
+                                   log, remaining, tools, env, session, instruct_files, exp.effort,
+                                   bool(session), tag, sim, folder, since, stall, exp.isolated)
+                session, error = antigravity.outcome(log)
+                result.update(session_id=session, resumes=resumes)
+                if status == "timeout":
+                    return status, None
+                if error or status != "ok" or not session:
+                    if (session and antigravity.retryable_error(error) and provider_retries < 3
+                            and sim is not None and sim.poll() is None
+                            and not episode_over(int(env["ROBOARCADE_BASE_PORT"]))):
+                        remaining = deadline - time.time()
+                        delay = min(15 * 2 ** provider_retries, max(0, remaining))
+                        if remaining > delay:
+                            provider_retries += 1
+                            result.setdefault("provider_retries", []).append({
+                                "error": error, "delay_seconds": delay,
+                                "session_id": session})
+                            logger.warning(f"[{tag}] transient Antigravity error; resuming the same "
+                                           f"conversation after {delay}s (retry {provider_retries}/3)")
+                            SHUTDOWN.wait(delay)
+                            resumes += 1
+                            continue
+                    result["agent_error"] = error or "Antigravity exited without a successful session"
+                    return "agent_error", result["agent_error"]
+                if sim.poll() is not None or episode_over(int(env["ROBOARCADE_BASE_PORT"])):
+                    return status, None
+                if mcp_ui_unattached(os.path.join(folder, "screenshots")):
+                    result["mcp_failed"] = True
+                    return "agent_error", "MCP did not attach to the simulator"
+                resumes += 1
+            result["agent_error"] = "Antigravity run interrupted"
+            return "shutdown", result["agent_error"]
+        finally:
+            shutil.copytree(state, os.path.join(folder, "antigravity"), dirs_exist_ok=True)
+
+
 def drive_agent(exp, tag, prompt, claude_log, env, instruct_files, tools, sim, demo_folder,
                 episode_t0, result, stall) -> tuple[str, str | None]:
+    if model_runtime(exp.model) == "antigravity":
+        return drive_antigravity(exp, tag, prompt, claude_log, env, instruct_files, tools,
+                                 sim, demo_folder, episode_t0, result, stall)
     t0 = time.time()
     base_port = int(env["ROBOARCADE_BASE_PORT"])
     runtime = model_runtime(exp.model)
@@ -595,7 +664,12 @@ def run_seed(
     if extra:
         env["ROBOARCADE_INSTRUCT_FILES"] = ":".join(extra)
     env.setdefault("MCP_TIMEOUT", "300000")
-    if runtime == "codex":
+    if runtime == "antigravity":
+        if not exp.isolated:
+            raise ValueError("Antigravity evaluation requires sandboxing")
+        env["GEMINI_API_KEY"] = antigravity.api_key()
+        auth = {"auth": "api_key", "reason": "Gemini API via Antigravity " + antigravity.backend()}
+    elif runtime == "codex":
         env.pop("OPENAI_API_KEY", None)
         plan_dir = exp.plan_dir
         if exp.plan:
@@ -621,6 +695,7 @@ def run_seed(
                 if SHUTDOWN.is_set():
                     return {**result, "status": "skipped", "success": None}
                 sim_env = dict(env)
+                sim_env.pop("GEMINI_API_KEY", None)
                 if render_group:
                     sim_env.update(render_group.environment(seed))
                     result["render_group"] = {"id": render_group.id, "seeds": render_group.seeds}
@@ -671,7 +746,9 @@ def run_seed(
                     result["sim_log_tail"] = "".join(f.readlines()[-25:])
 
             result["claude_status"] = claude_status
-            result["metrics"] = (agent_metrics(claude_log) if runtime == "claude" else
+            result["metrics"] = (antigravity.metrics(claude_log, time.time() - t0,
+                                                    os.path.join(demo_folder, "antigravity", "state"), model=exp.model) if runtime == "antigravity" else
+                                 agent_metrics(claude_log) if runtime == "claude" else
                                  codex_metrics(claude_log, env["CODEX_HOME"],
                                                result.get("session_id"), exp.model,
                                                time.time() - t0))
@@ -712,13 +789,17 @@ def run_seed(
             finally:
                 result["integrity"] = integrity_finish(demo_folder, integrity_start)
 
+    if runtime == "antigravity":
+        shutil.copy(claude_log, os.path.join(demo_folder, "antigravity.jsonl"))
     session = os.path.join(demo_folder, "codex_session.jsonl")
     with open(os.path.join(demo_folder, "conversation.txt"), "w") as f:
-        f.write(condense_codex(session) if runtime == "codex" and os.path.isfile(session)
+        f.write(antigravity.condense(claude_log) if runtime == "antigravity" else
+                condense_codex(session) if runtime == "codex" and os.path.isfile(session)
                 else condense(claude_log))
     with open(os.path.join(demo_folder, "episode.json"), "w") as f:
         json.dump({"seed": seed, "task": exp.task, "language": exp.language,
-                   "model": exp.model, "effort": exp.effort, "interface": interface,
+                   "model": exp.model, "effort": None if runtime == "antigravity" else exp.effort, "interface": interface,
+                   "reasoning_policy": "model_default" if runtime == "antigravity" else exp.effort,
                    "render": "failed" if result.get("render_failed") else exp.render,
                    "seeds_per_blender": exp.seeds_per_blender,
                    "render_group": result.get("render_group"),
@@ -729,15 +810,20 @@ def run_seed(
                    "prompt": prompt, "instruct_files": instruct_files,
                    "isolated": exp.isolated,
                    "agent_runtime": runtime,
+                   **(antigravity.runtime_metadata() if runtime == "antigravity" else {}),
                    "auto_compact_window": AUTO_COMPACT_WINDOW if runtime == "claude" else None,
                    "codex_auto_compact_window": (CODEX_AUTO_COMPACT_WINDOW
                                                   if runtime == "codex" else None),
-                   "compact_prompt_source": PRECOMPACT_PROMPT,
+                   "compact_prompt_source": (None if runtime == "antigravity"
+                                             else PRECOMPACT_PROMPT),
                    "resumes": result.get("resumes"),
                    "api_stalled_seconds": result.get("api_stalled_seconds"),
                    "recorded_at": datetime.now().isoformat(timespec="seconds")},
                   f, indent=2)
 
+    if result.get("agent_error"):
+        result.update(status="agent_error", success=None)
+        return result
     if result.get("claude_status") == "timeout":
         write_timeout_verdict(demo_folder, exp, seed)
     finished = finished_result(seed, base_port, demo_folder, exp.task)

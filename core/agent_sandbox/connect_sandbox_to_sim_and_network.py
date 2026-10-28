@@ -11,6 +11,7 @@ import socket
 import subprocess
 import sys
 import threading
+import time
 
 ALLOW = set(filter(None, os.environ["ROBOARCADE_EGRESS_HOSTS"].split(",")))
 
@@ -107,6 +108,15 @@ def pairs(args):
     return [(int(p), sock) for p, sock in (a.split("=", 1) for a in args)]
 
 
+def wait_for_host_sockets(bridges, timeout=10):
+    """The host starts concurrently; do not run the agent before its bridges bind."""
+    deadline = time.monotonic() + timeout
+    while not all(os.path.exists(path) for _, path in bridges):
+        if time.monotonic() >= deadline:
+            raise TimeoutError("Host sandbox bridges did not become ready")
+        time.sleep(0.01)
+
+
 if __name__ == "__main__":
     mode = sys.argv[1]
     if mode == "host":
@@ -120,7 +130,9 @@ if __name__ == "__main__":
         threading.Event().wait()
     elif mode == "box":
         split = sys.argv.index("--")
-        for port, sock in pairs(sys.argv[2:split]):
+        bridges = pairs(sys.argv[2:split])
+        wait_for_host_sockets(bridges)
+        for port, sock in bridges:
             ln = tcp_listener(port)
             threading.Thread(target=serve, args=(ln, lambda conn, sock=sock: forward(
                 conn, lambda: unix_dial(sock))), daemon=True).start()

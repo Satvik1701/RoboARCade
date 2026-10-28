@@ -54,7 +54,7 @@ fi
 if curl -s --noproxy '*' --max-time 4 https://1.1.1.1 >/dev/null 2>&1; then eg=egress; else eg=noegress; fi
 report net.egress_blocked      noegress "$eg" "direct internet"
 
-if [ -z "$CODEX_AUTH" ]; then
+if [ -z "$CODEX_AUTH" ] && [ -z "${ROBOARCADE_AGY_STATE:-}" ]; then
     CFG=${CLAUDE_CONFIG_DIR:-$HOME/.claude}
     if [ -z "$(ls -A "$CFG/projects" 2>/dev/null)" ]; then mem=empty; else mem=populated; fi
     report memory.projects_masked  empty "$mem" "MEMORY.md / task hints"
@@ -62,6 +62,21 @@ if [ -z "$CODEX_AUTH" ]; then
         report "memory.config_$name" absent "$(exists "$CFG/$name")" "personal config not mounted"
     done
     report memory.config_writable writable "$(can_write "$CFG/.sbxprobe")" "private runtime state"
+fi
+
+if [ -n "${ROBOARCADE_AGY_STATE:-}" ]; then
+    CFG=$HOME/.gemini
+    if [ "${ROBOARCADE_AGY_SDK:-}" = 1 ]; then
+        report antigravity.binary present "$(exists "$ROBOARCADE_AGY_PYTHON")" "SDK Python"
+        report antigravity.sdk_config_readonly readonly "$(can_write "$CFG/config/roboarcade-sdk.json")" "fixed SDK configuration"
+    else
+        report antigravity.binary present "$(exists /opt/roboarcade/bin/agy)" "native CLI"
+    fi
+    report antigravity.state_writable writable "$(can_write "$CFG/antigravity-cli/.sbxprobe")" "seed-local history"
+    report antigravity.settings_readonly readonly "$(can_write "$CFG/antigravity-cli/settings.json")" "fixed model and permissions"
+    report antigravity.mcp_readonly readonly "$(can_write "$CFG/config/mcp_config.json")" "only robot MCP"
+    report antigravity.agent_readonly readonly "$(can_write "$CFG/config/agents/robot.md")" "only interface guide"
+    report antigravity.secrets_hidden absent "$(exists "$REPO/secrets")" "credential files hidden"
 fi
 
 if [ -n "$CODEX_AUTH" ]; then

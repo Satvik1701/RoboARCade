@@ -6,7 +6,13 @@
       "task.json": "5903bd8f13c8a99a04391f1013904dbb0e32b96383fd70f529d66ff1948f5522",
       "scene.xml": "4489accdf831e1f8ab6128d4ee0b09492a285f917996985df76315426b2bfbe9",
       "manifest.json": "bbb2491fec902966d0e7c96c583e4af7fba5f1e4282cd5b792ea583a48a107d1"
-    }
+    },
+    "state_layout_migration": {
+      "date": "2026-10-26",
+      "original_npz_sha256": "c3b130a235f80a7b010001d231ad6ff33ad205b30f152b47c6d8a8381e8918bd",
+      "description": "Copied original joint poses, velocities, warm starts, applied forces, controls and time by name; initialized the 16 newly physical panel buttons at rest. Original tube recordings are unchanged."
+    },
+    "display_state_migration": "2026-10-26: initialized 44 saved instrument-state values; preserved all recorded physics arrays exactly."
   },
   "one_pad": {
     "recording": "data/run_eval/incubation_fill_1x_sol_s3/20260914_224550/seed1000003",
@@ -15,12 +21,24 @@
       "task.json": "5903bd8f13c8a99a04391f1013904dbb0e32b96383fd70f529d66ff1948f5522",
       "scene.xml": "4489accdf831e1f8ab6128d4ee0b09492a285f917996985df76315426b2bfbe9",
       "manifest.json": "bbb2491fec902966d0e7c96c583e4af7fba5f1e4282cd5b792ea583a48a107d1"
-    }
+    },
+    "state_layout_migration": {
+      "date": "2026-10-26",
+      "original_npz_sha256": "c3b130a235f80a7b010001d231ad6ff33ad205b30f152b47c6d8a8381e8918bd",
+      "description": "Copied original joint poses, velocities, warm starts, applied forces, controls and time by name; initialized the 16 newly physical panel buttons at rest. Original tube recordings are unchanged."
+    },
+    "display_state_migration": "2026-10-26: initialized 44 saved instrument-state values; preserved all recorded physics arrays exactly."
   },
   "insertion_jam": {
     "recording": "data/dev1/autobio_start_incubation/demo00007",
     "frame": 394,
     "description": "Released tube catches on a taper-cylinder ledge against the well lip, 6.126 mm above floor. Recording made before friction or geometry revision.",
-    "scene_sha256": "4489accdf831e1f8ab6128d4ee0b09492a285f917996985df76315426b2bfbe9"
+    "scene_sha256": "4489accdf831e1f8ab6128d4ee0b09492a285f917996985df76315426b2bfbe9",
+    "state_layout_migration": {
+      "date": "2026-10-26",
+      "original_npz_sha256": "c3b130a235f80a7b010001d231ad6ff33ad205b30f152b47c6d8a8381e8918bd",
+      "description": "Copied original joint poses, velocities, warm starts, applied forces, controls and time by name; initialized the 16 newly physical panel buttons at rest. Original tube recordings are unchanged."
+    },
+    "display_state_migration": "2026-10-26: initialized 44 saved instrument-state values; preserved all recorded physics arrays exactly."
   }
 }

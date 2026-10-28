@@ -68,6 +68,8 @@ def build_agent_cmd(*, prompt, model, session_id, mcp_config, allowed, disallowe
 
 
 def model_runtime(model: str) -> str:
+    if model.lower().startswith("gemini-"):
+        return "antigravity"
     return "codex" if model.lower().startswith("gpt-") else "claude"
 
 

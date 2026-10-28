@@ -20,12 +20,24 @@ while [ $# -gt 0 ] && [ "$1" != "--" ]; do
 done
 [ "${1:-}" = "--" ] && shift
 REPO=$(cd "$(dirname "$0")/../.." && pwd)
+IS_AGY=0
+IS_AGY_SDK=0
+[ "${1:-}" = agy-sdk ] && IS_AGY_SDK=1
+[[ "${1:-}" = agy || "$IS_AGY_SDK" = 1 ]] && IS_AGY=1
 IS_CODEX=0
 [ "${1:-}" = codex ] && IS_CODEX=1
 BWRAP_BIN=${ROBOARCADE_BWRAP:-bwrap}
 CONFIG_MOUNT=(); PROJECTS_MOUNT=()
 source "$REPO/core/agent_sandbox/config_mounts.sh"
-if [ "$IS_CODEX" = 1 ]; then
+if [ "$IS_AGY" = 1 ]; then
+    AGY_ROOT=${ROBOARCADE_AGY_STATE:?Missing per-seed Antigravity state}
+    CONFIG_MOUNT=(--bind "$AGY_ROOT/state" /tmp/home/.gemini/antigravity-cli
+                  --ro-bind "$AGY_ROOT/config/settings.json" /tmp/home/.gemini/antigravity-cli/settings.json
+                  --ro-bind "$AGY_ROOT/config/mcp_config.json" /tmp/home/.gemini/config/mcp_config.json
+                  --ro-bind "$AGY_ROOT/config/robot.md" /tmp/home/.gemini/config/agents/robot.md
+                  --ro-bind "$AGY_ROOT/config/sdk.json" /tmp/home/.gemini/config/roboarcade-sdk.json
+                  --dir /tmp/home/workspace)
+elif [ "$IS_CODEX" = 1 ]; then
     roboarcade_codex_config_mounts
 else
     roboarcade_claude_config_mounts "${ROBOARCADE_PROJECTS_DIR:-}"
@@ -38,7 +50,19 @@ for f in "${SANDBOX_IMPORT_FILES[@]}"; do
     IMPORT_BIND+=(--ro-bind "$REPO/core/$f" "$REPO/core/$f")
 done
 PYEXE=$(readlink -f "$PY"); PYHOME=$(dirname "$PYEXE"); PYLIB=$(dirname "$PYHOME")/lib
-if [ "$IS_CODEX" = 1 ]; then
+if [ "$IS_AGY_SDK" = 1 ]; then
+    SDK_PY=${ROBOARCADE_AGY_PYTHON:?Set ROBOARCADE_AGY_PYTHON to the isolated Antigravity SDK Python}
+    SDK_ENV=$(cd "$(dirname "$SDK_PY")/.." && pwd)
+    [ "$(readlink -f "$SDK_PY")" = "$PYEXE" ] || { echo "SDK and evaluator must use the same base Python interpreter" >&2; exit 2; }
+    "$SDK_PY" -c 'import importlib.metadata; assert importlib.metadata.version("google-antigravity") == "0.1.22"'
+    AGENT_BIND=(--ro-bind "$SDK_ENV" "$SDK_ENV"
+                --ro-bind "$REPO/core/antigravity_sdk.py" "$REPO/core/antigravity_sdk.py")
+    set -- "$SDK_PY" "$REPO/core/antigravity_sdk.py" "${@:2}"
+    export ROBOARCADE_AGY_SDK=1
+elif [ "$IS_AGY" = 1 ]; then
+    AGY_BIN=$(command -v agy)
+    AGENT_BIND=(--ro-bind "$(readlink -f "$AGY_BIN")" /opt/roboarcade/bin/agy)
+elif [ "$IS_CODEX" = 1 ]; then
     if [ "$MODE_CHECK" = 1 ]; then
         CODEX_BIN="$REPO/data/sc/bin/codex"
     else
@@ -93,13 +117,16 @@ CHECK_BIND=()
 
 BWRAP_BIN=$(command -v "$BWRAP_BIN")
 for v in $(compgen -e); do
-    case " MCP_TIMEOUT ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN CLAUDE_CODE_OAUTH_TOKEN CODEX_HOME " in
+    case " MCP_TIMEOUT ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN CLAUDE_CODE_OAUTH_TOKEN CODEX_HOME GEMINI_API_KEY " in
         *" $v "*) ;;
         *) [[ "$v" == ROBOARCADE_* ]] || unset "$v" 2>/dev/null || true ;;
     esac
 done
 export PATH="/opt/roboarcade/bin:/usr/bin:/bin" HOME=/tmp/home TMPDIR=/tmp LANG=C.UTF-8
-if [ "$IS_CODEX" = 1 ]; then
+if [ "$IS_AGY" = 1 ]; then
+    export ROBOARCADE_EGRESS_HOSTS=generativelanguage.googleapis.com
+    API_HOST=generativelanguage.googleapis.com
+elif [ "$IS_CODEX" = 1 ]; then
     export ROBOARCADE_EGRESS_HOSTS=chatgpt.com,auth.openai.com,api.openai.com
     [ "$MODE_CHECK" = 0 ] || export ROBOARCADE_CODEX_VERSION="$CODEX_VERSION"
     API_HOST=chatgpt.com
@@ -163,6 +190,7 @@ MOUNTS=(
     --unshare-pid
     --die-with-parent
 )
+[ "$IS_AGY" = 0 ] || MOUNTS+=(--chdir /tmp/home/workspace)
 
 if [ "$MODE_CHECK" = 1 ]; then
     "$BWRAP_BIN" "${MOUNTS[@]}" \
@@ -190,7 +218,7 @@ for i in 0 1 2 3; do PAIRS+=("$((BASE_PORT + i))=$RUN/p$i.sock"); done
         [ -s "$REPO/CLAUDE.md" ] && { echo "FATAL: repo CLAUDE.md visible" >&2; exit 1; }
         curl -s --noproxy "*" --max-time 3 https://example.com >/dev/null 2>&1 \
             && { echo "FATAL: direct egress works" >&2; exit 1; }
-        curl -s -o /dev/null --max-time 10 "https://$API_HOST" \
+        curl -sS -o /dev/null --max-time 10 --retry 2 --retry-all-errors --retry-delay 1 "https://$API_HOST" \
             || { echo "FATAL: proxy path to $API_HOST broken" >&2; exit 1; }
         exec "$@"
     ' -- "$REPO" "$API_HOST" "$@" &

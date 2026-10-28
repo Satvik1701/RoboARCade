@@ -153,6 +153,8 @@ def summarize_and_write(
     totals = {k: sum(x.get(k) or 0 for x in m)
               for k in ("tokens_budget", "tokens_in", "tokens_out", "cache_read")}
     totals["cost_usd"] = round(sum(x.get("cost_usd") or 0 for x in m), 4)
+    if model_runtime(exp.model) == "antigravity" and any(x.get("cost_usd") is None for x in m):
+        totals["cost_usd"] = None
     totals["cost_estimated_seeds"] = sum(1 for x in m if x.get("cost_estimated"))
     totals["compactions"] = sum(len(x.get("compactions") or ()) for x in m)
     totals["wall_seconds"] = round(sum(x.get("wall_seconds") or 0 for x in m), 1)
@@ -169,18 +171,23 @@ def summarize_and_write(
     if write:
         meta_path = os.path.join(out_dir, "meta.json")
         meta = get_json_file(meta_path) or {}
-        meta.update({"task": exp.task, "model": exp.model, "effort": exp.effort,
+        meta.update({"task": exp.task, "model": exp.model,
+                     "effort": None if model_runtime(exp.model) == "antigravity" else exp.effort,
                      "interface": interface,
                      "render": exp.render, "plan": exp.plan,
-                     "auto_compact_window": AUTO_COMPACT_WINDOW,
+                     "auto_compact_window": None if model_runtime(exp.model) == "antigravity" else AUTO_COMPACT_WINDOW,
                      "status": "interrupted" if interrupted else "done",
                      "totals": totals, "plan_est": plan_est})
+        if model_runtime(exp.model) == "antigravity":
+            from core.antigravity import runtime_metadata
+            meta.update(runtime_metadata())
         with open(meta_path, "w") as f:
             json.dump(meta, f, indent=1)
 
     logger.info("\n=== summary ===")
     if totals["cost_usd"] or totals["tokens_budget"]:
-        logger.info(f"  cost: ${totals['cost_usd']:.2f} · {totals['tokens_budget']:,} tokens"
+        cost = f"${totals['cost_usd']:.2f}" if totals["cost_usd"] is not None else "unknown"
+        logger.info(f"  cost: {cost} · {totals['tokens_budget']:,} tokens"
                     + (f" · plan ≈{plan_est['five_hour_pct']}% 5h, {plan_est['seven_day_pct']}% wk"
                        if plan_est else "")
                     + f" · seeds on plan/key: {totals['on_plan']}/{totals['on_api_key']}"
@@ -336,6 +343,14 @@ def main() -> None:
             parser.error("--seeds-per-blender >1 requires Blender")
         if sys.platform != "linux":
             parser.error("Shared Blender currently requires Linux")
+    if model_runtime(exp.model) == "antigravity":
+        if not exp.isolated:
+            parser.error("Antigravity requires sandboxing")
+        if args.plan or args.effort:
+            parser.error("Antigravity API mode uses API-key billing and model-default reasoning; omit --plan/--effort")
+        from core.antigravity import api_key, validate_runtime
+        api_key()
+        validate_runtime()
     if args.plan:
         plan, plan_dir = pick_plan(model_runtime(exp.model), args.plan)
         exp = dataclasses.replace(exp, plan=plan, plan_dir=plan_dir, plan_auto=args.plan == "auto")
@@ -356,14 +371,19 @@ def main() -> None:
         os.makedirs(os.path.dirname(mp), exist_ok=True)
         meta = get_json_file(mp) or {}
         meta.update({"task": exp.task, "model": exp.model,
-                     "effort": exp.effort, "interface": args.interface, "render": exp.render,
+                     "effort": None if model_runtime(exp.model) == "antigravity" else exp.effort,
+                     "interface": args.interface, "render": exp.render,
                      "seeds_per_blender": exp.seeds_per_blender,
+                     "episode_timeout": exp.episode_timeout,
                      "language": exp.language,
                      "plan": exp.plan,
                      "status": "running", "isolated": exp.isolated,
                      "seed_list": seeds, "commit": git_commit(),
                      "created": meta.get("created")
                                 or datetime.now().isoformat(timespec="seconds")})
+        if model_runtime(exp.model) == "antigravity":
+            from core.antigravity import runtime_metadata
+            meta.update(runtime_metadata())
         json.dump(meta, open(mp, "w"), indent=1)
 
     if args.print_results:
