@@ -57,7 +57,8 @@ scroll to zoom. Use **Task** to switch between all available task environments;
 `--task` only selects the initial task and defaults to `start_incubation`.
 Visual meshes and orange collision geometry are both visible initially. Turn off
 **Visual meshes** for solid collision geometry, or turn off **Show collisions**
-for appearance alone. Physics starts paused for inspection; mouse pokes still
+for appearance alone. The view focuses on the workspace; enable **Room walls and floor**
+under **More tools** to include the surrounding room. Physics starts paused for inspection; mouse pokes still
 advance physics, and **Run physics** enables continuous simulation. Switching
 tasks clears the prior scene and saved state. A command-line body selection applies
 only to the initial task; subsequent selections show the whole environment.

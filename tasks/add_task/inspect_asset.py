@@ -116,7 +116,15 @@ class Inspector:
         self.args.task, self.args.body = task, body
         self.selected, self.geoms = selected, geoms
         self.generation += 1
-        points = self.d.geom_xpos[self.geoms]
+        # Viser retains name-keyed orientation messages after node removal.
+        # New task geometry must not inherit transforms from reused geom IDs.
+        self.scene_prefix = f'/task_{self.generation}'
+        # Room walls obscure the workspace and distort automatic framing.
+        self.room_geoms = {g for g in self.geoms
+                           if self.m.geom(g).name == 'floor'
+                           or (self.m.geom(g).name or '').startswith('wall_')}
+        foreground = [g for g in self.geoms if g not in self.room_geoms]
+        points = self.d.geom_xpos[foreground or self.geoms]
         self.origin = (points.min(axis=0) + points.max(axis=0))/2
         self.radius = max(.15, float(np.max(np.linalg.norm(points-self.origin, axis=1))))
         self.initial = state_array(self.env)
@@ -156,10 +164,10 @@ class Inspector:
             if data is not None and self.m.geom_group[gid] in (1, 2):
                 mesh, rgba = data
                 if isinstance(mesh, trimesh.Trimesh):
-                    h = self.server.scene.add_mesh_trimesh(f'/visual/{gid}', mesh, **self.pose(gid))
+                    h = self.server.scene.add_mesh_trimesh(f'{self.scene_prefix}/visual/{gid}', mesh, **self.pose(gid))
                     colored = False
                 else:
-                    h = self.server.scene.add_mesh_simple(f'/visual/{gid}', *mesh,
+                    h = self.server.scene.add_mesh_simple(f'{self.scene_prefix}/visual/{gid}', *mesh,
                         color=tuple((255*np.clip(rgba[:3], 0, 1)).astype(int)), opacity=float(rgba[3]),
                         side='double', flat_shading=False, **self.pose(gid))
                     colored = True
@@ -169,10 +177,10 @@ class Inspector:
             if self.m.geom_contype[gid] or self.m.geom_conaffinity[gid]:
                 vf = collision_mesh(self.m, gid)
                 if vf is not None:
-                    collision_groups.setdefault(int(self.m.geom_bodyid[gid]), []).append((gid, vf))
+                    collision_groups.setdefault((int(self.m.geom_bodyid[gid]), gid in self.room_geoms), []).append((gid, vf))
         # A body moves rigidly: batch its surface patches into one wireframe
         # instead of thousands of browser objects and per-frame messages.
-        for bid, chunks in collision_groups.items():
+        for (bid, room), chunks in collision_groups.items():
             anchor = chunks[0][0]
             rotation = self.d.geom_xmat[anchor].reshape(3, 3)
             origin = self.d.geom_xpos[anchor]
@@ -180,17 +188,17 @@ class Inspector:
             for gid, (vertices, faces) in chunks:
                 world = self.d.geom_xpos[gid]+vertices@self.d.geom_xmat[gid].reshape(3, 3).T
                 local.append(((world-origin)@rotation, faces))
-            h = self.server.scene.add_mesh_simple(f'/collision/body{bid}', *_merge(local),
+            h = self.server.scene.add_mesh_simple(f'{self.scene_prefix}/collision/body{bid}_{room}', *_merge(local),
                 color=(255, 140, 35), opacity=.4, wireframe=True, side='double', **self.pose(anchor))
             self.handles.append((h, anchor, 'collision', False, None))
         for sid in range(self.m.nsite):
             if int(self.m.site_bodyid[sid]) in self.selected:
-                h = self.server.scene.add_frame(f'/sites/{sid}', axes_length=.015, axes_radius=.0006,
+                h = self.server.scene.add_frame(f'{self.scene_prefix}/sites/{sid}', axes_length=.015, axes_radius=.0006,
                                                show_axes=True, position=self.d.site_xpos[sid]-self.origin)
-                label = self.server.scene.add_label(f'/site_labels/{sid}', self.m.site(sid).name or str(sid),
+                label = self.server.scene.add_label(f'{self.scene_prefix}/site_labels/{sid}', self.m.site(sid).name or str(sid),
                                                    position=self.d.site_xpos[sid]-self.origin)
                 self.site_handles.append((h, label, sid))
-        self.contacts = self.server.scene.add_line_segments('/contacts', points=np.zeros((1, 2, 3)),
+        self.contacts = self.server.scene.add_line_segments(f'{self.scene_prefix}/contacts', points=np.zeros((1, 2, 3)),
                                                            colors=(255, 35, 65), line_width=3)
 
     def enqueue(self, name, value=None):
@@ -213,6 +221,7 @@ class Inspector:
         self.readout = gui.add_markdown('')
         self.render_image = gui.add_image(np.zeros((16, 16, 3), dtype=np.uint8), label='Blender render')
         with gui.add_folder('More tools', expand_by_default=False):
+            self.show_room = gui.add_checkbox('Room walls and floor', False)
             self.show_sites = gui.add_checkbox('Sites and axes', False)
             self.show_contacts = gui.add_checkbox('Contact forces', False)
             self.speed = gui.add_slider('Simulation speed', min=.1, max=5., step=.1, initial_value=1.)
@@ -369,7 +378,8 @@ class Inspector:
                 for handle, index, *_ in self.handles_by_geom[gid]:
                     handle.position = transform['position']; handle.wxyz = transform['wxyz']
                 self.pose_cache[gid] = current
-            h.visible = self.show_visual.value if kind == 'visual' else self.show_collision.value
+            h.visible = ((self.show_visual.value if kind == 'visual' else self.show_collision.value)
+                         and (gid not in self.room_geoms or self.show_room.value))
             if kind == 'collision':
                 h.wireframe = self.show_visual.value
                 h.opacity = .4 if self.show_visual.value else .85

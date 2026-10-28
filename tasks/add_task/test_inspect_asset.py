@@ -34,3 +34,34 @@ def test_saved_state_restores_physics_and_calls_dynamics_restore():
     assert d.qpos[0] == .3 and d.qvel[0] == .2 and d.time == 4
     np.testing.assert_array_equal(d.userdata, [7, 8])
     assert calls == ['restore']
+
+
+def test_task_switch_does_not_replay_previous_geometry_rotation(monkeypatch):
+    from tasks.add_task import inspect_asset
+
+    def fake_env(task, seed):
+        quat = '0.70710678 0.70710678 0 0' if task == 'beam' else '1 0 0 0'
+        m = mujoco.MjModel.from_xml_string(f'''<mujoco><worldbody>
+            <geom name="table_visual" type="box" size=".4 .4 .025"
+                  group="1" pos="0 0 .8" quat="{quat}"/>
+            </worldbody></mujoco>''')
+        d = mujoco.MjData(m)
+        mujoco.mj_forward(m, d)
+        return SimpleNamespace(model=m, data=d, dynamics=None, cameras=[],
+                               reset=lambda **kwargs: None)
+
+    monkeypatch.setattr(inspect_asset, 'SimEnv', fake_env)
+    viewer = inspect_asset.Inspector(SimpleNamespace(
+        task='beam', seed=1, body=None, host='127.0.0.1', port=0))
+    try:
+        viewer.load_task('square')
+        # Reconstruct the rotations a newly connected browser receives.
+        messages = viewer.server.scene._websock_interface.get_message_buffer().message_from_id
+        rotations = {msg.name: msg.wxyz for msg in tuple(messages.values())
+                     if type(msg).__name__ == 'SetOrientationMessage'}
+        for handle, gid, *_ in viewer.handles:
+            displayed = np.asarray(rotations.get(handle.name, [1., 0., 0., 0.]))
+            expected = viewer.pose(gid)['wxyz']
+            assert abs(np.dot(displayed, expected)) > 1 - 1e-8
+    finally:
+        viewer.server.stop()
