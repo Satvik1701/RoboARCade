@@ -17,7 +17,7 @@ import trimesh
 import viser
 
 from core.sim_env import SimEnv
-from core.tasks import _look_at_wxyz
+from core.tasks import _look_at_wxyz, list_tasks
 from tasks.add_task.geom_viewer import _geom_mesh, _merge
 
 
@@ -95,24 +95,36 @@ def restore_state(env, state):
 class Inspector:
     def __init__(self, args):
         self.args = args
-        self.env = SimEnv(args.task, seed=args.seed)
-        self.env.reset(seed=args.seed, randomize_init=False)
-        self.m, self.d = self.env.model, self.env.data
-        self.selected = descendants(self.m, args.body)
-        self.geoms = [g for g in range(self.m.ngeom) if int(self.m.geom_bodyid[g]) in self.selected]
-        if not self.geoms:
+        self.commands = queue.Queue()
+        self.renderer = None
+        self.generation = 0
+        self.server = viser.ViserServer(host=args.host, port=args.port, label='RoboARCade asset inspector')
+        self.server.scene.set_up_direction('+z')
+        self.server.scene.world_axes.visible = False
+        self.load_task(args.task, args.body)
+        self.server.on_client_connect(self.front)
+
+    def load_task(self, task, body=None):
+        # Load before replacing the visible scene, and only on the simulation thread.
+        env = SimEnv(task, seed=self.args.seed)
+        env.reset(seed=self.args.seed, randomize_init=False)
+        selected = descendants(env.model, body)
+        geoms = [g for g in range(env.model.ngeom) if int(env.model.geom_bodyid[g]) in selected]
+        if not geoms:
             raise ValueError('Selected body has no geometry')
+        self.env, self.m, self.d = env, env.model, env.data
+        self.args.task, self.args.body = task, body
+        self.selected, self.geoms = selected, geoms
+        self.generation += 1
         points = self.d.geom_xpos[self.geoms]
         self.origin = (points.min(axis=0) + points.max(axis=0))/2
         self.radius = max(.15, float(np.max(np.linalg.norm(points-self.origin, axis=1))))
         self.initial = state_array(self.env)
         self.saved = self.initial.copy()
-        self.commands = queue.Queue()
-        self.renderer = None
         self.last_image = None
         self.pulse = None
-        self.server = viser.ViserServer(host=args.host, port=args.port, label=f'Asset inspector · {args.task}')
-        self.server.scene.set_up_direction('+z')
+        self.server.scene.reset()
+        self.server.gui.reset()
         self.server.scene.world_axes.visible = False
         self.handles = []
         self.pose_cache = {}
@@ -122,7 +134,9 @@ class Inspector:
         for item in self.handles:
             self.handles_by_geom.setdefault(item[1], []).append(item)
         self.build_gui()
-        self.server.on_client_connect(self.front)
+        self.refresh()
+        for client in self.server.get_clients().values():
+            self.front(client)
 
     def front(self, client):
         client.camera.fov = np.deg2rad(45)
@@ -150,8 +164,8 @@ class Inspector:
                         side='double', flat_shading=False, **self.pose(gid))
                     colored = True
                 self.handles.append((h, gid, 'visual', colored, self.m.geom_rgba[gid].copy()))
-                h.on_click(lambda event, g=gid: self.enqueue('poke',
-                    (g, np.array(event.ray_origin)+self.origin, np.array(event.ray_direction))))
+                h.on_click(lambda event, g=gid, generation=self.generation: self.enqueue('poke',
+                    (generation, g, np.array(event.ray_origin)+self.origin, np.array(event.ray_direction))))
             if self.m.geom_contype[gid] or self.m.geom_conaffinity[gid]:
                 vf = collision_mesh(self.m, gid)
                 if vf is not None:
@@ -184,19 +198,21 @@ class Inspector:
 
     def build_gui(self):
         gui = self.server.gui
+        self.task_picker = gui.add_dropdown('Task', list_tasks(), initial_value=self.args.task)
+        self.task_picker.on_update(lambda event: self.enqueue('task', event.target.value))
         gui.add_markdown(f'## {self.args.task}\nClick the asset to poke it or press a button. Drag to orbit; scroll to zoom.')
-        self.play = gui.add_checkbox('Run physics', True)
-        self.show_collision = gui.add_checkbox('Show collisions', False)
+        self.show_visual = gui.add_checkbox('Visual meshes', True)
+        self.show_collision = gui.add_checkbox('Show collisions', True)
+        self.play = gui.add_checkbox('Run physics', False)
         gui.add_button('Reset').on_click(lambda _: self.enqueue('reset'))
         gui.add_button('Front view').on_click(lambda _: [self.front(c) for c in self.server.get_clients().values()])
         gui.add_button('Render in Blender').on_click(lambda event: self.enqueue('render',
             (np.array(event.client.camera.position)+self.origin,
              np.array(event.client.camera.look_at)+self.origin, float(event.client.camera.fov))))
-        self.status = gui.add_markdown('Ready — click a button on the machine.')
+        self.status = gui.add_markdown('Visual surfaces with orange collision outlines. Click an object to poke it.')
         self.readout = gui.add_markdown('')
         self.render_image = gui.add_image(np.zeros((16, 16, 3), dtype=np.uint8), label='Blender render')
         with gui.add_folder('More tools', expand_by_default=False):
-            self.show_visual = gui.add_checkbox('Visual meshes', True)
             self.show_sites = gui.add_checkbox('Sites and axes', False)
             self.show_contacts = gui.add_checkbox('Contact forces', False)
             self.speed = gui.add_slider('Simulation speed', min=.1, max=5., step=.1, initial_value=1.)
@@ -210,7 +226,9 @@ class Inspector:
             self.contact_info = gui.add_markdown('')
 
     def poke(self, value):
-        gid, origin, direction = value
+        generation, gid, origin, direction = value
+        if generation != self.generation:
+            return
         direction = direction / np.linalg.norm(direction)
         bid = int(self.m.geom_bodyid[gid])
         if self.m.geom_type[gid] == mujoco.mjtGeom.mjGEOM_MESH:
@@ -321,6 +339,12 @@ class Inspector:
         return output
 
     def command(self, name, value):
+        if name == 'task':
+            if value != self.args.task:
+                self.play.value = False
+                self.status.content = f'Loading {value}…'
+                self.load_task(value)
+            return
         if name in ('reset', 'restore'):
             self.pulse = None
             restore_state(self.env, self.initial if name == 'reset' else self.saved)
@@ -346,6 +370,9 @@ class Inspector:
                     handle.position = transform['position']; handle.wxyz = transform['wxyz']
                 self.pose_cache[gid] = current
             h.visible = self.show_visual.value if kind == 'visual' else self.show_collision.value
+            if kind == 'collision':
+                h.wireframe = self.show_visual.value
+                h.opacity = .4 if self.show_visual.value else .85
             if colored:
                 rgba = self.m.geom_rgba[gid]
                 mid = int(self.m.geom_matid[gid])
@@ -402,7 +429,8 @@ class Inspector:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--task', required=True)
+    parser.add_argument('--task', choices=list_tasks(), default='start_incubation',
+                        help='Initial task; switch between all available tasks in the viewer')
     parser.add_argument('--body', help='Inspect this body and its descendants; omit for the whole task')
     parser.add_argument('--seed', type=int, default=1000000)
     parser.add_argument('--host', default='127.0.0.1')

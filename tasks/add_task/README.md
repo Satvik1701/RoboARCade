@@ -53,7 +53,15 @@ uv run python -m tasks.add_task.inspect_asset \
 ```
 
 Open `http://localhost:8410` and click the asset to interact. Drag to orbit and
-scroll to zoom. Reset, collision visibility, and Blender rendering are on the main
+scroll to zoom. Use **Task** to switch between all available task environments;
+`--task` only selects the initial task and defaults to `start_incubation`.
+Visual meshes and orange collision geometry are both visible initially. Turn off
+**Visual meshes** for solid collision geometry, or turn off **Show collisions**
+for appearance alone. Physics starts paused for inspection; mouse pokes still
+advance physics, and **Run physics** enables continuous simulation. Switching
+tasks clears the prior scene and saved state. A command-line body selection applies
+only to the initial task; subsequent selections show the whole environment.
+Reset, collision visibility, and Blender rendering are on the main
 panel; diagnostics and exports are tucked under **More tools**. Omit `--body` to inspect the whole task, or use another
 body name to include its descendants. Add `--host 0.0.0.0` for access from another
 machine. `--seed` selects the initial state; authored layout is used without
