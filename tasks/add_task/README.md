@@ -43,6 +43,20 @@ randomized objects (regions, separation, the reach gate), `core/grade_episode.py
 
 ## Asset inspector
 
+The gamepad stick/socket and cooling-manifold cap/socket use fitted cylindrical
+collision interfaces generated offline with [mjfit](https://github.com/younghyopark/mjfit)
+0.1.0. `fit_assembly_collisions.py` contains dimensions measured from the original
+visual meshes and retains each task's configured erosion allowance. It clips only
+the stem and receiving patch, preserves body inertias and contact settings, and
+embeds generated vertices in `scene.xml`; simulation needs no mjfit installation
+or additional asset download. Rebuild with
+`python -m tasks.add_task.fit_assembly_collisions gamepad cooling_manifold` in a
+build environment with mjfit 0.1.0, shapely, scipy and trimesh. Run
+`pytest tasks/add_task/test_assembly_collisions.py` for surface alignment,
+unblocked insertion, blocked misalignment, and free-release checks on all five
+benchmark seeds. The manifold's recorded grasp/release tests are in
+`tasks/cooling_manifold/test.py`.
+
 Inspect a body before evaluating agents. This uses the actual task model and its
 `dynamics.py`; changes stay in memory and never rewrite the task or asset files.
 
@@ -77,7 +91,10 @@ additional randomization.
   `Dynamics.readout(env)` method, falling back to raw userdata.
 - **Mouse interaction:** click a visible surface to apply a brief force at the
   clicked point. Small spring-loaded slide buttons are pressed along their travel
-  axis and released automatically. No joint panel or numeric input is needed.
+  axis and released automatically. Detented hinges use bounded torque. In
+  `vortex_sample`, blue arrows move the switch or speed dial one position at a
+  time, and the readout shows the selected mode and speed. No joint panel or
+  numeric input is needed.
   This exercises dynamics with applied forces; use the task's contact tests or
   teleoperation dashboard to verify robot contact and reach.
 - **Blender:** render the current state from the inspector camera or any task camera,

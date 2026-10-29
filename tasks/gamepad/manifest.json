@@ -26,7 +26,37 @@
   "hulls_kept_full": 70
  },
  "files": {
-  "scene.xml": "f9e9199f0d5774e5",
+  "scene.xml": "4971886217d00f21",
   "task.json": "294f0e860677ff8f"
+ },
+ "mjfit": {
+  "version": "0.1.0",
+  "repo": "https://github.com/younghyopark/mjfit",
+  "commit": "5833f465896e1e06bc4be4f003be847f5183a4db",
+  "license": "MIT",
+  "builder": "tasks/add_task/fit_assembly_collisions.py",
+  "parameters": {
+   "target": "part0",
+   "receiver": "part3",
+   "xy": [
+    -0.029322,
+    -0.001709
+   ],
+   "peg_radius": 0.0075,
+   "hole_radius": 0.007875,
+   "peg_bottom": -0.02329483,
+   "peg_top": -0.00829483,
+   "hole_bottom": 0.0045549,
+   "hole_top": 0.0195549,
+   "patch_half_width": 0.012,
+   "erosion": 0.0005,
+   "floor": 0.001
+  },
+  "sides": 64,
+  "notes": "Only the mating stem/socket patch is replaced. Unchanged visual assets, body inertias, erosion allowances, contact coefficients, task initialization and grading.",
+  "visual_source_sha256": {
+   "part0": "1b902eb7bda3352f514cc7650d2bbc01bd50bdf3ce60a2d7478b5d616f222bb0",
+   "part3": "275f7e006b0fcddfab728cc7ad81fccbaa3d22ecbba2677a8104b8ac8f11cb09"
+  }
  }
 }

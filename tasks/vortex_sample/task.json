@@ -70,14 +70,14 @@
   "sample": "tube",
   "on": [
    0.3,
-   0.45
+   0.85
   ],
   "off": [
    -0.1,
    0.1
   ],
   "touch": [
-   -0.45,
+   -0.85,
    -0.3
   ],
   "detent_spacing": 0.46,
@@ -203,12 +203,12 @@
         "pred": "joint_in",
         "joint": "switch",
         "lo": 0.3,
-        "hi": 0.45
+        "hi": 0.85
        },
        {
         "pred": "joint_in",
         "joint": "switch",
-        "lo": -0.45,
+        "lo": -0.85,
         "hi": -0.3
        }
       ]

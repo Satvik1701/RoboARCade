@@ -10,9 +10,14 @@
  },
  "generated_by": "datagen/autobio/vortex.py",
  "date": "2026-09-10",
- "notes": "the Vortex-Genie 2 from instruments.load() on our bench. The shared 60-well rack keeps its source 11.2 mm straight-sided openings and 21 mm depth; 960 massless collision boxes back the drawn round-hole deck corners that the source's square clearances left unsupported. A pack-declared motor maps detents 1 to 10 onto 600 to 3200 rpm; detent 0 stops. ON runs continuously, TOUCH requires 0.20 N external normal load, and OFF commands physical deceleration. The preserved pivot/orbit equality gives a 2 mm radius. A held sample pressing above 1600 rpm accumulates five control checks to latch the lamp green until OFF. Its liquid top tilts visually while mixing, with no mass or collision change. The tube retains the 15 degree upright invariant. The cup's central contact surface is at 0.9574648 m, below its 0.96106775 m rim; the controller probe raycasts the surface.",
+ "notes": "the Vortex-Genie 2 from instruments.load() on our bench. The shared 60-well rack keeps its source 11.2 mm straight-sided openings and 21 mm depth; 960 massless collision boxes back the drawn round-hole deck corners that the source's square clearances left unsupported. A pack-declared motor maps detents 1 to 10 onto 600 to 3200 rpm; detent 0 stops. ON runs continuously, TOUCH requires 0.20 N external normal load, and OFF commands physical deceleration. The preserved pivot/orbit equality gives a 2 mm radius. A held sample pressing above 1600 rpm accumulates five control checks to latch the lamp green until OFF. Its liquid top tilts visually while mixing, with no mass or collision change. The tube retains the 15 degree upright invariant. The cup's central contact surface is at 0.9574648 m, below its 0.96106775 m rim; the controller probe raycasts the surface. On 2026-10-28 increased the three-position switch travel from +/-0.4 to +/-0.78 rad (about 45 degrees), doubled base detent stiffness to 0.08 N m/rad, positioned snap transitions around +/-0.30 rad, and reduced damping to 0.003 N m s/rad. ON and TOUCH bands extend to +/-0.85 rad to include new endpoints and historical positions. OFF remains +/-0.1 rad. The black speed knob now uses 60 convex parts fitted to the full visual surface, replacing the incomplete collider that missed up to 5.49 mm of the drawn knob. A 10,000-point surface check measured at most 0.235 mm mismatch. The original exact inertia, mass, joint settings, 11 speed detents and motor mapping are preserved.",
  "files": {
-  "scene.xml": "465322c2f1cace97",
-  "task.json": "b7657624dba6d5d3"
- }
+  "scene.xml": "1878f3fe23eacc6b",
+  "task.json": "b18187eecaa3b1fb",
+  "grade.py": "490482afc485d7ca",
+  "test.py": "15c422026528b4d9",
+  "build_knob_collisions.py": "fba880fada7dda57"
+ },
+ "knob_collision_generated_by": "tasks/vortex_sample/build_knob_collisions.py",
+ "knob_collision_parts": 60
 }

@@ -29,7 +29,19 @@ def dial(env, detent, switch):
     env.forward()
 
 
-@pytest.mark.parametrize("detent", [0, 1, 5, 10])
+@pytest.mark.parametrize('start,target', [(-.34, -.78), (-.24, 0), (0, 0),
+                                         (.24, 0), (.34, .78)])
+def test_switch_snaps_to_three_stable_positions(mixer, start, target):
+    joint = mixer.model.joint('switch')
+    mixer.data.qpos[joint.qposadr[0]] = start
+    mixer.data.qvel[joint.dofadr[0]] = 0
+    mixer.forward()
+    mujoco.mj_step(mixer.model, mixer.data, nstep=4000)
+    assert mixer.data.qpos[joint.qposadr[0]] == pytest.approx(target, abs=.02)
+    assert abs(mixer.data.qvel[joint.dofadr[0]]) < .1
+
+
+@pytest.mark.parametrize("detent", range(11))
 def test_vortex_on_mapping_and_physical_speed(mixer, detent):
     dial(mixer, detent, 0.4)
     controls(mixer, 20)
@@ -37,6 +49,18 @@ def test_vortex_on_mapping_and_physical_speed(mixer, detent):
     assert mixer.data.actuator("platform_pivot").ctrl[0] == pytest.approx(target)
     assert mixer.data.joint("platform_pivot").qvel[0] == pytest.approx(target, abs=4)
     assert mixer.data.userdata[0] == 0
+
+
+def test_speed_knob_holds_all_eleven_detents(mixer):
+    joint = mixer.model.joint('knob')
+    qa, va = int(joint.qposadr[0]), int(joint.dofadr[0])
+    for setting in range(11):
+        mixer.data.qpos[qa] = setting*.46+(.1 if setting < 10 else -.1)
+        mixer.data.qvel[va] = 0
+        mixer.forward()
+        mujoco.mj_step(mixer.model, mixer.data, nstep=4000)
+        assert mixer.data.qpos[qa] == pytest.approx(setting*.46, abs=.02)
+        assert abs(mixer.data.qvel[va]) < .1
 
 
 def test_vortex_touch_without_pressure_and_off(mixer):

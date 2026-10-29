@@ -36,7 +36,18 @@
   "assets/wooden_cabinet_middle_vis.msh": "580eead06792affb",
   "assets/wooden_cabinet_top_handle_vis.msh": "58924271007a30a1",
   "assets/wooden_cabinet_top_vis.msh": "2b7c08ad3740ad45",
-  "scene.xml": "25abea7fd7ec753c",
-  "task.json": "6cfa82174df15f4d"
+  "scene.xml": "ce3a32a299524c49",
+  "task.json": "6cfa82174df15f4d",
+  "sync_shared_collisions.py": "3c8594fefe7c2993"
+ },
+ "collision_reused_from": "tasks/bowl_on_plate/scene.xml",
+ "collision_parts": {
+  "akita_black_bowl_1": 333,
+  "plate_1": 137
+ },
+ "collision_notes": "Identical visual files and scales; reuse the validated bowl/plate convex hulls. Preserve tidy_counter mass, inertia, friction and task setup.",
+ "collision_source_sha256": {
+  "akita_black_bowl_vis.msh": "6474d536a740e995c3a2eaeb74c61e14da94131b0b222c250b61b30b13d11229",
+  "model_vis.msh": "7d3278b1cefb2ed496094cad18f0c66004ee65ab933122ec8d5efdc78daa96b4"
  }
 }

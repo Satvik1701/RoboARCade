@@ -261,6 +261,15 @@ for o in bpy.data.objects:
 for o in bpy.data.objects:
     if o.type != "MESH" or len(o.data.vertices) > 12:
         continue
+    # Small authored meshes can be decals. Preserve their explicit UVs rather
+    # than replacing the label layout with the primitive box-tiling heuristic.
+    match = re.search(r"_id(\d+)_geom$", o.name)
+    if match:
+        gid = int(match.group(1))
+        if model.geom_type[gid] == mujoco.mjtGeom.mjGEOM_MESH:
+            mesh_id = int(model.geom_dataid[gid])
+            if model.mesh_texcoordadr[mesh_id] >= 0:
+                continue
     for m in o.data.materials:
         if not m or m.node_tree is None or m.get("_retiled"):
             continue
