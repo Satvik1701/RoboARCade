@@ -1,16 +1,26 @@
 """Tests of the cooling_manifold task."""
+
+
 from pathlib import Path
+import json
+
+from scipy.spatial.transform import Rotation as R
 import mujoco
 import numpy as np
 import pytest
-from scipy.spatial.transform import Rotation as R
-from core.grade_episode import _grasped_by
+
+from core.grade_episode import _grasped_by, make_checker
 from core.sim_env import SimEnv
+from core.tasks import TASKS, load_scene
 from helpers import (
     _probe_ik,
     _table_top_z,
+    check_mating_insertion,
+    check_mating_pickup,
+    check_mating_surface,
+    grasp_mesh_piece as _grasp_piece,
+    spawn_mesh_piece as _spawn_piece,
 )
-from core.grade_episode import make_checker
 
 
 GRIP_TASK = "cooling_manifold"
@@ -28,9 +38,6 @@ GRIP_CASES = [(GRIP_TASK, PIECE)]
 GRIP_POSES = 8
 
 
-GRIP_SETTLE_SECONDS = .3
-
-
 JAW_SPINS_DEG = [20, 40, 60, 90]
 
 
@@ -39,43 +46,6 @@ JAW_SPIN_MAX_DEV_M = 0.030
 
 def _piece_qadr(env, piece):
     return env.model.joint(env.model.body(piece).jntadr[0]).qposadr[0]
-
-
-def _spawn_piece(env, piece, x, y, yaw):
-    from tasks.add_task.fit_assembly_collisions import geom_vertices
-    adr = _piece_qadr(env, piece)
-    body = env.model.body(piece).id
-    bottom = min(geom_vertices(env.model, g)[:, 2].min()
-                 for g in range(env.model.ngeom)
-                 if env.model.geom_bodyid[g] == body and env.model.geom_contype[g])
-    # Spawn above the support surface. The former hardcoded 17.5 mm placed
-    # the 29 mm stem inside the table, then sampled a pose during its bounce.
-    env.data.qpos[adr:adr + 3] = [x, y, _table_top_z(env) - bottom + .0005]
-    env.data.qpos[adr + 3:adr + 7] = R.from_euler("z", yaw).as_quat()[[3, 0, 1, 2]]
-    env.data.qvel[:] = 0
-    mujoco.mj_forward(env.model, env.data)
-    mujoco.mj_step(env.model, env.data,
-                  nstep=round(GRIP_SETTLE_SECONDS / env.model.opt.timestep))
-
-
-def _jaw_axis_yaw(env, arm):
-    a, b = (env.data.body(f"{arm}_{side}_finger").xpos for side in ("left", "right"))
-    return float(np.arctan2(b[1] - a[1], b[0] - a[0]))
-
-
-def _grasp_piece(env, arm, piece):
-    home = env.observe_proprio(arm)
-    p = env.data.body(piece).xpos.copy()
-    yaw = R.from_quat(env.data.body(piece).xquat[[1, 2, 3, 0]]).as_euler("xyz")[2]
-    delta = (yaw + np.pi / 2) - _jaw_axis_yaw(env, arm)
-    grasp_rot = R.from_euler("z", delta) * R.from_euler("xyz", home.eef_euler)
-    e = grasp_rot.as_euler("xyz")
-    above, at = p + [0, 0, 0.12], p.copy()
-    env.move_to(above, e, 1.0)
-    env.move_to(at, e, 1.0)
-    env.move_to(at, e, 0.0)
-    env.move_to(p + [0, 0, 0.10], e, 0.0)
-    return e
 
 
 def test_contact_retry_exemption_requires_closed_grasp():
@@ -295,3 +265,53 @@ def test_recorded_cap_seats_after_release(states, torsion, passes):
     delta = ref.xmat.reshape(3, 3).T @ (cap.xpos - ref.xpos)
     height_error = delta[2] - env.spec["success"]["of"][0]["pos"][2]
     assert abs(height_error) < .001 if passes else height_error > .008
+
+
+MATING = json.loads((TASKS / "cooling_manifold" / "manifest.json").read_text())["mjfit"]["parameters"]
+
+
+def test_interface_surface_matches_visual_with_configured_clearance():
+    check_mating_surface("cooling_manifold", MATING)
+
+
+def test_scripted_pickup_and_lift():
+    check_mating_pickup("cooling_manifold", MATING["target"])
+
+
+@pytest.mark.parametrize("seed", range(1000000, 1000005))
+def test_insertion_path_and_free_release(seed):
+    check_mating_insertion("cooling_manifold", MATING, seed)
+
+
+def test_manifold_patch_preserves_chamfered_outer_corners():
+    model = load_scene(TASKS / "cooling_manifold").compile()
+    data = mujoco.MjData(model)
+    mujoco.mj_forward(model, data)
+    body = model.body("part1").id
+    model.geom_group[:] = 5
+    for gid in range(model.ngeom):
+        if model.geom_bodyid[gid] == body:
+            model.geom_group[gid] = (
+                3 if model.geom_contype[gid] or model.geom_conaffinity[gid] else 1
+            )
+            model.geom_rgba[gid, 3] = 1
+    cfg = MATING
+    # Well outside the round hole, inside the replacement square, but beyond
+    # the diagonal outside corner. Both visual and collision rays must miss.
+    for x, y in [(0.0123, 0.0123), (-0.0123, -0.0123)]:
+        origin = np.array([cfg["xy"][0] + x, cfg["xy"][1] + y, 0.06])
+        rotation = data.xmat[body].reshape(3, 3)
+        for group in (1, 3):
+            mask = np.zeros(6, dtype=np.uint8)
+            mask[group] = 1
+            hit = mujoco.mj_ray(
+                model,
+                data,
+                data.xpos[body] + rotation @ origin,
+                rotation @ np.array([0.0, 0.0, -1.0]),
+                mask,
+                True,
+                -1,
+                np.array([-1], dtype=np.int32),
+            )
+            assert hit < 0, "Socket patch fills an empty chamfered corner"

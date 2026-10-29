@@ -14,7 +14,6 @@
  "files": {
   "scene.xml": "ab6a00258e8732fa",
   "task.json": "7f1e81b087963026",
-  "build_panel.py": "ef48d397b195c4ea",
   "dynamics.py": "f29c536d14055594",
   "panel/LICENSE_DEJAVU.txt": "d75938dec098f06f",
   "panel/label-00.obj": "1f77c7574f10622d",
@@ -40,11 +39,8 @@
   "panel/label-20.obj": "601c17ec00e6af37",
   "panel/label-21.obj": "38df39736fcfa8e2",
   "panel/label-22.obj": "7348a00500ebc5a1",
-  "panel/panel-bezel.obj": "678fc588ab4ed43c",
-  "build_collisions.py": "71fb20ecf62c29b0"
+  "panel/panel-bezel.obj": "678fc588ab4ed43c"
  },
- "panel_generated_by": "tasks/start_incubation/build_panel.py",
- "collision_generated_by": "tasks/start_incubation/build_collisions.py",
  "collision_surface_tolerance_mm": 0.15,
  "collision_source_sha256": {
   "body-visual-0.obj": "39539ac59dde2f0f26cd8e3531614ac20b41d64e8161cb5d6b96c1547e020440",

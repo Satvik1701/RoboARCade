@@ -28,6 +28,10 @@ tools/blender-4.5.12-linux-x64/4.5/python/bin/python3.11 -m pip install --target
     mujoco==3.10.0 pillow typing_extensions etils absl-py glfw
 ```
 
+The GitHub task scenes define the final collision geometry. The HF download supplies
+the finished meshes, textures, robot models and reachability grids. Pulling these assets
+is sufficient: installation and evaluation never rebuild or rewrite them.
+
 Blender renders the agent's camera feeds and the episode video, as in the paper.
 
 **3. Credentials: an Anthropic, OpenAI, or Gemini API key, or your plan**

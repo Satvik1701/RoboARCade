@@ -827,12 +827,6 @@ The quirks behind the code (units, rationale, gotchas, invariants a name cannot 
 
 ## `scripts/`
 
-### `scripts/build_reach_voxels.py`
-
-- solve_pose is a local diff IK, so every voxel is tried from each manifest reach.seeds posture and the union stored.
-- A reach.mirror_xz robot is mirrored because a seed set that is not mirror closed finds one side and not the other.
-- Adjacent links touch at home already, so self collision means a pair that does not touch at rest.
-
 ### `scripts/sync_assets.py`
 
 - Push stages its archives under assets/.cache, gitignored and on the same filesystem as the files.

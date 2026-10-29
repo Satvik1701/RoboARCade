@@ -6,7 +6,7 @@ and doc extractors the dashboard reads, and a randomization stress test. A task 
 `tasks/README.md`) with its
 meshes and textures under `assets/tasks/<family>/<name>/`, synced to Hugging Face rather than committed.
 
-`core/sim_env.py` loads the folder (`packs.load_scene` resolves the meshes), `core/initial_layout.py` places the
+`core/sim_env.py` loads the folder (`core.tasks.load_scene` resolves the meshes), `core/initial_layout.py` places the
 randomized objects (regions, separation, the reach gate), `core/grade_episode.py` compiles `success`,
 `core/grade_episode.py` replays a recorded episode through the task's `grade.py`.
 
@@ -29,7 +29,10 @@ randomized objects (regions, separation, the reach gate), `core/grade_episode.py
    predicate leaves its tree uses.
 6. **Refresh the dashboard extras**: `python -m tasks.add_task.thumbs` renders the card thumbnail,
    `python -m tasks.add_task.task_docs` extracts the per-task documentation the cards show.
-7. **Evaluate**: `python -m core.run_eval --task <task> --seeds 5`.
+7. **Publish the completed assets**: commit the finished task definitions to GitHub and sync
+   their external meshes, textures and robot assets to Hugging Face. Check a fresh clone with
+   `python scripts/sync_assets.py pull`; it must run without any asset-generation or collision-fitting step.
+8. **Evaluate**: `python -m core.run_eval --task <task> --seeds 5`.
    Each episode is graded with `tasks/<task>/grade.py` as it is published.
 
 ## Rules the packs follow
@@ -43,16 +46,11 @@ randomized objects (regions, separation, the reach gate), `core/grade_episode.py
 
 ## Asset inspector
 
-The gamepad stick/socket and cooling-manifold cap/socket use fitted cylindrical
-collision interfaces generated offline with [mjfit](https://github.com/younghyopark/mjfit)
-0.1.0. `fit_assembly_collisions.py` contains dimensions measured from the original
-visual meshes and retains each task's configured erosion allowance. It clips only
-the stem and receiving patch, preserves body inertias and contact settings, and
-embeds generated vertices in `scene.xml`; simulation needs no mjfit installation
-or additional asset download. Rebuild with
-`python -m tasks.add_task.fit_assembly_collisions gamepad cooling_manifold` in a
-build environment with mjfit 0.1.0, shapely, scipy and trimesh. Run
-`pytest tasks/add_task/test_assembly_collisions.py` for surface alignment,
+The gamepad stick/socket and cooling-manifold cap/socket have their final fitted
+collision interfaces embedded in `scene.xml`. Their manifests record the source meshes,
+fitting parameters, and [mjfit](https://github.com/younghyopark/mjfit) version used during
+asset creation. These are published geometry, loaded directly without fitting or rebuilding. Run
+`pytest tasks/gamepad tasks/cooling_manifold` for surface alignment,
 unblocked insertion, blocked misalignment, and free-release checks on all five
 benchmark seeds. The manifold's recorded grasp/release tests are in
 `tasks/cooling_manifold/test.py`.

@@ -1,17 +1,21 @@
 """Helpers shared by tasks/*/test.py: shared scenes and predicate probes, controller probes, and scripted
 solves through the default interface."""
+
+
 from pathlib import Path
 
+from scipy.spatial.transform import Rotation as R
 import cv2
 import mujoco
 import numpy as np
 import pytest
-from scipy.spatial.transform import Rotation as R
 
 from core.control import make_arm_ik
+from core.grade_episode import make_checker
 from core.sim_env import Phase, SimEnv
-from core.tasks import TASKS
+from core.tasks import TASKS, load_scene
 from sim_kernel import Kernel
+
 
 REPO = Path(__file__).resolve().parents[1]
 
@@ -265,3 +269,147 @@ class Episode:
         cv2.imwrite(str(OUT / f"{name}_final.png"),
                     cv2.cvtColor(self.env.observe_camera()["agentview_image"], cv2.COLOR_RGB2BGR))
         print(f"  video: {OUT / f'{name}.mp4'} ({len(self.frames)} frames)")
+
+
+def spawn_mesh_piece(env, piece, x, y, yaw):
+    adr = env.model.joint(env.model.body(piece).jntadr[0]).qposadr[0]
+    model = env.model
+    body = model.body(piece).id
+    bottom = np.inf
+    for g in range(model.ngeom):
+        if model.geom_bodyid[g] != body or not model.geom_contype[g]:
+            continue
+        mesh = model.geom_dataid[g]
+        start, count = model.mesh_vertadr[mesh], model.mesh_vertnum[mesh]
+        vertices = model.mesh_vert[start:start + count]
+        rotation = R.from_quat(model.geom_quat[g][[1, 2, 3, 0]])
+        bottom = min(bottom, (rotation.apply(vertices) + model.geom_pos[g])[:, 2].min())
+    # Collider bounds keep long insertion stems from starting inside the table.
+    env.data.qpos[adr:adr + 3] = [x, y, _table_top_z(env) - bottom + .0005]
+    env.data.qpos[adr + 3:adr + 7] = R.from_euler("z", yaw).as_quat()[[3, 0, 1, 2]]
+    env.data.qvel[:] = 0
+    mujoco.mj_forward(env.model, env.data)
+    mujoco.mj_step(env.model, env.data,
+                  nstep=round(.3 / env.model.opt.timestep))
+
+
+def grasp_mesh_piece(env, arm, piece):
+    home = env.observe_proprio(arm)
+    p = env.data.body(piece).xpos.copy()
+    yaw = R.from_quat(env.data.body(piece).xquat[[1, 2, 3, 0]]).as_euler("xyz")[2]
+    a, b = (env.data.body(f"{arm}_{side}_finger").xpos for side in ("left", "right"))
+    jaw_yaw = float(np.arctan2(b[1] - a[1], b[0] - a[0]))
+    delta = (yaw + np.pi / 2) - jaw_yaw
+    grasp_rot = R.from_euler("z", delta) * R.from_euler("xyz", home.eef_euler)
+    e = grasp_rot.as_euler("xyz")
+    above, at = p + [0, 0, 0.12], p.copy()
+    env.move_to(above, e, 1.0)
+    env.move_to(at, e, 1.0)
+    env.move_to(at, e, 0.0)
+    env.move_to(p + [0, 0, 0.10], e, 0.0)
+    return e
+
+
+def check_mating_surface(task, cfg):
+    model = load_scene(TASKS / task).compile()
+    data = mujoco.MjData(model)
+    mujoco.mj_forward(model, data)
+    for name in (cfg["target"], cfg["receiver"]):
+        body = model.body(name).id
+        model.geom_group[:] = 5
+        for gid in range(model.ngeom):
+            if model.geom_bodyid[gid] == body:
+                model.geom_group[gid] = (
+                    3 if model.geom_contype[gid] or model.geom_conaffinity[gid] else 1
+                )
+                model.geom_rgba[gid, 3] = 1
+        target = name == cfg["target"]
+        xy = np.zeros(2) if target else np.array(cfg["xy"])
+        z0, z1 = (
+            (cfg["peg_bottom"], cfg["peg_top"])
+            if target
+            else (cfg["hole_bottom"], cfg["hole_top"])
+        )
+        for z in np.linspace(z0 + 0.001, z1 - 0.001, 7):
+            # Avoid casting exactly along polygon seams, where a ray/triangle
+            # intersection can be numerically ambiguous.
+            for angle in np.linspace(0, 2 * np.pi, 128, endpoint=False) + 0.012345:
+                ray = np.array([np.cos(angle), np.sin(angle), 0])
+                origin = np.array([*xy, z])
+                if target:
+                    origin += 0.02 * ray
+                    ray = -ray
+                rotation = data.xmat[body].reshape(3, 3)
+                hits = []
+                for group in (1, 3):
+                    mask = np.zeros(6, dtype=np.uint8)
+                    mask[group] = 1
+                    hits.append(
+                        mujoco.mj_ray(
+                            model,
+                            data,
+                            data.xpos[body] + rotation @ origin,
+                            rotation @ ray,
+                            mask,
+                            True,
+                            -1,
+                            np.array([-1], dtype=np.int32),
+                        )
+                    )
+                assert min(hits) >= 0, "Missing visual or collision surface"
+                # 30 um allows polygon approximation and source mesh rounding.
+                assert abs(hits[1] - hits[0]) < cfg["erosion"] + 0.00003
+
+
+def check_mating_insertion(task, cfg, seed):
+    env = SimEnv(task, seed=seed)
+    env.reset(seed=seed)
+    model, data = env.model, env.data
+    target, base = model.body(cfg["target"]).id, model.body(cfg["receiver"]).id
+    qadr = int(model.jnt_qposadr[model.body_jntadr[target]])
+    vadr = int(model.jnt_dofadr[model.body_jntadr[target]])
+    goal = np.array(env.spec["success"]["of"][0]["pos"])
+
+    def place(relative):
+        data.qpos[qadr : qadr + 3] = (
+            data.xpos[base] + data.xmat[base].reshape(3, 3) @ relative
+        )
+        data.qpos[qadr + 3 : qadr + 7] = data.xquat[base]
+        data.qvel[vadr : vadr + 6] = 0
+        mujoco.mj_forward(model, data)
+
+    def depths():
+        return [
+            c.dist
+            for c in data.contact
+            if {int(model.geom_bodyid[c.geom1]), int(model.geom_bodyid[c.geom2])}
+            == {target, base}
+        ]
+
+    for dz in np.linspace(0.03, 0, 61):
+        place(goal + [0, 0, dz])
+        assert (
+            min(depths(), default=0) > -0.00005
+        ), "A collision hull blocks the aligned insertion"
+    place(goal + [0.006, 0, 0])
+    assert min(depths(), default=0) < -0.001, "Socket must block a misaligned insertion"
+    place(goal + [0, 0, 0.003])
+    mujoco.mj_step(model, data, nstep=round(2 / model.opt.timestep))
+    assert np.all(np.isfinite(data.qpos))
+    assert make_checker(env.spec["success"])[0](env)
+    relative = data.xmat[base].reshape(3, 3).T @ (data.xpos[target] - data.xpos[base])
+    assert np.linalg.norm(relative - goal) < 0.0015
+
+
+def check_mating_pickup(task, piece):
+    from core.grade_episode import _grasped_by
+
+    env = SimEnv(task, seed=0)
+    env.reset(seed=0, randomize_init=False)
+    env.max_len = 10**9
+    arm = env.arms[0]
+    spawn_mesh_piece(env, piece, 0.06, -0.12, 0.0)
+    height = env.data.body(piece).xpos[2]
+    grasp_mesh_piece(env, arm, piece)
+    assert _grasped_by(env, piece, arm)
+    assert env.data.body(piece).xpos[2] > height + 0.05

@@ -108,12 +108,6 @@ the tested CLI integration. SDK compaction controls are not evidence that the
 native CLI accepts the same settings. Do not label these smoke runs as having
 matched compaction or reasoning settings.
 
-Run integration tests with:
-
-```sh
-.venv/bin/python -m pytest tests/test_antigravity.py -q
-```
-
 ## SDK backend with a verified 245k threshold
 
 The opt-in SDK backend pins `google-antigravity==0.1.22` and explicitly supplies
