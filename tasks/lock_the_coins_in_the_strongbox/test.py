@@ -21,13 +21,14 @@ def _lockbox_lid_contact(one_pad=False):
     target = env.data.geom("lid_grip").xpos.copy()
     case_rot = R.from_matrix(env.data.body("case").xmat.reshape(3, 3))
     down = (case_rot * R.from_euler("z", np.pi).inv()
-            * R.from_euler("z", np.deg2rad(75))
             * R.from_euler("xyz", env._home_euler[arm])).as_euler("xyz")
-    env.move_to(target + [0, 0, 0.10], down, 1)
-    env.move_to(target, down, 1)
-    env.move_to(target, down, 0)
+    for position, jaw in ((target + [0, 0, 0.10], 1), (target, 1), (target, 0)):
+        assert env.ctl.reaches(arm, position, down)[0]
+        env.move_to(position, down, jaw)
+        assert np.linalg.norm(env.observe_proprio(arm).eef_pos - position) < 0.002
     if one_pad:
-        env.data.qpos[env.model.joint("j_lid").qposadr[0]] = 0.0
+        finger = env._finger_qadr[arm][0]
+        env.data.qpos[finger] = env._open_qpos[arm][0]
         mujoco.mj_forward(env.model, env.data)
     fingers = set()
     for contact in env.data.contact[: env.data.ncon]:
