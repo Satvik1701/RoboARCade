@@ -37,8 +37,7 @@
   "assets/wooden_cabinet_top_handle_vis.msh": "58924271007a30a1",
   "assets/wooden_cabinet_top_vis.msh": "2b7c08ad3740ad45",
   "scene.xml": "ce3a32a299524c49",
-  "task.json": "6cfa82174df15f4d",
-  "sync_shared_collisions.py": "3c8594fefe7c2993"
+  "task.json": "6cfa82174df15f4d"
  },
  "collision_reused_from": "tasks/bowl_on_plate/scene.xml",
  "collision_parts": {

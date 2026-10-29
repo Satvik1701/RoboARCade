@@ -15,9 +15,7 @@
   "scene.xml": "1878f3fe23eacc6b",
   "task.json": "b18187eecaa3b1fb",
   "grade.py": "490482afc485d7ca",
-  "test.py": "15c422026528b4d9",
-  "build_knob_collisions.py": "fba880fada7dda57"
+  "test.py": "15c422026528b4d9"
  },
- "knob_collision_generated_by": "tasks/vortex_sample/build_knob_collisions.py",
  "knob_collision_parts": 60
 }

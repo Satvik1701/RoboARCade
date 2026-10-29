@@ -34,7 +34,6 @@
   "repo": "https://github.com/younghyopark/mjfit",
   "commit": "5833f465896e1e06bc4be4f003be847f5183a4db",
   "license": "MIT",
-  "builder": "tasks/add_task/fit_assembly_collisions.py",
   "parameters": {
    "target": "part0",
    "receiver": "part3",

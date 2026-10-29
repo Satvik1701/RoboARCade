@@ -3,8 +3,7 @@ name = "roboarcade"
 version = "0.1.0"
 description = "Robot computer-use agent benchmark: an LLM develops and uses an interface to drive a simulated arm (pure MuJoCo) across ported task packs."
 requires-python = ">=3.12,<3.13"
-# Runtime deps are MuJoCo and infrastructure only; the packs were generated
-# offline and are synced as assets.
+# Task definitions are committed; external runtime assets are pulled from HF.
 dependencies = [
     "mujoco>=3.10,<4",
     "numpy>=2,<3",

@@ -18,6 +18,11 @@ task.json; `name` may carry a subpath such as `jenga/tower`), the layout every `
 (`assets/robodojo_mjcf`, `fabrica_mjcf`, `pix2dex_mjcf`, `autobio`) sit beside them. `python scripts/sync_assets.py
 pull` fetches exactly the files the packs reference.
 
+Published task assets are complete. Final collision definitions are committed in `scene.xml`;
+external meshes, textures and robot reachability grids are distributed through Hugging Face.
+Asset creation and collision fitting happen before publication. Pulling assets and running a task
+load those published files directly, without generation scripts or source-asset edits.
+
 ## Adding a task
 
 1. Copy the closest folder, edit `task.json` and `scene.xml`, put the meshes under `assets/tasks/<family>/<name>/`.
@@ -53,48 +58,5 @@ A task whose scene moves by itself defines `class Dynamics` in `dynamics.py`. Th
 | `restore(env)` | after a saved state is loaded (an undo or a replay): repaint anything the state does not carry |
 | `over(env)` | return True to end the episode (a one way conveyor that carried every case away) |
 
-`env.episode_t0` is the sim time the episode started. The five tasks that move (shell game, pack tools, vortex and
-the two Lights Out puzzles) are working examples. Nothing outside the task folder changes to add one.
-
-## Test coverage
-
-"None" means the task has checks but no scripted robot motion; "missing" means no `test.py` yet. The shared pack
-checks and the opt-in waypoint sweep exercise every pack.
-
-| Task | Scripted robot motions | Other checks and the remaining gap |
-|---|---|---|
-| [set_up_pcr_run](set_up_pcr_run/test.py) | PCR lid contact with both fingers | No full scripted solve. |
-| [start_incubation](start_incubation/test.py) | None | Recorded tube release and seating, toppling, friction caps and physical wells. |
-| [vortex_sample](vortex_sample/test.py) | None | Mixer mechanism, pressure and hold gating, speed, liquid and state reset. |
-| [beam](beam/test.py) | None | Constructed placement predicate; the shared controller sweeps also cover the beam. |
-| [cooling_manifold](cooling_manifold/test.py) | Pick, lift, carry through random poses, spin about the jaw axis | Recorded seating and release, contact pair checks. |
-| gamepad | missing | Shared pack and assembly checks only. |
-| [stool_circular](stool_circular/test.py) | None | Position-only predicate checks. |
-| [bowl_on_plate](bowl_on_plate/test.py) | Rim grasp, lift, carry, lower and release onto the plate | Full solve plus a lift-only probe; placement predicates. |
-| [open_middle_drawer_halfway](open_middle_drawer_halfway/test.py) | Recorded home-return motions | Reachability and drawer predicates; no full scripted solve. |
-| [serve_warm_drinks](serve_warm_drinks/test.py) | None | Press edge checks. |
-| soup_and_sauce | missing | Shared pack, fixture and terminal grading checks only. |
-| [start_making_breakfast](start_making_breakfast/test.py) | None | Constructed and settled placement predicate. |
-| [tidy_counter](tidy_counter/test.py) | None | Bowl containment invariant and pack checks. |
-| [puzzle_4x6](puzzle_4x6/test.py) | None | Seeded board, direct button state changes and success predicates. |
-| [puzzle_6x7](puzzle_6x7/test.py) | None | Seeded board, camera convention and button toggles. |
-| [bottles_in_bin](bottles_in_bin/test.py) | None | Bottle mass and contact declarations, randomization, appearance and clearance predicate. |
-| [cup_pyramid](cup_pyramid/test.py) | None | Cup contacts and randomization, constructed support states. |
-| [handover_dominos](handover_dominos/test.py) | None | Initial piles, constructed line and cascade checks; some contacts are mocked. |
-| [jenga_tower](jenga_tower/test.py) | None | Initial piles and a constructed supported tower. |
-| [hang_mugs_and_rack](hang_mugs_and_rack/test.py) | None | Authored contacts, constructed fixture goals and upright plate checks. |
-| [lock_the_coins_in_the_strongbox](lock_the_coins_in_the_strongbox/test.py) | Grasp the lid tab with both pads; reject a one-pad brush | Key, rotor and lid mechanics, randomized starts and the coin sequence. |
-| organize_table_and_plug_in_charger | missing | Shared pack and waypoint checks only. |
-| [pack_tools_into_toolboxes](pack_tools_into_toolboxes/test.py) | Hold a tool while the conveyor advances | Conveyor removal, seated and rail riders, belt speeds; no complete packing script. |
-| sort_lego_bricks | missing | Shared pack checks only. |
-| sort_pills | missing | Shared pack checks only. |
-| [dual_stack](dual_stack/test.py) | Pick, rotate, carry, place two blocks and retreat | Full solve and constructed goal predicates. |
-| [square](square/test.py) | Sub-mm translations and small rotations | Waypoint and controller regressions, placement predicate; no insertion script. |
-| [shell_game](shell_game/test.py) | None | Direct button presses and scripted scene motion. |
-
-The bowl and dual-stack motion scripts drive the real controller through the test VIA kernel and write MuJoCo
-preview videos to `data/test_videos/`; they are engineering checks with ground-truth targeting, not model
-evaluations. A new motion regression should define the seed or starting pose, drive the production controller,
-assert acquisition and retention during the motion, then release and the physical outcome; keep negative cases
-(one-pad contacts, unintended sticking) beside the valid grasps, and never tune a parameter for one trajectory
-or relax an assertion to make a change pass.
+`env.episode_t0` is the sim time the episode started. Shell game, pack tools, vortex, incubation and
+the two Lights Out puzzles are working examples. Nothing outside the task folder changes to add one.
