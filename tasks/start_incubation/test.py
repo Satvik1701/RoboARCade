@@ -1,17 +1,20 @@
 """Tests of the start_incubation task."""
+
+
 from pathlib import Path
+from types import SimpleNamespace
 import json
 import xml.etree.ElementTree as ET
-import numpy as np
-from core.grade_episode import nodes
-from core.tasks import ASSETS, TASKS, robot_kinematics
-import mujoco
-from core.sim_env import SimEnv
-from helpers import (
-    set_free_body,
-)
 
+import mujoco
+import numpy as np
 import pytest
+
+from core.grade_episode import PressEdge, nodes
+from core.sim_env import SimEnv
+from core.tasks import ASSETS, TASKS, load_scene, robot_kinematics
+from helpers import set_free_body
+from tasks.start_incubation.dynamics import Dynamics, LATCHES, SEGMENTS
 
 
 def test_autobio_start_incubation_has_physical_wells_and_ordered_return():
@@ -194,3 +197,248 @@ def test_round_tip_topples_between_holes(heading):
         mujoco.mj_step(m, d)
     assert d.xmat[b].reshape(3, 3)[2, 2] < np.cos(np.radians(45))
     assert m.body_mass[b] == pytest.approx(.007810109237082784, abs=1e-14)
+
+
+@pytest.fixture(scope='module')
+def aligned_model():
+    return load_scene(TASKS/'start_incubation').compile()
+
+
+def ray(model, data, origin, group):
+    mask = np.zeros(6, dtype=np.uint8); mask[group] = 1
+    hit = np.array([-1], dtype=np.int32)
+    distance = mujoco.mj_ray(model, data, origin, np.array([0., 0., -1.]), mask, True, -1, hit)
+    assert distance >= 0
+    return origin[2]-distance
+
+
+@pytest.mark.parametrize('row,col', [(r, c) for r in range(4) for c in range(6)])
+def test_well_visual_floor_matches_contact_surface_and_tube_seats(aligned_model, row, col):
+    m = aligned_model; d = mujoco.MjData(m); mujoco.mj_forward(m, d)
+    center = d.site(f'machine_well_r{row}_c{col}').xpos.copy()
+    # Avoid exact shared triangle vertices, where the source mesh has tiny seams.
+    for dx, dy in ((.0003, .0002), (-.0003, -.0002)):
+        point = center + [dx, dy, .04]
+        visual, contact = ray(m, d, point, 2), ray(m, d, point, 3)
+        assert abs(visual-center[2]) < .0001
+        assert 0 <= contact-visual < .0002
+    body = m.body('tube_2').id
+    a = int(m.jnt_qposadr[m.body_jntadr[body]])
+    d.qpos[a:a+3] = center+[0, 0, .001]
+    d.qpos[a+3:a+7] = [1, 0, 0, 0]
+    mujoco.mj_forward(m, d)
+    for _ in range(round(5/m.opt.timestep)): mujoco.mj_step(m, d)
+    assert abs(d.xpos[body, 2]-center[2]) < .001
+    assert np.linalg.norm(d.xpos[body, :2]-center[:2]) < .001
+    assert d.xmat[body].reshape(3, 3)[2, 2] > np.cos(np.radians(12))
+    block = m.body('thermoblock').id
+    assert any({int(m.geom_bodyid[c.geom1]), int(m.geom_bodyid[c.geom2])} == {body, block}
+               for c in d.contact)
+
+
+def test_button_caps_and_colliders_have_identical_poses_and_sizes(aligned_model):
+    m = aligned_model; d = mujoco.MjData(m); mujoco.mj_forward(m, d)
+    for j in range(m.njnt):
+        name = m.joint(j).name
+        if not name.startswith('button_'): continue
+        stem = name.removesuffix('_key')
+        visual, contact = m.geom(stem+'_cap').id, m.geom(stem+'_contact').id
+        np.testing.assert_array_equal(d.geom_xpos[visual], d.geom_xpos[contact])
+        np.testing.assert_array_equal(d.geom_xmat[visual], d.geom_xmat[contact])
+        np.testing.assert_array_equal(m.geom_size[visual], m.geom_size[contact])
+
+
+@pytest.fixture(scope="module")
+def model():
+    return load_scene(TASKS / "start_incubation").compile()
+
+
+@pytest.fixture
+def env(model):
+    e = SimpleNamespace(model=model, data=mujoco.MjData(model),
+                        spec=json.loads((TASKS / "start_incubation/task.json").read_text()))
+    e.dynamics = Dynamics(e)
+    return e
+
+
+def advance(env, seconds):
+    env.data.time += seconds
+    env.dynamics.physics_step(env)
+
+
+def press(env, name, release=True):
+    q = env.model.joint(f"button_{name}_key").qposadr[0]
+    env.data.qpos[q] = -.003
+    env.dynamics.physics_step(env)
+    if release:
+        env.data.qpos[q] = 0
+        env.dynamics.physics_step(env)
+
+
+def test_program_countdown_temperature_pause_and_completion(env):
+    d = env.dynamics
+    assert d.readout(env)["actual_celsius"] == 24
+    press(env, "prog_1")
+    advance(env, 5)
+    r = d.readout(env)
+    assert r["running"] and r["remaining_seconds"] == 145
+    assert r["actual_celsius"] == 29
+    press(env, "start_stop")
+    advance(env, 10)
+    assert d.readout(env)["remaining_seconds"] == 145
+    assert d.readout(env)["actual_celsius"] == 27
+    press(env, "start_stop")
+    advance(env, 145)
+    r = d.readout(env)
+    assert r["done"] and not r["running"] and r["remaining_seconds"] == 0
+    assert r["actual_celsius"] == 45
+
+
+def test_held_buttons_do_not_repeat_and_presets_keep_edits(env):
+    press(env, "time_up", release=False)
+    for _ in range(10): advance(env, .1)
+    assert env.dynamics.readout(env)["duration_seconds"] == 165
+    env.data.qpos[env.model.joint("button_time_up_key").qposadr[0]] = 0
+    advance(env, 0)
+    press(env, "temp_up")
+    press(env, "speed_up")
+    press(env, "prog_2")
+    assert env.dynamics.readout(env)["program"] == 2
+    assert env.dynamics.readout(env)["duration_seconds"] == 150
+    press(env, "prog_1")
+    r = env.dynamics.readout(env)
+    assert (r["duration_seconds"], r["target_celsius"], r["target_rpm"]) == (165, 46, 50)
+    advance(env, 1)
+    assert env.dynamics.readout(env)["actual_rpm"] == 50
+    press(env, "start_stop")
+    advance(env, .025)
+    assert env.dynamics.readout(env)["actual_rpm"] == pytest.approx(25)
+    advance(env, 1)
+    assert env.dynamics.readout(env)["actual_rpm"] == 0
+
+
+def test_short_is_momentary_and_menu_edits_selected_field(env):
+    press(env, "menu_enter")
+    press(env, "menu_right")  # Temperature.
+    press(env, "menu_up")
+    assert env.dynamics.readout(env)["target_celsius"] == 46
+    press(env, "menu_down")
+    press(env, "menu_left")  # Time.
+    press(env, "menu_down")
+    assert env.dynamics.readout(env)["duration_seconds"] == 135
+    press(env, "short", release=False)
+    advance(env, .5)
+    assert env.dynamics.readout(env)["actual_rpm"] == 500
+    assert env.dynamics.readout(env)["remaining_seconds"] == 135
+    env.data.qpos[env.model.joint("button_short_key").qposadr[0]] = 0
+    advance(env, 0)
+    advance(env, .5)
+    assert env.dynamics.readout(env)["actual_rpm"] == 0
+
+
+def test_restore_reproduces_display_and_press_latches(env):
+    press(env, "speed_up")
+    press(env, "prog_1", release=False)
+    advance(env, 3.5)
+    spec = mujoco.mjtState.mjSTATE_INTEGRATION
+    state = np.empty(mujoco.mj_stateSize(env.model, spec))
+    mujoco.mj_getState(env.model, env.data, state, spec)
+    readout = env.dynamics.readout(env)
+    colors = env.model.geom_rgba.copy()
+    env.dynamics.reset(env)
+    mujoco.mj_setState(env.model, env.data, state, spec)
+    env.dynamics.restore(env)
+    assert env.dynamics.readout(env) == readout
+    np.testing.assert_array_equal(env.model.geom_rgba, colors)
+    advance(env, .5)  # The still-held Program 1 key must not restart the timer.
+    assert env.dynamics.readout(env)["remaining_seconds"] == 146
+
+
+def test_digits_match_machine_state_and_setting_bounds(env):
+    press(env, "prog_1")
+    advance(env, 61)
+    # 01:29 and 45/45 are actual segment states, not text in a screenshot.
+    for field, text in [("time", "0129"), ("temp", "4545")]:
+        for ids, char in zip(env.dynamics.digits[field], text):
+            active = ''.join(letter for letter, gid in zip('abcdefg', ids)
+                             if env.model.geom_rgba[gid, 0] < .5)
+            assert active == SEGMENTS[int(char)]
+    for field in range(3):
+        s = env.dynamics.state(env)
+        for _ in range(450): env.dynamics.adjust(s, field, -1)
+        assert env.dynamics.settings(s)[field] == env.spec['incubation_panel']['limits'][field][0]
+        for _ in range(450): env.dynamics.adjust(s, field, 1)
+        assert env.dynamics.settings(s)[field] == env.spec['incubation_panel']['limits'][field][1]
+
+
+def test_contact_press_starts_program_without_writing_key_pose():
+    spec = load_scene(TASKS / "start_incubation")
+    probe = spec.worldbody.add_body(mocap=True)
+    probe.add_geom(type=mujoco.mjtGeom.mjGEOM_SPHERE, size=[.003, 0, 0])
+    m = spec.compile()
+    e = SimpleNamespace(model=m, data=mujoco.MjData(m),
+                        spec=json.loads((TASKS / "start_incubation/task.json").read_text()))
+    e.dynamics = Dynamics(e)
+    mujoco.mj_forward(m, e.data)
+    b = m.body('button_prog_1_key').id
+    centre = e.data.xpos[b].copy()
+    normal = e.data.xmat[b].reshape(3, 3)[:, 2]
+    for offset in np.linspace(.015, .003, 120):
+        e.data.mocap_pos[0] = centre+normal*offset
+        for _ in range(5):
+            e.dynamics.physics_step(e)
+            mujoco.mj_step(m, e.data)
+    assert e.dynamics.readout(e)['running']
+    assert 0 < e.dynamics.readout(e)['remaining_seconds'] < 150
+
+
+BUTTONS = (
+    "prog_1", "prog_2", "prog_3", "prog_4", "prog_5",
+    "menu_enter", "menu_up", "menu_down", "menu_left", "menu_right",
+    "short", "start_stop", "time_up", "time_down", "temp_up", "temp_down",
+    "speed_up", "speed_down",
+)
+
+
+@pytest.fixture(scope="module")
+def panel_model():
+    spec = load_scene(TASKS / "start_incubation")
+    probe = spec.worldbody.add_body(name="test_probe", mocap=True)
+    probe.add_geom(name="test_tip", type=mujoco.mjtGeom.mjGEOM_SPHERE,
+                   size=[.003, 0, 0], contype=1, conaffinity=1)
+    return spec.compile()
+
+
+@pytest.mark.parametrize("button", BUTTONS)
+def test_contact_press_and_release(panel_model, button):
+    m, d = panel_model, mujoco.MjData(panel_model)
+    name = f"button_{button}"
+    joint = m.joint(name + "_key")
+    d.mocap_pos[0] = [0, 0, 3]
+    mujoco.mj_forward(m, d)
+    body = m.body(name + "_key").id
+    centre = d.xpos[body].copy()
+    normal = d.xmat[body].reshape(3, 3)[:, 2]
+    edge = PressEdge(name + "_key")
+    env = SimpleNamespace(model=m, data=d)
+    pair = {m.geom("test_tip").id, m.geom(name + "_contact").id}
+    presses, touched = 0, False
+    # Move a physical probe into the key, without writing the key's qpos or force.
+    for offset in np.linspace(.015, .003, 120):
+        d.mocap_pos[0] = centre + normal * offset
+        for _ in range(5):
+            mujoco.mj_step(m, d)
+            presses += int(edge.update(env))
+            touched |= any({c.geom1, c.geom2} == pair for c in d.contact)
+    assert touched
+    assert presses == 1
+    assert d.qpos[joint.qposadr[0]] < -.0015
+    for other in BUTTONS:
+        if other != button:
+            assert abs(d.qpos[m.joint(f"button_{other}_key").qposadr[0]]) < .0015
+    d.mocap_pos[0] = centre + normal * .025
+    for _ in range(500):
+        mujoco.mj_step(m, d)
+        assert not edge.update(env)
+    assert d.qpos[joint.qposadr[0]] > -.00075
+    assert not edge.down

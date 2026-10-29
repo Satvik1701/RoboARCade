@@ -1,28 +1,29 @@
 """Tests of the bowl_on_plate task."""
-import numpy as np
-from core.grade_episode import _bbox_world
-from helpers import (
-    Episode,
-    project,
-)
-import pytest
+
+
+from scipy.spatial.transform import Rotation as R
 import mujoco
-from core.grade_episode import make_checker
-from core.tasks import TASKS
+import numpy as np
+import pytest
+
+from core.grade_episode import (
+    _bbox_world,
+    _footprint_hull,
+    _hull_contains_xy,
+    make_checker,
+)
 from core.sim_env import SimEnv
-from helpers import (  # noqa: F401 (lift_env is a fixture)
+from core.tasks import TASKS, load_scene
+from helpers import (
     BOWL,
+    Episode,
     PLATE,
     lift_env,
+    project,
     set_free_body,
     settle_steps,
     zero_free_qvel,
 )
-from scipy.spatial.transform import Rotation as R
-from core.grade_episode import _footprint_hull, _hull_contains_xy
-
-
-pytestmark = pytest.mark.e2e
 
 
 BOWL = "akita_black_bowl_1_main"
@@ -48,6 +49,7 @@ def _grasp_bowl_rim(ep):
     return bowl
 
 
+@pytest.mark.e2e
 def test_bowl_grasp_and_lift():
     print("=== bowl grasp and lift (default interface) ===")
     ep = Episode("bowl_on_plate", seed=0)
@@ -63,6 +65,7 @@ def test_bowl_grasp_and_lift():
     print(f"  PASS: physical lift completed in {env.num_step} steps\n")
 
 
+@pytest.mark.e2e
 def test_bowl_on_plate():
     print("=== bowl on plate (default interface) ===")
     ep = Episode("bowl_on_plate", seed=0)
@@ -90,6 +93,7 @@ def test_bowl_on_plate():
     print(f"  PASS: steps={env.num_step}\n")
 
 
+@pytest.mark.e2e
 def test_bowl_on_plate_success_tree():
     env = SimEnv("bowl_on_plate", seed=0)
     env.reset(seed=0, randomize_init=False)
@@ -109,6 +113,7 @@ def test_bowl_on_plate_success_tree():
     assert check(env) is True
 
 
+@pytest.mark.e2e
 def test_libero_on_success_tree():
     if not (TASKS / "bowl_on_plate" / "task.json").exists():
         pytest.skip("libero/bowl_on_plate pack not materialized")
@@ -146,6 +151,7 @@ def _step(check, env, z):
     return check(env)
 
 
+@pytest.mark.e2e
 def test_lift_above_threshold(lift_env):
     env = lift_env
     env.reset(seed=0)
@@ -159,11 +165,13 @@ def test_lift_above_threshold(lift_env):
         assert check(env) is expect, f"cube z={cube_z} vs threshold {z}"
 
 
+@pytest.mark.e2e
 def test_unknown_pred_rejected():
     with pytest.raises(ValueError):
         make_checker({"pred": "definitely_not_a_pred"})
 
 
+@pytest.mark.e2e
 def test_axis_up_is_direction_sensitive():
     env = SimEnv("bowl_on_plate", seed=0)
     env.reset(seed=0, randomize_init=False)
@@ -186,6 +194,7 @@ def test_axis_up_is_direction_sensitive():
     assert up(env) is True
 
 
+@pytest.mark.e2e
 def test_gripper_open_fraction():
     env = SimEnv("bowl_on_plate", seed=0)
     env.reset(seed=0, randomize_init=False)
@@ -198,6 +207,7 @@ def test_gripper_open_fraction():
     assert check(env) is False
 
 
+@pytest.mark.e2e
 def test_hull_contains_xy_is_oriented():
     sq = np.array([[-1, -1], [1, -1], [1, 1], [-1, 1]], float)
     assert _hull_contains_xy(_footprint_hull(sq), (0.0, 0.0)) is True
@@ -213,6 +223,7 @@ def test_hull_contains_xy_is_oriented():
     assert _hull_contains_xy(_footprint_hull(np.array([[0, 0], [1, 1]], float)), (0.5, 0.5)) is False
 
 
+@pytest.mark.e2e
 def test_in_bbox_and_depth_in():
     env = SimEnv("bowl_on_plate", seed=0)
     env.reset(seed=0, randomize_init=False)
@@ -241,6 +252,7 @@ def test_in_bbox_and_depth_in():
     assert deep(env) is True
 
 
+@pytest.mark.e2e
 def test_sequence_requires_the_stages_in_order(lift_env):
     env = lift_env
     env.reset(seed=0)
@@ -253,6 +265,7 @@ def test_sequence_requires_the_stages_in_order(lift_env):
     assert _step(check, env, 0.83) is True
 
 
+@pytest.mark.e2e
 def test_sequence_rejects_the_end_state_alone(lift_env):
     env = lift_env
     env.reset(seed=0)
@@ -261,6 +274,7 @@ def test_sequence_rejects_the_end_state_alone(lift_env):
         assert _step(check, env, 0.83) is False
 
 
+@pytest.mark.e2e
 def test_sequence_resets_between_episodes(lift_env):
     env = lift_env
     env.reset(seed=0)
@@ -271,6 +285,7 @@ def test_sequence_resets_between_episodes(lift_env):
     assert _step(check, env, 0.83) is False
 
 
+@pytest.mark.e2e
 def test_sequence_invariant_kills_progress_for_good(lift_env):
     env = lift_env
     env.reset(seed=0)
@@ -291,6 +306,7 @@ def test_sequence_invariant_kills_progress_for_good(lift_env):
     assert _step(check, env, 0.83) is True
 
 
+@pytest.mark.e2e
 def test_sequence_advances_one_stage_per_step(lift_env):
     env = lift_env
     env.reset(seed=0)
@@ -302,6 +318,7 @@ def test_sequence_advances_one_stage_per_step(lift_env):
     assert _step(check, env, 0.83) is True
 
 
+@pytest.mark.e2e
 def test_sequence_stage_hold_requires_consecutive_steps(lift_env):
     env = lift_env
     env.reset(seed=0)
@@ -320,6 +337,7 @@ def test_sequence_stage_hold_requires_consecutive_steps(lift_env):
     assert _step(check, env, 0.83)
 
 
+@pytest.mark.e2e
 @pytest.mark.parametrize("hold", [0, -1, 1.5, True])
 def test_sequence_stage_hold_must_be_a_positive_integer(hold):
     with pytest.raises(ValueError, match="positive integer"):
@@ -328,6 +346,7 @@ def test_sequence_stage_hold_must_be_a_positive_integer(hold):
         ]})
 
 
+@pytest.mark.e2e
 def test_grading_state_rewinds_with_the_scene(lift_env):
     env = lift_env
     env.reset(seed=0)
@@ -339,6 +358,7 @@ def test_grading_state_rewinds_with_the_scene(lift_env):
     assert _step(env._check, env, 0.83) is False
 
 
+@pytest.mark.e2e
 def test_describe_state_rows_align_and_turn_true_on_the_solved_scene():
     from core.grade_episode import describe, describe_state
     env = SimEnv("bowl_on_plate", seed=0)
@@ -354,3 +374,58 @@ def test_describe_state_rows_align_and_turn_true_on_the_solved_scene():
         mujoco.mj_step(env.model, env.data)
     after = describe_state(spec, env)
     assert after[0] is True and all(v is True for v in after if v is not None)
+
+
+@pytest.fixture(scope='module')
+def model():
+    return load_scene(TASKS/'bowl_on_plate').compile()
+
+
+def hit(model, data, origin, direction, group):
+    mask = np.zeros(6, dtype=np.uint8)
+    mask[group] = 1
+    return mujoco.mj_ray(model, data, origin, direction, mask, True, -1,
+                         np.array([-1], dtype=np.int32))
+
+
+@pytest.mark.parametrize('stem,radius,height', [
+    ('akita_black_bowl_1', .05, .053), ('plate_1', .06, .017)])
+def test_visible_and_contact_surfaces_agree(model, stem, radius, height):
+    data = mujoco.MjData(model)
+    mujoco.mj_forward(model, data)
+    body = model.body(stem+'_main').id
+    groups, rgba = model.geom_group.copy(), model.geom_rgba.copy()
+    try:
+        model.geom_group[:] = 5
+        for gid in range(model.ngeom):
+            if model.geom_bodyid[gid] == body:
+                model.geom_group[gid] = 3 if model.geom_contype[gid] or model.geom_conaffinity[gid] else 1
+                model.geom_rgba[gid, 3] = 1
+        errors = []
+        # Top-down probes include the hollow bowl's floor and raised rim.
+        for angle in np.linspace(0, 2*np.pi, 16, endpoint=False):
+            direction = np.array([np.cos(angle), np.sin(angle), 0.])
+            for r in [0., radius*.3, radius*.6, radius*.9]:
+                origin = data.xpos[body]+r*direction+[0, 0, height+.03]
+                visual = hit(model, data, origin, np.array([0., 0., -1.]), 1)
+                contact = hit(model, data, origin, np.array([0., 0., -1.]), 3)
+                assert visual >= 0 and contact >= 0
+                errors.append(abs(visual-contact))
+        assert max(errors) < .0015, f'Max contact/visual offset: {max(errors)*1000:.3f} mm'
+        if stem.startswith('akita'):
+            origin = data.xpos[body]+[0, 0, height+.03]
+            floor_height = height+.03-hit(model, data, origin, np.array([0., 0., -1.]), 3)
+            assert floor_height < .015  # A hull across the rim would seal the bowl.
+    finally:
+        model.geom_group[:] = groups
+        model.geom_rgba[:] = rgba
+
+
+def test_original_mass_and_inertia_are_retained(model):
+    for stem, mass, inertia in [
+        ('akita_black_bowl_1', .15, [.00017951291555296712, .00011100656646446331, .0001097981178608972]),
+        ('plate_1', .030483259872438436, [6.499960924254833e-05, 3.380168298163339e-05, 3.19661970235976e-05]),
+    ]:
+        body = model.body(stem+'_main').id
+        np.testing.assert_allclose(model.body_mass[body], mass, rtol=1e-9)
+        np.testing.assert_allclose(model.body_inertia[body], inertia, rtol=1e-9)
