@@ -78,7 +78,10 @@ elif [ "$IS_CODEX" = 1 ]; then
     fi
     [ -x "$CODEX_DIR/codex-code-mode-host" ] \
         || { echo "agent_sandbox.sh: codex-code-mode-host missing beside codex" >&2; exit 2; }
-    [ "$MODE_CHECK" = 0 ] || CODEX_VERSION=$("$CODEX_DIR/codex" --version)
+    if [ "$MODE_CHECK" = 1 ]; then
+        ROBOARCADE_CODEX_VERSION=$("$CODEX_DIR/codex" --version)
+        export ROBOARCADE_CODEX_VERSION
+    fi
     AGENT_BIND=(--ro-bind "$CODEX_DIR/codex" /opt/roboarcade/bin/codex
                 --ro-bind "$CODEX_DIR/codex-code-mode-host" /opt/roboarcade/bin/codex-code-mode-host)
 elif CLAUDE_BIN=$(command -v claude); then
@@ -128,7 +131,6 @@ if [ "$IS_AGY" = 1 ]; then
     API_HOST=generativelanguage.googleapis.com
 elif [ "$IS_CODEX" = 1 ]; then
     export ROBOARCADE_EGRESS_HOSTS=chatgpt.com,auth.openai.com,api.openai.com
-    [ "$MODE_CHECK" = 0 ] || export ROBOARCADE_CODEX_VERSION="$CODEX_VERSION"
     API_HOST=chatgpt.com
 else
     export CLAUDE_CONFIG_DIR="$CLAUDE_CFG" ROBOARCADE_EGRESS_HOSTS=api.anthropic.com,platform.claude.com

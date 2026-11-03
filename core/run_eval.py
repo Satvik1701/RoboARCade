@@ -30,7 +30,7 @@ from pathlib import Path
 import numpy as np
 
 from core.agent_sandbox import AUTO_COMPACT_WINDOW, MODEL_IDS, REPO_ROOT, model_runtime, require_codex_home
-from core.accounts import PLAN_5H_TOKENS, PLAN_7D_TOKENS, pick_plan
+from core.accounts import PLAN_5H_TOKENS, PLAN_7D_TOKENS, pick_plan, codex_api_home, require_api_key
 from core.tasks import resolve_task
 from core.publish_episode import publish as publish_episode
 from core import run_seed
@@ -311,7 +311,7 @@ def main() -> None:
     parser.add_argument("--plan", default=None, metavar="NAME",
                         help="bill a subscription login from secrets/<runtime>_plans.txt: "
                              "a name, or auto for the plan with the most room in its rate "
-                             "windows; otherwise Claude uses ANTHROPIC_API_KEY or its key file")
+                             "windows; API-key billing is the default")
     parser.add_argument("--no-video", action="store_true",
                         help="skip the default post-seed Blender replay. Replays never run "
                              "while another seed stack is live.")
@@ -365,7 +365,11 @@ def main() -> None:
         parser.error(f"interface {args.interface!r} is bimanual but {exp.task!r} is a one-arm pack")
     out_dir = latest_run_dir(exp) if args.print_results else run_dir_for(exp)
     if not args.print_results and model_runtime(exp.model) == "codex":
+        if not exp.plan:
+            exp = dataclasses.replace(exp, plan_dir=codex_api_home())
         require_codex_home(exp.plan_dir)
+    if not args.print_results and model_runtime(exp.model) == "claude" and not exp.plan:
+        require_api_key("claude")
     seeds = [exp.seed_start + i for i in range(exp.n_seeds)]
     ports = [exp.base_port + i * PORT_STRIDE for i in range(exp.n_seeds)]
     if not args.print_results:

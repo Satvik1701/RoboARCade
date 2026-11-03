@@ -1,44 +1,53 @@
 # RoboARCade
 
-A benchmark of 22 long-horizon manipulation tasks in which general agents (Claude Code, Codex) control simulated
+A benchmark of 22 long-horizon manipulation tasks in which general agents (Claude Code, Codex, Antigravity) control simulated
 robot arms through tools. Videos and full traces of every episode: [roboarcade.org](https://roboarcade.org).
 
 ## Quickstart: Multi-view RGBD
 
-Multi-view RGBD is the default interface for both single-arm and two-arm tasks.
-This quick start uses a Claude API key and MuJoCo camera rendering; no browser or Blender installation is needed.
-
-You need Linux with an EGL-capable GPU driver, [uv](https://docs.astral.sh/uv/), and
-[bubblewrap](docs/SANDBOX.md) (`sudo apt install bubblewrap`). The sandbox requires
-`unshare -Urn true` to succeed.
-
-**Install once:**
+Multi-view RGBD is the default interface for all supported model runtimes and both
+single-arm and two-arm tasks. You need Linux x86_64 with an EGL-capable GPU driver,
+Git, and curl. Setup installs missing system packages through apt/sudo when needed;
+the sandbox requires unprivileged user namespaces.
 
 ```bash
 git clone https://github.com/Satvik1701/RoboARCade.git roboarcade
 cd roboarcade
-uv sync
-source set_env.sh
-curl -fsSL https://claude.ai/install.sh | bash   # skip if claude is already installed
-export PATH="$HOME/.local/bin:$PATH"
+mkdir -p secrets
 ```
 
-**Set your keys, download the assets, and run:**
+Put your HF token and your model provider's API key in these files (plain text, one
+key per file). Only one model key is needed; you can add others later.
+
+| Key | File |
+|---|---|
+| Hugging Face | `secrets/hf_key.txt` |
+| Anthropic / Claude | `secrets/anthropic_key.txt` |
+| OpenAI / GPT | `secrets/openai_key.txt` |
+| Google / Gemini | `secrets/gemini_key.txt` |
+
+Then run one setup script:
 
 ```bash
-export ANTHROPIC_API_KEY="your-model-api-key"
-export HF_TOKEN="your-hugging-face-read-token"
-python scripts/sync_assets.py pull
-python -m core.run_eval --task bowl_on_plate --seeds 1 --render mujoco --no-video
+bash scripts/setup.sh
 ```
 
-This runs Claude Opus 5 with Multi-view RGBD in the sandbox, records the rollout, and grades it.
-The asset download is needed once; in a new shell, run `source set_env.sh` and set your model key again.
-`--no-video` skips the extra Blender replay. For the paper's renderer, see [Blender rendering](#blender-rendering).
+It installs Python dependencies and the agent runtimes for the keys you supplied,
+configures API-key authentication, and downloads the finished HF assets. `secrets/`
+is gitignored. No subscription login is needed. Rerun setup after adding another
+provider key.
 
-Change `--task` to another folder under `tasks/`, or add `--model` to select a model.
-For OpenAI API keys and subscription plans, see [Accounts](docs/ACCOUNTS.md);
-for Gemini, see [Antigravity setup](docs/antigravity.md).
+Start testing with a model ID your API key can access:
+
+```bash
+source set_env.sh
+python -m core.run_eval --task bowl_on_plate --model MODEL_ID --seeds 1 --render mujoco --no-video
+```
+
+Replace `MODEL_ID` with your Claude, GPT, or Gemini model ID. Change `--task` to
+another folder under `tasks/`. This uses MuJoCo camera rendering, records and grades
+the rollout, and skips the extra Blender video replay. No browser or Blender is
+needed. API-key billing is the default; [subscription plans](docs/ACCOUNTS.md) are optional.
 
 To view runs, transcripts, recordings, and grades:
 
@@ -48,17 +57,16 @@ python -m dashboard                       # http://localhost:8400
 
 ## Testing VIA
 
-VIA additionally needs Chromium and its Linux system libraries. Install them with
-[Playwright](https://playwright.dev/python/docs/browsers#install-system-dependencies)
-(the system-library step may require sudo), then select the VIA interface:
+VIA additionally needs Chromium and its Linux system libraries. The same setup
+script installs them with `--via` (system packages may require sudo):
 
 ```bash
-python -m playwright install --with-deps chromium
-python -m core.run_eval --task bowl_on_plate --interface via_cam --seeds 1 --render mujoco --no-video
+bash scripts/setup.sh --via
+source set_env.sh
+python -m core.run_eval --task bowl_on_plate --model MODEL_ID --interface via_cam --seeds 1 --render mujoco --no-video
 ```
 
-For two-arm tasks, use `--interface via_bimanual_cam`, for example with `--task bottles_in_bin`.
-VIA runs headlessly and uses the same keys, assets, and sandbox as Multi-view RGBD.
+For two-arm tasks, use `--interface via_bimanual_cam`. The keys and sandbox are the same.
 
 ## Blender rendering
 
@@ -69,7 +77,7 @@ mkdir -p tools
 curl -L https://download.blender.org/release/Blender4.5/blender-4.5.12-linux-x64.tar.xz | tar -xJ -C tools
 tools/blender-4.5.12-linux-x64/4.5/python/bin/python3.11 -m pip install --target tools/blender-py --no-deps \
     mujoco==3.10.0 pillow typing_extensions etils absl-py glfw
-python -m core.run_eval --task bowl_on_plate --seeds 1
+python -m core.run_eval --task bowl_on_plate --model MODEL_ID --seeds 1
 ```
 
 Blender remains the default renderer when `--render` is omitted. It works with either interface.

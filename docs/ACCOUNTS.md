@@ -1,30 +1,30 @@
 # Accounts
 
-Every evaluation bills one account, decided once per run so every seed bills the same way: a subscription plan
-named with `--plan`, or else `ANTHROPIC_API_KEY`, falling back to `secrets/anthropic_key.txt`
-(another file path through `ROBOARCADE_KEY_FILE`). With neither, a sandboxed Claude run cannot start: the sandbox never mounts a personal
-login. The code is `core/accounts.py`; the sandbox side is `core/agent_sandbox/config_mounts.sh`.
+API-key billing is the default for all supported runtimes. Add your provider key
+and HF token under `secrets/` and run `bash scripts/setup.sh`; see the
+[quick start](../README.md#quickstart-multi-view-rgbd). Only runtimes with a supplied
+key are installed. Gemini uses the isolated Antigravity SDK environment.
 
-## API keys
+| Runtime | Key file | Optional environment override |
+|---|---|---|
+| Claude | `secrets/anthropic_key.txt` | `ANTHROPIC_API_KEY` |
+| Codex | `secrets/openai_key.txt` | `OPENAI_API_KEY` |
+| Antigravity | `secrets/gemini_key.txt` | `GEMINI_API_KEY` |
+| HF asset downloads | `secrets/hf_key.txt` | `HF_TOKEN` |
 
-Claude needs the native [Claude Code CLI](https://code.claude.com/docs/en/setup) and
-`ANTHROPIC_API_KEY`. No subscription login is required. An explicit `--plan` takes
-precedence over the environment key; the key file is used only when the environment key is empty.
+Nonempty environment keys take precedence over files. Custom file paths use
+`ROBOARCADE_KEY_FILE`, `ROBOARCADE_OPENAI_KEY_FILE`, `ROBOARCADE_GEMINI_KEY_FILE`,
+and `ROBOARCADE_HF_KEY_FILE`, respectively.
 
-For GPT models, install Codex and register an API-key login once:
+Codex API credentials are provisioned noninteractively using
+[`codex login --with-api-key`](https://developers.openai.com/codex/auth/), in a
+dedicated `secrets/codex_api/store/` directory. Each seed gets private runtime state;
+personal CLI settings and logins are never used. Key rotation is picked up on the
+next evaluation. Gemini's backend details are in [Antigravity](antigravity.md).
 
-```bash
-npm install -g @openai/codex
-export OPENAI_API_KEY="your-openai-api-key"
-mkdir -p secrets/codex_auth/openai/store
-printenv OPENAI_API_KEY | CODEX_HOME=secrets/codex_auth/openai/store codex login --with-api-key
-python -m core.accounts login codex openai
-python -m core.run_eval --task bowl_on_plate --model gpt-6-astra --plan openai --seeds 1 --render mujoco --no-video
-```
-
-This uses API-key billing even though the credential store is selected with `--plan`.
-The `secrets/` directory is gitignored. Gemini setup is documented in
-[Antigravity](antigravity.md).
+An explicit `--plan NAME` selects a registered Claude or Codex subscription instead
+of API-key billing. Without `--plan`, a missing provider key stops the run before
+starting the simulator. API-key runs do not use subscription rate meters.
 
 ## Plans
 
