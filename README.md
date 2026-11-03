@@ -9,13 +9,16 @@ See results, videos, and full traces at [roboarcade.org](https://roboarcade.org)
 Requires Linux x86_64, an EGL-capable GPU driver, Git, and curl. Setup may use sudo
 for system packages; the sandbox needs unprivileged user namespaces.
 
+**1. Clone the repository.**
+
 ```bash
 git clone https://github.com/Satvik1701/RoboARCade.git roboarcade
 cd roboarcade
 mkdir -p secrets
 ```
 
-Save your HF token and **one provider API key** as plain text:
+**2. Add your keys.** Save a Hugging Face token and **one provider API key** as
+plain text in the files below. The `secrets/` folder is gitignored.
 
 | Key | File |
 |---|---|
@@ -24,23 +27,24 @@ Save your HF token and **one provider API key** as plain text:
 | OpenAI | `secrets/openai_key.txt` |
 | Gemini | `secrets/gemini_key.txt` |
 
+**3. Set up and run.** Replace `MODEL_ID` with a model your key can access.
+Setup installs Blender, Python dependencies, the required agent runtime, and assets.
+
 ```bash
 bash scripts/setup.sh
 source set_env.sh
 python -m core.run_eval --model MODEL_ID --seeds 1
 ```
 
-Replace `MODEL_ID` with a model your key can access. Setup installs Blender,
-Python dependencies, the required agent runtimes, and HF assets. Keys stay in the
-gitignored `secrets/` folder.
-
 Defaults: **tidy_counter · Multi-view RGBD · Blender · API billing**.
 Use `--task TASK` to choose another task. Runs are recorded, graded, and rendered;
 `python -m dashboard` opens the dashboard at `http://localhost:8400`.
 
-## Testing VIA
+### Testing VIA
 
-Install Chromium and its system libraries, then select VIA:
+[VIA (Visual Interface Agent)](https://via.hengyuanhu.com/) provides a visual
+interface for robot control. After Quickstart, install its additional Chromium
+dependencies and select VIA:
 
 ```bash
 bash scripts/setup.sh --via
@@ -50,7 +54,7 @@ python -m core.run_eval --model MODEL_ID --interface via_cam --seeds 1
 
 Use `via_bimanual_cam` for two-arm tasks. The keys and sandbox are the same.
 
-## Prototyping with a plan
+### Prototyping with a plan
 
 For a Claude or Codex subscription, only the HF key is required. Replace `RUNTIME`
 with `claude` or `codex`, then sign in when prompted:
@@ -66,7 +70,7 @@ Credentials are isolated from personal CLI history and settings. See
 [Accounts](docs/ACCOUNTS.md) for multiple plans and rate-limit behavior, including
 Claude's fallback to an available API key. Add `--via` to setup if needed.
 
-## Assets and docs
+### Assets and docs
 
 Setup downloads finished [HF assets](https://huggingface.co/datasets/roboarcade/roboarcade-assets);
 it never rebuilds collision meshes. For a faster MuJoCo-only test, add
@@ -74,7 +78,7 @@ it never rebuilds collision meshes. For a faster MuJoCo-only test, add
 
 [Tasks](tasks/README.md) · [Accounts](docs/ACCOUNTS.md) · [Sandbox](docs/SANDBOX.md) · [Gemini](docs/antigravity.md)
 
-### Asset credits
+#### Asset credits
 
 The meshes, textures and robot models in [`roboarcade/roboarcade-assets`](https://huggingface.co/datasets/roboarcade/roboarcade-assets)
 come from these projects. We thank their authors; each project's own license and terms apply to its files.
