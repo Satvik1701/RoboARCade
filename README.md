@@ -3,87 +3,80 @@
 A benchmark of 22 long-horizon manipulation tasks in which general agents (Claude Code, Codex) control simulated
 robot arms through tools. Videos and full traces of every episode: [roboarcade.org](https://roboarcade.org).
 
-## Quickstart
+## Quickstart: Multi-view RGBD
 
-You need Linux with an EGL-capable GPU driver, [uv](https://docs.astral.sh/uv/), Node.js (only to install the agent
-CLIs below), and bubblewrap: every agent runs in a sandbox ([`docs/SANDBOX.md`](docs/SANDBOX.md)). Install it with
-`sudo apt install bubblewrap`, or without sudo point `ROBOARCADE_BWRAP` at a `bwrap` binary; either way
-`unshare -Urn true` must succeed.
+Multi-view RGBD is the default interface for both single-arm and two-arm tasks.
+This quick start uses a Claude API key and MuJoCo camera rendering; no browser or Blender installation is needed.
 
-**1. Install**
+You need Linux with an EGL-capable GPU driver, [uv](https://docs.astral.sh/uv/), and
+[bubblewrap](docs/SANDBOX.md) (`sudo apt install bubblewrap`). The sandbox requires
+`unshare -Urn true` to succeed.
 
-```bash
-git clone https://github.com/Satvik1701/RoboARCade.git roboarcade && cd roboarcade
-uv sync                                   # dependencies into .venv
-source set_env.sh                         # in every new shell
-python -m playwright install chromium     # the browser the agent's interface runs in
-```
-
-**2. Assets and Blender**
+**Install once:**
 
 ```bash
-python scripts/sync_assets.py pull        # task meshes and textures from Hugging Face, about 1.3 GB
-mkdir -p tools && curl -L https://download.blender.org/release/Blender4.5/blender-4.5.12-linux-x64.tar.xz | tar -xJ -C tools
-tools/blender-4.5.12-linux-x64/4.5/python/bin/python3.11 -m pip install --target tools/blender-py --no-deps \
-    mujoco==3.10.0 pillow typing_extensions etils absl-py glfw
+git clone https://github.com/Satvik1701/RoboARCade.git roboarcade
+cd roboarcade
+uv sync
+source set_env.sh
+curl -fsSL https://claude.ai/install.sh | bash   # skip if claude is already installed
+export PATH="$HOME/.local/bin:$PATH"
 ```
 
-The GitHub task scenes define the final collision geometry. The HF download supplies
-the finished meshes, textures, robot models and reachability grids. Pulling these assets
-is sufficient: installation and evaluation never rebuild or rewrite them.
-
-Blender renders the agent's camera feeds and the episode video, as in the paper.
-
-**3. Credentials: an Anthropic, OpenAI, or Gemini API key, or your plan**
-
-Claude models run through Claude Code and GPT models through Codex. Install the one you will use, unless `claude`
-or `codex` is already on your PATH:
+**Set your keys, download the assets, and run:**
 
 ```bash
-npm install -g @anthropic-ai/claude-code   # Claude
-npm install -g @openai/codex               # GPT
+export ANTHROPIC_API_KEY="your-model-api-key"
+export HF_TOKEN="your-hugging-face-read-token"
+python scripts/sync_assets.py pull
+python -m core.run_eval --task bowl_on_plate --seeds 1 --render mujoco --no-video
 ```
 
-| You have | Do once | Then add to the run |
-|---|---|---|
-| Anthropic API key | `mkdir -p secrets && echo "sk-ant-..." > secrets/anthropic_key.txt` | nothing |
-| OpenAI API key | the three lines below | `--model gpt-6-astra --plan openai` |
-| Claude plan | `python -m core.accounts login claude NAME` | `--plan NAME` |
-| ChatGPT plan | `python -m core.accounts login codex NAME` | `--model gpt-6-astra --plan NAME` |
+This runs Claude Opus 5 with Multi-view RGBD in the sandbox, records the rollout, and grades it.
+The asset download is needed once; in a new shell, run `source set_env.sh` and set your model key again.
+`--no-video` skips the extra Blender replay. For the paper's renderer, see [Blender rendering](#blender-rendering).
 
-```bash
-mkdir -p secrets/codex_auth/openai/store
-printenv OPENAI_API_KEY | CODEX_HOME=secrets/codex_auth/openai/store codex login --with-api-key
-python -m core.accounts login codex openai
-```
+Change `--task` to another folder under `tasks/`, or add `--model` to select a model.
+For OpenAI API keys and subscription plans, see [Accounts](docs/ACCOUNTS.md);
+for Gemini, see [Antigravity setup](docs/antigravity.md).
 
-Gemini models run through the native Antigravity `agy` CLI. For `gemini-4-argon`,
-put your API key in `secrets/gemini_key.txt` and add `--model gemini-4-argon`.
-See [Antigravity setup and smoke tests](docs/antigravity.md) for installation and sandbox details.
-
-Everything goes under `secrets/`, which is gitignored. More in [`docs/ACCOUNTS.md`](docs/ACCOUNTS.md).
-
-**4. Run one seed**
-
-```bash
-python -m core.run_eval --task bowl_on_plate --seeds 1     # Claude Opus 5 on your Anthropic key
-```
-
-Add the options from the table for another credential. One seed takes about 20 to 30 minutes; on an API key it costs
-a few dollars (our test runs cost $7 to $8). `--model` takes `opus`, `sonnet`, `haiku`, `fable` or a GPT
-model name such as `gpt-6-astra`.
-
-**5. Watch it**
+To view runs, transcripts, recordings, and grades:
 
 ```bash
 python -m dashboard                       # http://localhost:8400
 ```
 
-The dashboard lists the episode with its video, the agent's transcript and screenshots, and the grade.
+## Testing VIA
 
-Also: `python -m core.sim_env_server --task bowl_on_plate --teleop` drives a task yourself in the browser, and
-`--render mujoco --no-video` runs a seed without Blender. Task packs are the folders under `tasks/`; their meshes and
-textures are the Hugging Face dataset [`roboarcade/roboarcade-assets`](https://huggingface.co/datasets/roboarcade/roboarcade-assets).
+VIA additionally needs Chromium and its Linux system libraries. Install them with
+[Playwright](https://playwright.dev/python/docs/browsers#install-system-dependencies)
+(the system-library step may require sudo), then select the VIA interface:
+
+```bash
+python -m playwright install --with-deps chromium
+python -m core.run_eval --task bowl_on_plate --interface via_cam --seeds 1 --render mujoco --no-video
+```
+
+For two-arm tasks, use `--interface via_bimanual_cam`, for example with `--task bottles_in_bin`.
+VIA runs headlessly and uses the same keys, assets, and sandbox as Multi-view RGBD.
+
+## Blender rendering
+
+The paper's evaluations use Blender for camera feeds and replay videos. Install it once:
+
+```bash
+mkdir -p tools
+curl -L https://download.blender.org/release/Blender4.5/blender-4.5.12-linux-x64.tar.xz | tar -xJ -C tools
+tools/blender-4.5.12-linux-x64/4.5/python/bin/python3.11 -m pip install --target tools/blender-py --no-deps \
+    mujoco==3.10.0 pillow typing_extensions etils absl-py glfw
+python -m core.run_eval --task bowl_on_plate --seeds 1
+```
+
+Blender remains the default renderer when `--render` is omitted. It works with either interface.
+The GitHub task scenes define the final collision geometry; the
+[Hugging Face assets](https://huggingface.co/datasets/roboarcade/roboarcade-assets)
+supply the finished meshes, textures, robot models, and reachability grids.
+Installation and evaluation never rebuild or rewrite these assets.
 
 ### Asset credits
 

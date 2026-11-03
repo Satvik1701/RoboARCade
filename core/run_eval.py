@@ -1,12 +1,12 @@
 """Eval launcher: one task, N seeds.
 
 Each seed is an isolated stack on its own ROBOARCADE_BASE_PORT: launch sim_env_server, launch a
-sandboxed agent whose MCP server attaches to that seed's browser, wait for the verdict.
+sandboxed agent whose MCP server attaches to that seed's interface, wait for the verdict.
 
     python -m core.run_eval --task bowl_on_plate --seeds 5 -j 4          # 4 seeds at a time
     python -m core.run_eval --task bowl_on_plate --run-dir DIR --print-results   # verdicts on disk only
 
---interface names the package under evaluation (via_cam, via_bimanual_cam, or an interface
+--interface names the package under evaluation (rgbd_waypoint by default, via_cam, via_bimanual_cam, or an interface
 development artifact path); its guide.md is appended to the system prompt.
 """
 from __future__ import annotations
@@ -274,8 +274,8 @@ def main() -> None:
     parser.add_argument("-j", "--max-parallel", type=int, default=1)
     parser.add_argument(
         "--interface",
-        default="via_cam",
-        help="interface package under evaluation: a shipped name (via_cam, via_bimanual_cam) or a "
+        default="rgbd_waypoint",
+        help="interface package under evaluation: rgbd_waypoint (default), via_cam, via_bimanual_cam, or a "
         "path to a package dir with tools.py (+ optional guide.md).",
     )
     parser.add_argument("--print-results", action="store_true", help="no run; print the summary of --run-dir.")
@@ -311,7 +311,7 @@ def main() -> None:
     parser.add_argument("--plan", default=None, metavar="NAME",
                         help="bill a subscription login from secrets/<runtime>_plans.txt: "
                              "a name, or auto for the plan with the most room in its rate "
-                             "windows; without it the API key file decides")
+                             "windows; otherwise Claude uses ANTHROPIC_API_KEY or its key file")
     parser.add_argument("--no-video", action="store_true",
                         help="skip the default post-seed Blender replay. Replays never run "
                              "while another seed stack is live.")

@@ -35,6 +35,9 @@ PLAN_7D_TOKENS = 45_000_000
 def choose_auth(plan: str | None = None) -> dict:
     if plan:
         return {"auth": "plan", "reason": f"plan {plan}"}
+    key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+    if key:
+        return {"auth": "api_key", "reason": "ANTHROPIC_API_KEY", "key": key}
     path = os.environ.get("ROBOARCADE_KEY_FILE") or KEY_FILE
     try:
         key = pathlib.Path(path).read_text().strip()
