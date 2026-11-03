@@ -25,7 +25,8 @@ from datetime import datetime
 from core import antigravity
 from core.agent_log import (agent_metrics, api_stalled, auth_failed, codex_metrics, codex_session_file, codex_session_id, condense,
                                condense_codex, mcp_toolless, mcp_ui_unattached, plan_limited, session_started)
-from core.accounts import PLAN_FULL, apply_auth, choose_auth, codex_plan_with_room, repoint_codex_login, seed_auth
+from core.accounts import (PLAN_FULL, apply_auth, choose_auth, codex_plan_with_room,
+                           repoint_codex_login, seed_auth, api_key, codex_api_home)
 from core.agent_sandbox import (AUTO_COMPACT_WINDOW, CODEX_AUTO_COMPACT_WINDOW, DISALLOWED_TOOLS, PRECOMPACT_PROMPT,
                                    REPO_ROOT, build_agent_cmd, build_codex_cmd, codex_agents_md, codex_seed_home, model_runtime,
                                    require_codex_home)
@@ -498,7 +499,7 @@ def drive_agent(exp, tag, prompt, claude_log, env, instruct_files, tools, sim, d
             futile_attempts = 0
         if (runtime == "claude" and exp.plan and "ANTHROPIC_API_KEY" not in env
                 and plan_limited(runtime, claude_log, session, exp.plan_dir)):
-            key = choose_auth()
+            key = choose_auth() if api_key("claude") else {"auth": "plan"}
             if key["auth"] == "api_key":
                 apply_auth(env, key)
                 result["auth"] = {"auth": "api_key",
@@ -656,7 +657,8 @@ def run_seed(
 
     env = dict(os.environ)
     for key in ("ROBOARCADE_RENDER_GROUP_SOCKET", "ROBOARCADE_RENDER_GROUP_SEED",
-                "ROBOARCADE_RENDER_GROUP_TOKEN", "ROBOARCADE_RENDER_OWNER_PID"):
+                "ROBOARCADE_RENDER_GROUP_TOKEN", "ROBOARCADE_RENDER_OWNER_PID",
+                "ANTHROPIC_API_KEY", "OPENAI_API_KEY", "GEMINI_API_KEY", "HF_TOKEN"):
         env.pop(key, None)
     env["ROBOARCADE_BASE_PORT"] = str(base_port)
     env["ROBOARCADE_INTERFACE"] = interface
@@ -670,8 +672,9 @@ def run_seed(
         env["GEMINI_API_KEY"] = antigravity.api_key()
         auth = {"auth": "api_key", "reason": "Gemini API via Antigravity " + antigravity.backend()}
     elif runtime == "codex":
-        env.pop("OPENAI_API_KEY", None)
         plan_dir = exp.plan_dir
+        if not exp.plan and not plan_dir:
+            plan_dir = codex_api_home()
         if exp.plan:
             pick = wait_for_codex_room(exp, tag)
             if pick is None:
@@ -679,8 +682,8 @@ def run_seed(
                 return result
             plan_dir = pick[1]
         env["CODEX_HOME"] = codex_seed_home(tag, plan_dir)
-        auth = {"auth": "plan",
-                "reason": f"ChatGPT auth at {require_codex_home(plan_dir)}/auth.json"}
+        auth = {"auth": "plan" if exp.plan else "api_key",
+                "reason": f"Codex auth at {require_codex_home(plan_dir)}/auth.json"}
     else:
         auth = seed_auth(exp)
         apply_auth(env, auth)
@@ -695,7 +698,8 @@ def run_seed(
                 if SHUTDOWN.is_set():
                     return {**result, "status": "skipped", "success": None}
                 sim_env = dict(env)
-                sim_env.pop("GEMINI_API_KEY", None)
+                for key in ("GEMINI_API_KEY", "ANTHROPIC_API_KEY", "OPENAI_API_KEY", "HF_TOKEN"):
+                    sim_env.pop(key, None)
                 if render_group:
                     sim_env.update(render_group.environment(seed))
                     result["render_group"] = {"id": render_group.id, "seeds": render_group.seeds}
@@ -753,6 +757,7 @@ def run_seed(
                                                result.get("session_id"), exp.model,
                                                time.time() - t0))
             if runtime == "codex":
+                result["metrics"]["billed_to"] = result["auth"]["auth"]
                 session_file = codex_session_file(env["CODEX_HOME"], result.get("session_id"))
                 if session_file:
                     shutil.copy(session_file, os.path.join(demo_folder, "codex_session.jsonl"))

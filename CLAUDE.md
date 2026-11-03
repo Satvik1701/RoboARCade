@@ -102,7 +102,8 @@ Simple, minimal, no AI bloat. Concretely:
 
 ## Repo orientation
 
-This guide documents the **default (via-cam) interface**; the docs site is built by `docs/build.py`. Tasks are the
+This guide documents the optional **VIA (via_cam) interface**. Evaluations default to
+**Multi-view RGBD** (`interfaces/rgbd_waypoint/guide.md`); the docs site is built by `docs/build.py`. Tasks are the
 folders under `tasks/` (one per task: task.json, scene.xml, manifest.json, grade.py, test.py, and dynamics.py when
 the scene moves by itself) loaded by
 `core/sim_env.py`, with the meshes under `assets/`. The predicate language is `core/grade_episode.py`;

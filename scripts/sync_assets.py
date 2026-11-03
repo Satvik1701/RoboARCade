@@ -8,7 +8,7 @@ scene.xml, manifest.json, rubric, test) are in git under tasks/.
   push — scan that closure, tar each folder's part of it, upload one archive per folder
   pull — download the archives and extract into assets/ (what a fresh clone runs)
 
-Pull needs no login. Push needs a token that can write the dataset: `hf auth login`, or set HF_TOKEN.
+Reads secrets/hf_key.txt or HF_TOKEN. Public pulls also work anonymously; pushes need write access.
 """
 import argparse
 import subprocess
@@ -21,6 +21,7 @@ from huggingface_hub import HfApi, snapshot_download
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from core.tasks import ASSETS, TASKS, asset_dir, load_scene   # noqa: E402
+from core.accounts import api_key
 
 REPO = "roboarcade/roboarcade-assets"
 
@@ -48,7 +49,7 @@ ap.add_argument("cmd", choices=["push", "pull"])
 if ap.parse_args().cmd == "push":
     files = runtime_files()
     print(f"{len(files)} runtime files, {sum((ASSETS / f).stat().st_size for f in files) / 1e6:.0f} MB", flush=True)
-    api = HfApi()
+    api = HfApi(token=api_key("hf") or None)
     api.create_repo(REPO, repo_type="dataset", private=True, exist_ok=True)
     stage = ASSETS / ".cache"
     stage.mkdir(exist_ok=True)
@@ -61,7 +62,7 @@ if ap.parse_args().cmd == "push":
             api.upload_file(path_or_fileobj=tar, path_in_repo=tar.name, repo_id=REPO, repo_type="dataset")
         print(f"pushed {top}", flush=True)
 else:
-    snap = snapshot_download(REPO, repo_type="dataset")
+    snap = snapshot_download(REPO, repo_type="dataset", token=api_key("hf") or None)
     for tar in sorted(Path(snap).glob("*.tar.gz")):
         print(f"extracting {tar.name}", flush=True)
         tarfile.open(tar).extractall(ASSETS, filter="data")

@@ -17,7 +17,12 @@ from core.agent_sandbox import ISOLATED_SCRIPT, REPO_ROOT, codex_seed_home, code
 
 logger = logging.getLogger(__name__)
 
-KEY_FILE = "secrets/anthropic_key.txt"
+KEY_SOURCES = {
+    "claude": ("ANTHROPIC_API_KEY", "anthropic_key.txt", "ROBOARCADE_KEY_FILE"),
+    "codex": ("OPENAI_API_KEY", "openai_key.txt", "ROBOARCADE_OPENAI_KEY_FILE"),
+    "antigravity": ("GEMINI_API_KEY", "gemini_key.txt", "ROBOARCADE_GEMINI_KEY_FILE"),
+    "hf": ("HF_TOKEN", "hf_key.txt", "ROBOARCADE_HF_KEY_FILE"),
+}
 
 PLANS_FILE = {"claude": "secrets/claude_plans.txt", "codex": "secrets/codex_plans.txt"}
 
@@ -32,17 +37,45 @@ PLAN_5H_TOKENS = 6_500_000
 PLAN_7D_TOKENS = 45_000_000
 
 
+def api_key(runtime: str) -> str:
+    variable, filename, override = KEY_SOURCES[runtime]
+    key = os.environ.get(variable, "").strip()
+    if key:
+        return key
+    path = pathlib.Path(os.environ.get(override) or os.path.join(REPO_ROOT, "secrets", filename))
+    return path.read_text().strip() if path.is_file() else ""
+
+
+def require_api_key(runtime: str) -> str:
+    key = api_key(runtime)
+    if not key:
+        variable, filename, _ = KEY_SOURCES[runtime]
+        raise RuntimeError(f"Add secrets/{filename} or set {variable}")
+    return key
+
+
 def choose_auth(plan: str | None = None) -> dict:
     if plan:
         return {"auth": "plan", "reason": f"plan {plan}"}
-    path = os.environ.get("ROBOARCADE_KEY_FILE") or KEY_FILE
-    try:
-        key = pathlib.Path(path).read_text().strip()
-    except OSError:
-        key = ""
-    if not key:
-        return {"auth": "plan", "reason": f"no key at {path}"}
-    return {"auth": "api_key", "reason": f"key at {path}", "key": key}
+    return {"auth": "api_key", "reason": "Anthropic API key", "key": require_api_key("claude")}
+
+
+def codex_api_home() -> str:
+    key = require_api_key("codex")
+    root = pathlib.Path(REPO_ROOT, "secrets", "codex_api")
+    store = root / "store"
+    store.mkdir(parents=True, mode=0o700, exist_ok=True)
+    auth = store / "auth.json"
+    if not auth.is_file() or json.loads(auth.read_text()).get("OPENAI_API_KEY") != key:
+        with tempfile.TemporaryDirectory(prefix="roboarcade_api_login_") as temp:
+            subprocess.run(["codex", "-c", 'cli_auth_credentials_store="file"', "login", "--with-api-key"],
+                           input=key + "\n", text=True, check=True, timeout=60,
+                           env={**os.environ, "CODEX_HOME": temp}, stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL)
+            with tempfile.NamedTemporaryFile(dir=root, delete=False) as staged:
+                staged.write(pathlib.Path(temp, "auth.json").read_bytes())
+            os.replace(staged.name, auth)
+    return str(store)
 
 
 def apply_auth(env: dict, decision: dict) -> dict:
@@ -165,7 +198,7 @@ def repoint_codex_login(home: str, plan_dir: str) -> None:
 def seed_auth(exp) -> dict:
     auth = choose_auth(exp.plan)
     if exp.plan and (plan_meter("claude", exp.plan_dir) or 0) >= 100:
-        key = choose_auth()
+        key = choose_auth() if api_key("claude") else {"auth": "plan"}
         if key["auth"] == "api_key":
             key["reason"] = f"plan {exp.plan} window full; " + key["reason"]
             return key

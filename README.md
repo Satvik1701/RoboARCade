@@ -1,91 +1,90 @@
-# RoboARCade
+<p align="center">
+  <a href="https://roboarcade.org"><img src="docs/images/roboarcade-logo.svg" alt="RoboARCade" width="640"></a>
+</p>
 
-A benchmark of 22 long-horizon manipulation tasks in which general agents (Claude Code, Codex) control simulated
-robot arms through tools. Videos and full traces of every episode: [roboarcade.org](https://roboarcade.org).
+See results, videos, and full traces at [roboarcade.org](https://roboarcade.org).
 
 ## Quickstart
 
-You need Linux with an EGL-capable GPU driver, [uv](https://docs.astral.sh/uv/), Node.js (only to install the agent
-CLIs below), and bubblewrap: every agent runs in a sandbox ([`docs/SANDBOX.md`](docs/SANDBOX.md)). Install it with
-`sudo apt install bubblewrap`, or without sudo point `ROBOARCADE_BWRAP` at a `bwrap` binary; either way
-`unshare -Urn true` must succeed.
+Requires Linux x86_64, an EGL-capable GPU driver, Git, curl, xz, and Bubblewrap
+with permission to create user namespaces. **Setup runs without sudo**; missing
+host prerequisites must be provided by your administrator. Installing the Codex
+runtime also requires Node.js and npm if Codex is not already installed.
+Bubblewrap may not be installed by default; check with `command -v bwrap`.
 
-**1. Install**
-
-```bash
-git clone https://github.com/Satvik1701/RoboARCade.git roboarcade && cd roboarcade
-uv sync                                   # dependencies into .venv
-source set_env.sh                         # in every new shell
-python -m playwright install chromium     # the browser the agent's interface runs in
-```
-
-**2. Assets and Blender**
+**1. Clone the repository.**
 
 ```bash
-python scripts/sync_assets.py pull        # task meshes and textures from Hugging Face, about 1.3 GB
-mkdir -p tools && curl -L https://download.blender.org/release/Blender4.5/blender-4.5.12-linux-x64.tar.xz | tar -xJ -C tools
-tools/blender-4.5.12-linux-x64/4.5/python/bin/python3.11 -m pip install --target tools/blender-py --no-deps \
-    mujoco==3.10.0 pillow typing_extensions etils absl-py glfw
+git clone https://github.com/Satvik1701/RoboARCade.git roboarcade
+cd roboarcade
+mkdir -p secrets
 ```
 
-The GitHub task scenes define the final collision geometry. The HF download supplies
-the finished meshes, textures, robot models and reachability grids. Pulling these assets
-is sufficient: installation and evaluation never rebuild or rewrite them.
+**2. Add your keys.** Save a Hugging Face token and **one provider API key** as
+plain text in the files below. The `secrets/` folder is gitignored.
 
-Blender renders the agent's camera feeds and the episode video, as in the paper.
+| Key | File |
+|---|---|
+| Hugging Face | `secrets/hf_key.txt` |
+| Anthropic | `secrets/anthropic_key.txt` |
+| OpenAI | `secrets/openai_key.txt` |
+| Gemini | `secrets/gemini_key.txt` |
 
-**3. Credentials: an Anthropic, OpenAI, or Gemini API key, or your plan**
-
-Claude models run through Claude Code and GPT models through Codex. Install the one you will use, unless `claude`
-or `codex` is already on your PATH:
+**3. Set up and run.** Replace `MODEL_ID` with a model your key can access.
+Setup installs Blender, Python dependencies, the required agent runtime, and assets.
 
 ```bash
-npm install -g @anthropic-ai/claude-code   # Claude
-npm install -g @openai/codex               # GPT
+bash scripts/setup.sh
+source set_env.sh
+python -m core.run_eval --model MODEL_ID --seeds 1
 ```
 
-| You have | Do once | Then add to the run |
-|---|---|---|
-| Anthropic API key | `mkdir -p secrets && echo "sk-ant-..." > secrets/anthropic_key.txt` | nothing |
-| OpenAI API key | the three lines below | `--model gpt-6-astra --plan openai` |
-| Claude plan | `python -m core.accounts login claude NAME` | `--plan NAME` |
-| ChatGPT plan | `python -m core.accounts login codex NAME` | `--model gpt-6-astra --plan NAME` |
+Defaults: **tidy_counter · Multi-view RGBD · Blender · API billing**.
+Use `--task TASK` to choose another task. Runs are recorded, graded, and rendered;
+`python -m dashboard` opens the dashboard at `http://localhost:8400`.
+
+---
+
+### Additional Interfaces: VIA
+
+[VIA (Visual Interface Agent)](https://via.hengyuanhu.com/) provides a visual
+interface for robot control. After Quickstart, download Chromium and select VIA:
 
 ```bash
-mkdir -p secrets/codex_auth/openai/store
-printenv OPENAI_API_KEY | CODEX_HOME=secrets/codex_auth/openai/store codex login --with-api-key
-python -m core.accounts login codex openai
+bash scripts/setup.sh --via
+source set_env.sh
+python -m core.run_eval --model MODEL_ID --interface via_cam --seeds 1
 ```
 
-Gemini models run through the native Antigravity `agy` CLI. For `gemini-4-argon`,
-put your API key in `secrets/gemini_key.txt` and add `--model gemini-4-argon`.
-See [Antigravity setup and smoke tests](docs/antigravity.md) for installation and sandbox details.
+Use `via_bimanual_cam` for two-arm tasks. The keys and sandbox are the same.
+VIA also needs Chromium's [Linux system dependencies](https://playwright.dev/python/docs/browsers#install-system-dependencies)
+on the host; setup checks browser startup without installing system packages.
 
-Everything goes under `secrets/`, which is gitignored. More in [`docs/ACCOUNTS.md`](docs/ACCOUNTS.md).
+### Prototyping with a plan
 
-**4. Run one seed**
+For a Claude or Codex subscription, only the HF key is required. Replace `RUNTIME`
+with `claude` or `codex`, then sign in when prompted:
 
 ```bash
-python -m core.run_eval --task bowl_on_plate --seeds 1     # Claude Opus 5 on your Anthropic key
+bash scripts/setup.sh --plan RUNTIME
+source set_env.sh
+python -m core.accounts login RUNTIME myplan
+python -m core.run_eval --model MODEL_ID --plan myplan --seeds 1
 ```
 
-Add the options from the table for another credential. One seed takes about 20 to 30 minutes; on an API key it costs
-a few dollars (our test runs cost $7 to $8). `--model` takes `opus`, `sonnet`, `haiku`, `fable` or a GPT
-model name such as `gpt-6-astra`.
+Credentials are isolated from personal CLI history and settings. See
+[Accounts](docs/ACCOUNTS.md) for multiple plans and rate-limit behavior, including
+Claude's fallback to an available API key. Add `--via` to setup if needed.
 
-**5. Watch it**
+### Assets and docs
 
-```bash
-python -m dashboard                       # http://localhost:8400
-```
+Setup downloads finished [HF assets](https://huggingface.co/datasets/roboarcade/roboarcade-assets);
+it never rebuilds collision meshes. For a faster MuJoCo-only test, add
+`--render mujoco --no-video`.
 
-The dashboard lists the episode with its video, the agent's transcript and screenshots, and the grade.
+[Tasks](tasks/README.md) · [Accounts](docs/ACCOUNTS.md) · [Sandbox](docs/SANDBOX.md) · [Gemini](docs/antigravity.md)
 
-Also: `python -m core.sim_env_server --task bowl_on_plate --teleop` drives a task yourself in the browser, and
-`--render mujoco --no-video` runs a seed without Blender. Task packs are the folders under `tasks/`; their meshes and
-textures are the Hugging Face dataset [`roboarcade/roboarcade-assets`](https://huggingface.co/datasets/roboarcade/roboarcade-assets).
-
-### Asset credits
+#### Asset credits
 
 The meshes, textures and robot models in [`roboarcade/roboarcade-assets`](https://huggingface.co/datasets/roboarcade/roboarcade-assets)
 come from these projects. We thank their authors; each project's own license and terms apply to its files.
@@ -102,13 +101,3 @@ come from these projects. We thank their authors; each project's own license and
 | [robomimic](https://github.com/ARISE-Initiative/robomimic) | Square nut assembly | The robosuite nut assembly scene | MIT |
 | [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie) | all Panda tasks | Franka Emika Panda | Apache-2.0 |
 | [I2RT](https://github.com/i2rt-robotics/i2rt) | all YAM tasks | YAM arm, via MuJoCo Menagerie | MIT |
-
-### Docs
-
-The docs site (code map, sandbox, accounts, tasks) is static HTML built from the repository:
-
-```bash
-.venv/bin/python scripts/code_map.py && .venv/bin/python docs/interfaces/build.py
-.venv/bin/python docs/architecture/task-rubrics/build.py && .venv/bin/python docs/build.py
-cd docs/site && python3 -m http.server 8099      # http://localhost:8099/
-```

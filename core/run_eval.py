@@ -1,12 +1,12 @@
 """Eval launcher: one task, N seeds.
 
 Each seed is an isolated stack on its own ROBOARCADE_BASE_PORT: launch sim_env_server, launch a
-sandboxed agent whose MCP server attaches to that seed's browser, wait for the verdict.
+sandboxed agent whose MCP server attaches to that seed's interface, wait for the verdict.
 
-    python -m core.run_eval --task bowl_on_plate --seeds 5 -j 4          # 4 seeds at a time
-    python -m core.run_eval --task bowl_on_plate --run-dir DIR --print-results   # verdicts on disk only
+    python -m core.run_eval --task tidy_counter --seeds 5 -j 4          # 4 seeds at a time
+    python -m core.run_eval --task tidy_counter --run-dir DIR --print-results   # verdicts on disk only
 
---interface names the package under evaluation (via_cam, via_bimanual_cam, or an interface
+--interface names the package under evaluation (rgbd_waypoint by default, via_cam, via_bimanual_cam, or an interface
 development artifact path); its guide.md is appended to the system prompt.
 """
 from __future__ import annotations
@@ -30,7 +30,7 @@ from pathlib import Path
 import numpy as np
 
 from core.agent_sandbox import AUTO_COMPACT_WINDOW, MODEL_IDS, REPO_ROOT, model_runtime, require_codex_home
-from core.accounts import PLAN_5H_TOKENS, PLAN_7D_TOKENS, pick_plan
+from core.accounts import PLAN_5H_TOKENS, PLAN_7D_TOKENS, pick_plan, codex_api_home, require_api_key
 from core.tasks import resolve_task
 from core.publish_episode import publish as publish_episode
 from core import run_seed
@@ -274,8 +274,8 @@ def main() -> None:
     parser.add_argument("-j", "--max-parallel", type=int, default=1)
     parser.add_argument(
         "--interface",
-        default="via_cam",
-        help="interface package under evaluation: a shipped name (via_cam, via_bimanual_cam) or a "
+        default="rgbd_waypoint",
+        help="interface package under evaluation: rgbd_waypoint (default), via_cam, via_bimanual_cam, or a "
         "path to a package dir with tools.py (+ optional guide.md).",
     )
     parser.add_argument("--print-results", action="store_true", help="no run; print the summary of --run-dir.")
@@ -283,7 +283,7 @@ def main() -> None:
                         help="run each agent in a bwrap sandbox (default).")
     parser.add_argument("--no-isolated", dest="isolated", action="store_false",
                         help="UNSAFE: run the agent unsandboxed (answer key reachable).")
-    parser.add_argument("--task", required=True, help="task folder name, e.g. bowl_on_plate.")
+    parser.add_argument("--task", default="tidy_counter", help="task folder name (default tidy_counter).")
     parser.add_argument("--seeds", type=int, default=2, help="number of seeds (default 2).")
     parser.add_argument("--seed-start", type=int, default=EVAL_SEED_BASE,
                         help="first seed (default 1000000).")
@@ -311,7 +311,7 @@ def main() -> None:
     parser.add_argument("--plan", default=None, metavar="NAME",
                         help="bill a subscription login from secrets/<runtime>_plans.txt: "
                              "a name, or auto for the plan with the most room in its rate "
-                             "windows; without it the API key file decides")
+                             "windows; API-key billing is the default")
     parser.add_argument("--no-video", action="store_true",
                         help="skip the default post-seed Blender replay. Replays never run "
                              "while another seed stack is live.")
@@ -365,7 +365,11 @@ def main() -> None:
         parser.error(f"interface {args.interface!r} is bimanual but {exp.task!r} is a one-arm pack")
     out_dir = latest_run_dir(exp) if args.print_results else run_dir_for(exp)
     if not args.print_results and model_runtime(exp.model) == "codex":
+        if not exp.plan:
+            exp = dataclasses.replace(exp, plan_dir=codex_api_home())
         require_codex_home(exp.plan_dir)
+    if not args.print_results and model_runtime(exp.model) == "claude" and not exp.plan:
+        require_api_key("claude")
     seeds = [exp.seed_start + i for i in range(exp.n_seeds)]
     ports = [exp.base_port + i * PORT_STRIDE for i in range(exp.n_seeds)]
     if not args.print_results:

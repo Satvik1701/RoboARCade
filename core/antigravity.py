@@ -51,14 +51,8 @@ def validate_runtime():
 
 
 def api_key():
-    key = os.environ.get("GEMINI_API_KEY", "").strip()
-    if not key:
-        path = Path(os.environ.get("ROBOARCADE_GEMINI_KEY_FILE", "secrets/gemini_key.txt"))
-        if path.is_file():
-            key = path.read_text().strip()
-    if not key:
-        raise RuntimeError("Set GEMINI_API_KEY or provision secrets/gemini_key.txt")
-    return key
+    from core.accounts import require_api_key
+    return require_api_key("antigravity")
 
 
 def prepare(folder, model, mcp_config, base_port, env, instruct_files, effort="xhigh"):

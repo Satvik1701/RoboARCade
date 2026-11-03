@@ -1,9 +1,30 @@
 # Accounts
 
-Every evaluation bills one account, decided once per run so every seed bills the same way: a subscription plan
-named with `--plan`, or else the API key in `secrets/anthropic_key.txt` (another path through
-`ROBOARCADE_KEY_FILE`). With neither, a sandboxed Claude run cannot start: the sandbox never mounts a personal
-login. The code is `core/accounts.py`; the sandbox side is `core/agent_sandbox/config_mounts.sh`.
+API-key billing is the default for all supported runtimes. Add your provider key
+and HF token under `secrets/` and run `bash scripts/setup.sh`; see the
+[quick start](../README.md#quickstart). Only runtimes with a supplied
+key are installed. Gemini uses the isolated Antigravity SDK environment.
+
+| Runtime | Key file | Optional environment override |
+|---|---|---|
+| Claude | `secrets/anthropic_key.txt` | `ANTHROPIC_API_KEY` |
+| Codex | `secrets/openai_key.txt` | `OPENAI_API_KEY` |
+| Antigravity | `secrets/gemini_key.txt` | `GEMINI_API_KEY` |
+| HF asset downloads | `secrets/hf_key.txt` | `HF_TOKEN` |
+
+Nonempty environment keys take precedence over files. Custom file paths use
+`ROBOARCADE_KEY_FILE`, `ROBOARCADE_OPENAI_KEY_FILE`, `ROBOARCADE_GEMINI_KEY_FILE`,
+and `ROBOARCADE_HF_KEY_FILE`, respectively.
+
+Codex API credentials are provisioned noninteractively using
+[`codex login --with-api-key`](https://developers.openai.com/codex/auth/), in a
+dedicated `secrets/codex_api/store/` directory. Each seed gets private runtime state;
+personal CLI settings and logins are never used. Key rotation is picked up on the
+next evaluation. Gemini's backend details are in [Antigravity](antigravity.md).
+
+An explicit `--plan NAME` selects a registered Claude or Codex subscription instead
+of API-key billing. Without `--plan`, a missing provider key stops the run before
+starting the simulator. API-key runs do not use subscription rate meters.
 
 ## Plans
 
@@ -18,6 +39,10 @@ launch, because a login made the ordinary way carries settings, instructions and
 model.
 
 ## Setting up a plan
+
+For a plan-only installation, put the HF token in `secrets/hf_key.txt` and run
+`bash scripts/setup.sh --plan claude` or `bash scripts/setup.sh --plan codex`,
+then `source set_env.sh`. No model API key is required. Add `--via` for Chromium.
 
 ```bash
 python -m core.accounts login claude max_a     # opens the CLI: /login, pick the subscription, exit

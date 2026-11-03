@@ -78,7 +78,10 @@ elif [ "$IS_CODEX" = 1 ]; then
     fi
     [ -x "$CODEX_DIR/codex-code-mode-host" ] \
         || { echo "agent_sandbox.sh: codex-code-mode-host missing beside codex" >&2; exit 2; }
-    [ "$MODE_CHECK" = 0 ] || CODEX_VERSION=$("$CODEX_DIR/codex" --version)
+    if [ "$MODE_CHECK" = 1 ]; then
+        ROBOARCADE_CODEX_VERSION=$("$CODEX_DIR/codex" --version)
+        export ROBOARCADE_CODEX_VERSION
+    fi
     AGENT_BIND=(--ro-bind "$CODEX_DIR/codex" /opt/roboarcade/bin/codex
                 --ro-bind "$CODEX_DIR/codex-code-mode-host" /opt/roboarcade/bin/codex-code-mode-host)
 elif CLAUDE_BIN=$(command -v claude); then
@@ -128,7 +131,6 @@ if [ "$IS_AGY" = 1 ]; then
     API_HOST=generativelanguage.googleapis.com
 elif [ "$IS_CODEX" = 1 ]; then
     export ROBOARCADE_EGRESS_HOSTS=chatgpt.com,auth.openai.com,api.openai.com
-    [ "$MODE_CHECK" = 0 ] || export ROBOARCADE_CODEX_VERSION="$CODEX_VERSION"
     API_HOST=chatgpt.com
 else
     export CLAUDE_CONFIG_DIR="$CLAUDE_CFG" ROBOARCADE_EGRESS_HOSTS=api.anthropic.com,platform.claude.com
@@ -156,15 +158,18 @@ MOUNTS=(
     --ro-bind-try /etc/localtime /etc/localtime
     --dev /dev --proc /proc
     --tmpfs /tmp --dir /tmp/home
+    --tmpfs "$REPO"
     --ro-bind "$PYEXE" "$PYEXE" --symlink "$(basename "$PYEXE")" "$PYHOME/python3"
     --ro-bind "$PYLIB/$(basename "$PYEXE")" "$PYLIB/$(basename "$PYEXE")"
     --tmpfs "$PYLIB/$(basename "$PYEXE")/site-packages"
     --remount-ro "$PYLIB/$(basename "$PYEXE")/site-packages"
-    --ro-bind "$PYLIB/libz.so.1" "$PYLIB/libz.so.1" --ro-bind "$PYLIB/libbz2.so.1.0" "$PYLIB/libbz2.so.1.0"
-    --ro-bind "$PYLIB/libcrypto.so.3" "$PYLIB/libcrypto.so.3" --ro-bind "$PYLIB/libssl.so.3" "$PYLIB/libssl.so.3"
-    --ro-bind "$PYLIB/libffi.so.8" "$PYLIB/libffi.so.8" --ro-bind "$PYLIB/liblzma.so.5" "$PYLIB/liblzma.so.5"
-    --ro-bind "$PYLIB/libuuid.so.1" "$PYLIB/libuuid.so.1" --ro-bind "$PYLIB/libgcc_s.so.1" "$PYLIB/libgcc_s.so.1"
-    --ro-bind "$PYLIB/libstdc++.so.6" "$PYLIB/libstdc++.so.6"
+    # uv-managed Python needs libpython; Conda supplies additional private libraries.
+    --ro-bind-try "$PYLIB/libpython3.12.so.1.0" "$PYLIB/libpython3.12.so.1.0"
+    --ro-bind-try "$PYLIB/libz.so.1" "$PYLIB/libz.so.1" --ro-bind-try "$PYLIB/libbz2.so.1.0" "$PYLIB/libbz2.so.1.0"
+    --ro-bind-try "$PYLIB/libcrypto.so.3" "$PYLIB/libcrypto.so.3" --ro-bind-try "$PYLIB/libssl.so.3" "$PYLIB/libssl.so.3"
+    --ro-bind-try "$PYLIB/libffi.so.8" "$PYLIB/libffi.so.8" --ro-bind-try "$PYLIB/liblzma.so.5" "$PYLIB/liblzma.so.5"
+    --ro-bind-try "$PYLIB/libuuid.so.1" "$PYLIB/libuuid.so.1" --ro-bind-try "$PYLIB/libgcc_s.so.1" "$PYLIB/libgcc_s.so.1"
+    --ro-bind-try "$PYLIB/libstdc++.so.6" "$PYLIB/libstdc++.so.6"
     --ro-bind-try "$PYLIB/libsqlite3.so.0" "$PYLIB/libsqlite3.so.0"
     --ro-bind-try "$PYLIB/libreadline.so.8" "$PYLIB/libreadline.so.8"
     --ro-bind-try "$PYLIB/libncursesw.so.6" "$PYLIB/libncursesw.so.6"
@@ -185,6 +190,7 @@ MOUNTS=(
     --bind "$RUN" "$RUN"
     "${CONFIG_MOUNT[@]}"
     "${PROJECTS_MOUNT[@]}"
+    --remount-ro "$REPO"
     --remount-ro /
     --unshare-net
     --unshare-pid
