@@ -6,8 +6,14 @@ no network, no task files, no episode folder and only the four `core/` files its
 out are the Unix sockets of `core/agent_sandbox/connect_sandbox_to_sim_and_network.py`: the four ports of the agent's own
 simulator, and an HTTP CONNECT proxy that allows the model API's name on port 443 and nothing else.
 `core/agent_sandbox/probe.sh` runs inside the real box under `agent_sandbox.sh --check` and prints one line per
-invariant. Requires `bwrap` and unprivileged user namespaces
-(`unshare -Urn true`); on a machine without bubblewrap point `ROBOARCADE_BWRAP` at a vendored binary.
+invariant. Requires `bwrap` with permission to create unprivileged user namespaces;
+on a machine without bubblewrap point `ROBOARCADE_BWRAP` at a vendored binary.
+
+On Ubuntu 24.04, AppArmor can permit the system Bubblewrap binary while rejecting
+`unshare -Urn true`. Setup tests Bubblewrap directly; a failed `unshare` check alone
+does not mean the sandbox is unavailable. If Bubblewrap itself is denied, an
+administrator must allow it in the host's AppArmor policy. Installing missing system
+packages can also require sudo; running the sandbox does not.
 
 ## Logins and configuration
 
