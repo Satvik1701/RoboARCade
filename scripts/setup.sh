@@ -75,4 +75,4 @@ if [ "${1:-}" = --via ]; then
     python -m playwright install --with-deps chromium
 fi
 echo 'Ready. Run source set_env.sh, then:'
-echo 'python -m core.run_eval --task bowl_on_plate --model MODEL_ID --seeds 1 --render mujoco --no-video'
+echo 'python -m core.run_eval --task tidy_counter --model MODEL_ID --seeds 1 --render mujoco --no-video'

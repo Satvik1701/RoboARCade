@@ -41,11 +41,11 @@ Start testing with a model ID your API key can access:
 
 ```bash
 source set_env.sh
-python -m core.run_eval --task bowl_on_plate --model MODEL_ID --seeds 1 --render mujoco --no-video
+python -m core.run_eval --task tidy_counter --model MODEL_ID --seeds 1 --render mujoco --no-video
 ```
 
-Replace `MODEL_ID` with your Claude, GPT, or Gemini model ID. Change `--task` to
-another folder under `tasks/`. This uses MuJoCo camera rendering, records and grades
+Replace `MODEL_ID` with your Claude, GPT, or Gemini model ID. The default task is
+`tidy_counter`; change `--task` to another folder under `tasks/`. This uses MuJoCo camera rendering, records and grades
 the rollout, and skips the extra Blender video replay. No browser or Blender is
 needed. API-key billing is the default; [subscription plans](docs/ACCOUNTS.md) are optional.
 
@@ -63,7 +63,7 @@ script installs them with `--via` (system packages may require sudo):
 ```bash
 bash scripts/setup.sh --via
 source set_env.sh
-python -m core.run_eval --task bowl_on_plate --model MODEL_ID --interface via_cam --seeds 1 --render mujoco --no-video
+python -m core.run_eval --task tidy_counter --model MODEL_ID --interface via_cam --seeds 1 --render mujoco --no-video
 ```
 
 For two-arm tasks, use `--interface via_bimanual_cam`. The keys and sandbox are the same.
@@ -77,7 +77,7 @@ mkdir -p tools
 curl -L https://download.blender.org/release/Blender4.5/blender-4.5.12-linux-x64.tar.xz | tar -xJ -C tools
 tools/blender-4.5.12-linux-x64/4.5/python/bin/python3.11 -m pip install --target tools/blender-py --no-deps \
     mujoco==3.10.0 pillow typing_extensions etils absl-py glfw
-python -m core.run_eval --task bowl_on_plate --model MODEL_ID --seeds 1
+python -m core.run_eval --task tidy_counter --model MODEL_ID --seeds 1
 ```
 
 Blender remains the default renderer when `--render` is omitted. It works with either interface.

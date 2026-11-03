@@ -3,8 +3,8 @@
 Each seed is an isolated stack on its own ROBOARCADE_BASE_PORT: launch sim_env_server, launch a
 sandboxed agent whose MCP server attaches to that seed's interface, wait for the verdict.
 
-    python -m core.run_eval --task bowl_on_plate --seeds 5 -j 4          # 4 seeds at a time
-    python -m core.run_eval --task bowl_on_plate --run-dir DIR --print-results   # verdicts on disk only
+    python -m core.run_eval --task tidy_counter --seeds 5 -j 4          # 4 seeds at a time
+    python -m core.run_eval --task tidy_counter --run-dir DIR --print-results   # verdicts on disk only
 
 --interface names the package under evaluation (rgbd_waypoint by default, via_cam, via_bimanual_cam, or an interface
 development artifact path); its guide.md is appended to the system prompt.
@@ -283,7 +283,7 @@ def main() -> None:
                         help="run each agent in a bwrap sandbox (default).")
     parser.add_argument("--no-isolated", dest="isolated", action="store_false",
                         help="UNSAFE: run the agent unsandboxed (answer key reachable).")
-    parser.add_argument("--task", required=True, help="task folder name, e.g. bowl_on_plate.")
+    parser.add_argument("--task", default="tidy_counter", help="task folder name (default tidy_counter).")
     parser.add_argument("--seeds", type=int, default=2, help="number of seeds (default 2).")
     parser.add_argument("--seed-start", type=int, default=EVAL_SEED_BASE,
                         help="first seed (default 1000000).")
