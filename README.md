@@ -40,8 +40,6 @@ Defaults: **tidy_counter · Multi-view RGBD · Blender · API billing**.
 Use `--task TASK` to choose another task. Runs are recorded, graded, and rendered;
 `python -m dashboard` opens the dashboard at `http://localhost:8400`.
 
-**Run all 22 website tasks** (one seed each; change `--seeds 1` to `--seeds 5` for five):
-
 ```bash
 for task in beam bottles_in_bin cooling_manifold cup_pyramid gamepad \
   handover_dominos hang_mugs_and_rack jenga_tower lock_the_coins_in_the_strongbox \
