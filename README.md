@@ -40,16 +40,6 @@ Defaults: **tidy_counter · Multi-view RGBD · Blender · API billing**.
 Use `--task TASK` to choose another task. Runs are recorded, graded, and rendered;
 `python -m dashboard` opens the dashboard at `http://localhost:8400`.
 
-```bash
-for task in beam bottles_in_bin cooling_manifold cup_pyramid gamepad \
-  handover_dominos hang_mugs_and_rack jenga_tower lock_the_coins_in_the_strongbox \
-  organize_table_and_plug_in_charger pack_tools_into_toolboxes puzzle_6x7 \
-  serve_warm_drinks set_up_pcr_run shell_game sort_lego_bricks square \
-  start_incubation start_making_breakfast stool_circular tidy_counter vortex_sample; do
-  python -m core.run_eval --task "$task" --model MODEL_ID --seeds 1 || break
-done
-```
-
 ---
 
 ### Additional Interfaces: VIA
