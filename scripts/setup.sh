@@ -54,7 +54,12 @@ if [ "${#packages[@]}" -gt 0 ]; then
     "${elevate[@]}" apt-get update
     "${elevate[@]}" apt-get install -y "${packages[@]}"
 fi
-unshare -Urn true || { echo 'Enable unprivileged user namespaces for the sandbox.' >&2; exit 1; }
+# Ubuntu's AppArmor policy may allow Bubblewrap while denying raw unshare.
+# Exercise the sandbox binary instead of rejecting a working installation.
+bwrap --ro-bind / / --unshare-user --unshare-net --unshare-pid --die-with-parent /bin/true || {
+    echo 'Bubblewrap cannot create the sandbox. Ask your administrator to allow its user namespaces.' >&2
+    exit 1
+}
 for provider in $providers; do
     case "$provider" in
         claude)
