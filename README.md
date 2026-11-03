@@ -10,6 +10,7 @@ Requires Linux x86_64, an EGL-capable GPU driver, Git, curl, xz, and Bubblewrap
 with permission to create user namespaces. **Setup runs without sudo**; missing
 host prerequisites must be provided by your administrator. Installing the Codex
 runtime also requires Node.js and npm if Codex is not already installed.
+Bubblewrap may not be installed by default; check with `command -v bwrap`.
 
 **1. Clone the repository.**
 
