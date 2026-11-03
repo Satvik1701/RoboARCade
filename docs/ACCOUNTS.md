@@ -2,7 +2,7 @@
 
 API-key billing is the default for all supported runtimes. Add your provider key
 and HF token under `secrets/` and run `bash scripts/setup.sh`; see the
-[quick start](../README.md#quickstart-multi-view-rgbd). Only runtimes with a supplied
+[quick start](../README.md#quickstart). Only runtimes with a supplied
 key are installed. Gemini uses the isolated Antigravity SDK environment.
 
 | Runtime | Key file | Optional environment override |
@@ -39,6 +39,10 @@ launch, because a login made the ordinary way carries settings, instructions and
 model.
 
 ## Setting up a plan
+
+For a plan-only installation, put the HF token in `secrets/hf_key.txt` and run
+`bash scripts/setup.sh --plan claude` or `bash scripts/setup.sh --plan codex`,
+then `source set_env.sh`. No model API key is required. Add `--via` for Chromium.
 
 ```bash
 python -m core.accounts login claude max_a     # opens the CLI: /login, pick the subscription, exit
