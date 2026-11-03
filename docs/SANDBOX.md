@@ -12,8 +12,8 @@ on a machine without bubblewrap point `ROBOARCADE_BWRAP` at a vendored binary.
 On Ubuntu 24.04, AppArmor can permit the system Bubblewrap binary while rejecting
 `unshare -Urn true`. Setup tests Bubblewrap directly; a failed `unshare` check alone
 does not mean the sandbox is unavailable. If Bubblewrap itself is denied, an
-administrator must allow it in the host's AppArmor policy. Installing missing system
-packages can also require sudo; running the sandbox does not.
+administrator must allow it in the host's AppArmor policy. Setup never invokes sudo
+or installs system packages; missing host prerequisites need administrator provisioning.
 
 ## Logins and configuration
 

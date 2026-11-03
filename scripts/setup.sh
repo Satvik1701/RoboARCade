@@ -46,13 +46,9 @@ if [[ " $providers " == *" codex "* ]] && ! command -v codex >/dev/null; then
     command -v npm >/dev/null || packages+=(nodejs npm)
 fi
 if [ "${#packages[@]}" -gt 0 ]; then
-    command -v apt-get >/dev/null || {
-        echo "Install these system packages, then rerun setup: ${packages[*]}" >&2; exit 1;
-    }
-    elevate=()
-    [ "$(id -u)" = 0 ] || elevate=(sudo)
-    "${elevate[@]}" apt-get update
-    "${elevate[@]}" apt-get install -y "${packages[@]}"
+    echo "Missing host prerequisites: ${packages[*]}." >&2
+    echo 'Setup does not install system packages or use sudo. Ask your administrator to provide these, then rerun setup.' >&2
+    exit 1
 fi
 # Ubuntu's AppArmor policy may allow Bubblewrap while denying raw unshare.
 # Exercise the sandbox binary instead of rejecting a working installation.
@@ -104,7 +100,17 @@ fi
 python -c 'from core.render import available; ok, why = available(); assert ok, why'
 python scripts/sync_assets.py pull
 if [ "$via" = 1 ]; then
-    python -m playwright install --with-deps chromium
+    python -m playwright install chromium
+    python - <<'PY'
+from playwright.sync_api import sync_playwright, Error
+try:
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        browser.close()
+except Error as exc:
+    raise SystemExit('Chromium could not start. VIA requires the host Chromium libraries; '
+                     'ask your administrator to provide any missing dependencies.\n' + str(exc))
+PY
 fi
 echo 'Ready. Run source set_env.sh, then:'
 if [ -n "$plan_runtime" ]; then

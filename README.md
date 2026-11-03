@@ -6,8 +6,10 @@ See results, videos, and full traces at [roboarcade.org](https://roboarcade.org)
 
 ## Quickstart
 
-Requires Linux x86_64, an EGL-capable GPU driver, Git, and curl. Setup may use sudo
-for system packages; the sandbox needs unprivileged user namespaces.
+Requires Linux x86_64, an EGL-capable GPU driver, Git, curl, xz, and Bubblewrap
+with permission to create user namespaces. **Setup runs without sudo**; missing
+host prerequisites must be provided by your administrator. Installing the Codex
+runtime also requires Node.js and npm if Codex is not already installed.
 
 **1. Clone the repository.**
 
@@ -45,8 +47,7 @@ Use `--task TASK` to choose another task. Runs are recorded, graded, and rendere
 ### Additional Interfaces: VIA
 
 [VIA (Visual Interface Agent)](https://via.hengyuanhu.com/) provides a visual
-interface for robot control. After Quickstart, install its additional Chromium
-dependencies and select VIA:
+interface for robot control. After Quickstart, download Chromium and select VIA:
 
 ```bash
 bash scripts/setup.sh --via
@@ -55,6 +56,8 @@ python -m core.run_eval --model MODEL_ID --interface via_cam --seeds 1
 ```
 
 Use `via_bimanual_cam` for two-arm tasks. The keys and sandbox are the same.
+VIA also needs Chromium's [Linux system dependencies](https://playwright.dev/python/docs/browsers#install-system-dependencies)
+on the host; setup checks browser startup without installing system packages.
 
 ### Prototyping with a plan
 
