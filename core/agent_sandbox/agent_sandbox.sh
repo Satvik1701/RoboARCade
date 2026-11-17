@@ -218,7 +218,13 @@ for i in 0 1 2 3; do PAIRS+=("$((BASE_PORT + i))=$RUN/p$i.sock"); done
         [ -s "$REPO/CLAUDE.md" ] && { echo "FATAL: repo CLAUDE.md visible" >&2; exit 1; }
         curl -s --noproxy "*" --max-time 3 https://example.com >/dev/null 2>&1 \
             && { echo "FATAL: direct egress works" >&2; exit 1; }
-        curl -sS -o /dev/null --max-time 10 --retry 2 --retry-all-errors --retry-delay 1 "https://$API_HOST" \
+        proxy_ok=0
+        for proxy_attempt in 1 2 3; do
+            if curl -sS -o /dev/null --max-time 10 "https://$API_HOST"; then
+                proxy_ok=1; break
+            fi
+        done
+        [ "$proxy_ok" = 1 ] \
             || { echo "FATAL: proxy path to $API_HOST broken" >&2; exit 1; }
         exec "$@"
     ' -- "$REPO" "$API_HOST" "$@" &
