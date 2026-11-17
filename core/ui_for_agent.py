@@ -185,11 +185,16 @@ class AgentBrowser:
             "--disable-backgrounding-occluded-windows",
             "--headless=new",
             "--enable-unsafe-swiftshader",
+            "--use-gl=angle",
+            "--use-angle=swiftshader",
             *(["--no-sandbox"] if _userns_restricted() else []),
             f"http://localhost:{self.base_port}",
         ]
+        browser_env = dict(os.environ)
+        for key in ("LD_LIBRARY_PATH", "LD_PRELOAD", "QT_QPA_PLATFORM_PLUGIN_PATH", "DISPLAY"):
+            browser_env.pop(key, None)
         self.proc = subprocess.Popen(
-            args, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE
+            args, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, env=browser_env
         )
         assert self.proc.stderr is not None
         self.log_thread = threading.Thread(
