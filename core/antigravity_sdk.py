@@ -11,7 +11,11 @@ STATE = Path('/tmp/home/.gemini/antigravity-cli')
 CONFIG = Path('/tmp/home/.gemini/config/roboarcade-sdk.json')
 
 
-def allowed_tool(name, server_name, path=None):
+def allowed_tool(name, server_name, path=None, arguments=None):
+    # SDK discovery is a builtin: its MCP server is in args, not server_name.
+    if name == 'list_resources':
+        return (server_name in (None, 'roboarcade')
+                and (arguments or {}).get('ServerName') == 'roboarcade')
     if server_name:
         return server_name == 'roboarcade'
     if name != 'view_file' or not path:
@@ -71,7 +75,7 @@ async def run(args):
     @hooks.pre_tool_call_decide
     def guard(call):
         calls[call.step_id or call.id] = call
-        allowed = allowed_tool(tool_name(call.name), call.server_name, tool_path(call))
+        allowed = allowed_tool(tool_name(call.name), call.server_name, tool_path(call), call.args)
         emit('tool_permission', tool=call.model_dump(mode='json'), allowed=allowed)
         return HookResult(allow=allowed,
                           message='Only robot MCP tools and saved observations are allowed.')

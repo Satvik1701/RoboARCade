@@ -164,3 +164,13 @@ live low-threshold probe. Do not use that variable to claim matched compaction.
 The SDK is a separately recorded backend; it still uses native compaction
 instructions instead of RoboARCade's shared compaction prompt. The earlier CLI
 smoke scores remain CLI results and do not validate SDK task performance.
+
+## Robot resource discovery
+
+The SDK reports builtin `list_resources` separately from MCP tool calls.
+Allow this read-only discovery only when its explicit `ServerName` is
+`roboarcade`; unspecified or other servers remain denied. The robot MCP
+server exposes tools and registers no resource handlers. This avoids terminating
+an episode for discovery of the already permitted robot server, without changing
+model settings or allowing filesystem access. Record the harness revision when
+comparing runs produced before and after this fix.
