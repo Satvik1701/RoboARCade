@@ -100,7 +100,7 @@ async def run(args):
              'step_type': 'tool', 'state': 'ERROR' if result.error else 'DONE', 'tool_info': info})
 
     servers = [McpStdioServer(name=name, command=spec['command'], args=spec.get('args', []),
-               env=spec.get('env', {}), force_all_tools_eager=True)
+               env=spec.get('env', {}), force_all_tools_eager=True, timeout_seconds=1200)
                for name, spec in config['mcp'].items()]
     cfg = LocalAgentConfig(
         model=ModelTarget(name=args.model, endpoint=GeminiAPIEndpoint(
