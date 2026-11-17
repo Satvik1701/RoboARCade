@@ -47,7 +47,7 @@ def validate_runtime():
         raise ValueError("Antigravity SDK compaction threshold must be positive")
     subprocess.run([python, "-c", "import importlib.metadata; "
                     "assert importlib.metadata.version('google-antigravity') == '0.1.22'"],
-                   check=True, timeout=30)
+                   check=True, timeout=120)
 
 
 def api_key():
