@@ -372,7 +372,7 @@ class RenderGroup:
                     "--directory", str(self.directory), "--owner-pid", str(os.getpid())],
                     env=env, stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT,
                     start_new_session=True)
-            until = time.monotonic() + 30
+            until = time.monotonic() + START_TIMEOUT
             while not (self.directory / "listening.json").exists():
                 if self.proc.poll() is not None or time.monotonic() > until:
                     raise RuntimeError(f"Render broker failed to start; see {self.log_dir / 'broker.log'}")
