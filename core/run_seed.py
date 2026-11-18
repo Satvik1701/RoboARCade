@@ -241,6 +241,11 @@ def _tree_cpu(sim) -> float:
 
 def _run_agent_process(cmd, log_path, timeout_s, env, tag, sim, demo_folder, since, stall,
                        stdin=None) -> str:
+    from core.agent_sandbox import ISOLATED_SCRIPT
+    # Read the launcher into memory before it starts: bash otherwise reads a
+    # long-running script incrementally and can parse changed bytes after wait.
+    if cmd and os.path.realpath(cmd[0]) == os.path.realpath(ISOLATED_SCRIPT):
+        cmd = ["bash", "-c", pathlib.Path(cmd[0]).read_text(), cmd[0], *cmd[1:]]
     t0 = time.time()
     poll_s = 30.0
     with open(log_path, "a") as log_f, open(log_path + ".err", "a") as err_f:

@@ -144,6 +144,7 @@ def retryable_error(error):
         "error 429", "error 500", "error 502", "error 503", "error 504",
         "http2: server sent goaway", "connection reset", "connection refused",
         "error sending request", "service is currently unavailable",
+        "unexpected eof", "network issue connecting to the server",
         "model output must contain either output text or tool calls"))
 
 
