@@ -580,11 +580,9 @@ def evaluate(module, scenes, timed_out):
     done = [earned[i] if t.ever else flags[i] for i, t in enumerate(subs)]
     for i, t in enumerate(subs):
         done[i] = done[i] and all(done[j] for j in t.end_needs)
-    if timed_out:
-        done[-1] = False
     score = sum(done) / len(subs)
-    return dict(subtasks=[dict(label=t.label, done=d) for t, d in zip(subs, done)], score=score, solved=all(done),
-                invariant_broken_at=killed)
+    return dict(subtasks=[dict(label=t.label, done=d) for t, d in zip(subs, done)], score=score, solved=all(done) and not timed_out,
+                invariant_broken_at=killed, timeout_policy="earned-credit-v1", timed_out=bool(timed_out))
 
 
 def replay(path, scene_class=None, lenient=False):
@@ -629,12 +627,16 @@ def replay(path, scene_class=None, lenient=False):
 
 def grade_episode(path):
     task, module, verdict, scenes = replay(path)
-    return dict(task=task, **evaluate(module, scenes, bool(verdict.get("timed_out"))))
+    return dict(task=task, **evaluate(module, scenes, bool(verdict.get("timed_out") or verdict.get("wall_clock_timeout"))))
 
 
 def graded(roll):
     path = Path(roll) / "subtasks.json"
-    if not path.is_file():
+    verdict = json.loads((Path(roll) / "verdict.json").read_text())
+    cached = json.loads(path.read_text()) if path.is_file() else None
+    timeout = verdict.get("timed_out") or verdict.get("wall_clock_timeout")
+    if cached is None or (timeout and cached.get("timeout_policy") != "earned-credit-v1"):
+        # Replay is required: legacy grading forcibly cleared the last predicate.
         write(roll, grade_episode(roll))
     return json.loads(path.read_text())
 
@@ -642,7 +644,8 @@ def graded(roll):
 def write(roll, grade):
     (Path(roll) / "subtasks.json").write_text(json.dumps(dict(source="grade.py", score=grade["score"], solved=grade["solved"],
                                                               invariant_broken_at=grade["invariant_broken_at"],
-                                                              subtasks=grade["subtasks"]), indent=1) + "\n")
+                                                              subtasks=grade["subtasks"], timeout_policy=grade["timeout_policy"],
+                                                              timed_out=grade["timed_out"]), indent=1) + "\n")
 
 
 def main():

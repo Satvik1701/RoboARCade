@@ -350,16 +350,13 @@ def finished_result(seed: int, base_port: int, demo_folder: str,
         logger.warning(f"seed{seed}: episode at {demo_folder} used interface "
                        f"{ep['interface']!r}, not {interface!r}; ignoring it")
         return None
-    timed_out = bool(verdict.get("timed_out"))
+    timed_out = bool(verdict.get("timed_out") or verdict.get("wall_clock_timeout"))
     score = solved = None
-    if verdict.get("wall_clock_timeout"):
-        score, solved = 0.0, False
-    else:
-        try:
-            grade = graded(demo_folder)
-            score, solved = grade["score"], grade.get("solved", grade["score"] == 1)
-        except (OSError, ValueError, KeyError) as exc:
-            logger.error(f"seed{seed}: grading {demo_folder} failed: {type(exc).__name__}: {exc}")
+    try:
+        grade = graded(demo_folder)
+        score, solved = grade["score"], grade["solved"]
+    except (OSError, ValueError, KeyError) as exc:
+        logger.error(f"seed{seed}: grading {demo_folder} failed: {type(exc).__name__}: {exc}")
     return {
         "seed": seed,
         "base_port": base_port,
