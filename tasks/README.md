@@ -65,6 +65,4 @@ the two Lights Out puzzles are working examples. Nothing outside the task folder
 
 Wall-clock and simulation-step timeouts retain all subtask credit earned under the same
 rubric, dependencies, and invariants as other episodes. A timed-out episode is never a
-full solve, even if its rubric score is 100%. Missing or unreplayable state recordings
-are grading errors, not zero scores. Legacy timeout grades must be replayed with the
-episode's original task and asset versions before reuse.
+full solve, even if its rubric score is 100%.
