@@ -44,13 +44,12 @@ def _grade(roll):
 
 def score(roll):
     subs, verdict = _read(roll, "subtasks.json"), _read(roll, "verdict.json")
-    if subs:
-        value, source = subs["score"], subs["source"]
-    elif verdict and verdict.get("wall_clock_timeout"):
-        value, source = 0.0, "wall-clock timeout"
-    else:
+    if not subs:
         return None, None, None
-    return value, source, value == 1
+    timeout = bool(verdict and (verdict.get("timed_out") or verdict.get("wall_clock_timeout")))
+    if timeout and subs.get("timeout_policy") != "earned-credit-v1":
+        return None, None, None
+    return subs["score"], subs["source"], bool(subs["solved"]) and not timeout
 
 
 def attach_logs(out, run_dir, label):
