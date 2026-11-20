@@ -101,3 +101,8 @@ come from these projects. We thank their authors; each project's own license and
 | [robomimic](https://github.com/ARISE-Initiative/robomimic) | Square nut assembly | The robosuite nut assembly scene | MIT |
 | [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie) | all Panda tasks | Franka Emika Panda | Apache-2.0 |
 | [I2RT](https://github.com/i2rt-robotics/i2rt) | all YAM tasks | YAM arm, via MuJoCo Menagerie | MIT |
+
+#### License
+
+RoboARCade is released under the [MIT License](LICENSE). Third-party assets, including those listed under
+[Asset credits](#asset-credits), remain under their own licenses and terms.
